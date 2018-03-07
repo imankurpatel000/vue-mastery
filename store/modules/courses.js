@@ -27,10 +27,10 @@ const actions = {
   getAllCourses ({ commit, state }) {
     return db.get('courses', {
       populate: [
-        // {
-        //   field: 'image',
-        //   subFields: [ 'image' ]
-        // },
+        {
+          field: 'image',
+          subFields: [ 'image' ]
+        },
         {
           field: 'lessons',
           fields: [ 'slug' ]
@@ -45,10 +45,10 @@ const actions = {
       orderByChild: 'slug',
       equalTo: slug,
       populate: [
-        // {
-        //   field: 'image',
-        //   subFields: [ 'image' ]
-        // },
+        {
+          field: 'image',
+          subFields: [ 'image' ]
+        },
         {
           field: 'lessons',
           subFields: [ 'lessons', 'image' ],

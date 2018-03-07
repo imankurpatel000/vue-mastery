@@ -2,10 +2,11 @@
 import Vuex from 'vuex'
 import account from './modules/account'
 import courses from './modules/courses'
-import firebaseConfig from '~/firebase'
 import firebase from 'firebase'
 import * as types from './mutation-types'
-import flamelink from 'flamelink'
+const flamelink = (process.server ? require('flamelink') : null)
+const firebaseAdmin = (process.server ? require('firebase-admin') : null)
+const serviceAccount = require('../serviceAccountKey.json')
 
 const createStore = () => {
   return new Vuex.Store({
@@ -23,9 +24,17 @@ const createStore = () => {
     actions: {
       nuxtServerInit ({ commit }, { req }) {
         if (!firebase.apps.length) {
-          const admin = require('firebase-admin')
-          const firebaseApp = admin.initializeApp(firebaseConfig)
-          this.commit(types.APP_READY, flamelink({ firebaseApp }))
+          try {
+            const firebaseConfig = {
+              credential: firebaseAdmin.credential.cert(serviceAccount), // required
+              databaseURL: 'https://vue-mastery.firebaseio.com',
+              storageBucket: 'vue-mastery.appspot.com'
+            }
+            const firebaseApp = firebaseAdmin.initializeApp(firebaseConfig)
+            this.commit(types.APP_READY, flamelink({ firebaseApp, isAdminApp: true }))
+          } catch (error) {
+            console.log('App already initialized')
+          }
         } else {
           this.commit(types.APP_READY, flamelink({ firebaseApp: firebase.app() }))
         }
