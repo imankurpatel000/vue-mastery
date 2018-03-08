@@ -49,6 +49,7 @@ export default {
 .title
   color $secondary-color
   margin 0
+  padding-top 0
   +tablet-up()
     font-size 56px
 

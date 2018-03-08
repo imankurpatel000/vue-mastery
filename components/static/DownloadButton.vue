@@ -1,13 +1,12 @@
 <template lang="pug">
-  no-ssr    
-    a.button(v-cloak 
+  no-ssr
+    a.button(v-cloak
              v-if="account"
              href="/pdf/Vue-Essentials-Cheat-Sheet.pdf"
              :class="buttonClass"
              download) Download it Free
 
     button.button(:class="buttonClass" v-else v-cloak @click="openLogin") Download it Free
-
 </template>
 
 <script>

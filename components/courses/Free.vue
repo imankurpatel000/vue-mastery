@@ -65,6 +65,9 @@ export default {
     +tablet-up()
       font-size 40.5px
 
+.title
+  padding-top 0
+
 .button
   width 100%
 

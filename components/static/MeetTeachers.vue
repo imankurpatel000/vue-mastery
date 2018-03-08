@@ -28,6 +28,7 @@ export default { 'name': 'MeetTeachers' }
                         "adam"
   .title
     grid-area title
+    padding-top 0
     margin-bottom ($vertical-space/2)
     border-bottom solid 2px $secondary-color
     color $secondary-color
@@ -37,6 +38,7 @@ export default { 'name': 'MeetTeachers' }
     max-width 500px
     justify-self center
     h3
+      padding-top 0
       color $primary-color
     img
       margin-bottom ($vertical-space/2)

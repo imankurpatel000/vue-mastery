@@ -2,7 +2,8 @@
 .container
   .wrapper
     .mission-media
-      iframe(src='https://player.vimeo.com/video/257980016' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
+      .video-wrapper
+        iframe(src='https://player.vimeo.com/video/257980016' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
       //- vimeo-player(ref='player' video-id='257980016' player-width='860')
 
     .mission
@@ -22,13 +23,14 @@
 
     .team
       h1.title About The Team
-      p The Vue Mastery team is based in Orlando, Florida where Gregg Pollack (Teacher), Adam Jahr (Teacher), Chase Gregory (Marketing), and Melissa Koch (Legal & Business) reside.
+      p The Vue Mastery team is based in Orlando, Florida where Gregg Pollack (Teacher), Adam Jahr (Teacher), Chase Gregory (Marketing), and Melissa Koch (Legal &amp; Business) reside.
       p Dustin Delatore (Design/Development) and Pierre Schweiger (Development) are the digital nomads on our team.  Your guess is as good as ours as to where they are or if they even have Internet at the moment.
 
       nuxt-link.button.secondary.border(to='/contact') Contact Us
 
     .why-media
-      iframe(src='https://player.vimeo.com/video/258154307' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
+      .video-wrapper
+        iframe(src='https://player.vimeo.com/video/258154307' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
       //- vimeo-player(ref='player' video-id='258154307' player-width='860')
     .why
       h1.title Why Learn Vue?

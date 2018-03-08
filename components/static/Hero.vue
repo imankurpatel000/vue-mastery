@@ -53,6 +53,7 @@ export default {
   text-align center
 
 .title
+  padding-top 0
   max-width 800px
   margin 0
   color $secondary-color

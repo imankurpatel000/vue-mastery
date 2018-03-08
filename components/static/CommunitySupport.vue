@@ -26,6 +26,7 @@ export default { name: 'CommunitySupport' }
   grid-row-start 2
 
 .title
+  padding-top 0
   color $primary-color
   margin 0
   +tablet-up()

@@ -2,7 +2,6 @@
 .lessons-list(v-if="course.lessons" v-cloak)
   h3.title Lessons
   .lessons-list-scroll
-    //- TODO: Add class `.-locked` to 1list-item1 when course is locked/unavailable
     .list-item(v-for="(lesson, index) in course.lessons"
                v-bind:class="[activeOrCompleted(lesson.slug), unloggedAndLock(lesson.lock)]"
                @click="selectLesson(lesson.slug)")
@@ -152,6 +151,7 @@ export default {
       display block
 
 .list-item-title
+  padding-top 0
   font-size 18px
   font-weight 400
 

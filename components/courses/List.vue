@@ -34,4 +34,7 @@ export default {
       width: 120px
       height: 120px
 
+.title
+  padding-top 0
+
 </style>

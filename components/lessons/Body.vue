@@ -1,6 +1,6 @@
 <template lang="pug">
   .lesson-content(:class="locked ? '-locked': 'unlock'")
-    h1 {{ course.title}}
+    h1.title {{ course.title}}
     div.lesson-body(v-html="body")
     .lesson-locked(v-if="locked" v-cloak)
       unlock
@@ -32,6 +32,8 @@ export default {
 
 .lesson-content
   padding 0 4%
+  .title
+    padding-top 0
   +tablet-up()
     margin $vertical-space 0
 

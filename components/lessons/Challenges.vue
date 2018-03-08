@@ -14,4 +14,6 @@ export default {
 <style lang="stylus" scoped>
 .card
   padding 40px
+h3
+  padding-top 0
 </style>
