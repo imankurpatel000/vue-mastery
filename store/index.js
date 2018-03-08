@@ -1,4 +1,3 @@
-// import * as types from './mutation-types'
 import Vuex from 'vuex'
 import account from './modules/account'
 import courses from './modules/courses'
