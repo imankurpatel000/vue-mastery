@@ -112,6 +112,9 @@ export default {
   pointer-events: none
   top: 0
 
+  *
+    pointer-events none
+
   +laptop-up()
     background-color: transparent
     pointer-events: none
@@ -120,6 +123,9 @@ export default {
     position: relative
     height: $header-height
     flex-direction: row
+
+    *
+      pointer-events initial
 
 .navbar-item
   color: $secondary-color
@@ -194,6 +200,7 @@ export default {
   .navbar-item
     opacity: 1
     transition-duration: .4s
+    pointer-events initial
     for i in (1..2)
       &:nth-child({i})
         transition-delay: (i*100)ms
