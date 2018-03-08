@@ -45,6 +45,9 @@ export default {
 .body
   padding: 0 20px
 
+.form-title
+  padding-top 0
+  
 .progress
   width 100%
   text-align center

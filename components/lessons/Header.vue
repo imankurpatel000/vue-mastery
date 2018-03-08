@@ -26,6 +26,7 @@ export default {
 
 .title
   margin 0
+  padding 0
   font-size 34px
   font-weight 600
 

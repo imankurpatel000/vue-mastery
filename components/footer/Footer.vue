@@ -94,6 +94,7 @@ export default {'name': 'Footer'}
   justify-self center
 
   h4
+    padding-top 0
     text-transform uppercase
 
   li

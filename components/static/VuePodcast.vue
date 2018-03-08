@@ -50,6 +50,7 @@ export default {
   text-align center
 
   .title
+    padding-top 0
     color $secondary-color
     margin 0
     +tablet-up()

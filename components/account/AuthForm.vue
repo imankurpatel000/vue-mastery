@@ -22,11 +22,15 @@ form.form(v-on:submit.prevent="submit")
                 autocomplete="email")
     span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
-  .form-group(v-if="rememberPassword" v-cloak)
+  .form-group.-inline(v-if="rememberPassword" v-cloak)
     label.label Password
     input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password" ref="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
-    button(type="button" @click="switchVisibility()") show / hide
+    button.button.-has-icon.-small.link(type="button" @click="switchVisibility()")
+      //- TODO: Swap between eye and slash whether password is shown or not
+      i.fa.fa-eye
+      i.fa.fa-eye-slash
+      span.visually-hidden show / hide
 
   .form-group.-center(v-if="isNew" v-cloak)
     label.checkbox
@@ -169,5 +173,14 @@ export default {
 <style lang="stylus" scoped>
 .form-actions .control-group label
   margin-right 2%
-</style>
+
+.form-group.-inline
+  position relative
+  .button
+    position absolute
+    top 10px
+    right 5%
+    margin 0
+    padding-right 10px
+
 </style>

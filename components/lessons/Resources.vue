@@ -3,7 +3,6 @@
     h3 Lesson resource{{ resources.length > 1 ? 's' : '' }}
     ul.styled-list
       li(v-for="resource in resources" v-html="$md.render(resource[Object.keys(resource)[0]])")
-
 </template>
 
 <script>
@@ -16,4 +15,7 @@ export default {
 <style lang="stylus" scoped>
 .card
   padding 40px
+
+h3
+  padding-top 0
 </style>

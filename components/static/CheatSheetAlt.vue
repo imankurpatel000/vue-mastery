@@ -37,6 +37,7 @@ export default {
 
   .title
     color #fff
+    padding-top 0
     +tablet-up()
       font-size 56px
 

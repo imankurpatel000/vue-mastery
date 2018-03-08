@@ -65,6 +65,7 @@ containers = hero free-videos course-list meet-teachers cheatsheet community
   .title
     margin-bottom ($vertical-space/3)
     font-weight 600
+    padding-top 0
     color $secondary-color
     text-align center
     +tablet-up()

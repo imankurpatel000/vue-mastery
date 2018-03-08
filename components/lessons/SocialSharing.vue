@@ -34,6 +34,9 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.form-title
+  padding-top 0
+  
 .social-wrapper
   display: flex
   flex-flow: wrap
