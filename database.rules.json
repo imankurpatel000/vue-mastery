@@ -12,6 +12,11 @@
         ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid"
       }
+    },
+    "inquiries": {
+      "$uid": {
+        ".write": "true"
+      }
     }
   }
 }
