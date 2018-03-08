@@ -26,10 +26,10 @@ form.form(v-on:submit.prevent="submit")
     label.label Password
     input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password" ref="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
-    button.button.-has-icon.-small.link(type="password" @click="switchVisibility")
+    button.button.-has-icon.-small.link(type="button" @click="switchVisibility()")
       //- TODO: Swap between eye and slash whether password is shown or not
       i.fa.fa-eye
-      //- i.fa.fa-eye-slash(v-if="passwordFieldType == 'text'" v-cloak)
+      i.fa.fa-eye-slash
       span.visually-hidden show / hide
 
   .form-group.-center(v-if="isNew" v-cloak)
@@ -159,7 +159,7 @@ export default {
         })
     },
     switchVisibility () {
-      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
+      this.$refs.password.type = this.$refs.password.type === 'password' ? 'text' : 'password'
     }
   }
 }
