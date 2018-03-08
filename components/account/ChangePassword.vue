@@ -2,12 +2,12 @@
 form.form.card
   .form-group
     label.label New Password
-    input.input(:type="passwordFieldType" placeholder="New Password" v-model="newPassword")
+    input.input(type="password" placeholder="New Password" v-model="newPassword" ref="password")
     button(type="password" @click="switchVisibility") show / hide
 
   .form-group
     label.label Confirm Password
-    input.input(:type="passwordFieldType" placeholder="Confirm Password" v-model="confirmPassword" @blur="validatePassword")
+    input.input(type="password" placeholder="Confirm Password" v-model="confirmPassword" @blur="validatePassword")
 
   .form-error
     .-is-error(v-if="formError.length > 0" v-text="formError")
@@ -23,7 +23,6 @@ export default {
     return {
       newPassword: '',
       confirmPassword: '',
-      passwordFieldType: 'password',
       debounceTimer: setTimeout(() => {}),
       formError: '',
       formSuccess: ''
@@ -61,7 +60,7 @@ export default {
       }, 500)
     },
     switchVisibility () {
-      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
+      this.$refs.password.type = this.$refs.password.type === 'password' ? 'text' : 'password'
     }
   }
 }
