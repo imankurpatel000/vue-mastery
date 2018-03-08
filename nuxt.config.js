@@ -249,7 +249,7 @@ module.exports = {
     '@nuxtjs/markdownit',
     // TODO: Add google analytics id
     ['@nuxtjs/google-analytics', {
-      id: 'UA-'
+      id: 'UA-90157003-2'
     }]
   ],
   /*
