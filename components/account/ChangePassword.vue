@@ -3,7 +3,10 @@ form.form.card
   .form-group
     label.label New Password
     input.input(type="password" placeholder="New Password" v-model="newPassword" ref="password")
-    button(type="password" @click="switchVisibility") show / hide
+    button.button.-has-icon.-small.link(type="button" @click="switchVisibility()")
+      i.fa.fa-eye-slash(v-if='showPassword')
+      i.fa.fa-eye(v-else)
+      span.visually-hidden show / hide
 
   .form-group
     label.label Confirm Password
@@ -23,6 +26,7 @@ export default {
     return {
       newPassword: '',
       confirmPassword: '',
+      showPassword: false,
       debounceTimer: setTimeout(() => {}),
       formError: '',
       formSuccess: ''
@@ -60,7 +64,8 @@ export default {
       }, 500)
     },
     switchVisibility () {
-      this.$refs.password.type = this.$refs.password.type === 'password' ? 'text' : 'password'
+      this.showPassword = !this.showPassword
+      this.$refs.password.type = this.showPassword ? 'text' : 'password'
     }
   }
 }
