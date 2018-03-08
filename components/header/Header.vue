@@ -14,7 +14,7 @@ import navigation from './Navigation'
 import hambuger from './Hamburger'
 
 export default {
-  name: 'header',
+  name: 'top',
   components: {
     navigation,
     hambuger

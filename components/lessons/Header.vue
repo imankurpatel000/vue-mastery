@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'header',
+  name: 'lesson-header',
   props: ['course']
 }
 </script>

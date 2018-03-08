@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'header',
+  name: 'top',
   methods: {
     openShare () {
       this.$modal.show('share')

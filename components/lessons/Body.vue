@@ -10,7 +10,7 @@
 import unlock from '~/components/lessons/Unlock'
 
 export default {
-  name: 'body',
+  name: 'lesson-content',
   props: ['course', 'locked'],
   components: {
     unlock
