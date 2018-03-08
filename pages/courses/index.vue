@@ -62,6 +62,7 @@ export default {
 
 .title
   margin 0
+  padding-top 0
   font-size 60px
   font-weight 600
   color #FFFFFF

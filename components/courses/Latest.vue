@@ -46,11 +46,14 @@ export default {
   color $primary-color
   font-weight 600
   margin-bottom: 22px
+  padding-top 0
   +tablet-up()
     font-size 40.5px
 
 .media-block
-  grid-column-gap 20px
+  grid-template-columns auto 1fr
+  grid-template-areas "media body"
+  grid-row-gap ($vertical-space/2)
   margin-bottom ($vertical-space/4)
   border-bottom solid 1px #EEE
   padding-bottom ($vertical-space/4)
