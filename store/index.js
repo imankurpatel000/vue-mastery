@@ -23,20 +23,16 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit ({ commit }, { req }) {
-        if (!firebase.apps.length) {
-          try {
-            const firebaseConfig = {
-              credential: firebaseAdmin.credential.cert(serviceAccount), // required
-              databaseURL: 'https://vue-mastery.firebaseio.com',
-              storageBucket: 'vue-mastery.appspot.com'
-            }
-            const firebaseApp = firebaseAdmin.initializeApp(firebaseConfig)
-            this.commit(types.APP_READY, flamelink({ firebaseApp, isAdminApp: true }))
-          } catch (error) {
-            console.log('App already initialized')
+        if (!firebaseAdmin.apps.length) {
+          const firebaseConfig = {
+            credential: firebaseAdmin.credential.cert(serviceAccount), // required
+            databaseURL: 'https://vue-mastery.firebaseio.com',
+            storageBucket: 'vue-mastery.appspot.com'
           }
+          const firebaseApp = firebaseAdmin.initializeApp(firebaseConfig)
+          this.commit(types.APP_READY, flamelink({ firebaseApp, isAdminApp: true }))
         } else {
-          this.commit(types.APP_READY, flamelink({ firebaseApp: firebase.app() }))
+          this.commit(types.APP_READY, flamelink({ firebaseApp: firebaseAdmin.app(), isAdminApp: true }))
         }
       },
       toggleNav ({ commit }) {
