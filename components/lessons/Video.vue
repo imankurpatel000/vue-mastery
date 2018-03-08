@@ -13,7 +13,7 @@ export default {
       ready: false
     }
   },
-  mounted() {
+  mounted () {
     this.ready = true
   },
   methods: {
