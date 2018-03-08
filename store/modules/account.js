@@ -16,8 +16,8 @@ const getters = {
   }
 }
 
-function createNewAccount ({commit}, user) {
-  commit('newUser', {
+function createNewAccount (user, commit) {
+  commit(types.NEW_USER, {
     meta: {
       analytics: [['set', 'userId', user.uid]]
     }
@@ -44,9 +44,9 @@ function getCourseHistory (currentHistory, courseSlug) {
   return courses
 }
 
-function checkForFirstTime (user) {
+function checkForFirstTime (user, commit) {
   firebase.database().ref('accounts').child(user.uid).once('value', (snapshot) => {
-    if (snapshot.val() === null) createNewAccount(user)
+    if (snapshot.val() === null) createNewAccount(user, commit)
   })
 }
 
@@ -61,11 +61,11 @@ const actions = {
     state.user = null
     state.account = null
   },
-  userCreate ({ state }, account) {
+  userCreate ({ state, commit }, account) {
     return firebase.auth()
       .createUserWithEmailAndPassword(account.email, account.password)
       .then((user) => {
-        return createNewAccount(user)
+        return createNewAccount(user, commit)
       })
   },
   userGoogleLogin ({ commit }) {
@@ -82,7 +82,7 @@ const actions = {
           // just use their existing user image to start
           newImage: result.additionalUserInfo.profile.picture,
           ...result.user
-        })
+        }, commit)
         return commit(types.SET_USER, result.user)
       }).catch((error) => {
         console.log(error)
@@ -99,7 +99,7 @@ const actions = {
           // just use their existing user image to start
           newImage: result.additionalUserInfo.profile.avatar_url,
           ...result.user
-        })
+        }, commit)
         return commit(types.SET_USER, result.user)
       }).catch((error) => {
         console.log(error)
@@ -190,7 +190,8 @@ const mutations = {
   [types.SET_USER] (state, user) {
     state.user = user
     return this.dispatch('setAccountRef', `accounts/${state.user.uid}`)
-  }
+  },
+  [types.NEW_USER] () {}
 }
 
 export default {
