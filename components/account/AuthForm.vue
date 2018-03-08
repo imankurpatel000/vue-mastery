@@ -26,7 +26,7 @@ form.form(v-on:submit.prevent="submit")
     label.label Password
     input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password" ref="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
-    button(type="password" @click="switchVisibility") show / hide
+    button(type="button" @click="switchVisibility()") show / hide
 
   .form-group.-center(v-if="isNew" v-cloak)
     label.checkbox
@@ -155,7 +155,7 @@ export default {
         })
     },
     switchVisibility () {
-      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
+      this.$refs.password.type = this.$refs.password.type === 'password' ? 'text' : 'password'
     }
   }
 }
