@@ -47,7 +47,10 @@ export default {
         })
       } else {
         this.completedUnlogged.push(lessonSlug)
-        this.$modal.show('login-form', { newAccount: false })
+        this.$modal.show('login-form', {
+          newAccount: true,
+          location: 'Lesson page checkbox'
+        })
         return true
       }
     },

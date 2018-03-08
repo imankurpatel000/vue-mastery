@@ -232,6 +232,12 @@ module.exports = {
       {
         href: '/manifest.json',
         rel: 'manifest'
+      },
+      // Vimeo analytics
+      {
+        type: 'text/javascript',
+        defer: 'defer',
+        src: 'https://extend.vimeocdn.com/ga/72160148.js'
       }
     ]
   },
@@ -247,7 +253,6 @@ module.exports = {
   modules: [
     ['@nuxtjs/pwa', { icon: false }],
     '@nuxtjs/markdownit',
-    // TODO: Add google analytics id
     ['@nuxtjs/google-analytics', {
       id: 'UA-90157003-2'
     }]

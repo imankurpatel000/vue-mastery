@@ -1,7 +1,7 @@
 <template lang="pug">
   no-ssr
     modal(name="login-form" v-cloak height="auto" @before-open="beforeOpen")
-      AuthForm(:newAccount="newAccount" :headerTitle="headerTitle" :header="header")
+      AuthForm(:newAccount="newAccount" :headerTitle="headerTitle" :header="header" :location="location")
 </template>
 
 <script>
@@ -17,7 +17,8 @@ export default {
       newAccount: true,
       headerTitle: false,
       header: false,
-      redirect: false
+      redirect: false,
+      location: ''
     }
   },
   computed: {
@@ -37,6 +38,7 @@ export default {
       this.headerTitle = event.params.headerTitle
       this.header = event.params.header
       this.redirect = event.params.redirect || false
+      this.location = event.params.location
     }
   }
 }

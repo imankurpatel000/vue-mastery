@@ -3,13 +3,14 @@
     .wrapper
       .body
         h2.title Grab our free 2-page cheat sheet!
-        DownloadButton(buttonClass='primary')
+        DownloadButton(buttonClass='primary' :location='location')
 </template>
 
 <script>
 import DownloadButton from '~/components/static/DownloadButton'
 
 export default {
+  props: ['location'],
   components: {
     DownloadButton
   },

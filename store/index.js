@@ -3,6 +3,7 @@ import account from './modules/account'
 import courses from './modules/courses'
 import firebase from 'firebase'
 import * as types from './mutation-types'
+import { analyticsMiddleware } from 'vue-analytics'
 const flamelink = (process.server ? require('flamelink') : null)
 const firebaseAdmin = (process.server ? require('firebase-admin') : null)
 const serviceAccount = require('../serviceAccountKey.json')
@@ -47,7 +48,10 @@ const createStore = () => {
       toggleNav (state) {
         state.openNav = !state.openNav
       }
-    }
+    },
+    plugins: [
+      analyticsMiddleware
+    ]
   })
 }
 

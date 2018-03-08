@@ -16,7 +16,8 @@ export default {
     openLogin () {
       this.$modal.show('login-form', {
         newAccount: true,
-        headerTitle: 'Sign up to unlock free content'
+        headerTitle: 'Sign up to unlock free content',
+        location: 'Lesson page locked video'
       })
     }
   }

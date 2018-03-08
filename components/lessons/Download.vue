@@ -19,7 +19,8 @@ export default {
     openLogin () {
       this.$modal.show('login-form', {
         newAccount: true,
-        headerTitle: 'Sign up to download the video'
+        headerTitle: 'Sign up to download the video',
+        location: 'Lesson page download button'
       })
     }
   }

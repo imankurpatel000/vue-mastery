@@ -71,6 +71,9 @@ export default {
     },
     header: {
       default: false
+    },
+    location: {
+      default: ''
     }
   },
   data () {
@@ -137,6 +140,8 @@ export default {
       let action = 'userCreate'
       if (!this.isNew) {
         action = this.rememberPassword ? 'userLogin' : 'userRetrievePassword'
+      } else {
+        this.$ga.event('User', 'Created Account', this.location, 1)
       }
 
       // Dispach information to the store

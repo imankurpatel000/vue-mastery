@@ -6,7 +6,7 @@
     .courses-body.wrapper
       CourseList(:courses="courses" :account="account")
       Latest(:courses="courses" :latests="latests")
-    CheatSheetAlt
+    CheatSheetAlt(location='Course page cheat sheet download')
 </template>
 
 <script>

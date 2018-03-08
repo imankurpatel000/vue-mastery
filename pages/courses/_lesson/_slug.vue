@@ -59,19 +59,19 @@ export default {
   middleware: 'anonymous',
   head () {
     return {
-      title: this.course.title,
+      title: this.current.title,
       meta: [{
         hid: `og:description`,
         name: 'description',
-        content: this.course.description
+        content: this.current.description
       }, {
         hid: `og:title`,
         property: 'og:title',
-        content: this.course.title
-      // }, {
-      //   hid: `og:image`,
-      //   property: 'og:image',
-      //   content: this.course.image[0].image[0].url
+        content: this.current.title
+      }, {
+        hid: `og:image`,
+        property: 'og:image',
+        content: this.current.image[0].url
       }]
     }
   },

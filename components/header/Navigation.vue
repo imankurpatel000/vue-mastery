@@ -45,7 +45,10 @@ export default {
       this.$modal.show('login-form', { newAccount: false })
     },
     openSignUp () {
-      this.$modal.show('login-form', { newAccount: true })
+      this.$modal.show('login-form', {
+        newAccount: true,
+        location: 'Top-right navigation'
+      })
     },
     keyboardNav (e) {
       this.currentPage = this.pages.indexOf(this.$route.name.toLowerCase())

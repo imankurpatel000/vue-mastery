@@ -6,7 +6,7 @@
       .body
         h2.title Get the Ultimate Vue Cheat Sheet
         p.lead All the essential syntax at your fingertips.
-        DownloadButton(buttonClass='inverted')
+        DownloadButton(buttonClass='inverted' location='Front-page cheat sheet download')
 </template>
 
 <script>

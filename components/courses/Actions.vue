@@ -67,7 +67,8 @@ export default {
     openLogin () {
       let options = {
         newAccount: true,
-        headerTitle: 'Sign Up Free to Get Notified'
+        headerTitle: 'Sign Up Free to Get Notified',
+        location: 'Course page notify me'
       }
       if (!this.account) options.redirect = `/courses?subscribe=${this.course.slug}`
       this.$modal.show('login-form', options)

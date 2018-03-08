@@ -16,7 +16,12 @@ const getters = {
   }
 }
 
-function createNewAccount (user) {
+function createNewAccount ({commit}, user) {
+  commit('newUser', {
+    meta: {
+      analytics: [['set', 'userId', user.uid]]
+    }
+  })
   return firebase.database().ref(`accounts/${user.uid}`).set({
     displayName: user.displayName || user.email.split('@')[0], // use part of the email as a username
     email: user.email,

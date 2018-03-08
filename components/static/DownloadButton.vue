@@ -15,7 +15,7 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'downloadButton',
-  props: ['buttonClass'],
+  props: ['buttonClass', 'location'],
   computed: {
     ...mapState({
       account: result => result.account.account
@@ -26,7 +26,8 @@ export default {
       this.$modal.show('login-form', {
         newAccount: true,
         headerTitle: 'Please sign up to download free',
-        redirect: '/download'
+        redirect: '/download',
+        location: this.location
       })
     }
   }
