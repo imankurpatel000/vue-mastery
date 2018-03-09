@@ -15,7 +15,7 @@ div
       aside.lesson-aside(v-if="!locked" v-cloak)
         .control-group.-spaced
           download(:courseLink='current.downloadLink', :account='account')
-          socialShare
+          socialShare(:lesson='current')
         //- courseSubscribe
         lessonresources(:resources='current.resources')
         lessonChallenges(:challenges='current.codingChallenge')

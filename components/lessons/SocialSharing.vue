@@ -4,7 +4,10 @@
     no-ssr
       modal(name="share" v-cloak height="auto")
         h3.form-title Share this lesson
-        social-sharing(inline-template)
+        social-sharing(inline-template
+                      :title="lesson.title"
+                      :description="lesson.description"
+                      twitter-user="vuemastery")
           .social-wrapper
             network.button.primary.border.-has-icon(network="facebook")
               i.fab.fa-facebook
@@ -26,6 +29,7 @@
 <script>
 export default {
   name: 'top',
+  props: ['lesson'],
   methods: {
     openShare () {
       this.$modal.show('share')
