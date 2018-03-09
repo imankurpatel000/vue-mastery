@@ -175,14 +175,4 @@ export default {
 <style lang="stylus" scoped>
 .form-actions .control-group label
   margin-right 2%
-
-.form-group.-inline
-  position relative
-  .button
-    position absolute
-    top 10px
-    right 5%
-    margin 0
-    padding-right 10px
-
 </style>

@@ -1,6 +1,6 @@
 <template lang="pug">
 form.form.card
-  .form-group
+  .form-group.-inline
     label.label New Password
     input.input(type="password" placeholder="New Password" v-model="newPassword" ref="password")
     button.button.-has-icon.-small.link(type="button" @click="switchVisibility()")
@@ -10,7 +10,7 @@ form.form.card
 
   .form-group
     label.label Confirm Password
-    input.input(type="password" placeholder="Confirm Password" v-model="confirmPassword" @blur="validatePassword")
+    input.input(type="password" placeholder="Confirm Password" v-model="confirmPassword" @blur="validatePassword"  ref="confirmPassword")
 
   .form-error
     .-is-error(v-if="formError.length > 0" v-text="formError")
@@ -66,11 +66,13 @@ export default {
     switchVisibility () {
       this.showPassword = !this.showPassword
       this.$refs.password.type = this.showPassword ? 'text' : 'password'
+      this.$refs.confirmPassword.type = this.showPassword ? 'text' : 'password'
     }
   }
 }
 </script>
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
-
+.form-group.-inline .button
+  right: 10px
 </style>
