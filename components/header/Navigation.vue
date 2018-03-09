@@ -178,6 +178,7 @@ export default {
   border-radius: 50%
   overflow: hidden
   box-shadow: 0 1px 0 0 #E4E4E4
+  background-color: #fff
   width: 40px
   height: 40px
 
