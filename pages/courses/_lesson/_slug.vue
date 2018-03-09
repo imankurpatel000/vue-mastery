@@ -71,7 +71,19 @@ export default {
       }, {
         hid: `og:image`,
         property: 'og:image',
-        content: this.current.image[0].url
+        content: 'https://vue-mastery.firebaseapp.com/' + this.current.image[0].url
+      }, {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: this.current.title
+      }, {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content: this.current.description
+      }, {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content: 'https://vue-mastery.firebaseapp.com/' + this.current.image[0].url
       }]
     }
   },

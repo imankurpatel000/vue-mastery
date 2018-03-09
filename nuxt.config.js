@@ -1,3 +1,4 @@
+let baseUrl = 'https://vue-mastery.firebaseapp.com/'
 module.exports = {
   /*
   ** Headers of the page
@@ -18,65 +19,74 @@ module.exports = {
         name: 'keywords',
         content: 'vue js, vue.js, vue javascript, vue.js tutorial, vue.js components, vue.js framework, javascript, learn to code, web development, web design, vue.js plugin, vue.js api, build vue.js, vue.js syntax'
       }, {
-        hid: `og:title`,
+        hid: 'og:title',
         property: 'og:title',
         content: 'Vue Mastery'
       }, {
-        hid: `og:type`,
         property: 'og:type',
         content: 'website'
       }, {
-        hid: `og:url`,
-        property: 'og:url',
-        content: 'https://vue-mastery.firebaseapp.com/'
-      }, {
-        hid: `og:image`,
+      //   hid: `og:url`,
+      //   property: 'og:url',
+      //   content: baseUrl
+      // }, {
+        hid: 'og:image',
         property: 'og:image',
-        content: '/images/logo.png'
+        content: baseUrl + '/images/logo.png'
       }, {
-        hid: `og:description`,
+        hid: 'og:description',
         property: 'og:description',
         content: 'Vue Mastery is the ultimate learning resource for Vue.js developers. We release weekly video tutorials and articles as well as the proud producers of the official Vue.js News. You can consume it in newsletter and podcast format at news.vuejs.org.'
       }, {
+        name: 'twitter:card',
+        content: 'summary_large_image'
+      }, {
+        name: 'twitter:site',
+        content: '@vuemastery'
+      }, {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: 'Vue Mastery'
+      }, {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content: 'Vue Mastery is the ultimate learning resource for Vue.js developers. We release weekly video tutorials and articles as well as the proud producers of the official Vue.js News. You can consume it in newsletter and podcast format at news.vuejs.org.'
+      }, {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content: baseUrl + '/images/logo.png'
+      }, {
         // Android
-        hid: 'theme-color',
         name: 'theme-color',
         content: '#39B982'
       }, {
         // Android
-        hid: 'mobile-web-app-capable',
         name: 'mobile-web-app-capable',
         content: 'yes'
       }, {
         // iOS
-        hid: 'apple-mobile-web-app-title',
         name: 'apple-mobile-web-app-title',
         content: 'Application Title'
       }, {
         // iOS
-        hid: 'apple-mobile-web-app-capable',
         name: 'apple-mobile-web-app-capable',
         content: 'yes'
       }, {
         // iOS
-        hid: 'apple-mobile-web-app-status-bar-style',
         name: 'apple-mobile-web-app-status-bar-style',
         content: 'default'
       }, {
         // Windows
-        hid: 'msapplication-navbutton-color',
         name: 'msapplication-navbutton-color',
         content: '#39B982'
       }, {
         // Windows
-        hid: 'msapplication-TileColor',
         name: 'msapplication-TileColor',
         content: '#39B982'
       }, {
         // Windows
-        hid: 'msapplication-TileImage',
         name: 'msapplication-TileImage',
-        content: '/icons/mstile-144x144.png'
+        content: baseUrl + '/icons/mstile-144x144.png'
       }, {
       // Windows
       //   hid: 'msapplication-config',
@@ -84,63 +94,57 @@ module.exports = {
       //   content: '/browserconfig.xml'
       // }, {
         name: 'msapplication-square70x70logo',
-        content: '/icons/mstile-70x70.png'
+        content: baseUrl + '/icons/mstile-70x70.png'
       }, {
         name: 'msapplication-square150x150logo',
-        content: '/icons/mstile-150x150.png'
+        content: baseUrl + '/icons/mstile-150x150.png'
       }, {
         name: 'msapplication-wide310x150logo',
-        content: '/icons/mstile-310x150.png'
+        content: baseUrl + '/icons/mstile-310x150.png'
       }, {
         name: 'msapplication-square310x310logo',
-        content: '/icons/mstile-310x310.png'
+        content: baseUrl + '/icons/mstile-310x310.png'
       }, {
         // Pinned Sites
-        hid: 'application-name',
         name: 'application-name',
         content: 'Vue Mastery'
       }, {
         // Pinned Sites
-        hid: 'msapplication-tooltip',
         name: 'msapplication-tooltip',
         content: 'Vue Mastery is the ultimate learning resource for Vue.js developers. We release weekly video tutorials and articles as well as the proud producers of the official Vue.js News. You can consume it in newsletter and podcast format at news.vuejs.org.'
       }, {
         // Pinned Sites
-        hid: 'msapplication-starturl',
         name: 'msapplication-starturl',
         content: '/'
       }, {
         // Tap highlighting
-        hid: 'msapplication-tap-highlight',
         name: 'msapplication-tap-highlight',
         content: 'no'
       }, {
         // UC Mobile Browser
-        hid: 'full-screen',
         name: 'full-screen',
         content: 'Yes'
       }, {
         // UC Mobile Browser
-        hid: 'browsermode',
         name: 'browsermode',
         content: 'application'
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/icons/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: baseUrl + '/icons/favicon.ico' },
       // Main Link Tags
       {
-        href: '/icons/favicon-16x16.png',
+        href: baseUrl + '/icons/favicon-16x16.png',
         rel: 'icon',
         type: 'image/png',
         sizes: '16x16'
       }, {
-        href: '/icons/favicon-32x32.png',
+        href: baseUrl + '/icons/favicon-32x32.png',
         rel: 'icon',
         type: 'image/png',
         sizes: '32x32'
       }, {
-        href: '/icons/favicon-48x48.png',
+        href: baseUrl + '/icons/favicon-48x48.png',
         rel: 'icon',
         type: 'image/png',
         sizes: '48x48'
@@ -149,39 +153,39 @@ module.exports = {
       {
         rel: 'apple-touch-icon-precomposed',
         sizes: '57x57',
-        href: '/icons/apple-touch-icon-57x57.png'
+        href: baseUrl + '/icons/apple-touch-icon-57x57.png'
       }, {
         rel: 'apple-touch-icon-precomposed',
         sizes: '114x114',
-        href: '/icons/apple-touch-icon-114x114.png'
+        href: baseUrl + '/icons/apple-touch-icon-114x114.png'
       }, {
         rel: 'apple-touch-icon-precomposed',
         sizes: '72x72',
-        href: '/icons/apple-touch-icon-72x72.png'
+        href: baseUrl + '/icons/apple-touch-icon-72x72.png'
       }, {
         rel: 'apple-touch-icon-precomposed',
         sizes: '144x144',
-        href: '/icons/apple-touch-icon-144x144.png'
+        href: baseUrl + '/icons/apple-touch-icon-144x144.png'
       }, {
         rel: 'apple-touch-icon-precomposed',
         sizes: '60x60',
-        href: '/icons/apple-touch-icon-60x60.png'
+        href: baseUrl + '/icons/apple-touch-icon-60x60.png'
       }, {
         rel: 'apple-touch-icon',
         sizes: '120x120',
-        href: '/icons/apple-touch-icon-120x120.png'
+        href: baseUrl + '/icons/apple-touch-icon-120x120.png'
       }, {
         rel: 'apple-touch-icon-precomposed',
         sizes: '76x76',
-        href: '/icons/apple-touch-icon-76x76.png'
+        href: baseUrl + '/icons/apple-touch-icon-76x76.png'
       }, {
         rel: 'apple-touch-icon-precomposed',
         sizes: '152x152',
-        href: '/icons/apple-touch-icon-152x152.png'
+        href: baseUrl + '/icons/apple-touch-icon-152x152.png'
       },
       // Pinned Tab
       {
-        href: '/images/logo.png',
+        href: baseUrl + '/images/logo.png',
         rel: 'mask-icon',
         size: 'any',
         color: '#39B982'
@@ -190,27 +194,27 @@ module.exports = {
       {
         rel: 'icon',
         type: 'image/png',
-        href: '/icons/favicon-196x196.png',
+        href: baseUrl + '/icons/favicon-196x196.png',
         sizes: '196x196'
       }, {
         rel: 'icon',
         type: 'image/png',
-        href: '/icons/favicon-96x96.png',
+        href: baseUrl + '/icons/favicon-96x96.png',
         sizes: '96x96'
       }, {
         rel: 'icon',
         type: 'image/png',
-        href: '/icons/favicon-32x32.png',
+        href: baseUrl + '/icons/favicon-32x32.png',
         sizes: '32x32'
       }, {
         rel: 'icon',
         type: 'image/png',
-        href: '/icons/favicon-16x16.png',
+        href: baseUrl + '/icons/favicon-16x16.png',
         sizes: '16x16'
       }, {
         rel: 'icon',
         type: 'image/png',
-        href: '/icons/favicon-128.png',
+        href: baseUrl + '/icons/favicon-128.png',
         sizes: '128x128'
       },
       // CSS
