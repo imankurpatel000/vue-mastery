@@ -35,7 +35,7 @@ form.form(v-on:submit.prevent="submit")
     label.checkbox
       input(type="checkbox" name="terms" v-model="terms")
       span I accept the&nbsp
-      a(href="/terms" target="_blank") terms and conditions
+      a(href="/terms" target="_blank" ) terms and conditions
 
   .form-error.text-center
     span.help-text.-is-error(v-if="formError.length > 0" v-text="formError" v-cloak)
@@ -176,4 +176,7 @@ export default {
 <style lang="stylus" scoped>
 .form-actions .control-group label
   margin-right 2%
+
+.checkbox a
+  color: #429ca8
 </style>
