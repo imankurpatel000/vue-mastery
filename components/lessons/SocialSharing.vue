@@ -4,7 +4,7 @@
     no-ssr
       modal(name="share" v-cloak height="auto")
         h3.form-title Share this lesson
-        social-sharing(inline-template
+        social-sharing(inline-template :url="window.location.href"
                       :title="lesson.title"
                       :description="lesson.description"
                       twitter-user="vuemastery")
