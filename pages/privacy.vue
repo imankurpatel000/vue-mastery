@@ -31,6 +31,7 @@ export default {
 .wrapper
   margin-top ($vertical-space/4)
   margin-bottom ($vertical-space/4)
+  display: block
 
 .page-header
   height 220px
