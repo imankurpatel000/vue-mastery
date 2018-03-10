@@ -3,7 +3,7 @@
     .wrapper
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
-        img(src="/images/logo.png" role="logo")
+        img(src="/images/logo.png" role="logo" alt="Vue Mastery logo")
 
       navigation
       hambuger

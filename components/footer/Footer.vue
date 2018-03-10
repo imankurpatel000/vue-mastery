@@ -4,17 +4,9 @@ footer.footer
     .brand
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
-        img(src="/images/lgo-vue-mastery-green.png" role="logo")
+        img(src="/images/lgo-vue-mastery-green.png" role="logo" alt="Vue Mastery logo")
       p As the ultimate resource for Vue.js developers, Vue Mastery produces weekly lessons so you can learn what you need to succeed as a Vue.js Developer.
-      .social
-        a.button.primary.link.inverted.-has-icon(href='https://www.facebook.com/vuemastery' target="_blank")
-          i.fab.fa-facebook
-        a.button.primary.link.inverted.-has-icon(href='https://twitter.com/vuemastery' target="_blank")
-          i.fab.fa-twitter
-        a.button.primary.link.inverted.-has-icon(href='https://medium.com/vue-mastery' target="_blank")
-          i.fab.fa-medium
-        a.button.primary.link.inverted.-has-icon(href='https://www.youtube.com/vue-mastery' target="_blank")
-          i.fab.fa-youtube
+      SocialMediaLinks
     .nav
       h4 Navigate
       ul.list-unstyled
@@ -28,20 +20,18 @@ footer.footer
           nuxt-link(to='/privacy' class="-inverted") Privacy Policy
         li
           nuxt-link(to='/terms' class="-inverted") Terms of Service
-    //- .form-section
-    //-   h4 Get notified when we release new lessons.
-    //-   form.form
-    //-     .form-group
-    //-       label.visually-hidden Name
-    //-       input(class="input primary -hollow" placeholder="Name")
-    //-     .form-group
-    //-       label.visually-hidden Email
-    //-       input(class="input primary -hollow" placeholder="Email")
-    //-     button(type="submit" class="button primary -small") Subscribe
+
 </template>
 
 <script>
-export default {'name': 'Footer'}
+import SocialMediaLinks from '~/components/static/SocialMediaLinks'
+
+export default {
+  name: 'Footer',
+  components: {
+    SocialMediaLinks
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -85,6 +75,8 @@ export default {'name': 'Footer'}
       display block
       width 100%
 
+  >>> .button.link
+    color: #fff
 .social
   display flex
   font-size 1.5em
@@ -108,5 +100,6 @@ export default {'name': 'Footer'}
 
     .button
       justify-self end
+
 
 </style>

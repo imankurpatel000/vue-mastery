@@ -5,7 +5,7 @@
       .media-block(v-for="lesson in free")
         nuxt-link(:to="path(lesson)")
           .media.-video
-            img(v-bind:src="lesson.image[0].url" class="-large")
+            img(v-bind:src="lesson.image[0].url" class="-large" :alt="lesson.title")
         .body
           nuxt-link(:to="path(lesson)" class="list-free -inverted")
             h3.title {{ lesson.title }}
@@ -21,7 +21,9 @@
     .media-wrapper(v-else)
       fakeList
 
-    nuxt-link.button.primary.border(to="/courses") More
+    nuxt-link.button.primary.border(to="/courses")
+      | More
+      span.visually-hidden Lessons
 </template>
 
 <script>

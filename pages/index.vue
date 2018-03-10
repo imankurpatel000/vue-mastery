@@ -8,7 +8,9 @@
       .section
         h2.title Courses
         Featured
-        nuxt-link.button.primary.border(to="/courses") More
+        nuxt-link.button.primary.border(to="/courses")
+          | More
+          span.visually-hidden Courses
     .meet-teachers
       MeetTeachers
     .cheatsheet

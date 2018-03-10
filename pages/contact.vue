@@ -6,26 +6,18 @@
       p If you have any feedback, suggestions, or need a little support we're here to help.  If you've run into a bug with your Vue.js application and need a hand (aside from googling your error) we'd recommend the <a href="https://forum.vuejs.org/" target="_new">Vue.js Forum</a> or <a href="https://discordapp.com/invite/HBherRA" target="_new">Vue Land Chat</a>. 
       
       h3.subtitle Follow us
-      .social
-        a.button.primary.link.-has-icon(href='https://www.facebook.com/vuemastery' target="_blank")
-          i.fab.fa-facebook
-        a.button.primary.link.-has-icon(href='https://twitter.com/vuemastery' target="_blank")
-          i.fab.fa-twitter
-        a.button.primary.link.-has-icon(href='https://medium.com/vue-mastery' target="_blank")
-          i.fab.fa-medium
-        a.button.primary.link.-has-icon(href='https://www.youtube.com/vue-mastery' target="_blank")
-          i.fab.fa-youtube
+      SocialMediaLinks
 
     .contact-form
       form.form(v-on:submit.prevent="submit")
         .form-group
-          label.visually-hidden Name
-          input(class="input -hollow" placeholder="Name" v-model="name")
+          label.visually-hidden(for="name") Name
+          input(class="input -hollow" placeholder="Name" v-model="name" autofocus)
         .form-group
-          label.visually-hidden Email
+          label.visually-hidden(for="email") Email
           input(class="input -hollow" placeholder="Email" type="email" v-model="email")
         .form-group
-          label.visually-hidden Message
+          label.visually-hidden(for="message") Message
           textarea(class="textarea -hollow" placeholder="Message" rows="5" v-model="message")
 
         .form-error
@@ -33,11 +25,16 @@
           .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 
         .form-group
-          input.button.primary(type="button" value="Submit" @click="sendForm()")
+          input.button.primary(type="button" value="Send" @click="sendForm()")
 </template>
 <script>
+import SocialMediaLinks from '~/components/static/SocialMediaLinks'
+
 export default {
   middleware: 'anonymous',
+  components: {
+    SocialMediaLinks
+  },
   head () {
     return {
       title: 'Contact Us'
@@ -119,9 +116,4 @@ export default {
   .subtitle
     color $secondary-color
     margin-bottom 0
-  .social
-    display flex
-    font-size 2em
-    margin-right 1em
-
 </style>

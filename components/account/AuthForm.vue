@@ -12,18 +12,18 @@ form.form(v-on:submit.prevent="submit")
         li Access to download our ultimate Vue.js Cheat Sheet
 
   .form-group
-    label.label Email
+    label.label(for="email") Email
     input.input(v-bind:class="{ '-is-error': invalidEmail }"
                 type="email"
                 placeholder="Account Email"
                 @focus="isFocus = true"
                 @blur="isFocus = false"
                 v-model="email"
-                autocomplete="email")
+                autocomplete="email" autofocus)
     span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
   .form-group.-inline(v-if="rememberPassword" v-cloak)
-    label.label Password
+    label.label(for="password") Password
     input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password" ref="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
     button.button.-has-icon.-small.link(type="button" @click="switchVisibility()")
@@ -32,7 +32,7 @@ form.form(v-on:submit.prevent="submit")
       span.visually-hidden show / hide
 
   .form-group.-center(v-if="isNew" v-cloak)
-    label.checkbox
+    label.checkbox(for="terms")
       input(type="checkbox" name="terms" v-model="terms")
       span I accept the&nbsp
       a(href="/terms" target="_blank" ) terms and conditions
@@ -43,7 +43,7 @@ form.form(v-on:submit.prevent="submit")
   .form-actions(@click="checkDisabled")
     button.button.primary.-full(type="submit" :disabled="actionDisabled") {{ label }}
     .control-group.-spaced(v-if="rememberPassword" v-cloak)
-      label {{ label }} with:
+      .label {{ label }} with:
       GoogleButton.button.secondary.border.-has-icon.-small(:label="'Google'" :disabled="actionDisabled")
       GithubButton.button.secondary.border.-has-icon.-small(:label="'Github'" :disabled="actionDisabled")
 
@@ -178,7 +178,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.form-actions .control-group label
+.form-actions .control-group .label
   margin-right 2%
 
 .checkbox a
