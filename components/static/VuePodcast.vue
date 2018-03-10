@@ -31,6 +31,13 @@ export default {
   grid-template-areas "media media"\
                       "body body"
 
+.control-group
+  flex-wrap: wrap
+  justify-content: space-evenly
+
+.button
+  max-width: max-content
+
 .media
   display grid
   grid-area media
@@ -82,6 +89,9 @@ export default {
     .lead
       max-width 690px
       font-size 20px
+
+  .control-group
+    justify-content: start
 
   .actions .button
     width max-content
