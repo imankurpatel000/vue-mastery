@@ -18,4 +18,7 @@ export default {
 
 h3
   padding-top 0
+
+.card >>> a:hover
+  color: $primary-color
 </style>
