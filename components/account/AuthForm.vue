@@ -105,7 +105,7 @@ export default {
       return l
     },
     invalidEmail () {
-      if (!this.isFocus) {
+      if (!this.isFocus && this.email !== '') {
         let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return !re.test(String(this.email).toLowerCase())
       }
@@ -134,6 +134,10 @@ export default {
     checkForm () {
       let invalid = false
       if (this.rememberPassword) invalid = this.invalidPassword
+      if (this.email === '') {
+        invalid = true
+        this.formError = 'Please enter a valid email address'
+      }
       if (this.invalidEmail) invalid = true
       return invalid
     },
