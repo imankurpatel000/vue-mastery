@@ -163,11 +163,12 @@ export default {
   text-align: center
   justify-content: space-evenly
   align-items: center
-  pointer-events: initial
+  pointer-events: none
 
   +laptop-up()
     flex-direction: row
     height: $header-height
+    pointer-events: initial
 
     .button
       margin-left: 18px
@@ -192,16 +193,16 @@ export default {
 .open-nav
   max-height: 100vh
   overflow: hidden
+  *
+    pointer-events: initial
   +laptop-up()
     max-height 100%
   .navbar
-    pointer-events: initial
     opacity: 1
   .button,
   .navbar-item
     opacity: 1
     transition-duration: .4s
-    pointer-events initial
     for i in (1..2)
       &:nth-child({i})
         transition-delay: (i*100)ms
