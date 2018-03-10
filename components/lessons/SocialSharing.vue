@@ -4,7 +4,7 @@
     no-ssr
       modal(name="share" v-cloak height="auto")
         h3.form-title Share this lesson
-        social-sharing(inline-template :url="window.location.href"
+        social-sharing(inline-template :url="'https://vue-mastery.firebaseapp.com/courses/'+courseSlug+'/'+lesson.slug"
                       :title="lesson.title"
                       :description="lesson.description"
                       twitter-user="vuemastery")
@@ -29,7 +29,7 @@
 <script>
 export default {
   name: 'top',
-  props: ['lesson'],
+  props: ['lesson', 'courseSlug'],
   methods: {
     openShare () {
       this.$modal.show('share')
