@@ -74,7 +74,7 @@ export default {
   width 100%
 
 .media-wrapper
-  height: 100%
+  // height: 100%
   padding-top: 0
   .media-block
     padding: ($vertical-space/4) 0
