@@ -12,6 +12,24 @@
   border none
   border-radius $form-radius
   cursor pointer
+  transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1)
+  overflow: hidden
+  position: relative
+
+  &:after
+    background linear-gradient(to top right, transparent , #fff)
+    content: ""
+    height: 150px
+    left: -175px
+    opacity: .1
+    position: absolute
+    top: -50px
+    transform: rotate(35deg)
+    width: 100px
+
+  :hover&:after
+    left: 120%
+    transition: left 1.5s cubic-bezier(0.19, 1, 0.22, 1)
 
   &:disabled
     pointer-events none
@@ -22,6 +40,9 @@
   &.primary
     background linear-gradient(to top right, #41B782 , #86D169)
 
+    &:hover
+      background linear-gradient(to bottom right, #41B782 , #86D169)
+
     &.border
       color $primary-color
       border-color $primary-color
@@ -29,12 +50,19 @@
   &.secondary
     background linear-gradient(to top right, #122549, #203762)
 
+    &:hover
+      background linear-gradient(to bottom right, #122549, #203762)
+
     &.border
       color $secondary-color
       border-color $secondary-color
 
   &.danger
     background linear-gradient(to top right, #EB4641, #F06372)
+
+    &:hover
+      background linear-gradient(to bottom right, #EB4641, #F06372)
+
     &.border
       color: #EB4641
       border-color: #EB4641
@@ -43,10 +71,17 @@
     background #FFFFFF
     color $primary-color
 
+    &:hover
+      background #fff
+
   &.border
     background transparent
     border solid $border-size $secondary-color
     line-height ($button-height-small - ($border-size * 2))
+
+    &:hover
+      border-color transparent
+      color #fff
 
   &.-small
     height $button-height-small
@@ -63,9 +98,21 @@
     display flex
     align-items center
     justify-content center
+    overflow visible
     i[class*=fa],
     i[class*=fab]
       margin-right 10px
+
+    &:after
+      content: none
+
+    i
+      transition: transform .5s cubic-bezier(0.19, 1, 0.22, 1)
+
+    &:hover
+      background: transparent
+      i
+        transform: scale(.9)
 
   &.link
     background none
