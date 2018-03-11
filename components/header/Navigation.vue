@@ -1,9 +1,9 @@
 <template lang='pug'>
   nav.navbar(role='navigation' aria-label='main navigation' @click='closeNav()')
     .navbar-main
-      router-link.navbar-item(to="/account" v-if="account") Dashboard
-      router-link.navbar-item(to="/courses") Courses
-      router-link.navbar-item(to="/about") About
+      router-link.navbar-item.underline(to="/account" v-if="account") Dashboard
+      router-link.navbar-item.underline(to="/courses") Courses
+      router-link.navbar-item.underline(to="/about") About
     no-ssr
       .navbar-secondary(v-cloak v-if='account')
         button.button.primary.-small(type='button' v-on:click='signOut') Sign Out
@@ -139,11 +139,11 @@ export default {
     font-weight: 700
 
   &:last-child
-    padding-right: 0
+    margin-right: 0
 
   +laptop-up()
     opacity: 1
-    padding-right: 52px
+    margin-right: 52px
 
 .button
   opacity: 0
