@@ -1,5 +1,4 @@
 .button
-
   display inline-block
   height $button-height-small
   width max-content
@@ -27,10 +26,6 @@
     transform: rotate(35deg)
     width: 100px
 
-  :hover&:after
-    left: 120%
-    transition: left 1.5s cubic-bezier(0.19, 1, 0.22, 1)
-
   &:disabled
     pointer-events none
 
@@ -40,9 +35,6 @@
   &.primary
     background linear-gradient(to top right, #41B782 , #86D169)
 
-    &:hover
-      background linear-gradient(to bottom right, #41B782 , #86D169)
-
     &.border
       color $primary-color
       border-color $primary-color
@@ -50,18 +42,12 @@
   &.secondary
     background linear-gradient(to top right, #122549, #203762)
 
-    &:hover
-      background linear-gradient(to bottom right, #122549, #203762)
-
     &.border
       color $secondary-color
       border-color $secondary-color
 
   &.danger
     background linear-gradient(to top right, #EB4641, #F06372)
-
-    &:hover
-      background linear-gradient(to bottom right, #EB4641, #F06372)
 
     &.border
       color: #EB4641
@@ -71,17 +57,10 @@
     background #FFFFFF
     color $primary-color
 
-    &:hover
-      background #fff
-
   &.border
     background transparent
     border solid $border-size $secondary-color
     line-height ($button-height-small - ($border-size * 2))
-
-    &:hover
-      border-color transparent
-      color #fff
 
   &.-small
     height $button-height-small
@@ -149,8 +128,19 @@
       &.border
         line-height: ($button-height-small - ($border-size * 2))
 
-    // & + .button
-    //   margin-left: 25px
-
-  // .control-group
-  //   flex-direction row
+a:hover .button
+.button:hover
+  &:after
+    left: 120%
+    transition: left 1.5s cubic-bezier(0.19, 1, 0.22, 1)
+  &.primary
+    background linear-gradient(to bottom right, #41B782 , #86D169)
+  &.secondary
+    background linear-gradient(to bottom right, #122549, #203762)
+  &.danger
+    background linear-gradient(to bottom right, #EB4641, #F06372)
+  &.inverted
+    background #fff
+  &.border
+    border-color transparent
+    color #fff
