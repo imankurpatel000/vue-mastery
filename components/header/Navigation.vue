@@ -193,7 +193,7 @@ export default {
 .open-nav
   max-height: 100vh
   overflow: hidden
-  *
+  .navbar *
     pointer-events: initial
   +laptop-up()
     max-height 100%
