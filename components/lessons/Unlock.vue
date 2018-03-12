@@ -1,11 +1,11 @@
 <template lang="pug">
   no-ssr
     .locked-action
-      h3 This lesson is locked.
+      h3 This Lesson Is Locked.
       h5 Create a free account to unlock it.
       button.button.primary.-small.-has-icon(v-cloak @click="openLogin")
         i.fa.fa-unlock-alt
-        | Unlock content
+        | Unlock Content
 </template>
 
 <script>
@@ -16,7 +16,7 @@ export default {
     openLogin () {
       this.$modal.show('login-form', {
         newAccount: true,
-        headerTitle: 'Sign up to unlock free content',
+        headerTitle: 'Sign up to Unlock Free Content',
         location: 'Lesson page locked video'
       })
     }

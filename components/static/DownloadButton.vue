@@ -4,9 +4,9 @@
              v-if="account"
              href="/pdf/Vue-Essentials-Cheat-Sheet.pdf"
              :class="buttonClass"
-             download) Download it Free
+             download) Download It Free
 
-    button.button(:class="buttonClass" v-else v-cloak @click="openLogin") Download it Free
+    button.button(:class="buttonClass" v-else v-cloak @click="openLogin") Download It Free
 </template>
 
 <script>

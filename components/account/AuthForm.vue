@@ -51,7 +51,7 @@ form.form(v-on:submit.prevent="submit")
     .control-group(v-if="isNew" v-cloak)
       button.button.link(type="button" @click="switchForm") I already have an account
     .control-group.-separate(v-else)
-      button.button.link(type="button" @click="switchForm" v-if="rememberPassword" v-cloak) Signup
+      button.button.link(type="button" @click="switchForm" v-if="rememberPassword" v-cloak) Sign Up
       button.button.link(type="button" @click="retrievePassword" v-if="rememberPassword" v-cloak) Forgot your password?
       button.button.link(type="button" @click="switchForm(false)" v-if="!rememberPassword" v-cloak) Or Sign in
 </template>
@@ -95,7 +95,7 @@ export default {
   computed: {
     title () {
       if (this.headerTitle) return this.headerTitle
-      let t = this.rememberPassword ? 'Welcome back!' : 'Retrieve your password'
+      let t = this.rememberPassword ? 'Welcome Back!' : 'Retrieve your password'
       if (this.isNew) t = 'Let\'s Get You Signed Up.'
       return t
     },

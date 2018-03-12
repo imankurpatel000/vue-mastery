@@ -10,7 +10,7 @@
         a.button.primary(href="https://news.vuejs.org/" target="_blank") Read Official Vue.js News
         a.button.secondary.-has-icon(href="https://news.vuejs.org/" target="_blank")
           i.fa.fa-volume-up
-          span Listen to the podcast
+          span Listen to the Podcast
 </template>
 
 <script>

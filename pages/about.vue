@@ -36,7 +36,7 @@
       h1.title Why Learn Vue?
       p We worked closely with the Vue Core team to produce this video which walks you through the core principles of this JS Framework.
 
-      nuxt-link.button.secondary.border(to='/courses') START LEARNING NOW
+      nuxt-link.button.secondary.border(to='/courses') Start Learning Now
   CheatSheetAlt(location='About-page cheat sheet download')
 </template>
 
