@@ -29,7 +29,7 @@ export default {
 h3,
 h4
   padding-top 0
-  
+
 .locked-action
   position absolute
   top 50%
@@ -42,8 +42,6 @@ h4
   border-radius 6px
   border solid 1px #eee
   color $secondary-color
-  +tablet-up()
-    width max-content
 
   h5
     font-weight 600
