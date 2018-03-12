@@ -111,11 +111,18 @@ export default {
 .navbar-main, .navbar-secondary
   display: flex
   flex-direction: column
-  height: 210px
   text-align: center
   justify-content: space-evenly
   align-items: center
   pointer-events: none
+
+  +laptop-down()
+    a, button
+      margin-bottom 40px
+
+    .inverted
+      height: auto
+      line-height: 24px
 
   +laptop-up()
     flex-direction: row
