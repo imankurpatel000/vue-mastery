@@ -86,7 +86,7 @@ Third Party Marketing Purposes – You may request that we do not share your Per
 
 We will try to comply with any request(s) as soon as reasonably practicable.
 
-### Opting-Out Of Use Of Certain Information Collected By Tracking Technologies
+### Opting-Out of Use of Certain Information Collected by Tracking Technologies
 
 Tracking Technologies Set by Third Party Advertising Service Providers and Similar Third Parties – For more information about Third Party Advertising Service Providers and similar entities that use tracking technologies, see www.aboutads.info/consumers, and to opt-out of such Third Party Advertising Service Providers advertising practices, go to www.aboutads.info/choices.
 
