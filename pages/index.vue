@@ -77,12 +77,6 @@ containers = hero free-videos course-list meet-teachers cheatsheet community
 .free-videos
   background-color $secondary-color
 
-.button
-  width 100%
-
-+tablet-up()
-  .button
-    width max-content
 +laptop-up()
   .homepage
     grid-template-areas "hero hero"\

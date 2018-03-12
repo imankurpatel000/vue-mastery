@@ -56,9 +56,9 @@ export default {
 .section
   color #fff
   height: 100%
-  display: flex
-  flex-direction: column
-  justify-content: space-between
+  // display: flex
+  // flex-direction: column
+  // justify-content: space-between
 
   > .title
     margin-bottom ($vertical-space/3)
@@ -69,9 +69,6 @@ export default {
 
 .title
   padding-top 0
-
-.button
-  width 100%
 
 .media-wrapper
   // height: 100%
@@ -92,8 +89,5 @@ export default {
 +tablet-up()
   .section > .title
     text-align left
-
-  .button
-    width max-content
 
 </style>

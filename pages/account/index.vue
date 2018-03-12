@@ -225,7 +225,6 @@ export default {
 .tab
   display inline-block
   height $button-height-small
-  width max-content
   margin 0.25em 0
   padding 0 10px
   color $gray

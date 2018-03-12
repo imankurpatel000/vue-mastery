@@ -35,9 +35,6 @@ export default {
   flex-wrap: wrap
   justify-content: space-evenly
 
-.button
-  max-width: max-content
-
 .media
   display grid
   grid-area media
@@ -68,8 +65,7 @@ export default {
     font-size 16px
     color $secondary-color
 
-.actions .button
-  width 100%
+
 
 +laptop-up()
   .banner
@@ -94,7 +90,6 @@ export default {
     justify-content: start
 
   .actions .button
-    width max-content
     & + .button
       margin-left 25px
 </style>
