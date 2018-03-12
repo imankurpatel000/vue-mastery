@@ -83,7 +83,7 @@ containers = hero free-videos course-list meet-teachers cheatsheet community
 +tablet-up()
   .button
     width max-content
-+laptop-up()
++desktop-up()
   .homepage
     grid-template-areas "hero hero"\
       "free-videos course-list"\

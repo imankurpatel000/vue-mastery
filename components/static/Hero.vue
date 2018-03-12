@@ -31,7 +31,7 @@ export default {
   margin-top -($header-height)
   padding-top ($header-height + $vertical-space/2.5)
   padding-bottom ($vertical-space/2.5)
-  +laptop-up()
+  +desktop-up()
     padding-top ($header-height + $vertical-space/1.5)
     padding-bottom ($vertical-space/1.5)
 .banner
