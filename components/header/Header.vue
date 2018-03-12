@@ -1,23 +1,32 @@
 <template lang="pug">
   header.header
-    .wrapper
+    .wrapper(@click='toggleNav(false)')
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
         img(src="/images/logo.png" role="logo" alt="Vue Mastery logo")
 
-      navigation
-      hambuger
+      navigation(:account='account' @closeNav='toggleNav(false)')
+    hambuger(@toggleNav='toggleNav()')
 </template>
 
 <script>
 import navigation from './Navigation'
 import hambuger from './Hamburger'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'top',
   components: {
     navigation,
     hambuger
+  },
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
+  },
+  methods: {
+    ...mapActions(['toggleNav'])
   }
 }
 </script>
