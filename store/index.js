@@ -35,8 +35,8 @@ const createStore = () => {
           this.commit(types.APP_READY, flamelink({ firebaseApp: firebaseAdmin.app(), isAdminApp: true }))
         }
       },
-      toggleNav ({ commit }) {
-        commit('toggleNav')
+      toggleNav ({ commit }, forceClose) {
+        commit('toggleNav', forceClose)
       },
       sendContactRequest ({ commit }, newData) {
         const addr = '/inquiries/'
@@ -45,8 +45,9 @@ const createStore = () => {
       }
     },
     mutations: {
-      toggleNav (state) {
-        state.openNav = !state.openNav
+      toggleNav (state, forceClose) {
+        if (forceClose) state.openNav = false
+        else state.openNav = !state.openNav
       }
     },
     plugins: [

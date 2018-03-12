@@ -1,17 +1,12 @@
 <template>
-  <button class="hamburger" @click="toggleNav()">Toggle menu</button>
+  <button class="hamburger" @click="$emit('toggleNav')">Toggle menu</button>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   name: 'hamburger',
-  methods: {
-    // Update navigation bar status with vuex store
-    ...mapActions([
-      'toggleNav'
-    ])
+  model: {
+    event: 'toggleNav'
   }
 }
 </script>
@@ -35,17 +30,12 @@ export default {
   border-radius: 0
   border: none
   cursor: pointer
-  transition: transform .2s ease-in
-  transform: translateX(0)
-  animation : .6s ease-out 1.5s normal none infinite showburger
-  animation-iteration-count: 1
-  animation-fill-mode: forwards
   overflow: hidden
   position: absolute
+  top: 18px
 
   +laptop-up()
     display: none
-    transform: translateX(200%)
 
   &:focus
     outline: 0
@@ -81,19 +71,5 @@ export default {
     &:after
       transform: rotate(-45deg)
       margin-top: 0
-
-
-@keyframes showburger
-  0%
-    transform: translateX(200%)
-    height: 0rem
-
-  50%
-    transform: translateX(0)
-    height: 0rem
-
-  100%
-    transform: translateX(0)
-    height: 4rem
 
 </style>

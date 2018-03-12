@@ -1,36 +1,26 @@
 <template lang='pug'>
-  nav.navbar(role='navigation' aria-label='main navigation' @click='closeNav()')
+  nav.navbar(role='navigation' aria-label='main navigation' @click="$emit('toggleNav')")
     .navbar-main
       router-link.navbar-item.underline(to="/account" v-if="account") Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/about") About
     no-ssr
       .navbar-secondary(v-cloak v-if='account')
-        button.button.primary.-small(type='button' v-on:click='signOut') Sign Out
+        button.button.primary.-small(type='button' @click='signOut') Sign Out
         nuxt-link.navbar-profile(to='/account?section=Profile')
           img(v-bind:src='account.image' v-bind:alt='account.displayName')
       .navbar-secondary(v-cloak v-else)
-        button.button.inverted.-small(type='button' v-on:click='openSignUp') Sign Up
-        button.button.primary.-small(type='button' v-on:click='openLogin') Login
+        button.button.inverted.-small(type='button' @click='openSignUp') Sign Up
+        button.button.primary.-small(type='button' @click='openLogin') Login
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-
 export default {
-  computed: {
-    ...mapState({
-      account: result => result.account.account,
-      openNav: result => result.openNav
-    })
+  props: ['account'],
+  model: {
+    event: 'toggleNav'
   },
   methods: {
-    ...mapActions(['toggleNav']),
-    closeNav () {
-      if (this.openNav) {
-        this.toggleNav()
-      }
-    },
     signOut () {
       this.$store
         .dispatch('userLogout')
@@ -49,44 +39,6 @@ export default {
         newAccount: true,
         location: 'Top-right navigation'
       })
-    },
-    keyboardNav (e) {
-      this.currentPage = this.pages.indexOf(this.$route.name.toLowerCase())
-
-      // Map keyboard shorcut to navigation
-      switch (e.keyCode) {
-        case 13: {
-          // Enter
-          this.toggleNav()
-          break
-        }
-        case 27: {
-          // Escape
-          this.toggleNav()
-          break
-        }
-        case 39: {
-          // Right
-          // if (this.$route.name.match(/^(courses)$/)) this.nextLessons()
-          break
-        }
-        case 40: {
-          // Left
-          // if (this.$route.name.match(/^(courses)$/)) this.previousLessons()
-          break
-        }
-        default: {
-          return null
-        }
-      }
-      return this.currentPage
-    },
-    created () {
-      // Map keyboard shorcut to navigation
-      window.addEventListener('keyup', this.keyboardNav)
-    },
-    beforeDestroy () {
-      window.removeEventListener('keyup')
     }
   }
 }
@@ -159,11 +111,18 @@ export default {
 .navbar-main, .navbar-secondary
   display: flex
   flex-direction: column
-  height: 210px
   text-align: center
   justify-content: space-evenly
   align-items: center
   pointer-events: none
+
+  +laptop-down()
+    a, button
+      margin-bottom 40px
+
+    .inverted
+      height: auto
+      line-height: 24px
 
   +laptop-up()
     flex-direction: row
