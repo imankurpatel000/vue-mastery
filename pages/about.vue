@@ -14,7 +14,7 @@
         li Co-producing the Official Vue.js News.
         li Producing the Official Vue.js Podcast.
         li Paid subscriptions coming soon for exclusive content.
-        li $5 of your montly payment goes to the Vue Project.
+        li $5 of your monthly payment goes to the Vue Project.
 
       nuxt-link.button.secondary.border(to='/courses') View Our Courses
 
