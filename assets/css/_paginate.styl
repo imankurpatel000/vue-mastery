@@ -18,8 +18,11 @@
       background rgba(0,0,0,0.1)
       color lighten($gray,70%)
       cursor: not-allowed
+      &:hover i.fa
+        transform: translateX(0)
     i
       font-size 24px
+      transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1)
 
   .next
     background linear-gradient(to right, #41B782 , #86D169)
@@ -27,6 +30,8 @@
     i
       margin-left 15px
 
+    &:hover i
+      transform: translateX(20px)
 
   .prev
     background linear-gradient(to right, #122549, #203762)
@@ -35,6 +40,8 @@
     i
       margin-right 15px
 
+    &:hover i
+      transform: translateX(-20px)
   +tablet-up()
     .next,
     .prev
