@@ -151,7 +151,6 @@ export default {
 
   methods: {
     selectLesson (slug) {
-      this.lessonSlug = slug
       this.$router.push(`/courses/${this.courseSlug}/${slug}`)
     },
 
