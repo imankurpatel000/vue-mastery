@@ -165,7 +165,8 @@ export default {
     lessonFinished () {
       if (this.selected < this.course.lessons.length - 1) {
         this.$modal.show('next-lesson', {
-          lesson: this.course.lessons[this.selected + 1]
+          lesson: this.course.lessons[this.selected + 1],
+          account: this.account
         })
       }
     }

@@ -1,15 +1,19 @@
 <template lang="pug">
 no-ssr
-  modal(name="next-lesson" v-cloak height="auto" @before-open="beforeOpen")
-    h3.form-title(v-if="lesson") Next Lesson: {{ lesson.title }}
+  modal(v-if="lesson" name="next-lesson" v-cloak height="auto" @before-open="beforeOpen")
+    h3.form-title(v-if="account" v-cloak) Great job finishing the lesson!
+    h3.form-title(v-else v-cloak) Next Lesson: {{ lesson.title }}
     .body
-      p(v-if="lesson") {{ lesson.description }}
+      p(v-if="account" v-cloak) You will lose your progress unlesss you create a free account, would you like to do that now?
+      p(v-else v-cloak) {{ lesson.description }}
 
-    .progress
+    .progress(v-if="!account" v-cloak)
       p Next lesson starting in:
       h2.blink(v-on:animationiteration="countdown") {{ count }}
+
     .form-footer
       .control-group.-spaced
+        button.button.link.-full(v-if="!account" @click="signup" v-cloak) Save my progress
         button.button.link.-full(@click="selectLesson" rel="next") Go to Next Lesson
         //- button.button.primary(@click="stop" rel="next") Cancel
 </template>
@@ -20,6 +24,7 @@ export default {
   data () {
     return {
       lesson: false,
+      account: false,
       count: 10
     }
   },
@@ -30,10 +35,18 @@ export default {
     },
     beforeOpen (event) {
       this.lesson = event.params.lesson
+      this.account = event.params.account
     },
     countdown () {
       this.count--
       if (this.count === 0) this.selectLesson()
+    },
+    signup () {
+      this.$modal.hide('next-lesson')
+      this.$modal.show('login-form', {
+        newAccount: true,
+        location: 'Completed Lesson'
+      })
     }
   }
 }
