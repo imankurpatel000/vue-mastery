@@ -15,6 +15,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~assets/css/_variables'
 .card
   padding 40px
 
