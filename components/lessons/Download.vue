@@ -1,14 +1,15 @@
 <template lang="pug">
-  no-ssr    
-    a.button.secondary.-has-icon(v-cloak 
+  no-ssr
+    a.button.secondary.-has-icon(v-cloak
              v-if="account"
              :href="courseLink"
              download)
       i.fa.fa-download
-      | Download
+      | Download Video
 
-    button.button.primary.-small(v-else v-cloak @click="openLogin") Download
-
+    button.button.secondary.-has-icon(v-else v-cloak @click="openLogin")
+      i.fa.fa-download
+      | Download Video
 </template>
 
 <script>
