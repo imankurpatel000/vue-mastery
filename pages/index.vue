@@ -77,6 +77,9 @@ containers = hero free-videos course-list meet-teachers cheatsheet community
 .free-videos
   background-color $secondary-color
 
+.course-list
+  background-color: #f3f3f3
+
 .button
   width 100%
 
