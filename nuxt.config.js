@@ -271,7 +271,6 @@ module.exports = {
     typographer: true,
     injected: true,
     use: [
-      // 'markdown-it-implicit-figures',
       'markdown-it-decorate'
     ]
   },
