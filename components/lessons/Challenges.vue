@@ -1,6 +1,8 @@
 <template lang="pug">
   .lesson-challenge.card(v-if="challenges" v-cloak)
-      h3 Coding Challenge
+      h3
+        i.fab.fa-codepen
+        | Coding Challenge
       div(v-html="$md.render(challenges)")
 </template>
 
@@ -17,6 +19,9 @@ export default {
   padding 40px
 h3
   padding-top 0
+  i
+    font-size 0.8em
+    margin-right 5px
 
 .card >>> a:hover
   color: $primary-color
