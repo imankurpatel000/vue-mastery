@@ -88,13 +88,15 @@ export default {
           if (startedCourse.hasOwnProperty('completedLessons')) {
             const completedLessons = Object.values(startedCourse.completedLessons).filter(completed => completed).length
             // Check how many lessons are completed
-
             course.progression = `${completedLessons} / ${course.lessonsCount} lesson${completedLessons > 1 ? 's' : ''} completed`
-            category = completedLessons >= course.lessonsCount ? 'completed' : 'uncompleted'
+            if (course.completable) {
+              category = completedLessons >= course.lessonsCount ? 'completed' : 'uncompleted'
+            } else {
+              course.progression = `${course.progression} (more coming soon)`
+              category = 'uncompleted'
+            }
           }
         }
-        // TODO: Swap completed Course image with badge ?
-        // if (category = uncompleted) course.image[0].url = ...
         this[category][courseId] = course
       }
       return this.uncompleted

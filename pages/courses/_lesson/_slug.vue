@@ -62,7 +62,7 @@ export default {
   middleware: 'anonymous',
   head () {
     return {
-      title: this.current.title,
+      title: `${this.course.title}: ${this.current.title}`,
       meta: [{
         hid: `og:description`,
         name: 'description',
@@ -70,7 +70,7 @@ export default {
       }, {
         hid: `og:title`,
         property: 'og:title',
-        content: this.current.title
+        content: `${this.course.title}: ${this.current.title}`
       }, {
         hid: `og:image`,
         property: 'og:image',
