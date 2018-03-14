@@ -27,3 +27,7 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped>
+  .button
+    display inline-flex
+</style>

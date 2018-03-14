@@ -13,12 +13,15 @@ div
       lessonBody(:course='current' :locked='locked')
 
       aside.lesson-aside(v-if="!locked" v-cloak)
-        .control-group.-spaced
+        div.control-group
           download(:courseLink='current.downloadLink', :account='account')
           socialShare(:lesson='current' :courseSlug='courseSlug')
         //- courseSubscribe
         lessonresources(:resources='current.resources')
         lessonChallenges(:challenges='current.codingChallenge')
+        div.text-center
+          a.button.primary.border(href="https://www.facebook.com/groups/152305585468331/") Discuss in our Facebook Group
+          router-link.button.inverted.-small(to="/courses") Send us Feedback
 
       lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
 
@@ -211,22 +214,25 @@ export default {
     margin-bottom 20px
 
   .control-group
-    flex-direction row
+    justify-content center
+    +laptop-up()
+      justify-content space-evenly
     .button
-      width 100%
-      margin-right 15px
+      margin-right 4%
+      +laptop-up()
+        margin-right 0
 
 .lessons-nav
   grid-area footer
 
-+tablet-up()
-  .lesson-wrapper
-    grid-template-columns 1fr 1fr 30%
-    grid-template-areas 'header header header'\
-                        'video video video'\
-                        'content content list'\
-                        'sidebar sidebar sidebar'\
-                        'footer footer footer'
+// +tablet-up()
+//   .lesson-wrapper
+//     grid-template-columns 1fr 1fr 30%
+//     grid-template-areas 'header header header'\
+//                         'video video video'\
+//                         'content content list'\
+//                         'sidebar sidebar sidebar'\
+//                         'footer footer footer'
 
   .lesson-aside
     margin $vertical-space 0
