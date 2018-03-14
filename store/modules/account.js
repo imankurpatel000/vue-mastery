@@ -1,6 +1,6 @@
 import * as firebase from 'firebase'
 import * as types from '../mutation-types'
-
+import { mergeDeep } from '../helpers'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 
 // initial state
@@ -47,7 +47,17 @@ function getCourseHistory (currentHistory, courseSlug) {
 
 function checkForFirstTime (user, commit, state) {
   firebase.database().ref('accounts').child(user.uid).once('value', (snapshot) => {
-    if (snapshot.val() === null) createNewAccount(user, commit, state)
+    const userData = snapshot.val()
+    if (userData === null) createNewAccount(user, commit, state)
+    else {
+      // Merge completed lesson while not logged in
+      if (state.completedUnlogged !== {}) {
+        const courses = mergeDeep(userData.courses, state.completedUnlogged)
+        firebase.database()
+          .ref(`accounts/${state.user.uid}`)
+          .update({ courses })
+      }
+    }
   })
 }
 
@@ -174,6 +184,7 @@ const actions = {
     })
   },
   userUpdateCompleted ({ state }, lesson) {
+    // Check if the user is logged and get either user hisotry or current completed lessons
     let history = state.account ? state.account.courses : state.completedUnlogged
     let courses = getCourseHistory(history, lesson.courseSlug)
     if (typeof (courses[lesson.courseSlug]['completedLessons']) === 'undefined') {
