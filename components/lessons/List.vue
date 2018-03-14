@@ -131,6 +131,11 @@ export default {
       border-color $primary-color
       background-color #FFF
 
+  &:hover:not(.active)
+    .list-item-title
+      color: #fff
+      font-weight normal
+
   &.completed
     background-color #EBEBEB
     &:not([class*="active"]) .list-item-title
@@ -142,6 +147,7 @@ export default {
       background transparent
       .list-item-title
         font-weight normal
+        color #A1B8BA
       .list-item-meta
         color #A1B8BA
     > .list-item-actions .checkmark
