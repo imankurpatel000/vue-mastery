@@ -259,7 +259,8 @@ module.exports = {
     '@nuxtjs/markdownit',
     ['@nuxtjs/google-analytics', {
       id: 'UA-90157003-2'
-    }]
+    }],
+    '@nuxtjs/toast'
   ],
   /*
   ** Render Markdown
@@ -305,6 +306,12 @@ module.exports = {
       ssr: false
     }
   ],
+  /*
+  ** Taost conf
+  */
+  toast: {
+    position: 'top-center'
+  },
   /*
   ** Page transition
   */

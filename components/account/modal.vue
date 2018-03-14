@@ -29,6 +29,16 @@ export default {
   watch: {
     account () {
       this.$modal.hide('login-form', { newAccount: false })
+      if (this.account) {
+        this.$toast.show('You are now logged in. You can now view your course progress on your', {
+          duration: 5000,
+          action: {
+            text: 'dashboard.',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }})
+      }
       if (this.redirect) this.$router.push(this.redirect)
     }
   },
