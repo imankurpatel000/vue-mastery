@@ -62,8 +62,6 @@ export default {
       if (completedCourse && completedCourse.hasOwnProperty('completedLessons')) {
         completed = history[this.course.slug].completedLessons[lessonSlug]
       }
-
-      console.log('history', completed, history)
       return completed
     },
     activeOrCompleted (lessonSlug) {
