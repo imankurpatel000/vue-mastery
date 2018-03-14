@@ -1,13 +1,13 @@
 <template lang="pug">
 no-ssr
-  modal(v-if="lesson" name="next-lesson" v-cloak height="auto" @before-open="beforeOpen")
-    h3.form-title(v-if="account" v-cloak) Great job finishing the lesson!
-    h3.form-title(v-else v-cloak) Next Lesson: {{ lesson.title }}
+  modal(name="next-lesson" height="auto" @before-open="beforeOpen")
+    h3.form-title(v-if="account" v-cloak) Next Lesson: {{ lesson.title }}
+    h3.form-title(v-else v-cloak) Great job finishing the lesson!
     .body
-      p(v-if="account" v-cloak) You will lose your progress unlesss you create a free account, would you like to do that now?
-      p(v-else v-cloak) {{ lesson.description }}
+      p(v-if="account" v-cloak) {{ lesson.description }}
+      p(v-else v-cloak) You will lose your progress unlesss you create a free account, would you like to do that now?
 
-    .progress(v-if="!account" v-cloak)
+    .progress(v-if="account" v-cloak)
       p Next lesson starting in:
       h2.blink(v-on:animationiteration="countdown") {{ count }}
 
@@ -35,7 +35,7 @@ export default {
     },
     beforeOpen (event) {
       this.lesson = event.params.lesson
-      this.account = event.params.account
+      this.account = event.params.account || false
     },
     countdown () {
       this.count--
