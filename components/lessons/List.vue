@@ -24,12 +24,7 @@
 import courseSubscribe from '~/components/account/CourseSubscribe'
 export default {
   name: 'list',
-  props: ['course', 'current', 'account'],
-  data () {
-    return {
-      completedUnlogged: []
-    }
-  },
+  props: ['course', 'current', 'account', 'completedUnlogged'],
   components: {
     courseSubscribe
   },
@@ -38,14 +33,12 @@ export default {
       this.$emit('selectLesson', lessonSlug)
     },
     toggleCompleted (lessonSlug) {
-      if (this.account) {
-        this.$store.dispatch('userUpdateCompleted', {
-          lessonSlug: lessonSlug,
-          courseSlug: this.course.slug,
-          isCompleted: !this.isCompleted(lessonSlug)
-        })
-      } else {
-        this.completedUnlogged.push(lessonSlug)
+      this.$store.dispatch('userUpdateCompleted', {
+        lessonSlug: lessonSlug,
+        courseSlug: this.course.slug,
+        isCompleted: !this.isCompleted(lessonSlug)
+      })
+      if (!this.account) {
         this.$modal.show('login-form', {
           newAccount: true,
           location: 'Lesson page checkbox'
@@ -54,19 +47,24 @@ export default {
       }
     },
     isCompleted (lessonSlug) {
+      let completed = false
+      let history = {}
       if (this.account) {
-        let completed = false
-        if (typeof (this.account['courses']) !== 'undefined') {
-          const completedCourse = this.account.courses[this.course.slug]
-          if (completedCourse && typeof (completedCourse['completedLessons']) !== 'undefined') {
-            completed = this.account.courses[this.course.slug].completedLessons[lessonSlug]
-          }
+        if (this.account.hasOwnProperty('courses')) {
+          history = this.account.courses
         }
-        return completed
       } else {
-        let checkCompleted = this.completedUnlogged.filter((key) => key === lessonSlug)
-        return checkCompleted.length
+        history = this.completedUnlogged
       }
+
+      const completedCourse = history[this.course.slug]
+
+      if (completedCourse && completedCourse.hasOwnProperty('completedLessons')) {
+        completed = history[this.course.slug].completedLessons[lessonSlug]
+      }
+
+      console.log('history', completed, history)
+      return completed
     },
     activeOrCompleted (lessonSlug) {
       return {

@@ -6,7 +6,8 @@ import { firebaseMutations, firebaseAction } from 'vuexfire'
 // initial state
 const state = {
   user: null,
-  account: null
+  account: null,
+  completedUnlogged: {}
 }
 
 // getters
@@ -16,7 +17,7 @@ const getters = {
   }
 }
 
-function createNewAccount (user, commit) {
+function createNewAccount (user, commit, state) {
   commit(types.NEW_USER, {
     meta: {
       analytics: [['set', 'userId', user.uid]]
@@ -27,7 +28,7 @@ function createNewAccount (user, commit) {
     email: user.email,
     image: user.newImage || '/images/default-profile.png', // supply a default profile image for all users
     subscribedToMailingList: true,
-    courses: {}
+    courses: state.completedUnlogged // Add completed lesson while being not registered
   })
 }
 
@@ -44,9 +45,9 @@ function getCourseHistory (currentHistory, courseSlug) {
   return courses
 }
 
-function checkForFirstTime (user, commit) {
+function checkForFirstTime (user, commit, state) {
   firebase.database().ref('accounts').child(user.uid).once('value', (snapshot) => {
-    if (snapshot.val() === null) createNewAccount(user, commit)
+    if (snapshot.val() === null) createNewAccount(user, commit, state)
   })
 }
 
@@ -65,10 +66,10 @@ const actions = {
     return firebase.auth()
       .createUserWithEmailAndPassword(account.email, account.password)
       .then((user) => {
-        return createNewAccount(user, commit)
+        return createNewAccount(user, commit, state)
       })
   },
-  userGoogleLogin ({ commit }) {
+  userGoogleLogin ({ commit, state }) {
     firebase.auth().useDeviceLanguage()
     const provider = new firebase.auth.GoogleAuthProvider()
     provider.addScope('https://www.googleapis.com/auth/plus.login')
@@ -82,13 +83,13 @@ const actions = {
           // just use their existing user image to start
           newImage: result.additionalUserInfo.profile.picture,
           ...result.user
-        }, commit)
+        }, commit, state)
         return commit(types.SET_USER, result.user)
       }).catch((error) => {
         console.log(error)
       })
   },
-  userGithubLogin ({ commit }) {
+  userGithubLogin ({ commit, state }) {
     firebase.auth().useDeviceLanguage()
     const provider = new firebase.auth.GithubAuthProvider()
     provider.addScope('user:email')
@@ -99,7 +100,7 @@ const actions = {
           // just use their existing user image to start
           newImage: result.additionalUserInfo.profile.avatar_url,
           ...result.user
-        }, commit)
+        }, commit, state)
         return commit(types.SET_USER, result.user)
       }).catch((error) => {
         console.log(error)
@@ -173,14 +174,19 @@ const actions = {
     })
   },
   userUpdateCompleted ({ state }, lesson) {
-    let courses = getCourseHistory(state.account.courses, lesson.courseSlug)
+    let history = state.account ? state.account.courses : state.completedUnlogged
+    let courses = getCourseHistory(history, lesson.courseSlug)
     if (typeof (courses[lesson.courseSlug]['completedLessons']) === 'undefined') {
       courses[lesson.courseSlug].completedLessons = {}
     }
     courses[lesson.courseSlug].completedLessons[lesson.lessonSlug] = lesson.isCompleted
-    return firebase.database().ref(`accounts/${state.user.uid}`).update({
-      courses
-    })
+    if (state.account) {
+      return firebase.database()
+        .ref(`accounts/${state.user.uid}`)
+        .update({ courses })
+    } else {
+      state.completedUnlogged = courses
+    }
   }
 }
 

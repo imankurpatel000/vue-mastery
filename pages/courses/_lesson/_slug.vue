@@ -8,7 +8,7 @@ div
       .lesson-video.-locked(v-else :style="lockedStyle")
         unlock(:account='account')
 
-      lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson', :account='account')
+      lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson', :account='account', :completedUnlogged='completedUnlogged')
 
       lessonBody(:course='current' :locked='locked')
 
@@ -119,7 +119,8 @@ export default {
   computed: {
     ...mapState({
       course: result => result.courses.course,
-      account: result => result.account.account
+      account: result => result.account.account,
+      completedUnlogged: result => result.account.completedUnlogged
     }),
 
     current () {
