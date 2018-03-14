@@ -1,6 +1,6 @@
 <template lang="pug">
   no-ssr
-    modal(name="login-form" v-cloak height="auto" @before-open="beforeOpen" scrollable=true)
+    modal(name="login-form" v-cloak height="auto" @before-open="beforeOpen" @before-close="beforeClose" scrollable=true)
       AuthForm(:newAccount="newAccount" :headerTitle="headerTitle" :header="header" :location="location")
 </template>
 
@@ -18,7 +18,8 @@ export default {
       headerTitle: false,
       header: false,
       redirect: false,
-      location: ''
+      location: '',
+      isOpen: false
     }
   },
   computed: {
@@ -28,14 +29,14 @@ export default {
   },
   watch: {
     account () {
-      this.$modal.hide('login-form', { newAccount: false })
-      if (this.account) {
+      if (this.account && this.isOpen) {
+        this.$modal.hide('login-form', { newAccount: false })
         this.$toast.show('You are now logged in. You can now view your course progress on your', {
           duration: 5000,
           action: {
             text: 'dashboard.',
             onClick: (e, toastObject) => {
-              toastObject.goAway(0)
+              this.$router.push('/account')
             }
           }})
       }
@@ -44,11 +45,15 @@ export default {
   },
   methods: {
     beforeOpen (event) {
+      this.isOpen = true
       this.newAccount = event.params.newAccount
       this.headerTitle = event.params.headerTitle
       this.header = event.params.header
       this.redirect = event.params.redirect || false
       this.location = event.params.location
+    },
+    beforeClose (event) {
+      this.isOpen = false
     }
   }
 }

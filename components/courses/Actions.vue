@@ -1,6 +1,6 @@
 <template lang="pug">
 .actions
-  div(v-if="course.lessonsCount" v-cloak)
+  div(v-if="course.lessonsCount && !course.pushToSubscribe" v-cloak)
     span(v-if="course.hasOwnProperty('progression')") {{course.progression}}
     span(v-else) {{ course.lessonsCount | pluralizeLesson }}
     .button.primary.-full(v-if="checkCourseStarted()" v-cloak)
@@ -10,15 +10,18 @@
       | Play
 
   div(v-else v-cloak)
+    span(v-if="course.hasOwnProperty('progression')") {{course.progression}}
     div(v-if="isSubscribed()")
+      .progression(v-if="course.pushToSubscribe" v-cloak) More Coming Soon
       span Subscribed
     div(v-else)
-      span Coming Soon
+      .progression(v-if="course.pushToSubscribe" v-cloak) More Coming Soon
+      span(v-else v-cloak) Coming Soon
 
-      .button.primary.border.-full(@click="subscribedToMailingList()" v-if="account" v-cloak)
+      .button.primary.border.-full(@click.prevent="subscribedToMailingList()" v-if="account" v-cloak)
         | Notify Me
 
-      button.button.primary.border.-full(v-else v-cloak @click="openLogin()") Notify Me
+      button.button.primary.border.-full(v-else v-cloak @click.prevent="openLogin()") Notify Me
 </template>
 
 
@@ -93,4 +96,8 @@ export default {
     margin-top: 0
   span
     font-weight: 700
+
+.progression
+  margin-top: 5px
+  margin-bottom: 10px
 </style>

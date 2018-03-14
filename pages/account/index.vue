@@ -92,7 +92,9 @@ export default {
             if (course.completable) {
               category = completedLessons >= course.lessonsCount ? 'completed' : 'uncompleted'
             } else {
-              course.progression = `${course.progression} (more coming soon)`
+              if (completedLessons >= course.lessonsCount) {
+                course.pushToSubscribe = true
+              }
               category = 'uncompleted'
             }
           }
