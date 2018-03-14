@@ -2,7 +2,7 @@
   div
     button.button.primary.border(type="button" v-on:click="openShare") Share
     no-ssr
-      modal(name="share" v-cloak height="auto")
+      modal(name="share" v-cloak height="270")
         h3.form-title Share this lesson
         social-sharing(inline-template :url="'https://vue-mastery.firebaseapp.com/courses/'+courseSlug+'/'+lesson.slug"
                       :title="lesson.socialSharingDescription || lesson.title"
