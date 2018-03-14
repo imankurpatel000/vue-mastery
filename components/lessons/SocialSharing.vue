@@ -38,6 +38,8 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+div
+  display inline-flex
 .social-wrapper
   display: flex
   flex-flow: wrap

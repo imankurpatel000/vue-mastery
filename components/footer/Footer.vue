@@ -20,7 +20,6 @@ footer.footer
           nuxt-link(to='/privacy' class="-inverted") Privacy Policy
         li
           nuxt-link(to='/terms' class="-inverted") Terms of Service
-
 </template>
 
 <script>
