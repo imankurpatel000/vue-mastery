@@ -1,4 +1,4 @@
-let baseUrl = 'https://www.vuemastery.com/'
+let baseUrl = 'https://www.vuemastery.com'
 module.exports = {
   /*
   ** Headers of the page
