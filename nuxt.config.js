@@ -1,4 +1,4 @@
-let baseUrl = 'https://vue-mastery.firebaseapp.com/'
+let baseUrl = 'https://www.vuemastery.com/'
 module.exports = {
   /*
   ** Headers of the page

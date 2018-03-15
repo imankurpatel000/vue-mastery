@@ -4,7 +4,7 @@
     no-ssr
       modal(name="share" v-cloak height="270")
         h3.form-title Share this lesson
-        social-sharing(inline-template :url="'https://vue-mastery.firebaseapp.com/courses/'+courseSlug+'/'+lesson.slug"
+        social-sharing(inline-template :url="'https://www.vuemastery.com/courses/'+courseSlug+'/'+lesson.slug"
                       :title="lesson.socialSharingDescription || lesson.title"
                       :description="lesson.description"
                       twitter-user="vuemastery")
