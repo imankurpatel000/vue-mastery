@@ -16,12 +16,11 @@ form.form.card
     .-is-error(v-if="formError.length > 0" v-text="formError")
     .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 
-  button.button.primary(type="button" @click="updatePassword") Submit
+  button.button.primary(type="button" @click="updatePassword") Update Password
 </template>
 
 <script>
 export default {
-  props: ['account'],
   data () {
     return {
       newPassword: '',
@@ -57,7 +56,7 @@ export default {
               this.formSuccess = 'Successfully updated your account password'
             })
             .catch((err) => {
-              this.formError = 'Error saving your new password. Please try again later.'
+              this.formError = err.message
               console.error(err)
             })
         }
