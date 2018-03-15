@@ -15,7 +15,7 @@ export default {
   // }
   head () {
     return {
-      title: 'Privacy Policy'
+      title: 'Vue Mastery | Privacy Policy'
     }
   },
   computed: {

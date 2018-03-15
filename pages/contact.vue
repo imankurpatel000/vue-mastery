@@ -37,7 +37,7 @@ export default {
   },
   head () {
     return {
-      title: 'Contact Us'
+      title: 'Vue Mastery | Contact Us'
     }
   },
   data () {
