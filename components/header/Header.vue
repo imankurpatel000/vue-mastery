@@ -1,11 +1,11 @@
 <template lang="pug">
   header.header
-    .wrapper(@click='toggleNav(false)')
+    .wrapper(@click='toggleNav(true)')
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
         img(src="/images/logo.png" role="logo" alt="Vue Mastery logo")
 
-      navigation(:account='account' @closeNav='toggleNav(false)')
+      navigation(:account='account' @closeNav='toggleNav(true)')
     hambuger(@toggleNav='toggleNav()')
 </template>
 
