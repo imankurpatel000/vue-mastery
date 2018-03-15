@@ -10,7 +10,6 @@ module.exports = {
   createCustomer: functions.auth.user()
     .onCreate(event => {
       const user = event.data
-      console.log()
       // payment.register(user)
       return subscription.getMailerList(mainListId)
         .then(listID => subscription.subscribeUser(user, listID, true))
@@ -26,6 +25,24 @@ module.exports = {
       const val = snapshot.val()
       return subscription.getMailerList(mainListId)
         .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
+    }),
+
+  // Change mailerlite subscriber on email update
+  updateEmail: functions.database.ref('/accounts/{uid}')
+    .onWrite(event => {
+      const snapshot = event.data
+      // If it's not a email change then return
+      if (!snapshot.child('email').changed()) return null
+      console.log('Update email address ', mainListId)
+      const val = snapshot.val()
+      // TODO Unsubscribe user from all the list
+      // Subscribe user with new email
+
+      return subscription.deleteSubscriber(mainListId, val.email).then(() => {
+        console.log('Subscriber deleted')
+        return subscription.getMailerList(mainListId)
+          .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
+      })
     }),
 
   // Subscribe a user to a course on the mailerLite course list
@@ -70,5 +87,11 @@ module.exports = {
           console.log(`Lesson number recount: ${count}`)
           countRef.set(count)
         })
+    }),
+
+  deleteCustomer: functions.auth.user()
+    .onDelete(event => {
+      const user = event.data
+      return subscription.deleteSubscriber(mainListId, user.email)
     })
 }
