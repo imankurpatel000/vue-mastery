@@ -93,6 +93,10 @@ module.exports = {
   deleteCustomer: functions.auth.user()
     .onDelete(event => {
       const user = event.data
-      return subscription.deleteSubscriber(mainListId, user.email)
+      return subscription.getMailerList(mainListId).then(listID => {
+        return subscription.deleteSubscriber(listID, user.email).then(() => {
+          console.log('Subscriber deleted')
+        })
+      })
     })
 }
