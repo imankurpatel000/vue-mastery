@@ -25,7 +25,7 @@
           .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 
         .form-group
-          input.button.primary(type="button" value="Send" @click="sendForm()" rel="submit")
+          input.button.primary(type="button" value="Send" @click="sendForm()" ref="submit")
 </template>
 <script>
 import SocialMediaLinks from '~/components/static/SocialMediaLinks'
