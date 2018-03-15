@@ -39,8 +39,8 @@ export default {
               this.$router.push('/account')
             }
           }})
+        if (this.redirect) this.$router.push(this.redirect)
       }
-      if (this.redirect) this.$router.push(this.redirect)
     }
   },
   methods: {
