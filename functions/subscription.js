@@ -41,20 +41,10 @@ module.exports = {
   },
 
   sendContactEmail (val) {
-    // const client = new SparkPost(functions.config().sparkpost.key)
-    // client.transmissions.send({
-    //   transmissionBody: {
-    //     recipients: [{ address: { email: 'schweiger.pierre@gmail.com', name: 'Vue Mastery Team' } }],
-    //     content: { template_id: 'contact' },
-    //     substitution_data: {'email': val.email, 'name': val.name, 'message': val.message},
-    //     campaign_id: 'Contact'
-    //   }
-    // }, (err, res) => {
-    //   console.warn(err ? err.stack : `Email Sent for test to ${val.email}`)
-    // })
     const mailOptions = {
       from: 'Vue Mastery <noreply@firebase.com>',
-      to: 'team@vuemastery.com'
+      to: 'schweiger.pierre@gmail.com'
+      // to: 'team@vuemastery.com'
     }
 
     // The user subscribed to the newsletter.
@@ -63,5 +53,9 @@ module.exports = {
     return mailTransport.sendMail(mailOptions).then(() => {
       return console.log('New email sent from:', val.name)
     })
+  },
+
+  deleteSubscriber (listId, email) {
+    return mailerliteSubscribers.deleteSubscriber(listId, email)
   }
 }

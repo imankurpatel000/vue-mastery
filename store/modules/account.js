@@ -144,10 +144,23 @@ const actions = {
   userUpdatePassword ({ state }, newPassword) {
     const user = firebase.auth().currentUser
 
-    user.updatePassword(newPassword).then(() => {
+    return user.updatePassword(newPassword).then(() => {
       console.log(`Update password for the account ${user.email}`)
     }).catch((error) => {
       console.log(`Can't update the password. Error:  ${error}`)
+      throw error
+    })
+  },
+  userUpdateEmail ({ state }, newEmail) {
+    const user = firebase.auth().currentUser
+    firebase.database().ref(`accounts/${state.user.uid}`).update({
+      email: newEmail
+    })
+    return user.updateEmail(newEmail).then(() => {
+      console.log(`Update email for the account ${user.email}`)
+    }).catch((error) => {
+      console.log(`Can't update the email. Error:  ${error}`)
+      throw error
     })
   },
   userRetrievePassword ({ state }, account) {
