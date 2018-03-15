@@ -25,7 +25,7 @@
           .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 
         .form-group
-          input.button.primary(type="button" value="Send" @click="sendForm()")
+          input.button.primary(type="button" value="Send" @click="sendForm()" rel="submit")
 </template>
 <script>
 import SocialMediaLinks from '~/components/static/SocialMediaLinks'
@@ -77,6 +77,10 @@ export default {
           message: this.message
         })
           .then(() => {
+            this.name = ''
+            this.email = ''
+            this.message = ''
+            this.$refs.submit.value = 'Thank you'
             this.formSuccess = 'Successfully sent your message.'
           })
           .catch((err) => {
