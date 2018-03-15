@@ -33,15 +33,16 @@ module.exports = {
       const snapshot = event.data
       // If it's not a email change then return
       if (!snapshot.child('email').changed()) return null
-      console.log('Update email address ', mainListId)
+
       const val = snapshot.val()
       // TODO Unsubscribe user from all the list
       // Subscribe user with new email
 
-      return subscription.deleteSubscriber(mainListId, val.email).then(() => {
-        console.log('Subscriber deleted')
-        return subscription.getMailerList(mainListId)
-          .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
+      return subscription.getMailerList(mainListId).then(listID => {
+        return subscription.deleteSubscriber(listID, val.email).then(() => {
+          console.log('Subscriber deleted')
+          subscription.subscribeUser(val, listID, val.subscribedToMailingList)
+        })
       })
     }),
 
