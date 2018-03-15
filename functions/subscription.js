@@ -43,8 +43,7 @@ module.exports = {
   sendContactEmail (val) {
     const mailOptions = {
       from: 'Vue Mastery <noreply@firebase.com>',
-      to: 'schweiger.pierre@gmail.com'
-      // to: 'team@vuemastery.com'
+      to: 'team@vuemastery.com'
     }
 
     // The user subscribed to the newsletter.
