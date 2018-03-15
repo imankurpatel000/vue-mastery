@@ -21,7 +21,7 @@ div
         lessonChallenges(:challenges='current.codingChallenge')
         div.text-center
           a.button.primary.border(href="https://www.facebook.com/groups/152305585468331/") Discuss in our Facebook Group
-          router-link.button.inverted.-small(to="/courses") Send us Feedback
+          router-link.button.inverted.-small(to="/contact") Send us Feedback
 
       lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
 
