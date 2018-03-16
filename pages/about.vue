@@ -48,7 +48,12 @@ export default {
   middleware: 'anonymous',
   head () {
     return {
-      title: 'Vue Mastery | About Us'
+      title: 'Vue Mastery | About Us',
+      meta: [{
+        hid: 'og:url',
+        property: 'og:url',
+        content: `${process.env.url}/about`
+      }]
     }
   },
   components: {

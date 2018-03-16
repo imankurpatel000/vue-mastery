@@ -20,7 +20,12 @@ export default {
   middleware: 'anonymous',
   head () {
     return {
-      title: 'Vue Mastery | Course Listing'
+      title: 'Vue Mastery | Course Listing',
+      meta: [{
+        hid: 'og:url',
+        property: 'og:url',
+        content: `${process.env.url}/courses`
+      }]
     }
   },
   components: {

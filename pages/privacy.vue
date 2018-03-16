@@ -15,7 +15,12 @@ export default {
   // }
   head () {
     return {
-      title: 'Vue Mastery | Privacy Policy'
+      title: 'Vue Mastery | Privacy Policy',
+      meta: [{
+        hid: 'og:url',
+        property: 'og:url',
+        content: `${process.env.url}/privacy`
+      }]
     }
   },
   computed: {

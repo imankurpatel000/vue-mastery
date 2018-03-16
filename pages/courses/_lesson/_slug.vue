@@ -68,6 +68,10 @@ export default {
         name: 'description',
         content: this.current.description
       }, {
+        hid: 'og:url',
+        property: 'og:url',
+        content: `${process.env.url}/${this.$route.params.lesson}/${this.$route.params.slug}`
+      }, {
         hid: `og:title`,
         property: 'og:title',
         content: `${this.course.title}: ${this.current.title}`
