@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "vue-mastery"
+    "default": "vue-mastery",
+    "staging": "vue-mastery-staging"
   }
 }
