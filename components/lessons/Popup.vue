@@ -11,11 +11,10 @@ no-ssr
       p Next lesson starting in:
       h2.blink(v-on:animationiteration="countdown") {{ count }}
 
-    .form-footer
-      .control-group.-spaced
-        button.button.link.-full(v-if="!account" @click="signup" v-cloak) Save my progress
-        button.button.link.-full(@click="selectLesson" rel="next") Go to Next Lesson
-        //- button.button.primary(@click="stop" rel="next") Cancel
+    .control-group.-spaced
+      button.button.secondary.border(v-if="!account" @click="signup" v-cloak) Save my Progress
+      button.button.primary(@click="selectLesson" rel="next") Go to Next Lesson
+      //- button.button.primary(@click="stop" rel="next") Cancel
 </template>
 
 <script>
