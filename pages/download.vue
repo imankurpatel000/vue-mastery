@@ -11,7 +11,12 @@ export default {
   middleware: 'anonymous',
   head () {
     return {
-      title: '[Downloading...] Vue Cheat Sheet'
+      title: '[Downloading...] Vue Cheat Sheet',
+      meta: [{
+        hid: 'og:url',
+        property: 'og:url',
+        content: `${process.env.url}/download`
+      }]
     }
   },
   mounted () {

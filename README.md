@@ -115,4 +115,6 @@ The functions folder is also copy over and help us to repsond to specific backen
 ``` bash
 # deploy solution to firebase
 $ firebase deploy
+$ firebase deploy --only functions
+$ firebase deploy --only hosting
 ```

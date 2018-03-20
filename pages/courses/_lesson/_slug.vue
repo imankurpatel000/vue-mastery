@@ -68,13 +68,17 @@ export default {
         name: 'description',
         content: this.current.description
       }, {
+        hid: 'og:url',
+        property: 'og:url',
+        content: `${process.env.url}/courses/${this.$route.params.lesson}/${this.$route.params.slug}`
+      }, {
         hid: `og:title`,
         property: 'og:title',
         content: `${this.course.title}: ${this.current.title}`
       }, {
         hid: `og:image`,
         property: 'og:image',
-        content: 'https://www.vuemastery.com/' + this.current.image[0].url
+        content: this.current.image[0].url || 'https://www.vuemastery.com/'
       }, {
         hid: 'twitter:title',
         name: 'twitter:title',
@@ -86,7 +90,7 @@ export default {
       }, {
         hid: 'twitter:image',
         name: 'twitter:image',
-        content: 'https://www.vuemastery.com/' + this.current.image[0].url
+        content: this.current.image[0].url || 'https://www.vuemastery.com/'
       }]
     }
   },

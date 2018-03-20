@@ -3,17 +3,10 @@ const Mailerlite = require('mailerlite')
 const mailerlite = new Mailerlite(functions.config().mailerlite.key)
 const mailerliteSubscribers = mailerlite.Subscribers
 const mailerliteList = mailerlite.Lists
-// const SparkPost = require('sparkpost')
 
-const nodemailer = require('nodemailer')
-const gmailEmail = functions.config().gmail.email
-const gmailPassword = functions.config().gmail.password
-const mailTransport = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: gmailEmail,
-    pass: gmailPassword
-  }
+var mailgun = require('mailgun-js')({
+  apiKey: functions.config().mailgun.apikey,
+  domain: functions.config().mailgun.domain
 })
 
 module.exports = {
@@ -41,16 +34,12 @@ module.exports = {
   },
 
   sendContactEmail (val) {
-    const mailOptions = {
-      from: 'Vue Mastery <noreply@firebase.com>',
-      to: 'team@vuemastery.com'
-    }
-
-    // The user subscribed to the newsletter.
-    mailOptions.subject = `Vue Mastery website Request`
-    mailOptions.text = `Message from ${val.name}: ${val.message}`
-    return mailTransport.sendMail(mailOptions).then(() => {
-      return console.log('New email sent from:', val.name)
+    return mailgun.messages().send({
+      from: val.email,
+      to: 'team@vuemastery.com',
+      'h:Reply-To': `${val.name} <${val.email}>`,
+      subject: 'Vue Mastery website Request',
+      html: `Message from ${val.name}(${val.email}):<br><br>${val.message}`
     })
   },
 

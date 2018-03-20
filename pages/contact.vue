@@ -37,7 +37,12 @@ export default {
   },
   head () {
     return {
-      title: 'Vue Mastery | Contact Us'
+      title: 'Vue Mastery | Contact Us',
+      meta: [{
+        hid: 'og:url',
+        property: 'og:url',
+        content: `${process.env.url}/contact`
+      }]
     }
   },
   data () {

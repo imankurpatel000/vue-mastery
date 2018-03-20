@@ -31,7 +31,12 @@ export default {
   middleware: 'anonymous',
   head () {
     return {
-      title: 'Vue Mastery | The Ultimate Learning Resource for Vue.js Developers'
+      title: 'Vue Mastery | The Ultimate Learning Resource for Vue.js Developers',
+      meta: [{
+        hid: `og:url`,
+        property: 'og:url',
+        content: process.env
+      }]
     }
   },
   components: {

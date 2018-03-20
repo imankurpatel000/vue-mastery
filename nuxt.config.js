@@ -1,6 +1,12 @@
 let baseUrl = 'https://www.vuemastery.com'
 module.exports = {
   /*
+  ** Build configuration
+  */
+  env: {
+    url: baseUrl
+  },
+  /*
   ** Headers of the page
   */
   head: {
@@ -26,13 +32,9 @@ module.exports = {
         property: 'og:type',
         content: 'website'
       }, {
-      //   hid: `og:url`,
-      //   property: 'og:url',
-      //   content: baseUrl
-      // }, {
         hid: 'og:image',
         property: 'og:image',
-        content: baseUrl + '/images/logo.png'
+        content: baseUrl + '/images/facbeook_image.png'
       }, {
         hid: 'og:description',
         property: 'og:description',
@@ -54,7 +56,7 @@ module.exports = {
       }, {
         hid: 'twitter:image',
         name: 'twitter:image',
-        content: baseUrl + '/images/logo.png'
+        content: baseUrl + '/images/facbeook_image.png'
       }, {
         // Android
         name: 'theme-color',

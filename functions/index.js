@@ -29,7 +29,7 @@ module.exports = {
 
   // Change mailerlite subscriber on email update
   updateEmail: functions.database.ref('/accounts/{uid}')
-    .onWrite(event => {
+    .onUpdate(event => {
       const snapshot = event.data
       // If it's not a email change then return
       if (!snapshot.child('email').changed()) return null
