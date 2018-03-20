@@ -3,7 +3,6 @@ const Mailerlite = require('mailerlite')
 const mailerlite = new Mailerlite(functions.config().mailerlite.key)
 const mailerliteSubscribers = mailerlite.Subscribers
 const mailerliteList = mailerlite.Lists
-// const SparkPost = require('sparkpost')
 
 var mailgun = require('mailgun-js')({
   apiKey: functions.config().mailgun.apikey,
@@ -35,17 +34,13 @@ module.exports = {
   },
 
   sendContactEmail (val) {
-    const mailOptions = {
+    return mailgun.messages().send({
       from: val.email,
       to: 'team@vuemastery.com',
-      'h:Reply-To': val.email
-    }
-
-    // The user subscribed to the newsletter.
-    mailOptions.subject = `Vue Mastery website Request`
-    mailOptions.html = `Message from ${val.name}(${val.email}): ${val.message}`
-
-    return mailgun.messages().send(mailOptions)
+      'h:Reply-To': `${val.name} <${val.email}>`,
+      subject: 'Vue Mastery website Request',
+      html: `Message from ${val.name}(${val.email}):<br><br>${val.message}`
+    })
   },
 
   deleteSubscriber (listId, email) {
