@@ -1,28 +1,28 @@
 {
-  "name": "Vue mastery",
-  "short_name": "VM",
+  "name": "Vue Mastery",
+  "short_name": "VueMastery",
   "icons": [{
-    "src": "icons/icon-57x57.png",
+    "src": "icons/apple-touch-icon-57x57.png",
     "sizes": "57x57",
     "type": "image/png"
   },
   {
-    "src": "icons/icon-72x72.png",
+    "src": "icons/apple-touch-icon-72x72.png",
     "sizes": "72x72",
     "type": "image/png"
   },
   {
-    "src": "icons/icon-96x96.png",
+    "src": "icons/favicon-96x96.png",
     "sizes": "96x96",
     "type": "image/png"
   },
   {
-    "src": "icons/icon-144x144.png",
+    "src": "icons/apple-touch-icon-144x144.png",
     "sizes": "144x144",
     "type": "image/png"
   },
   {
-    "src": "icons/icon-196x196.png",
+    "src": "icons/favicon-196x196.png",
     "sizes": "196x196",
     "type": "image/png"
   },
@@ -44,6 +44,6 @@
   ],
   "orientation": "",
   "display": "standalone",
-  "theme_color": "#ffffff",
+  "theme_color": "#39B982",
   "background_color": "#ffffff"
 }
