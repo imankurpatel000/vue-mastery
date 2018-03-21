@@ -48,10 +48,17 @@ export default {
                       "brand"\
                       "form"
 
+  >>> .social
+    justify-content: center
+    margin: 50px 0 -50px 0
+
   +tablet-up()
     text-align left
     grid-template-columns 1fr 1fr
     grid-template-areas "brand nav"
+    >>> .social
+      justify-content: left
+      margin: 0
     // grid-template-areas "brand nav ."\
     //                     "form . ."
   // +laptop-up()
@@ -76,6 +83,12 @@ export default {
 
   >>> .button.link
     color: #fff
+    margin-left: 10px
+
+    +tablet-up()
+      margin-left: 0
+      margin-right: 10px
+
 .social
   display flex
   font-size 1.5em
