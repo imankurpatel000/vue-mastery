@@ -43,7 +43,7 @@
     "gcm"
   ],
   "orientation": "",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#39B982",
   "background_color": "#ffffff"
 }
