@@ -25,6 +25,7 @@ const getters = {
 // actions
 const actions = {
   getAllCourses ({ commit, state }) {
+    if (state.courses) return true
     return db.get('courses', {
       populate: [
         {
@@ -66,6 +67,7 @@ const actions = {
   },
 
   featured ({ commit, state }) {
+    if (state.free && state.featured) return true
     return db.get('home', {
       populate: [ {
         field: 'free',
@@ -82,6 +84,7 @@ const actions = {
   },
 
   latest ({ commit, state }) {
+    if (state.latests) return true
     return db.get('course', {
       populate: [ {
         field: 'latests',
