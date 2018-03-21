@@ -42,7 +42,7 @@
   "permissions": [
     "gcm"
   ],
-  "orientation": "",
+  "orientation": "portrait",
   "display": "fullscreen",
   "theme_color": "#39B982",
   "background_color": "#ffffff"
