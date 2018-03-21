@@ -27,21 +27,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import fakeList from '~/components/courses/FakeList'
 
 export default {
+  props: ['free', 'courses'],
+
   components: {
     fakeList
   },
-  computed: {
-    ...mapState({ free: result => result.courses.free }),
-    ...mapState({ courses: result => result.courses.courses })
-  },
 
-  mounted () {
-    this.$store.dispatch('featured')
-  },
   methods: {
     path (lesson) {
       return `/courses/${lesson.belongsToCourse[0].slug}/${lesson.slug}`

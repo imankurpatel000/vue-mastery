@@ -1,8 +1,8 @@
 <template lang="pug">
 div
-  .list(v-if="courses" v-cloak)
+  .list(v-if="featured" v-cloak)
     nuxt-link.list-card.card(:to="`/courses/${course.slug}/${course.lessons[0].slug}`"
-                              v-for="course, key in courses" :key="course.id" v-if="course.lessons")
+                              v-for="course, key in featured" :key="course.id" v-if="course.lessons")
       courseList(:course="course")
     .list-card.card.coming-soon(v-else)
       courseList(:course="course")
@@ -11,20 +11,13 @@ div
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import courseList from '~/components/courses/List'
 import courseAction from '~/components/courses/Actions'
 import fakeList from '~/components/courses/FakeList'
 
 export default {
-  computed: {
-    ...mapState({ courses: result => result.courses.featured })
-  },
 
-  mounted () {
-    this.$store.dispatch('featured')
-  },
-
+  props: ['featured'],
   components: {
     courseList,
     courseAction,

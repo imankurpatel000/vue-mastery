@@ -76,7 +76,7 @@ module.exports = {
       })
     }),
 
-  // Subscribe a user to a course on the mailerLite course list
+  // Update lesson count in a course
   countLessonsInCourse: functions.database.ref('/flamelink/environments/production/content/courses/en-US/{cid}/lessons/{lid}')
     .onWrite(event => {
       const collectionRef = event.data.ref.parent
