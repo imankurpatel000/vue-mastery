@@ -9,7 +9,8 @@ const state = {
   lessons: null,
   latests: null,
   free: null,
-  featured: null
+  featured: null,
+  talks: null
 }
 
 // getters
@@ -94,6 +95,19 @@ const actions = {
     }).then(latests => {
       commit(types.RECEIVE_LATEST, { latests })
     })
+  },
+
+  talks ({ commit, state }) {
+    if (state.talks) return true
+    console.log('asdassa')
+    return db.get('talks', {
+      populate: [ {
+        field: 'image',
+        subFields: [ 'image' ]
+      }]
+    }).then(talks => {
+      commit(types.RECEIVE_TALKS, { talks })
+    })
   }
 }
 
@@ -114,6 +128,9 @@ const mutations = {
   },
   [types.RECEIVE_LATEST] (state, { latests }) {
     state.latests = latests.latests
+  },
+  [types.RECEIVE_TALKS] (state, { talks }) {
+    state.talks = talks
   }
 }
 

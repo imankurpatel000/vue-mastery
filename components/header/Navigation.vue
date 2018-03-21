@@ -4,6 +4,7 @@
       router-link.navbar-item.underline(to="/account" v-if="account") Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/about") About
+      router-link.navbar-item.underline(to="/vue-conf") VueConf
     no-ssr
       .navbar-secondary(v-cloak v-if='account')
         button.button.primary.-small(type='button' @click='signOut') Sign Out
