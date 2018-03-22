@@ -99,7 +99,6 @@ const actions = {
 
   talks ({ commit, state }) {
     if (state.talks) return true
-    console.log('asdassa')
     return db.get('talks', {
       populate: [ {
         field: 'image',
