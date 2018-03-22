@@ -6,6 +6,14 @@
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+You need a node version > v9
+``` bash
+npm -v # need to be > v9
+
+# if not:
+npm install -g n # install node version manager
+n latest # get latest node version
+```
 
 ``` bash
 # install dependencies
@@ -18,6 +26,16 @@ We need to install firebase tools to deploy.
 
 ``` bash
 $ npm install -g firebase-tools
+```
+
+Tell firebase to use the default enviroment
+``` bash
+firebase use default
+```
+
+Initiate a connection to firebase:
+``` bash
+firebase login
 ```
 
 ### Firebase Setup
@@ -47,7 +65,7 @@ $ firebase functions:config:set stripe.token="THE KEY"
 To list the current config:
 
 ``` bash
-$ functions:config:get
+$ firebase functions:config:get
 ```
 
 #### Rules
