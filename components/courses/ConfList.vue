@@ -7,7 +7,10 @@
         .media.-video(:class="{ 'comingsoon': !talk.isVideoLive }")
           img(v-bind:src="talk.image[0].url" class="-large" :alt="talk.title")
         .body
-          b.releaseDate {{ talk.releaseDate }}
+          b.releaseDate(v-if="talk.releaseDate" v-cloak)
+            | {{ talk.releaseDate }}
+            br
+            | To be released on {{ talk.releaseDate+'z' | moment('MMMM Do YYYY @ hA z')}}
           h3.title {{ talk.title }}
           h4.author {{ talk.author }}
           p.content {{ talk.description }}
