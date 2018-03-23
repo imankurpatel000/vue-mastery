@@ -1,9 +1,10 @@
 <template lang="pug">
 div.card.badge-card(v-if="courses" v-cloak)
-  nuxt-link(:to="link(course)"
-                  v-for="course, key, index in courses" :key="course.id")
-    .course-badge
-      img(v-bind:src="course.image[0].url" v-if="course")
+  .card-body
+    nuxt-link(:to="link(course)"
+                    v-for="course, key, index in courses" :key="course.id")
+      .course-badge
+        img(v-bind:src="course.image[0].url" v-if="course")
 </template>
 
 <script>

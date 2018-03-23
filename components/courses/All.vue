@@ -3,8 +3,9 @@ div
   .list(v-if="courses" v-cloak)
     nuxt-link.list-card.card(:to="link(course)"
                               v-for="course, key, index in courses" :key="course.id")
-      courseList(:course="course")
-      courseAction(:course="course")
+      .card-body
+        courseList(:course="course")
+        courseAction(:course="course")
   fakeList(v-else)
 </template>
 
@@ -67,7 +68,7 @@ export default {
   > a
     margin-bottom: 35px
 
-.list-card
+.card-body
   display flex
   flex-direction column
   justify-content space-between

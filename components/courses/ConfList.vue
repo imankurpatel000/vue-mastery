@@ -1,17 +1,16 @@
 <template lang="pug">
-.section
+div
   h2.title Playlist
-  .media-wrapper(v-if="talks" v-cloak)
-    .media-block(v-for="talk in talks")
+  div.row(v-if="talks" v-cloak)
+    .card(v-for="talk in talks")
       nuxt-link(:to="path(talk)")
-        .media.-video(:class="{ 'comingsoon': !talk.isVideoLive }")
-          img(v-bind:src="talk.image[0].url" class="-large" :alt="talk.title")
-        .body
-          b.releaseDate {{ talk.releaseDate }}
+        div(:class="{ 'comingsoon': !talk.isVideoLive }")
+          img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
+        .card-body
+          //- b.releaseDate {{ talk.releaseDate }}
           h3.title {{ talk.title }}
-          h4.author {{ talk.author }}
+          h4.author.meta {{ talk.author }}
           p.content {{ talk.description }}
-
 </template>
 
 <script>
@@ -35,6 +34,21 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
+
+.row
+  display flex
+  flex-wrap wrap
+
+.card
+  width 22%
+  margin-right 4%
+  margin-bottom ($vertical-space/2)
+  &:nth-of-type(4n+0)
+    margin-right 0
+
+.card-body .title
+  padding-top 0
+
 .media.-video.comingsoon
   &:before
   &:after

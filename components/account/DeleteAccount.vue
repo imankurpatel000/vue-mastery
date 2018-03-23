@@ -1,24 +1,25 @@
 
 <template lang="pug">
 .card
-  p(v-if="confirm" v-cloak) 
-    | Are you sure you want to remove your account? 
-    br
-    | You will lose all progress you've made on your courses.
+  .card-body
+    p(v-if="confirm" v-cloak)
+      | Are you sure you want to remove your account?
+      br
+      | You will lose all progress you've made on your courses.
 
-  .confirm(v-if="confirm" v-cloak)
-    button.button.danger.-has-icon.-small(type="button" @click="deleteAccount")
+    .confirm(v-if="confirm" v-cloak)
+      button.button.danger.-has-icon.-small(type="button" @click="deleteAccount")
+        span
+          i.fa.fa-trash-alt
+          | Yes
+
+      button.button.primary.-small(type="button" @click="confirm = false")
+        | Cancel
+
+    button.button.danger.-has-icon.-small(type="button" @click="confirm = true" v-if="!confirm" v-cloak)
       span
         i.fa.fa-trash-alt
-        | Yes
-
-    button.button.primary.-small(type="button" @click="confirm = false")
-      | Cancel
-
-  button.button.danger.-has-icon.-small(type="button" @click="confirm = true" v-if="!confirm" v-cloak)
-    span
-      i.fa.fa-trash-alt
-      | Delete Account
+        | Delete Account
 </template>
 
 <script>
@@ -50,5 +51,3 @@ export default {
   display inline-block
   margin-right 20px
 </style>
-
-

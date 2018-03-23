@@ -59,7 +59,7 @@ export default {
   padding-top 0
   font-size 60px
   font-weight 600
-  color #FFFFFF
+  color blue
   line-height 60px
 
 .courses-body

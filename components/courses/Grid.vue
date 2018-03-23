@@ -3,8 +3,9 @@ div
   .grid(v-if="courses" v-cloak)
     nuxt-link.grid-card.card(:to="link(course)"
                               v-for="course, key, index in courses" :key="course.id")
-      courseList(:course="course")
-      courseAction(:course="course")
+      .card-body
+        courseList(:course="course")
+        courseAction(:course="course")
   fakeList(v-else)
 </template>
 

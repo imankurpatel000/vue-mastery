@@ -1,14 +1,15 @@
 <template lang="pug">
 form.form.card
-  .form-group.-switched
-    .switch
-      input(id="subscribeSwitch" type="checkbox" v-model="subscribedToMailingList" v-on:change="subscribe")
-      label(for="subscribeSwitch")
-    span I want to receive occasional emails about new educational content
+  .card-body
+    .form-group.-switched
+      .switch
+        input(id="subscribeSwitch" type="checkbox" v-model="subscribedToMailingList" v-on:change="subscribe")
+        label(for="subscribeSwitch")
+      span I want to receive occasional emails about new educational content
 
-  .form-error
-    .callout.-error(v-if="formError.length > 0" v-text="formError")
-    .callout.-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+    .form-error
+      .callout.-error(v-if="formError.length > 0" v-text="formError")
+      .callout.-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 </template>
 
 <script>

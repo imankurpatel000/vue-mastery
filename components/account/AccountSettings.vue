@@ -4,7 +4,7 @@
   .account-settings
     h3.title Change Email
     ChangeEmail
-    
+
     h3.title Change Password
     ChangePassword
 
@@ -13,7 +13,6 @@
 
     h3.title Delete Account
     DeleteAccount
-    
 </template>
 
 <script>

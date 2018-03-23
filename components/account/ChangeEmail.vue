@@ -1,14 +1,15 @@
 <template lang="pug">
 form.form.card
-  .form-group.-inline
-    label.label New Email
-    input.input(type="email" placeholder="New Email" v-model="email" ref="email")
+  .card-body
+    .form-group.-inline
+      label.label New Email
+      input.input(type="email" placeholder="New Email" v-model="email" ref="email")
 
-  .form-error
-    .-is-error(v-if="formError.length > 0" v-text="formError")
-    .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+    .form-error
+      .-is-error(v-if="formError.length > 0" v-text="formError")
+      .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 
-  button.button.primary(type="button" @click="updateEmail") Update Email
+    button.button.primary(type="button" @click="updateEmail") Update Email
 </template>
 
 <script>
@@ -50,4 +51,3 @@ export default {
   }
 }
 </script>
-

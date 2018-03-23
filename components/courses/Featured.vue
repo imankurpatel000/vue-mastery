@@ -3,9 +3,11 @@ div
   .list(v-if="featured" v-cloak)
     nuxt-link.list-card.card(:to="`/courses/${course.slug}/${course.lessons[0].slug}`"
                               v-for="course, key in featured" :key="course.id" v-if="course.lessons")
-      courseList(:course="course")
+      .card-body
+        courseList(:course="course")
     .list-card.card.coming-soon(v-else)
-      courseList(:course="course")
+      .card-body
+        courseList(:course="course")
 
   fakeList(v-else)
 </template>
@@ -34,7 +36,7 @@ export default {
   > .list-card
     margin-bottom: 35px
 
-.list-card
+.card-body
   display flex
   flex-direction column
   justify-content space-between

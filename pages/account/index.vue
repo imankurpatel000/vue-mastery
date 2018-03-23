@@ -38,9 +38,10 @@
 
       aside.recommend-course-list
         .card.download
-          h3 Download the Vue Cheat Sheet
-          p All the essential syntax at your fingertips
-          DownloadButton(buttonClass='inverted')
+          .card-body
+            h3 Download the Vue Cheat Sheet
+            p All the essential syntax at your fingertips
+            DownloadButton(buttonClass='inverted')
         #recommended
           h3.title Recommended Courses
           CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)

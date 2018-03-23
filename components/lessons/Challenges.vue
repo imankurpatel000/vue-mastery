@@ -1,5 +1,6 @@
 <template lang="pug">
   .lesson-challenge.card(v-if="challenges" v-cloak)
+    .card-body
       h3
         i.fa.fa-code
         | Coding Challenge
@@ -16,14 +17,14 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 .card
-  padding 40px
+  padding 20px
 h3
   padding-top 0
   i
     font-size 0.8em
     margin-right 5px
 
-.card >>> a:hover
+.card >>>> a:hover
   color: $primary-color
 
 </style>

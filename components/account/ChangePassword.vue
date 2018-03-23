@@ -1,22 +1,23 @@
 <template lang="pug">
 form.form.card
-  .form-group.-inline
-    label.label New Password
-    input.input(type="password" placeholder="New Password" v-model="newPassword" ref="password")
-    button.button.-has-icon.-small.link(type="button" @click="switchVisibility()")
-      i.fa.fa-eye-slash(v-if='showPassword')
-      i.fa.fa-eye(v-else)
-      span.visually-hidden show / hide
+  .card-body
+    .form-group.-inline
+      label.label New Password
+      input.input(type="password" placeholder="New Password" v-model="newPassword" ref="password")
+      button.button.-has-icon.-small.link(type="button" @click="switchVisibility()")
+        i.fa.fa-eye-slash(v-if='showPassword')
+        i.fa.fa-eye(v-else)
+        span.visually-hidden show / hide
 
-  .form-group
-    label.label Confirm Password
-    input.input(type="password" placeholder="Confirm Password" v-model="confirmPassword" @blur="validatePassword"  ref="confirmPassword")
+    .form-group
+      label.label Confirm Password
+      input.input(type="password" placeholder="Confirm Password" v-model="confirmPassword" @blur="validatePassword"  ref="confirmPassword")
 
-  .form-error
-    .-is-error(v-if="formError.length > 0" v-text="formError")
-    .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+    .form-error
+      .-is-error(v-if="formError.length > 0" v-text="formError")
+      .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 
-  button.button.primary(type="button" @click="updatePassword") Update Password
+    button.button.primary(type="button" @click="updatePassword") Update Password
 </template>
 
 <script>
