@@ -13,13 +13,13 @@ div
       lessonBody(:course='current' :locked='locked')
 
       aside.lesson-aside(v-if="!locked" v-cloak)
-        div.control-group
+        .control-group
           download(:courseLink='current.downloadLink', :account='account')
           socialShare(:lesson='current' :courseSlug='courseSlug')
-        //- courseSubscribe
+
         lessonresources(:resources='current.resources')
         lessonChallenges(:challenges='current.codingChallenge')
-        div.text-center
+        .text-center
           a.button.primary.border(href="https://www.facebook.com/groups/152305585468331/") Discuss in our Facebook Group
           router-link.button.inverted.-small(to="/contact") Send us Feedback
 
@@ -54,7 +54,6 @@ import lessonChallenges from '~/components/lessons/Challenges'
 import lessonPopup from '~/components/lessons/Popup'
 import download from '~/components/lessons/Download'
 import unlock from '~/components/lessons/Unlock'
-import courseSubscribe from '~/components/account/CourseSubscribe'
 import socialShare from '~/components/lessons/SocialSharing'
 import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 
@@ -119,7 +118,6 @@ export default {
     socialShare,
     download,
     unlock,
-    courseSubscribe,
     playerPlaceholder
   },
 
