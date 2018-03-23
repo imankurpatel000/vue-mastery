@@ -2,7 +2,8 @@
 .playlist
   h2.title Playlist
   .cards(v-if="talks" v-cloak)
-    nuxt-link.card(:to="path(talk)" v-for="talk in talks")
+    //- nuxt-link.card(:to="path(talk)" v-for="talk in talks")
+    .card(v-for="talk in talks")
       .card-img-fade(:class="{ 'comingsoon': !talk.isVideoLive }")
         img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
       .card-body
