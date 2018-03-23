@@ -172,6 +172,9 @@ const actions = {
       .sendPasswordResetEmail(account.email)
       .then(() => {
         // Email sent.
+        this.$toast.show('We\'ve sent an email to let you reset your password. Please check your inbox.', {
+          duration: 5000
+        })
         console.log(`Retreive password for the account ${account.email}`)
       }).catch((error) => {
         // An error happened.

@@ -9,7 +9,7 @@ div
         .card-body
           //- b.releaseDate {{ talk.releaseDate }}
           h3.title {{ talk.title }}
-          h4.author.meta {{ talk.author }}
+          p.author {{ talk.author }}
           p.content {{ talk.description }}
 </template>
 
@@ -48,6 +48,9 @@ export default {
 
 .card-body .title
   padding-top 0
+
+.author
+  color: $gray
 
 .media.-video.comingsoon
   &:before

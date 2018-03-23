@@ -1,26 +1,20 @@
 <template lang="pug">
 form.form(v-cloak v-if="account")
   .body
-    span Notify me when new lessons are available.
+    span {{message}}
     .switch
       input(id="subscribeSwitch" type="checkbox" :checked="isSubscribed()" @change="subscribedToMailingList")
       label(for="subscribeSwitch") Toggle
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-  computed: {
-    ...mapState({
-      account: result => result.account.account,
-      course: result => result.courses.course
-    })
-  },
+  props: ['account', 'slug', 'message'],
   methods: {
     isSubscribed () {
       let subscribed = false
       if (this.account && typeof (this.account['courses']) !== 'undefined') {
-        const completedCourse = this.account.courses[this.course.slug]
+        const completedCourse = this.account.courses[this.slug]
         if (completedCourse) {
           subscribed = completedCourse.subscribed || false
         }
@@ -28,7 +22,7 @@ export default {
       return subscribed
     },
     subscribedToMailingList () {
-      this.$store.dispatch('userUpdateSubscribe', this.course.slug)
+      this.$store.dispatch('userUpdateSubscribe', this.slug)
     }
   }
 }

@@ -4,6 +4,7 @@
       .wrapper
         h1.title VueConf US
     .wrapper
+      courseSubscribe(:account="account" slug="vueConf" message="Notify me when new talks are available.")
       ConfList(:talks="talks" :account="account")
     CheatSheetAlt(location='Course page cheat sheet download')
 </template>
@@ -13,6 +14,7 @@ import { mapState } from 'vuex'
 
 import ConfList from '~/components/courses/ConfList'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
+import courseSubscribe from '~/components/account/CourseSubscribe'
 
 export default {
   middleware: 'anonymous',
@@ -28,7 +30,8 @@ export default {
   },
   components: {
     ConfList,
-    CheatSheetAlt
+    CheatSheetAlt,
+    courseSubscribe
   },
 
   computed: {

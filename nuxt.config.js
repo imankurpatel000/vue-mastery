@@ -305,6 +305,10 @@ module.exports = {
     {
       src: '~/plugins/social',
       ssr: false
+    },
+    {
+      src: '~/plugins/moment',
+      ssr: true
     }
   ],
   /*
