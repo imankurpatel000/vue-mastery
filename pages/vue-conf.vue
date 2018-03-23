@@ -1,7 +1,6 @@
 <template lang="pug">
-  .container
-    .banner
-
+  .container.vue-conf-page
+    VueConfBanner
     .wrapper
       .body
         h1.visually-hidden VueConf US Videos
@@ -20,6 +19,7 @@ import { mapState } from 'vuex'
 import ConfList from '~/components/courses/ConfList'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import courseSubscribe from '~/components/account/CourseSubscribe'
+import VueConfBanner from '~/components/static/VueConfBanner'
 
 export default {
   middleware: 'anonymous',
@@ -36,7 +36,8 @@ export default {
   components: {
     ConfList,
     CheatSheetAlt,
-    courseSubscribe
+    courseSubscribe,
+    VueConfBanner
   },
 
   computed: {
@@ -54,19 +55,6 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
-
-.banner
-  height 354px
-  margin-top: -100px
-  margin-bottom ($vertical-space/3)
-  background-image url(/images/bkg-vueconf.svg)
-  background-position center bottom
-  background-size 140%
-  +tablet-up()
-    background-size 100%
-  +laptop-up()
-    height 654px
-    background-size cover
 
 .courses-header
   height 220px

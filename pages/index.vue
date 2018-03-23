@@ -11,6 +11,8 @@
         nuxt-link.button.primary.border(to="/courses")
           | More
           span.visually-hidden Courses
+    //- .vue-conf
+    //-   VueConfBanner
     .meet-teachers
       MeetTeachers
     .cheatsheet
@@ -27,6 +29,7 @@ import Hero from '~/components/static/Hero'
 import MeetTeachers from '~/components/static/MeetTeachers'
 import CommunitySupport from '~/components/static/CommunitySupport'
 import CheatSheetMain from '~/components/static/CheatSheetMain'
+import VueConfBanner from '~/components/static/VueConfBanner'
 
 export default {
   middleware: 'anonymous',
@@ -47,7 +50,8 @@ export default {
     Free,
     MeetTeachers,
     CommunitySupport,
-    CheatSheetMain
+    CheatSheetMain,
+    VueConfBanner
   },
 
   computed: {
@@ -67,13 +71,14 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 
-containers = hero free-videos course-list meet-teachers cheatsheet community
+containers = hero free-videos course-list vue-conf meet-teachers cheatsheet community
 .homepage
   display grid
   grid-template-columns 1fr 1fr
   grid-template-areas "hero hero"\
     "free-videos free-videos"\
     "course-list course-list"\
+    "vue-conf vue-conf"\
     "meet-teachers meet-teachers"\
     "cheatsheet cheatsheet"\
     "community community"
@@ -110,6 +115,7 @@ containers = hero free-videos course-list meet-teachers cheatsheet community
   .homepage
     grid-template-areas "hero hero"\
       "free-videos course-list"\
+      "vue-conf vue-conf"\
       "meet-teachers meet-teachers"\
       "cheatsheet cheatsheet"\
       "community community"\

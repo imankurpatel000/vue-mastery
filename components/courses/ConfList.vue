@@ -4,7 +4,7 @@ div
   div.row(v-if="talks" v-cloak)
     .col(v-for="talk in talks")
       nuxt-link.card(:to="path(talk)")
-        div(:class="{ 'comingsoon': !talk.isVideoLive }")
+        .card-img-fade(:class="{ 'comingsoon': !talk.isVideoLive }")
           img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
         .card-body
           //- b.releaseDate {{ talk.releaseDate }}
@@ -58,6 +58,7 @@ export default {
 
 .card
   flex-flow column
+
 .card-body .title
   color $secondary-color
   padding-top 0
