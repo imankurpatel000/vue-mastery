@@ -7,8 +7,7 @@
           small New Orleans, LA on March 26-28, 2018
         p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos.  We will begin to release the videos free shortly after the conference.
       .callout.-success
-        div
-          courseSubscribe(:account="account" slug="vueConf" message="Notify me when new talks are available.")
+        courseSubscribe(:account="account" slug="vueConf" message="Notify me when new talks are available.")
       ConfList(:talks="talks" :account="account")
     //- CheatSheetAlt(location='Course page cheat sheet download')
 </template>
@@ -73,6 +72,9 @@ export default {
 .callout
   display flex
   justify-content center
+
+  >>> form
+    width: auto
 
 .body
   justify-self center

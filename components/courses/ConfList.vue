@@ -1,16 +1,15 @@
 <template lang="pug">
-div
+.playlist
   h2.title Playlist
-  div.row(v-if="talks" v-cloak)
-    .col(v-for="talk in talks")
-      nuxt-link.card(:to="path(talk)")
-        .card-img-fade(:class="{ 'comingsoon': !talk.isVideoLive }")
-          img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
-        .card-body
-          //- b.releaseDate {{ talk.releaseDate }}
-          h4.title {{ talk.title }}
-          p.author {{ talk.author }}
-          p.content {{ talk.description }}
+  .cards(v-if="talks" v-cloak)
+    nuxt-link.card(:to="path(talk)" v-for="talk in talks")
+      .card-img-fade(:class="{ 'comingsoon': !talk.isVideoLive }")
+        img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
+      .card-body
+        //- b.releaseDate {{ talk.releaseDate }}
+        h4.title {{ talk.title }}
+        p.author {{ talk.author }}
+        p.content {{ talk.description }}
 </template>
 
 <script>
@@ -35,29 +34,14 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 
-.row
-  display flex
-  flex-wrap wrap
-
-.col
-  width 100%
-  margin-bottom ($vertical-space/3)
-  +tablet-up()
-    width 48%
-    margin-right 4%
-    &:nth-of-type(2n+0)
-      margin-right 0
-  +laptop-up()
-    width 23.333%
-    margin-right 2%
-    margin-bottom ($vertical-space/2)
-    &:nth-of-type(2n+0)
-      margin-right 2%
-    &:nth-of-type(4n+0)
-      margin-right 0
+.cards
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  grid-gap: 1rem
 
 .card
-  flex-flow column
+  margin: 0 0 45px 0
+  flex-direction: column
 
 .card-body .title
   color $secondary-color
