@@ -4,7 +4,9 @@
       .wrapper
         h1.title VueConf US
     .wrapper
-      courseSubscribe(:account="account" slug="vueConf" message="Notify me when new talks are available.")
+      .callout.-success
+        div
+          courseSubscribe(:account="account" slug="vueConf" message="Notify me when new talks are available.")
       ConfList(:talks="talks" :account="account")
     CheatSheetAlt(location='Course page cheat sheet download')
 </template>
@@ -64,6 +66,10 @@ export default {
   font-weight 600
   color blue
   line-height 60px
+
+.callout
+  display flex
+  justify-content center
 
 .courses-body
   display grid

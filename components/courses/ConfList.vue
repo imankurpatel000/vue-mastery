@@ -8,9 +8,9 @@ div
           img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
         .card-body
           //- b.releaseDate {{ talk.releaseDate }}
-          h3.title {{ talk.title }}
+          h4.title {{ talk.title }}
           p.author {{ talk.author }}
-          p.content {{ talk.description }}
+          p.content.truncate {{ talk.description }}
 </template>
 
 <script>
@@ -40,16 +40,18 @@ export default {
   flex-wrap wrap
 
 .card
-  width 22%
-  margin-right 4%
+  width 23%
+  margin-right 2%
   margin-bottom ($vertical-space/2)
   &:nth-of-type(4n+0)
     margin-right 0
 
 .card-body .title
+  color $secondary-color
   padding-top 0
 
 .author
+  margin-top 0
   color: $gray
 
 .media.-video.comingsoon
