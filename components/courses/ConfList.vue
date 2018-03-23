@@ -34,6 +34,11 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
+.playlist > .title
+  margin: 15px 0 25px 0
+  
+  +tablet-up()
+    margin-bottom: 35px
 
 .cards
   display: grid
@@ -43,6 +48,11 @@ export default {
 .card
   margin: 0 0 45px 0
   flex-direction: column
+
+// TODO: @Dustin Maybe we should fix a max height for mobile
+// .card-img-top
+//   max-height: 310px
+//   object-fit: cover
 
 .card-body .title
   color $secondary-color
