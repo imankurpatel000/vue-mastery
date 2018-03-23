@@ -79,6 +79,9 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
+
+headerHeight = 76px
+
 .lessons-list
   grid-area list
   position relative
@@ -89,13 +92,14 @@ export default {
   border-left: solid 1px #CACACA
 
 .lessons-list-scroll
-  position absolute
-  display block
-  top 60px
-  bottom 0
-  width 100%
-  min-height 200px
-  overflow-y scroll
+  +tablet-up()
+    min-height 200px
+    overflow-y scroll
+    position absolute
+    top 60px
+    bottom 0
+    top headerHeight
+    height "calc(100% - %s)" % headerHeight
 
 .list-subscribe
   display flex
@@ -159,6 +163,9 @@ export default {
   padding-top 0
   font-size 18px
   font-weight 400
+  
+  +laptop-up()
+    font-size 24px
 
 .list-item-actions
   margin-left 20px
@@ -172,21 +179,12 @@ export default {
   padding 0 24px
   height 60px
   color: $secondary-color
+  +tablet-up()
+    height headerHeight
 
 .title,
 .list-item:not([class*="active"]),
 .list-subscribe
   border-bottom: 1px solid #CACACA
-
-+tablet-up()
-  .title
-    height 76px
-  .lessons-list-scroll
-    top 76px
-    height: 100%
-
-+laptop-up()
-  .list-item-title
-    font-size 24px
 
 </style>
