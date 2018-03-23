@@ -44,4 +44,7 @@ export default {
   display flex
   justify-content: space-between
   align-items: center
+
+.switch
+  margin-right: 0
 </style>
