@@ -4,8 +4,8 @@ div
   div.row(v-if="talks" v-cloak)
     .card(v-for="talk in talks")
       nuxt-link(:to="path(talk)")
-        div(:class="{ 'comingsoon': !talk.isVideoLive }")
-          img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
+        //- div(:class="{ 'comingsoon': !talk.isVideoLive }")
+        img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
         .card-body
           //- b.releaseDate {{ talk.releaseDate }}
           h4.title {{ talk.title }}
@@ -40,11 +40,21 @@ export default {
   flex-wrap wrap
 
 .card
-  width 23%
-  margin-right 2%
-  margin-bottom ($vertical-space/2)
-  &:nth-of-type(4n+0)
-    margin-right 0
+  width 100%
+  margin-bottom ($vertical-space/3)
+  +tablet-up()
+    width 48%
+    margin-right 4%
+    &:nth-of-type(2n+0)
+      margin-right 0
+  +laptop-up()
+    width 23.333%
+    margin-right 2%
+    margin-bottom ($vertical-space/2)
+    &:nth-of-type(2n+0)
+      margin-right 2%
+    &:nth-of-type(4n+0)
+      margin-right 0
 
 .card-body .title
   color $secondary-color
@@ -54,8 +64,4 @@ export default {
   margin-top 0
   color: $gray
 
-.media.-video.comingsoon
-  &:before
-  &:after
-    content: none
 </style>

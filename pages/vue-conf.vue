@@ -1,14 +1,17 @@
 <template lang="pug">
   .container
-    .conf-header
-      .wrapper
-        h1.title VueConf US
+    .banner
+
     .wrapper
+      .body
+        h1.visually-hidden VueConf US Videos
+          small New Orleans, LA on March 26-28, 2018
+        p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos.  We will begin to release the videos free shortly after the conference.
       .callout.-success
         div
           courseSubscribe(:account="account" slug="vueConf" message="Notify me when new talks are available.")
       ConfList(:talks="talks" :account="account")
-    CheatSheetAlt(location='Course page cheat sheet download')
+    //- CheatSheetAlt(location='Course page cheat sheet download')
 </template>
 
 <script>
@@ -52,6 +55,19 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 
+.banner
+  height 354px
+  margin-top: -100px
+  margin-bottom ($vertical-space/3)
+  background-image url(/images/bkg-vueconf.svg)
+  background-position center bottom
+  background-size 140%
+  +tablet-up()
+    background-size 100%
+  +laptop-up()
+    height 654px
+    background-size cover
+
 .courses-header
   height 220px
   display flex
@@ -62,14 +78,26 @@ export default {
 .title
   margin 0
   padding-top 0
-  font-size 60px
+  color $secondary-color
   font-weight 600
-  color blue
   line-height 60px
 
 .callout
   display flex
   justify-content center
+
+.body
+  justify-self center
+  text-align center
+  max-width 700px
+  margin-bottom ($vertical-space/4)
+  +tablet-up()
+    margin-bottom ($vertical-space/3)
+
+.lead
+  margin-top 0
+  +tablet-up()
+    font-size 22px
 
 .courses-body
   display grid
