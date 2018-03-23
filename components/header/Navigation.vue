@@ -96,7 +96,7 @@ export default {
 
   +laptop-up()
     opacity: 1
-    margin-right: 52px
+    margin-right: 25px
 
 .button
   opacity: 0

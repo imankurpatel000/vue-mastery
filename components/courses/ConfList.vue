@@ -2,15 +2,15 @@
 div
   h2.title Playlist
   div.row(v-if="talks" v-cloak)
-    .card(v-for="talk in talks")
-      nuxt-link(:to="path(talk)")
-        //- div(:class="{ 'comingsoon': !talk.isVideoLive }")
-        img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
+    .col(v-for="talk in talks")
+      nuxt-link.card(:to="path(talk)")
+        div(:class="{ 'comingsoon': !talk.isVideoLive }")
+          img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
         .card-body
           //- b.releaseDate {{ talk.releaseDate }}
           h4.title {{ talk.title }}
           p.author {{ talk.author }}
-          p.content.truncate {{ talk.description }}
+          p.content {{ talk.description }}
 </template>
 
 <script>
@@ -39,7 +39,7 @@ export default {
   display flex
   flex-wrap wrap
 
-.card
+.col
   width 100%
   margin-bottom ($vertical-space/3)
   +tablet-up()
@@ -56,6 +56,8 @@ export default {
     &:nth-of-type(4n+0)
       margin-right 0
 
+.card
+  flex-flow column
 .card-body .title
   color $secondary-color
   padding-top 0
