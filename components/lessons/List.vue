@@ -17,7 +17,7 @@
           input(type="checkbox" :checked="isCompleted(lesson.slug)" @change="toggleCompleted(lesson.slug)")
           span.check
     .list-subscribe(v-cloak v-if="account")
-      courseSubscribe(:account="account" :slug="course.slug" message="Notify me when new lessons are available.")
+      courseSubscribe(:account="account" :slug="course.slug" message="Notify me when new lessons are available." v-cloak v-if="account")
 </template>
 
 <script>

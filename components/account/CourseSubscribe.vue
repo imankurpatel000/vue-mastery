@@ -1,10 +1,11 @@
 <template lang="pug">
-form.form(v-cloak v-if="account")
+form.form
   .body
     span {{message}}
     .switch
       input(id="subscribeSwitch" type="checkbox" :checked="isSubscribed()" @change="subscribedToMailingList")
       label(for="subscribeSwitch") Toggle
+
 </template>
 
 <script>
@@ -22,7 +23,15 @@ export default {
       return subscribed
     },
     subscribedToMailingList () {
-      this.$store.dispatch('userUpdateSubscribe', this.slug)
+      if (this.account) {
+        this.$store.dispatch('userUpdateSubscribe', this.slug)
+      } else {
+        this.$modal.show('login-form', {
+          newAccount: true,
+          headerTitle: 'Sign up to get notified',
+          location: 'Course Subscribe button'
+        })
+      }
     }
   }
 }
