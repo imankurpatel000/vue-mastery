@@ -46,8 +46,11 @@ export default {
   grid-gap: 1rem
 
 .card
-  margin: 0 0 45px 0
   flex-direction: column
+  margin: 0 0 $vertical-space/3 0
+
+  +laptop-up()
+    margin-bottom ($vertical-space/2)
 
 // TODO: @Dustin Maybe we should fix a max height for mobile
 // .card-img-top
