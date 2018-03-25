@@ -92,7 +92,7 @@ headerHeight = 76px
   border-left: solid 1px #CACACA
 
 .lessons-list-scroll
-  +tablet-up()
+  +laptop-up()
     min-height 200px
     overflow-y scroll
     position absolute
@@ -100,6 +100,7 @@ headerHeight = 76px
     bottom 0
     top headerHeight
     height "calc(100% - %s)" % headerHeight
+    width: 100%
 
 .list-subscribe
   display flex
