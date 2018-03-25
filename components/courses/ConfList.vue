@@ -4,13 +4,15 @@
   .cards(v-if="talks" v-cloak)
     //- nuxt-link.card(:to="path(talk)" v-for="talk in talks")
     .card(v-for="talk in talks")
-      .card-img-fade(:class="{ 'comingsoon': !talk.isVideoLive }")
-        img.card-img-top(v-bind:src="talk.image[0].url" :alt="talk.title")
-      .card-body
-        //- b.releaseDate {{ talk.releaseDate }}
-        h4.title {{ talk.title }}
-        p.author {{ talk.author }}
-        p.content {{ talk.description }}
+      .card-header
+        img.card-img(v-bind:src="talk.image[0].url"
+                     :alt="talk.title"
+                     :class="{ 'comingsoon': !talk.isVideoLive }")
+        .card-title
+          //- b.releaseDate {{ talk.releaseDate }}
+          h4.title {{ talk.title }}
+          p.author {{ talk.author }}
+      p.content {{ talk.description }}
 </template>
 
 <script>
@@ -34,6 +36,8 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
+$headerHeight = 150px
+$cardPadding = $vertical-space / 3
 .playlist > .title
   margin: 15px 0 25px 0
   
@@ -42,27 +46,47 @@ export default {
 
 .cards
   display: grid
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr))
   grid-gap: 1rem
 
 .card
   flex-direction: column
   margin: 0 0 $vertical-space/3 0
+  overflow: hidden
 
   +laptop-up()
     margin-bottom ($vertical-space/2)
 
-// TODO: @Dustin Maybe we should fix a max height for mobile
-// .card-img-top
-//   max-height: 310px
-//   object-fit: cover
+.card-img
+  height $headerHeight
+  width $headerHeight
+  object-fit contain
 
-.card-body .title
-  color $secondary-color
-  padding-top 0
+.card-header
+  height $headerHeight
+  display flex
+  flex-direction: row-reverse
+  justify-content: space-between
+
+  +laptop-up()
+    flex-direction row
+    justify-content: flex-start
+  
+  .title
+    color $secondary-color
+    padding-top 0
+
+.card-title
+  flex-direction column
+  justify-content center
+  display flex
+  padding $cardPadding
 
 .author
-  margin-top 0
+  margin 0
   color: $gray
+
+.content
+  padding 10px $cardPadding
 
 </style>
