@@ -1,7 +1,7 @@
 <template lang="pug">
 form.form
   .body
-    span {{message}}
+    .message {{message}}
     .switch
       input(id="subscribeSwitch" type="checkbox" :checked="isSubscribed()" @change="subscribedToMailingList")
       label(for="subscribeSwitch") Toggle
@@ -42,9 +42,12 @@ export default {
 
 .body
   display flex
-  justify-content: space-between
-  align-items: center
+  justify-content space-between
+  align-items center
 
 .switch
-  margin-right: 0
+  margin-right 0
+
+.message
+  font-weight bold
 </style>
