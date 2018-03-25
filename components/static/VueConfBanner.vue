@@ -1,6 +1,6 @@
 <template lang="pug">
   .banner
-    //- nuxt-link.button.secondary(to="/vue-conf") View Talks
+    //- nuxt-link.button.secondary(to="/vueconf") View Talks
 </template>
 
 <script>
