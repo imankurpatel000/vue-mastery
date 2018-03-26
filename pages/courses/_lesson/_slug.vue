@@ -1,61 +1,61 @@
 <template lang='pug'>
 div
-  .lesson-wrapper(v-if='course'  v-cloak)
-    lessonHeader(:course='course')
+  .wrapper(v-if='course'  v-cloak)
+    Header(:course='course')
 
-    lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonFinished' @lessonCompleted='lessonCompleted')
-    .lesson-video.-locked(v-else :style="lockedStyle")
-      unlock(:account='account')
+    Video(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='finished' @completed='completed')
+    .video.-locked(v-else :style="lockedStyle")
+      Unlock(:account='account')
 
-    lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson', :account='account', :completedUnlogged='completedUnlogged')
+    List(:course='course' :current='page'  @redirect='redirect', :account='account', :completedUnlogged='completedUnlogged')
 
-    lessonBody(:course='current' :locked='locked')
+    Body(:course='current' :locked='locked')
 
-    aside.lesson-aside(v-if="!locked" v-cloak)
+    aside.aside(v-if="!locked" v-cloak)
       .control-group
-        download(:courseLink='current.downloadLink', :account='account')
-        socialShare(:lesson='current' :courseSlug='courseSlug')
+        Download(:courseLink='current.downloadLink', :account='account')
+        SocialShare(:lesson='current' :category='category')
 
-      lessonresources(:resources='current.resources')
-      lessonChallenges(:challenges='current.codingChallenge')
+      Resources(:resources='current.resources')
+      Challenges(:challenges='current.codingChallenge')
       .text-center
         a.button.primary.border(href="https://www.facebook.com/groups/152305585468331/") Discuss in our Facebook Group
         router-link.button.inverted.-small(to="/contact") Send us Feedback
 
-    lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
+    Nav(:lessons='course.lessons' :selected='selected' @redirect='redirect' v-if="current")
 
-    lessonPopup(@selectLesson='selectLesson')
+    Popup(@redirect='redirect')
 
-  .lesson-wrapper(v-else)
-    .lesson-header.fake
-    .lesson-video.fake
-      playerPlaceholder
-    .lessons-list.fake
+  .wrapper(v-else)
+    .header.fake
+    .video.fake
+      PlayerPlaceholder
+    .list.fake
       ul.list-unstyled
         each val in [1, 2, 3]
           li
             .media-block.fake
               .media.-small.fake
               .body.fake
-    .lesson-content.fake
-    .lesson-aside.fake
+    .content.fake
+    .aside.fake
 
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import lessonHeader from '~/components/lessons/Header'
-import lessonVideo from '~/components/lessons/Video'
-import lessonsList from '~/components/lessons/List'
-import lessonBody from '~/components/lessons/Body'
-import lessonNav from '~/components/lessons/Navigation'
-import lessonResources from '~/components/lessons/resources'
-import lessonChallenges from '~/components/lessons/Challenges'
-import lessonPopup from '~/components/lessons/Popup'
-import download from '~/components/lessons/Download'
-import unlock from '~/components/lessons/Unlock'
-import socialShare from '~/components/lessons/SocialSharing'
-import playerPlaceholder from '~/components/static/PlayerPlaceholder'
+import Header from '~/components/lessons/Header'
+import Video from '~/components/lessons/Video'
+import List from '~/components/lessons/List'
+import Body from '~/components/lessons/Body'
+import Nav from '~/components/lessons/Navigation'
+import Resources from '~/components/lessons/resources'
+import Challenges from '~/components/lessons/Challenges'
+import Popup from '~/components/lessons/Popup'
+import Download from '~/components/lessons/Download'
+import Unlock from '~/components/lessons/Unlock'
+import SocialShare from '~/components/lessons/SocialSharing'
+import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
   middleware: 'anonymous',
@@ -96,29 +96,29 @@ export default {
 
   data () {
     return {
-      courseSlug: this.$route.params.lesson,
-      lessonSlug: this.$route.params.slug,
+      category: this.$route.params.lesson,
+      page: this.$route.params.slug,
       selected: null
     }
   },
 
   async fetch ({ store }) {
-    await store.dispatch('getCourse', this.courseSlug)
+    await store.dispatch('getCourse', this.category)
   },
 
   components: {
-    lessonHeader,
-    lessonVideo,
-    lessonsList,
-    lessonBody,
-    lessonNav,
-    lessonResources,
-    lessonChallenges,
-    lessonPopup,
-    socialShare,
-    download,
-    unlock,
-    playerPlaceholder
+    Header,
+    Video,
+    List,
+    Body,
+    Nav,
+    Resources,
+    Challenges,
+    Popup,
+    SocialShare,
+    Download,
+    Unlock,
+    PlayerPlaceholder
   },
 
   computed: {
@@ -129,19 +129,19 @@ export default {
     }),
 
     current () {
-      let currentLesson = null
+      let currentPage = null
       // If no lesson selected, get the first one of the course
-      if (this.lessonSlug === null) this.lessonSlug = this.course.lessons[0].slug
+      if (this.page === null) this.page = this.course.lessons[0].slug
       this.course.lessons.map((lesson, index) => {
         // Find the selected lesson in the list
-        if (this.lessonSlug === lesson.slug) {
+        if (this.page === lesson.slug) {
           // Load the current lesson
-          currentLesson = lesson
+          currentPage = lesson
           // Keep track of lesson index for the carousel
           this.selected = index
         }
       })
-      return currentLesson
+      return currentPage
     },
 
     locked () {
@@ -156,19 +156,19 @@ export default {
   },
 
   methods: {
-    selectLesson (slug) {
-      this.$router.push(`/courses/${this.courseSlug}/${slug}`)
+    redirect (slug) {
+      this.$router.push(`/courses/${this.category}/${slug}`)
     },
 
-    lessonCompleted () {
+    completed () {
       this.$store.dispatch('userUpdateCompleted', {
-        lessonSlug: this.lessonSlug,
-        courseSlug: this.courseSlug,
+        page: this.page,
+        category: this.category,
         isCompleted: true
       })
     },
 
-    lessonFinished () {
+    finished () {
       if (this.selected < this.course.lessons.length - 1) {
         this.$modal.show('next-lesson', {
           lesson: this.course.lessons[this.selected + 1],
@@ -182,7 +182,7 @@ export default {
 
 <style lang='stylus' scoped>
 @import '~assets/css/_variables'
-.lesson-wrapper
+.wrapper
   display grid
   grid-template-columns 1fr 1fr
   grid-template-areas 'header header'\
@@ -192,10 +192,10 @@ export default {
                       'sidebar sidebar'\
                       'footer footer'
 
-.lesson-header
+.header
   grid-area header
 
-.lesson-video
+.video
   grid-area video
   &.-locked
     position relative
@@ -206,10 +206,10 @@ export default {
     +tablet-up()
       height 500px
 
-.lesson-content
+.content
   grid-area content
 
-.lesson-aside
+.aside
   grid-area sidebar
   padding 0 4%
   > div
@@ -224,20 +224,20 @@ export default {
       +laptop-up()
         margin-right 0
 
-.lessons-nav
+.nav
   grid-area footer
 
-  .lesson-aside
+  .aside
     margin $vertical-space 0
 +laptop-up()
-  .lesson-wrapper
+  .wrapper
     grid-template-columns 1fr 1fr 30%
     grid-template-areas 'header  header  header'\
-                         'video   video   list'\
-                         'content content sidebar'\
-                         'footer  footer  footer'
+                        'video   video   list'\
+                        'content content sidebar'\
+                        'footer  footer  footer'
 
-  .lesson-aside
+  .aside
     padding 0 8%
 
 </style>
