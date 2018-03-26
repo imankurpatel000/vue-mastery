@@ -21,7 +21,7 @@ export default {
     background-size 100%
   +laptop-up()
     height 654px
-    background-size cover
+    background-size auto 100%
 
 .vue-conf-page .banner
   margin-top -100px
