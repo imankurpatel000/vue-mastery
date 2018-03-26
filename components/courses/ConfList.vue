@@ -60,6 +60,7 @@ $cardPadding = $vertical-space / 3
 .card-img
   height $headerHeight
   width $headerHeight
+  min-width $headerHeight
   object-fit contain
 
 .card-header
