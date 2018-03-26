@@ -42,6 +42,7 @@ const actions = {
         commit(types.RECEIVE_COURSES, { courses })
       })
   },
+
   getCourse ({ commit, state, rootState }, slug) {
     return db.get('courses', {
       orderByChild: 'slug',

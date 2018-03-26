@@ -1,31 +1,30 @@
 <template lang='pug'>
 div
-  div(v-if='course'  v-cloak)
-    .lesson-wrapper
-      lessonHeader(:course='course')
+  .lesson-wrapper(v-if='course'  v-cloak)
+    lessonHeader(:course='course')
 
-      lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonFinished' @lessonCompleted='lessonCompleted')
-      .lesson-video.-locked(v-else :style="lockedStyle")
-        unlock(:account='account')
+    lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonFinished' @lessonCompleted='lessonCompleted')
+    .lesson-video.-locked(v-else :style="lockedStyle")
+      unlock(:account='account')
 
-      lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson', :account='account', :completedUnlogged='completedUnlogged')
+    lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson', :account='account', :completedUnlogged='completedUnlogged')
 
-      lessonBody(:course='current' :locked='locked')
+    lessonBody(:course='current' :locked='locked')
 
-      aside.lesson-aside(v-if="!locked" v-cloak)
-        .control-group
-          download(:courseLink='current.downloadLink', :account='account')
-          socialShare(:lesson='current' :courseSlug='courseSlug')
+    aside.lesson-aside(v-if="!locked" v-cloak)
+      .control-group
+        download(:courseLink='current.downloadLink', :account='account')
+        socialShare(:lesson='current' :courseSlug='courseSlug')
 
-        lessonresources(:resources='current.resources')
-        lessonChallenges(:challenges='current.codingChallenge')
-        .text-center
-          a.button.primary.border(href="https://www.facebook.com/groups/152305585468331/") Discuss in our Facebook Group
-          router-link.button.inverted.-small(to="/contact") Send us Feedback
+      lessonresources(:resources='current.resources')
+      lessonChallenges(:challenges='current.codingChallenge')
+      .text-center
+        a.button.primary.border(href="https://www.facebook.com/groups/152305585468331/") Discuss in our Facebook Group
+        router-link.button.inverted.-small(to="/contact") Send us Feedback
 
-      lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
+    lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
 
-      lessonPopup(@selectLesson='selectLesson')
+    lessonPopup(@selectLesson='selectLesson')
 
   .lesson-wrapper(v-else)
     .lesson-header.fake
@@ -40,6 +39,7 @@ div
               .body.fake
     .lesson-content.fake
     .lesson-aside.fake
+
 </template>
 
 <script>
@@ -49,7 +49,7 @@ import lessonVideo from '~/components/lessons/Video'
 import lessonsList from '~/components/lessons/List'
 import lessonBody from '~/components/lessons/Body'
 import lessonNav from '~/components/lessons/Navigation'
-import lessonresources from '~/components/lessons/resources'
+import lessonResources from '~/components/lessons/resources'
 import lessonChallenges from '~/components/lessons/Challenges'
 import lessonPopup from '~/components/lessons/Popup'
 import download from '~/components/lessons/Download'
@@ -112,7 +112,7 @@ export default {
     lessonsList,
     lessonBody,
     lessonNav,
-    lessonresources,
+    lessonResources,
     lessonChallenges,
     lessonPopup,
     socialShare,
@@ -226,15 +226,6 @@ export default {
 
 .lessons-nav
   grid-area footer
-
-// +tablet-up()
-//   .lesson-wrapper
-//     grid-template-columns 1fr 1fr 30%
-//     grid-template-areas 'header header header'\
-//                         'video video video'\
-//                         'content content list'\
-//                         'sidebar sidebar sidebar'\
-//                         'footer footer footer'
 
   .lesson-aside
     margin $vertical-space 0
