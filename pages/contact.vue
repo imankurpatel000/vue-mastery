@@ -9,7 +9,7 @@
       SocialMediaLinks
 
     .contact-form
-      form.form(v-on:submit.prevent="submit")
+      form.form(@submit.prevent="submit")
         .form-group
           label.visually-hidden(for="name") Name
           input(class="input -hollow" placeholder="Name" v-model="name" autofocus)

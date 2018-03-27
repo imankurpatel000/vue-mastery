@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    button.button.primary.border(type="button" v-on:click="openShare") Share
+    button.button.primary.border(type="button" @click="openShare") Share
     no-ssr
       modal(name="share" v-cloak height="270")
         h3.form-title Share this lesson

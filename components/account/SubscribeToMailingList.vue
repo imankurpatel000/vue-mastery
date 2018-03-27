@@ -3,7 +3,7 @@ form.form.card
   .card-body
     .form-group.-switched
       .switch
-        input(id="subscribeSwitch" type="checkbox" v-model="subscribedToMailingList" v-on:change="subscribe")
+        input(id="subscribeSwitch" type="checkbox" v-model="subscribedToMailingList" @change="subscribe")
         label(for="subscribeSwitch")
       span I want to receive occasional emails about new educational content
 

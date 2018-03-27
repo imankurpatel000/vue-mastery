@@ -1,5 +1,5 @@
 <template lang="pug">
-form.form(v-on:submit.prevent="submit")
+form.form(@submit.prevent="submit")
   h3.form-title {{ title }}
   .form-header(v-if="header !== ''" v-html="header")
 

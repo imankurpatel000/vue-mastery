@@ -2,7 +2,7 @@
   button(type="button" @click.prevent="GoogleButton" :disabled="disabled")
     i.fab.fa-google
     | {{ label }}
-  //- <button type="button" class="btn" v-on:click.prevent="GoogleButton" :disabled="disabled">
+  //- <button type="button" class="btn" @click.prevent="GoogleButton" :disabled="disabled">
   //-   <i class="fab fa-google"></i>
   //-   {{ label }}
   //- </button>

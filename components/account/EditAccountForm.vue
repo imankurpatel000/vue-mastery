@@ -5,10 +5,10 @@ form.form.card
       label Profile Image
       .upload
         button.button.primary.border Upload Image
-        input.input(type="file" accept="image/*" placeholder="Profile Image" v-on:change="updateProfileImage" ref="fileInput")
+        input.input(type="file" accept="image/*" placeholder="Profile Image" @change="updateProfileImage" ref="fileInput")
     .form-group
       label Display Name
-      input.input(type="email" placeholder="Display Name" v-model="newData.displayName" v-on:input="updateField('displayName')")
+      input.input(type="email" placeholder="Display Name" v-model="newData.displayName" @input="updateField('displayName')")
 
     .form-error
       .callout.-error(v-if="formError.length > 0" v-text="formError")

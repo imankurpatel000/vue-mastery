@@ -2,7 +2,7 @@
   button(type="button" @click.prevent="GithubButton" :disabled="disabled")
     i.fab.fa-github
     | {{ label }}
-  //- <button type="button" class="btn" v-on:click.prevent="GithubButton" :disabled="disabled">
+  //- <button type="button" class="btn" @click.prevent="GithubButton" :disabled="disabled">
   //-   <i class="fab fa-github"></i>
   //-   {{ label }}
   //- </button>

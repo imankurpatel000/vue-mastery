@@ -9,7 +9,7 @@ no-ssr
 
     .progress(v-if="account" v-cloak)
       p Next lesson starting in:
-      h2.blink(v-on:animationiteration="countdown") {{ count }}
+      h2.blink(@animationiteration="countdown") {{ count }}
 
     .control-group.-spaced
       button.button.secondary.border(v-if="!account" @click="signup" v-cloak) Save my Progress
