@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  .wrapper(v-if='course'  v-cloak)
+  .lesson-container(v-if='course'  v-cloak)
     Header(:course='course')
 
     Video(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='finished' @completed='completed')
@@ -26,7 +26,7 @@ div
 
     Popup(@redirect='redirect')
 
-  .wrapper(v-else)
+  .lesson-container(v-else)
     .header.fake
     .video.fake
       PlayerPlaceholder
@@ -182,16 +182,21 @@ export default {
 
 <style lang='stylus' scoped>
 @import '~assets/css/_variables'
-.wrapper
+.lesson-container
   display grid
   grid-template-columns 1fr 1fr
-  grid-template-areas 'header header'\
-                      'video video'\
-                      'list list'\
-                      'content content'\
-                      'sidebar sidebar'\
-                      'footer footer'
-
+  grid-template-areas 'header'\
+                      'video'\
+                      'list'\
+                      'content'\
+                      'sidebar'\
+                      'footer'
+  +laptop-up()
+    grid-template-columns 1fr 1fr 30%
+    grid-template-areas 'header  header  header'\
+                        'video   video   list'\
+                        'content content sidebar'\
+                        'footer  footer  footer'
 .header
   grid-area header
 
@@ -212,6 +217,9 @@ export default {
 .aside
   grid-area sidebar
   padding 0 4%
+
+  +laptop-up()
+    padding 0 8%
   > div
     margin-bottom 20px
 
@@ -229,15 +237,5 @@ export default {
 
   .aside
     margin $vertical-space 0
-+laptop-up()
-  .wrapper
-    grid-template-columns 1fr 1fr 30%
-    grid-template-areas 'header  header  header'\
-                        'video   video   list'\
-                        'content content sidebar'\
-                        'footer  footer  footer'
-
-  .aside
-    padding 0 8%
 
 </style>
