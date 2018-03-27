@@ -1,7 +1,7 @@
 <template lang="pug">
-.media-block(v-if="course")
+.media-block
   .media
-    img(v-bind:src="course.image[0].url" :alt="course.title")
+    img(:src="course.image[0].url" :alt="course.title")
 
   .body
     h3.title {{ course.title }}
@@ -21,7 +21,16 @@
 
 <script>
 export default {
-  props: ['showDetail', 'course']
+  props: {
+    showDetail: {
+      type: Boolean,
+      default: false
+    },
+    course: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 

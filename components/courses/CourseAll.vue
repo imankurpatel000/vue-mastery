@@ -1,8 +1,9 @@
 <template lang="pug">
 div
   .list(v-if="courses" v-cloak)
-    nuxt-link.list-card.card(:to="link(course)"
-                              v-for="course, key, index in courses" :key="course.id")
+    nuxt-link.list-card.card(v-for="course, key, index in courses"
+                             :key="course.id"
+                             :to="link(course)")
       .card-body
         courseList(:course="course")
         courseAction(:course="course")
@@ -10,9 +11,9 @@ div
 </template>
 
 <script>
-import courseList from '~/components/courses/List'
-import courseAction from '~/components/courses/Actions'
-import fakeList from '~/components/courses/FakeList'
+import courseList from '~/components/courses/CourseList'
+import courseAction from '~/components/courses/CourseActions'
+import fakeList from '~/components/courses/CourseFakeList'
 
 export default {
   components: {
@@ -20,7 +21,17 @@ export default {
     courseAction,
     fakeList
   },
-  props: [ 'courses', 'account' ],
+
+  props: {
+    account: {
+      type: Object,
+      required: false
+    },
+    courses: {
+      type: Object,
+      required: false
+    }
+  },
 
   methods: {
     link (course) {

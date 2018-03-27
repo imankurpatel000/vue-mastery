@@ -1,5 +1,5 @@
 <template lang="pug">
-  .lesson-challenge.card(v-if="challenges" v-cloak)
+  .lesson-challenge.card
     .card-body
       h3
         i.fa.fa-code
@@ -10,7 +10,12 @@
 <script>
 export default {
   name: 'challenges',
-  props: ['challenges']
+  props: {
+    challenges: {
+      type: String,
+      required: true
+    }
+  }
 }
 </script>
 

@@ -10,7 +10,20 @@ form.form
 
 <script>
 export default {
-  props: ['account', 'slug', 'message'],
+  props: {
+    account: {
+      type: Object,
+      required: false
+    },
+    slug: {
+      type: String,
+      required: true
+    },
+    message: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     isSubscribed () {
       let subscribed = false

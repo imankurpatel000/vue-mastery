@@ -9,7 +9,7 @@
       .navbar-secondary(v-cloak v-if='account')
         button.button.primary.-small(type='button' @click='signOut') Sign Out
         nuxt-link.navbar-profile(to='/account?section=Profile')
-          img(v-bind:src='account.image' v-bind:alt='account.displayName')
+          img(:src='account.image' :alt='account.displayName')
       .navbar-secondary(v-cloak v-else)
         button.button.inverted.-small(type='button' @click='openSignUp') Sign Up
         button.button.primary.-small(type='button' @click='openLogin') Login
@@ -17,7 +17,12 @@
 
 <script>
 export default {
-  props: ['account'],
+  props: {
+    account: {
+      type: Object,
+      required: false
+    }
+  },
   model: {
     event: 'toggleNav'
   },
@@ -63,12 +68,13 @@ export default {
   opacity: 0
   transition: opacity .2s ease-in
   pointer-events: none
-  top: 0
+  top: 50px
 
   *
     pointer-events none
 
   +laptop-up()
+    top: 0
     background-color: transparent
     pointer-events: none
     opacity: 1
@@ -135,13 +141,15 @@ export default {
 
 .navbar-profile
   display: flex
-  margin-left: 18px
   border-radius: 50%
   overflow: hidden
   box-shadow: 0 1px 0 0 #E4E4E4
   background-color: #fff
   width: 40px
   height: 40px
+
+  +laptop-up()
+    margin-left: 18px
 
   img
     width: 100%

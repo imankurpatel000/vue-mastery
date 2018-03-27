@@ -1,22 +1,23 @@
 <template lang='pug'>
 div
-  .lesson-container(v-if='course'  v-cloak)
+  .lesson-wrapper(v-if='course'  v-cloak)
     Header(:course='course')
 
     Video(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='finished' @completed='completed')
     .video.-locked(v-else :style="lockedStyle")
       Unlock(:account='account')
 
-    List(:course='course' :current='page'  @redirect='redirect', :account='account', :completedUnlogged='completedUnlogged')
+    List(:course='course' :current='page'  @redirect='redirect', :account='account', :completed-unlogged='completedUnlogged')
 
     Body(:course='current' :locked='locked')
 
-    aside.aside(v-if="!locked" v-cloak)
+    aside.lesson-aside(v-if="!locked" v-cloak)
       .control-group
         Download(:courseLink='current.downloadLink', :account='account')
         SocialShare(:lesson='current' :category='category')
 
-      Resources(:resources='current.resources')
+      Resources(v-if="current.resources" v-cloak
+                :resources='current.resources')
       Challenges(:challenges='current.codingChallenge')
       .text-center
         a.button.primary.border(href="https://www.facebook.com/groups/152305585468331/") Discuss in our Facebook Group
@@ -26,7 +27,7 @@ div
 
     Popup(@redirect='redirect')
 
-  .lesson-container(v-else)
+  .container(v-else)
     .header.fake
     .video.fake
       PlayerPlaceholder
@@ -38,23 +39,23 @@ div
               .media.-small.fake
               .body.fake
     .content.fake
-    .aside.fake
+    .lesson-aside.fake
 
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Header from '~/components/lessons/Header'
-import Video from '~/components/lessons/Video'
-import List from '~/components/lessons/List'
-import Body from '~/components/lessons/Body'
-import Nav from '~/components/lessons/Navigation'
-import Resources from '~/components/lessons/resources'
-import Challenges from '~/components/lessons/Challenges'
-import Popup from '~/components/lessons/Popup'
-import Download from '~/components/lessons/Download'
-import Unlock from '~/components/lessons/Unlock'
-import SocialShare from '~/components/lessons/SocialSharing'
+import Body from '~/components/lessons/LessonBody'
+import Challenges from '~/components/lessons/LessonChallenges'
+import Download from '~/components/lessons/LessonDownload'
+import Header from '~/components/lessons/LessonHeader'
+import List from '~/components/lessons/LessonList'
+import Nav from '~/components/lessons/LessonNavigation'
+import Popup from '~/components/lessons/LessonPopup'
+import Resources from '~/components/lessons/LessonResources'
+import SocialShare from '~/components/lessons/LessonSocialSharing'
+import Unlock from '~/components/lessons/LessonUnlock'
+import Video from '~/components/lessons/LessonVideo'
 import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
@@ -100,10 +101,6 @@ export default {
       page: this.$route.params.slug,
       selected: null
     }
-  },
-
-  async fetch ({ store }) {
-    await store.dispatch('getCourse', this.category)
   },
 
   components: {
@@ -155,6 +152,10 @@ export default {
     }
   },
 
+  async fetch ({ store }) {
+    await store.dispatch('getCourse', this.category)
+  },
+
   methods: {
     redirect (slug) {
       this.$router.push(`/courses/${this.category}/${slug}`)
@@ -182,9 +183,9 @@ export default {
 
 <style lang='stylus' scoped>
 @import '~assets/css/_variables'
-.lesson-container
+.lesson-wrapper
   display grid
-  grid-template-columns 1fr 1fr
+  grid-template-columns 1fr
   grid-template-areas 'header'\
                       'video'\
                       'list'\
@@ -197,10 +198,10 @@ export default {
                         'video   video   list'\
                         'content content sidebar'\
                         'footer  footer  footer'
-.header
+.lesson-header
   grid-area header
 
-.video
+.lesson-video
   grid-area video
   &.-locked
     position relative
@@ -211,31 +212,33 @@ export default {
     +tablet-up()
       height 500px
 
-.content
+.lesson-content
   grid-area content
 
-.aside
+.lesson-aside
   grid-area sidebar
   padding 0 4%
 
   +laptop-up()
     padding 0 8%
+    margin $vertical-space 0
+
   > div
     margin-bottom 20px
 
   .control-group
     justify-content center
+
     +laptop-up()
       justify-content space-evenly
+
     .button
       margin-right 4%
+
       +laptop-up()
         margin-right 0
 
-.nav
+.lessons-nav
   grid-area footer
-
-  .aside
-    margin $vertical-space 0
 
 </style>

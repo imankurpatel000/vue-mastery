@@ -1,8 +1,10 @@
 <template lang="pug">
 div
   .list(v-if="featured" v-cloak)
-    nuxt-link.list-card.card(:to="`/courses/${course.slug}/${course.lessons[0].slug}`"
-                              v-for="course, key in featured" :key="course.id" v-if="course.lessons")
+    nuxt-link.list-card.card(v-for="course, key in featured"
+                             v-if="course.lessons"
+                             :key="course.id"
+                             :to="`/courses/${course.slug}/${course.lessons[0].slug}`")
       .card-body
         courseList(:course="course")
     .list-card.card.coming-soon(v-else)
@@ -13,13 +15,18 @@ div
 </template>
 
 <script>
-import courseList from '~/components/courses/List'
-import courseAction from '~/components/courses/Actions'
-import fakeList from '~/components/courses/FakeList'
+import courseList from '~/components/courses/CourseList'
+import courseAction from '~/components/courses/CourseActions'
+import fakeList from '~/components/courses/CourseFakeList'
 
 export default {
+  props: {
+    featured: {
+      type: Array,
+      required: false
+    }
+  },
 
-  props: ['featured'],
   components: {
     courseList,
     courseAction,

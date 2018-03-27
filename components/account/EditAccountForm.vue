@@ -19,7 +19,12 @@ form.form.card
 import firebase from 'firebase'
 
 export default {
-  props: ['account'],
+  props: {
+    account: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       newData: {

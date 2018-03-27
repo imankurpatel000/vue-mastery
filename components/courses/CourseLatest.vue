@@ -1,25 +1,35 @@
 <template lang="pug">
-  div(v-if="latests" v-cloak)
+  div
     h2.title Latest Free Videos
-    div(v-for="lesson in latests")
-      nuxt-link(:to="path(lesson)")
-        .media-block
-          .media.-video
-            img(v-bind:src="lesson.image[0].url")
-          .body
-            h4 {{ lesson.title }}
-            .meta
-              b {{ lessonsCourse(lesson) }}
-            .meta
-              label.-has-icon
-                i.far.fa-clock
-                | {{ lesson.duration | time }}
+    nuxt-link(v-for="lesson in latests"
+              :key="lesson.id"
+              :to="path(lesson)")
+      .media-block
+        .media.-video
+          img(:src="lesson.image[0].url")
+        .body
+          h4 {{ lesson.title }}
+          .meta
+            b {{ lessonsCourse(lesson) }}
+          .meta
+            label.-has-icon
+              i.far.fa-clock
+              | {{ lesson.duration | time }}
 </template>
 
 <script>
 
 export default {
-  props: ['latests', 'courses'],
+  props: {
+    latests: {
+      type: Array,
+      required: true
+    },
+    courses: {
+      type: Object,
+      required: false
+    }
+  },
 
   methods: {
     path (lesson) {

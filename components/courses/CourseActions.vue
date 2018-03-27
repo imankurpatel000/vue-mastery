@@ -29,7 +29,12 @@
 import { mapState } from 'vuex'
 
 export default {
-  props: ['course'],
+  props: {
+    course: {
+      type: Object,
+      required: true
+    }
+  },
 
   computed: {
     ...mapState({

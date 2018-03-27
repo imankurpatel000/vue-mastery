@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card(v-if="resources && resources.length" v-cloak)
+  .card(v-if="resources.length" v-cloak)
     .card-body
       h3
         i.fa.fa-folder-open
@@ -11,7 +11,12 @@
 <script>
 export default {
   name: 'resources',
-  props: ['resources']
+  props: {
+    resources: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 

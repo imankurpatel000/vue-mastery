@@ -11,7 +11,7 @@
 <script>
 export default {
   name: 'unlockButton',
-  props: ['courseLink', 'account'],
+
   methods: {
     openLogin () {
       this.$modal.show('login-form', {

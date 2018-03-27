@@ -15,7 +15,16 @@
 <script>
 export default {
   name: 'downloadButton',
-  props: ['courseLink', 'account'],
+  props: {
+    account: {
+      type: Object,
+      required: false
+    },
+    courseLink: {
+      type: String,
+      default: false
+    }
+  },
   methods: {
     openLogin () {
       this.$modal.show('login-form', {

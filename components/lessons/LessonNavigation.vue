@@ -1,9 +1,9 @@
 <template lang="pug">
-.lessons-nav.paginate(v-if="lessons && lessons.length > 1" v-cloak)
-  button.prev(@click="goTo(-1)" rel="prev" v-bind:disabled="isFirst")
+.lessons-nav.paginate(v-if="lessons.length > 1" v-cloak)
+  button.prev(@click="goTo(-1)" rel="prev" :disabled="isFirst")
     i.fa.fa-chevron-left
     | Previous Lesson
-  button.next(@click="goTo(1)" rel="next" v-bind:disabled="isLast")
+  button.next(@click="goTo(1)" rel="next" :disabled="isLast")
     | Next Lesson
     i.fa.fa-chevron-right
 </template>
@@ -11,7 +11,15 @@
 <script>
 export default {
   name: 'navigation',
-  props: ['lessons', 'selected'],
+  props: {
+    lessons: {
+      type: Array,
+      required: true
+    },
+    selected: {
+      type: Number
+    }
+  },
   computed: {
     isFirst () { return this.selected === 0 },
     isLast () { return this.selected === this.lessons.length - 1 }

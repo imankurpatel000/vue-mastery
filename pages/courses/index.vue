@@ -12,8 +12,8 @@
 <script>
 import { mapState } from 'vuex'
 
-import CourseList from '~/components/courses/All'
-import Latest from '~/components/courses/Latest'
+import CourseList from '~/components/courses/CourseAll'
+import Latest from '~/components/courses/CourseLatest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 
 export default {
@@ -28,10 +28,16 @@ export default {
       }]
     }
   },
+
   components: {
     CourseList,
     Latest,
     CheatSheetAlt
+  },
+
+  async fetch ({ store }) {
+    await store.dispatch('latest')
+    await store.dispatch('getAllCourses')
   },
 
   computed: {
@@ -40,11 +46,6 @@ export default {
       courses: result => result.courses.courses,
       latests: result => result.courses.latests
     })
-  },
-
-  async fetch ({ store }) {
-    await store.dispatch('latest')
-    await store.dispatch('getAllCourses')
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template lang="pug">
 form.form(v-on:submit.prevent="submit")
   h3.form-title {{ title }}
-  .form-header(v-if="header" v-html="header")
+  .form-header(v-if="header !== ''" v-html="header")
 
   .form-group
     .callout.-info(v-if="isNew" v-cloak)
@@ -13,7 +13,7 @@ form.form(v-on:submit.prevent="submit")
 
   .form-group
     label.label(for="email") Email
-    input.input(v-bind:class="{ '-is-error': invalidEmail }"
+    input.input(:class="{ '-is-error': invalidEmail }"
                 type="email"
                 placeholder="Account Email"
                 @focus="isFocus = true"
@@ -24,7 +24,7 @@ form.form(v-on:submit.prevent="submit")
 
   .form-group.-inline(v-if="rememberPassword" v-cloak)
     label.label(for="password") Password
-    input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password" ref="password")
+    input.input(:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password" ref="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
     button.button.-has-icon.-small.link(type="button" @click="switchVisibility()")
       i.fa.fa-eye-slash(v-if='showPassword')
@@ -68,15 +68,19 @@ export default {
   },
   props: {
     newAccount: {
+      type: Boolean,
       default: false
     },
     headerTitle: {
-      default: false
+      type: String,
+      default: ''
     },
     header: {
-      default: false
+      type: String,
+      default: ''
     },
     location: {
+      type: String,
       default: ''
     }
   },
@@ -94,7 +98,7 @@ export default {
   },
   computed: {
     title () {
-      if (this.headerTitle) return this.headerTitle
+      if (this.headerTitle !== '') return this.headerTitle
       let t = this.rememberPassword ? 'Welcome Back!' : 'Retrieve your password'
       if (this.isNew) t = 'Let\'s Get You Signed Up.'
       return t

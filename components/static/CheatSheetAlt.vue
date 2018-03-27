@@ -10,7 +10,10 @@
 import DownloadButton from '~/components/static/DownloadButton'
 
 export default {
-  props: ['location'],
+  props: {
+    location: String,
+    required: true
+  },
   components: {
     DownloadButton
   },

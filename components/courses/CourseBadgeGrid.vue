@@ -1,15 +1,26 @@
 <template lang="pug">
-div.card.badge-card(v-if="courses" v-cloak)
+div.card.badge-card
   .card-body
-    nuxt-link(:to="link(course)"
-                    v-for="course, key, index in courses" :key="course.id")
+    nuxt-link(v-for="course, key, index in courses"
+              :key="course.id"
+              :to="link(course)")
       .course-badge
-        img(v-bind:src="course.image[0].url" v-if="course")
+        img(v-if="course" v-cloak
+            :src="course.image[0].url")
 </template>
 
 <script>
 export default {
-  props: [ 'courses', 'account' ],
+  props: {
+    account: {
+      type: Object,
+      required: false
+    },
+    courses: {
+      type: Object,
+      required: true
+    }
+  },
 
   methods: {
     link (course) {

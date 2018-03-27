@@ -9,10 +9,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Top from '~/components/header/Header.vue'
+import Top from '~/components/header/PageHeader.vue'
 import VuePodcast from '~/components/static/VuePodcast.vue'
-import Bottom from '~/components/footer/Footer.vue'
-import AuthForm from '~/components/account/modal.vue'
+import Bottom from '~/components/footer/PageFooter.vue'
+import AuthForm from '~/components/account/Accountmodal.vue'
 
 export default {
   components: {

@@ -2,10 +2,10 @@
 .playlist
   h2.title Playlist
   .cards(v-if="talks" v-cloak)
-    //- nuxt-link.card(:to="path(talk)" v-for="talk in talks")
+    //- nuxt-link.card(v-for="talk in talks" :to="path(talk)" )
     .card(v-for="talk in talks")
       .card-header
-        img.card-img(v-bind:src="talk.image[0].url"
+        img.card-img(:src="talk.image[0].url"
                      :alt="talk.title"
                      :class="{ 'comingsoon': !talk.isVideoLive }")
         .card-title
@@ -16,10 +16,19 @@
 </template>
 
 <script>
-import fakeList from '~/components/courses/FakeList'
+import fakeList from '~/components/courses/CourseFakeList'
 
 export default {
-  props: ['talks', 'account'],
+  props: {
+    account: {
+      type: Object,
+      required: true
+    },
+    talks: {
+      type: Object,
+      required: true
+    }
+  },
 
   components: {
     fakeList

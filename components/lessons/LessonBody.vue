@@ -4,17 +4,26 @@
       h1.title {{ course.title}}
       .lesson-body(v-html="body")
     .lesson-locked(v-if="locked" v-cloak)
-      unlock
+      Unlock
 </template>
 
 <script>
-import unlock from '~/components/lessons/Unlock'
+import Unlock from '~/components/lessons/LessonUnlock'
 
 export default {
   name: 'lesson-content',
-  props: ['course', 'locked'],
+  props: {
+    course: {
+      type: Object,
+      required: true
+    },
+    locked: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
-    unlock
+    Unlock
   },
   computed: {
     body () {

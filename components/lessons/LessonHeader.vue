@@ -2,7 +2,7 @@
   .lesson-header
     .wrapper
       .media
-        img(v-bind:src="course.image[0].url")
+        img(:src="course.image[0].url")
       .body
         h2.title {{ course.title }}
 </template>
@@ -10,7 +10,12 @@
 <script>
 export default {
   name: 'lesson-header',
-  props: ['course']
+  props: {
+    course: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 

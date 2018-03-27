@@ -3,7 +3,7 @@
     .hero
       Hero
     .free-videos
-      Free(:free="free" :courses="courses")
+      Free(:free="free")
     .course-list
       .section
         h2.title Courses
@@ -23,9 +23,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import Featured from '~/components/courses/Featured'
-import Free from '~/components/courses/Free'
-import Hero from '~/components/static/Hero'
+import Featured from '~/components/courses/CourseFeatured'
+import Free from '~/components/courses/CourseFree'
+import Hero from '~/components/static/HeroBanner'
 import MeetTeachers from '~/components/static/MeetTeachers'
 import CommunitySupport from '~/components/static/CommunitySupport'
 import CheatSheetMain from '~/components/static/CheatSheetMain'

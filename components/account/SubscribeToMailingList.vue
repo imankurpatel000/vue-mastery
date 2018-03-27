@@ -14,7 +14,12 @@ form.form.card
 
 <script>
 export default {
-  props: ['account'],
+  props: {
+    account: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       subscribedToMailingList: this.account.subscribedToMailingList,

@@ -6,7 +6,12 @@
 <script>
 export default {
   name: 'vimeo',
-  props: ['videoId'],
+  props: {
+    videoId: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       completed: false,

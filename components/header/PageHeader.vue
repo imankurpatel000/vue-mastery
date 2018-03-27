@@ -5,20 +5,20 @@
         span.visually-hidden Vue mastery
         img(src="/images/logo.png" role="logo" alt="Vue Mastery logo")
 
-      navigation(:account='account' @closeNav='toggleNav(true)')
-    hambuger(@toggleNav='toggleNav()')
+      Navigation(:account='account' @closeNav='toggleNav(true)')
+    Hambuger(@toggleNav='toggleNav()')
 </template>
 
 <script>
-import navigation from './Navigation'
-import hambuger from './Hamburger'
 import { mapState, mapActions } from 'vuex'
+import Navigation from './PageNavigation'
+import Hambuger from './PageHamburger'
 
 export default {
   name: 'top',
   components: {
-    navigation,
-    hambuger
+    Navigation,
+    Hambuger
   },
   computed: {
     ...mapState({

@@ -3,7 +3,7 @@
   h3.title Lessons
   .lessons-list-scroll
     .list-item(v-for="(lesson, index) in course.lessons"
-               v-bind:class="[activeOrCompleted(lesson.slug), unloggedAndLock(lesson.lock)]"
+               :class="[activeOrCompleted(lesson.slug), unloggedAndLock(lesson.lock)]"
                @click="selectLesson(lesson.slug)")
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
@@ -24,14 +24,35 @@
 import courseSubscribe from '~/components/account/CourseSubscribe'
 export default {
   name: 'list',
-  props: ['course', 'current', 'account', 'completedUnlogged'],
+
+  props: {
+    account: {
+      type: Object,
+      required: false
+    },
+    course: {
+      type: Object,
+      required: true
+    },
+    current: {
+      type: String,
+      required: true
+    },
+    completedUnlogged: {
+      type: Object,
+      default: false
+    }
+  },
+
   components: {
     courseSubscribe
   },
+
   methods: {
     selectLesson (lessonSlug) {
       this.$emit('selectLesson', lessonSlug)
     },
+
     toggleCompleted (lessonSlug) {
       this.$store.dispatch('userUpdateCompleted', {
         lessonSlug: lessonSlug,
@@ -46,6 +67,7 @@ export default {
         return true
       }
     },
+
     isCompleted (lessonSlug) {
       let completed = false
       let history = {}
@@ -64,12 +86,14 @@ export default {
       }
       return completed
     },
+
     activeOrCompleted (lessonSlug) {
       return {
         active: this.current === lessonSlug,
         completed: this.isCompleted(lessonSlug)
       }
     },
+
     unloggedAndLock (lock) {
       return !this.account && lock ? '-locked' : 'unlock'
     }

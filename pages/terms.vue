@@ -13,6 +13,7 @@ export default {
   head: {
     title: 'Terms of Service'
   },
+
   computed: {
     terms () {
       return Terms

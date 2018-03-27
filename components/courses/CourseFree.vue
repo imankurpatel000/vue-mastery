@@ -5,7 +5,7 @@
       .media-block(v-for="lesson in free")
         nuxt-link(:to="path(lesson)")
           .media.-video
-            img(v-bind:src="lesson.image[0].url" class="-large" :alt="lesson.title")
+            img(:src="lesson.image[0].url" class="-large" :alt="lesson.title")
         .body
           nuxt-link(:to="path(lesson)" class="list-free -inverted")
             h3.title {{ lesson.title }}
@@ -27,10 +27,15 @@
 </template>
 
 <script>
-import fakeList from '~/components/courses/FakeList'
+import fakeList from '~/components/courses/CourseFakeList'
 
 export default {
-  props: ['free', 'courses'],
+  props: {
+    free: {
+      type: Array,
+      required: false
+    }
+  },
 
   components: {
     fakeList

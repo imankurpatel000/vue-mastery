@@ -14,12 +14,24 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'downloadButton',
-  props: ['buttonClass', 'location'],
+
+  props: {
+    location: {
+      type: String,
+      required: true
+    },
+    buttonClass: {
+      type: String,
+      required: false
+    }
+  },
+
   computed: {
     ...mapState({
       account: result => result.account.account
     })
   },
+
   methods: {
     openLogin () {
       this.$modal.show('login-form', {

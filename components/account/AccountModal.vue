@@ -1,7 +1,7 @@
 <template lang="pug">
   no-ssr
     modal(name="login-form" v-cloak height="auto" @before-open="beforeOpen" @before-close="beforeClose" scrollable=true)
-      AuthForm(:newAccount="newAccount" :headerTitle="headerTitle" :header="header" :location="location")
+      AuthForm(:new-account="newAccount" :header-title="headerTitle" :header="header" :location="location")
 </template>
 
 <script>
@@ -50,7 +50,7 @@ export default {
       this.headerTitle = event.params.headerTitle
       this.header = event.params.header
       this.redirect = event.params.redirect || false
-      this.location = event.params.location
+      this.location = event.params.location || ''
     },
     beforeClose (event) {
       this.isOpen = false

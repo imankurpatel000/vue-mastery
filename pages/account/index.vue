@@ -2,30 +2,39 @@
 .wrapper
   .account(v-if="account" v-cloak)
     .account-image
-      a(v-bind:href="account.image" target="_blank" title="Click To View")
-        img(v-bind:src="account.image" width="100" height="100" v-bind:alt="imageAlt")
+      a(:href="account.image" target="_blank" title="Click To View")
+        img(:src="account.image" width="100" height="100" :alt="imageAlt")
     .account-info
       h3(v-text="account.displayName")
 
   .account-actions
-    button.tab(type="button" v-for="tab in tabs" :disabled="!account" @click="selectedTab = tab" :class="{'active-tab': selectedTab == tab}") {{ tab }}
+    button.tab(type="button" 
+               v-for="tab in tabs"
+               :disabled="!account"
+               :class="{'active-tab': selectedTab == tab}"
+               @click="selectedTab = tab" ) {{ tab }}
 
   div.account-content
     div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
       div.main-course-list
         h3.title In Progress
-        CourseList(:courses="inProgress" :account="account" v-if="Object.keys(inProgress).length !== 0" v-cloak)
+        CourseList(v-if="Object.keys(inProgress).length !== 0" v-cloak
+                   :courses="inProgress"
+                   :account="account")
         .empty(v-else)
           div
             h4.empty-title You have no courses currently in progress
             p Get started by browsing our recommended course list.
-            button.button.secondary.border.-small(type="button" @click="scrollTo" data-target="recommended") Browse Courses
+            button.button.secondary.border.-small(type="button"
+                                                  @click="scrollTo"
+                                                  data-target="recommended") Browse Courses
 
       div.completed-course-list
         aside.completed-course-list
           h3.title Completed Courses
-          CourseList(:courses="completed" :account="account"
-            v-if="Object.keys(completed).length !== 0" v-cloak)
+          CourseList(v-if="Object.keys(completed).length !== 0" v-cloak
+                     :courses="completed"
+                     :account="account")
           .empty(v-else)
             h4.empty-title You have not completed any courses yet
 
@@ -41,10 +50,12 @@
           .card-body
             h3 Download the Vue Cheat Sheet
             p All the essential syntax at your fingertips
-            DownloadButton(buttonClass='inverted')
+            DownloadButton(buttonClass='inverted' location='Dashboard download button')
         #recommended
           h3.title Recommended Courses
-          CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
+          CourseGrid(v-if="Object.keys(recommended).length !== 0" v-cloak
+                     :courses="recommended"
+                     :account="account")
 
     div.settings(v-if="selectedTab == 'Profile'" v-cloak)
       .profile-settings
@@ -58,9 +69,9 @@
 <script>
 import { mapState } from 'vuex'
 import EditAccountForm from '~/components/account/EditAccountForm.vue'
-import CourseList from '~/components/courses/All.vue'
-import CourseGrid from '~/components/courses/Grid.vue'
-import BadgeGrid from '~/components/courses/BadgeGrid.vue'
+import CourseList from '~/components/courses/CourseAll.vue'
+import CourseGrid from '~/components/courses/CourseGrid.vue'
+import BadgeGrid from '~/components/courses/CourseBadgeGrid.vue'
 import AccountSettings from '~/components/account/AccountSettings.vue'
 import DownloadButton from '~/components/static/DownloadButton'
 
@@ -74,6 +85,18 @@ export default {
     AccountSettings,
     DownloadButton
   },
+
+  data () {
+    return {
+      tabs: ['Dashboard', 'Profile', 'Account Settings'],
+      editing: false,
+      selectedTab: this.$route.query.section || 'Dashboard',
+      completed: {},
+      recommended: {},
+      uncompleted: {}
+    }
+  },
+
   computed: {
     ...mapState({
       account: result => result.account.account,
@@ -108,19 +131,11 @@ export default {
       return `${this.account.displayName} profile image`
     }
   },
-  data () {
-    return {
-      tabs: ['Dashboard', 'Profile', 'Account Settings'],
-      editing: false,
-      selectedTab: this.$route.query.section || 'Dashboard',
-      completed: {},
-      recommended: {},
-      uncompleted: {}
-    }
-  },
+
   mounted () {
     this.$store.dispatch('getAllCourses')
   },
+
   methods: {
     toggleEditForm () {
       this.editing = !this.editing
