@@ -64,6 +64,9 @@ export default {
     color $secondary-color
     animation blink 1s infinite
 
+.control-group
+  margin-bottom: 30px
+
 @keyframes blink
   0%
     transform: scale(0)
