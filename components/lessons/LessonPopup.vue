@@ -33,6 +33,7 @@ export default {
       this.$emit('selectLesson', this.lesson.slug)
     },
     beforeOpen (event) {
+      this.count = 10
       this.lesson = event.params.lesson
       this.account = event.params.account || false
     },
