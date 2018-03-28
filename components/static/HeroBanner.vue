@@ -1,39 +1,44 @@
-<template lang="pug">
+<template lang='pug'>
   .banner
     .wrapper
       .body
         h1.title The ultimate learning resource for Vue developers
         p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
+
       .video
         .video-wrapper
-          iframe(src="https://player.vimeo.com/video/257962818" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
-        //- vimeo-player(ref="player" video-id="257962818" player-width="800")
+          iframe(src='https://player.vimeo.com/video/257962818' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
+        //- vimeo-player(ref='player' video-id='257962818' player-width='800')
 
       .actions
-        nuxt-link.button.secondary(to="/courses") START LEARNING
+        nuxt-link.button.secondary(to='/courses') START LEARNING
 </template>
 
 <script>
 import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
-  name: 'Hero',
+  name: 'hero-banner',
+
   components: {
     PlayerPlaceholder
   }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
+
 .wrapper
   grid-row-gap 20px
   margin-top -($header-height)
   padding-top ($header-height + $vertical-space/2.5)
   padding-bottom ($vertical-space/2.5)
+
   +desktop-up()
     padding-top ($header-height + $vertical-space/1.5)
     padding-bottom ($vertical-space/1.5)
+
 .banner
   background-image url(/images/hero-1.svg)
   background-position center top
@@ -57,6 +62,7 @@ export default {
   max-width 800px
   margin 0
   color $secondary-color
+
   +tablet-up()
     font-size 56px
 
@@ -75,6 +81,7 @@ export default {
   +tablet-up()
     width 600px
     margin 0 auto
+
   +laptop-up()
     width 800px
 

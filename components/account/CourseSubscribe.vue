@@ -1,15 +1,18 @@
-<template lang="pug">
+<template lang='pug'>
 form.form
   .body
     .message {{message}}
+
     .switch
-      input(id="subscribeSwitch" type="checkbox" :checked="isSubscribed()" @change="subscribedToMailingList")
-      label(for="subscribeSwitch") Toggle
+      input(id='subscribeSwitch' type='checkbox' :checked='isSubscribed()' @change='subscribedToMailingList')
+      label(for='subscribeSwitch') Toggle
 
 </template>
 
 <script>
 export default {
+  name: 'account-subscribe-course',
+
   props: {
     account: {
       type: Object,
@@ -35,6 +38,7 @@ export default {
       }
       return subscribed
     },
+
     subscribedToMailingList () {
       if (this.account) {
         this.$store.dispatch('userUpdateSubscribe', this.slug)
@@ -49,7 +53,8 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+
+<style lang='stylus' scoped>
 .form
   width 100%
 

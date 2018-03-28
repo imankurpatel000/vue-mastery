@@ -1,19 +1,21 @@
-<template lang="pug">
+<template lang='pug'>
 form.form.card
   .card-body
     .form-group.-inline
       label.label New Email
-      input.input(type="email" placeholder="New Email" v-model="email" ref="email")
+      input.input(type='email' placeholder='New Email' v-model='email' ref='email')
 
     .form-error
-      .-is-error(v-if="formError.length > 0" v-text="formError")
-      .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+      .-is-error(v-if='formError.length > 0' v-text='formError')
+      .-is-success(v-if='formSuccess.length > 0' v-text='formSuccess')
 
-    button.button.primary(type="button" @click="updateEmail") Update Email
+    button.button.primary(type='button' @click='updateEmail') Update Email
 </template>
 
 <script>
 export default {
+  name: 'account-change-email',
+
   data () {
     return {
       email: '',
@@ -22,14 +24,17 @@ export default {
       formSuccess: ''
     }
   },
+
   methods: {
     resetFormMessages () {
       this.formSuccess = this.formError = ''
     },
+
     validateEmail () {
       let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return re.test(String(this.email).toLowerCase())
     },
+
     updateEmail () {
       this.resetFormMessages()
       clearTimeout(this.debounceTimer)

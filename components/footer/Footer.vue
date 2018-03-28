@@ -26,7 +26,7 @@ footer.footer
 import SocialMediaLinks from '~/components/static/SocialMediaLinks'
 
 export default {
-  name: 'Footer',
+  name: 'page-footer',
   components: {
     SocialMediaLinks
   }

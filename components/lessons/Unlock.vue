@@ -1,16 +1,18 @@
-<template lang="pug">
-  no-ssr
-    .locked-action
-      h3 This Lesson Is Locked.
-      h5 Create a free account to unlock it.
-      button.button.primary.-small.-has-icon(v-cloak @click="openLogin")
-        i.fa.fa-unlock-alt
-        | Unlock Content
+<template lang='pug'>
+no-ssr
+  .locked-action
+    h3 This Lesson Is Locked.
+    h5 Create a free account to unlock it.
+
+    button.button.primary.-small.-has-icon(v-cloak @click='openLogin')
+      i.fa.fa-unlock-alt
+      | Unlock Content
+
 </template>
 
 <script>
 export default {
-  name: 'unlockButton',
+  name: 'unlock-button',
 
   methods: {
     openLogin () {
@@ -24,8 +26,9 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
+
 h3,
 h4
   padding-top 0

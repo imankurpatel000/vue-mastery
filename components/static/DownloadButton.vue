@@ -1,19 +1,19 @@
-<template lang="pug">
+<template lang='pug'>
   no-ssr
-    a.button(v-cloak
-             v-if="account"
-             href="/pdf/Vue-Essentials-Cheat-Sheet.pdf"
-             :class="buttonClass"
+    a.button(v-if='account' v-cloak
+             href='/pdf/Vue-Essentials-Cheat-Sheet.pdf'
+             :class='buttonClass'
              download) Download It Free
 
-    button.button(:class="buttonClass" v-else v-cloak @click="openLogin") Download It Free
+    button.button(v-else :class='buttonClass' v-cloak 
+                  @click='openLogin') Download It Free
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
 export default {
-  name: 'downloadButton',
+  name: 'download-button',
 
   props: {
     location: {

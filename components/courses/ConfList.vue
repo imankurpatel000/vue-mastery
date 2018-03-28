@@ -1,12 +1,12 @@
-<template lang="pug">
+<template lang='pug'>
 .playlist
   h2.title Playlist
-  .cards(v-if="talks" v-cloak)
-    //- nuxt-link.card(v-for="talk in talks" :to="path(talk)" )
-    .card(v-for="talk in talks")
+  .cards(v-if='talks' v-cloak)
+    //- nuxt-link.card(v-for='talk in talks' :to='path(talk)' )
+    .card(v-for='talk in talks')
       .card-header
-        img.card-img(:src="talk.image[0].url"
-                     :alt="talk.title"
+        img.card-img(:src='talk.image[0].url'
+                     :alt='talk.title'
                      :class="{ 'comingsoon': !talk.isVideoLive }")
         .card-title
           //- b.releaseDate {{ talk.releaseDate }}
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import fakeList from '~/components/courses/CourseFakeList'
-
 export default {
+  name: 'conference-list',
+
   props: {
     account: {
       type: Object,
@@ -30,10 +30,6 @@ export default {
     }
   },
 
-  components: {
-    fakeList
-  },
-
   methods: {
     path (talk) {
       // return `/courses/${talks.belongsToCourse[0].slug}/${talk.slug}`
@@ -43,10 +39,12 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
+
 $headerHeight = 150px
 $cardPadding = $vertical-space / 3
+
 .playlist > .title
   margin: 15px 0 25px 0
   

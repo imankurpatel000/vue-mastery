@@ -1,47 +1,48 @@
-<template lang="pug">
+<template lang='pug'>
 .wrapper
-  .account(v-if="account" v-cloak)
+  .account(v-if='account' v-cloak)
     .account-image
-      a(:href="account.image" target="_blank" title="Click To View")
-        img(:src="account.image" width="100" height="100" :alt="imageAlt")
+      a(:href='account.image' target='_blank' title='Click To View')
+        img(:src='account.image' width='100' height='100' :alt='imageAlt')
+
     .account-info
-      h3(v-text="account.displayName")
+      h3(v-text='account.displayName')
 
   .account-actions
-    button.tab(type="button" 
-               v-for="tab in tabs"
-               :disabled="!account"
+    button.tab(type='button' 
+               v-for='tab in tabs'
+               :disabled='!account'
                :class="{'active-tab': selectedTab == tab}"
-               @click="selectedTab = tab" ) {{ tab }}
+               @click='selectedTab = tab' ) {{ tab }}
 
   div.account-content
     div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
       div.main-course-list
         h3.title In Progress
-        CourseList(v-if="Object.keys(inProgress).length !== 0" v-cloak
-                   :courses="inProgress"
-                   :account="account")
+        CourseList(v-if='Object.keys(inProgress).length !== 0' v-cloak
+                   :courses='inProgress'
+                   :account='account')
         .empty(v-else)
           div
             h4.empty-title You have no courses currently in progress
             p Get started by browsing our recommended course list.
-            button.button.secondary.border.-small(type="button"
-                                                  @click="scrollTo"
-                                                  data-target="recommended") Browse Courses
+            button.button.secondary.border.-small(type='button'
+                                                  @click='scrollTo'
+                                                  data-target='recommended') Browse Courses
 
       div.completed-course-list
         aside.completed-course-list
           h3.title Completed Courses
-          CourseList(v-if="Object.keys(completed).length !== 0" v-cloak
-                     :courses="completed"
-                     :account="account")
+          CourseList(v-if='Object.keys(completed).length !== 0' v-cloak
+                     :courses='completed'
+                     :account='account')
           .empty(v-else)
             h4.empty-title You have not completed any courses yet
 
       //- aside.earned-badge-list
       //-   h3.title Earned Badges
-      //-   BadgeGrid(:courses="completed" :account="account"
-      //-     v-if="Object.keys(completed).length !== 0" v-cloak)
+      //-   BadgeGrid(:courses='completed' :account='account'
+      //-     v-if='Object.keys(completed).length !== 0' v-cloak)
       //-   .empty(v-else)
       //-     h5.empty-title You have not completed any courses yet
 
@@ -53,14 +54,14 @@
             DownloadButton(buttonClass='inverted' location='Dashboard download button')
         #recommended
           h3.title Recommended Courses
-          CourseGrid(v-if="Object.keys(recommended).length !== 0" v-cloak
-                     :courses="recommended"
-                     :account="account")
+          CourseGrid(v-if='Object.keys(recommended).length !== 0' v-cloak
+                     :courses='recommended'
+                     :account='account')
 
     div.settings(v-if="selectedTab == 'Profile'" v-cloak)
       .profile-settings
         h3.title Update Profile
-        EditAccountForm(:account="account")
+        EditAccountForm(:account='account')
 
     div(v-else-if="selectedTab == 'Account Settings'" v-cloak)
       AccountSettings
@@ -69,14 +70,17 @@
 <script>
 import { mapState } from 'vuex'
 import EditAccountForm from '~/components/account/EditAccountForm.vue'
-import CourseList from '~/components/courses/CourseAll.vue'
-import CourseGrid from '~/components/courses/CourseGrid.vue'
-import BadgeGrid from '~/components/courses/CourseBadgeGrid.vue'
+import CourseList from '~/components/courses/All.vue'
+import CourseGrid from '~/components/courses/Grid.vue'
+import BadgeGrid from '~/components/courses/BadgeGrid.vue'
 import AccountSettings from '~/components/account/AccountSettings.vue'
 import DownloadButton from '~/components/static/DownloadButton'
 
 export default {
+  name: 'page-dashboard',
+
   middleware: 'authenticated',
+
   components: {
     EditAccountForm,
     CourseList,
@@ -162,7 +166,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 .settings
   display flex
@@ -186,14 +190,14 @@ export default {
 
 .course-list
   display grid
-  grid-template-areas "main"\
-                      "recommend"\
-                      "completed"
+  grid-template-areas 'main'\
+                      'recommend'\
+                      'completed'
   +laptop-up()
     grid-template-columns 63% 33%
     grid-column-gap: 4%
-    grid-template-areas "main recommend"\
-                        "completed recommend"\
+    grid-template-areas 'main recommend'\
+                        'completed recommend'\
 
 
 .main-course-list,

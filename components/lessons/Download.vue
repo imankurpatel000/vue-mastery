@@ -1,20 +1,22 @@
-<template lang="pug">
-  no-ssr
-    a.button.secondary.-has-icon(v-cloak
-             v-if="account"
-             :href="courseLink"
-             download)
-      i.fa.fa-download
-      | Download Video
+<template lang='pug'>
+no-ssr
+  a.button.secondary.-has-icon(v-cloak
+            v-if='account'
+            :href='courseLink'
+            download)
+    i.fa.fa-download
+    | Download Video
 
-    button.button.secondary.-has-icon(v-else v-cloak @click="openLogin")
-      i.fa.fa-download
-      | Download Video
+  button.button.secondary.-has-icon(v-else v-cloak @click='openLogin')
+    i.fa.fa-download
+    | Download Video
+
 </template>
 
 <script>
 export default {
-  name: 'downloadButton',
+  name: 'lesson-download-button',
+
   props: {
     account: {
       type: Object,
@@ -25,6 +27,7 @@ export default {
       default: false
     }
   },
+
   methods: {
     openLogin () {
       this.$modal.show('login-form', {
@@ -36,7 +39,8 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
-  .button
-    display inline-flex
+
+<style lang='stylus' scoped>
+.button
+  display inline-flex
 </style>

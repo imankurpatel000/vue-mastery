@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
   .banner
     .wrapper
       .body
@@ -7,21 +7,26 @@
 </template>
 
 <script>
-export default { name: 'CommunitySupport' }
+export default {
+  name: 'community-support'
+}
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
+
 .wrapper
   grid-template-rows $vertical-space 1fr $vertical-space
   align-items center
   justify-content center
   text-align center
+
 .banner
-  background-image url(/images/bkg-giveback.svg)
+  background-image url('/images/bkg-giveback.svg')
   +desktop-up()
     background-size contain
     background-repeat repeat-x
+
 .body
   grid-row-start 2
 
@@ -29,6 +34,7 @@ export default { name: 'CommunitySupport' }
   padding-top 0
   color $primary-color
   margin 0
+
   +tablet-up()
     font-size 56px
 
@@ -36,12 +42,12 @@ export default { name: 'CommunitySupport' }
   max-width 690px
   font-size 16px
   color $gray
+  
+  +tablet-up()
+    font-size 24px
 
 .amount
   color $primary-color
   margin 0
 
-+tablet-up()
-  .lead
-    font-size 24px
 </style>

@@ -9,9 +9,12 @@ import AuthForm from './AuthForm.vue'
 import { mapState } from 'vuex'
 
 export default {
+  name: 'account-modal',
+
   components: {
     AuthForm
   },
+
   data () {
     return {
       newAccount: true,
@@ -22,11 +25,13 @@ export default {
       isOpen: false
     }
   },
+
   computed: {
     ...mapState({
       account: result => result.account.account
     })
   },
+
   watch: {
     account () {
       if (this.account && this.isOpen) {
@@ -43,6 +48,7 @@ export default {
       }
     }
   },
+
   methods: {
     beforeOpen (event) {
       this.isOpen = true
@@ -52,6 +58,7 @@ export default {
       this.redirect = event.params.redirect || false
       this.location = event.params.location || ''
     },
+
     beforeClose (event) {
       this.isOpen = false
     }

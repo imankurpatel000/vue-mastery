@@ -1,14 +1,14 @@
-<template lang="pug">
+<template lang='pug'>
   .homepage
     .hero
       Hero
     .free-videos
-      Free(:free="free")
+      Free(:free='free')
     .course-list
       .section
         h2.title Courses
-        Featured(:featured="featured")
-        nuxt-link.button.primary.border(to="/courses")
+        Featured(:featured='featured')
+        nuxt-link.button.primary.border(to='/courses')
           | More
           span.visually-hidden Courses
     //- .vue-conf
@@ -23,8 +23,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Featured from '~/components/courses/CourseFeatured'
-import Free from '~/components/courses/CourseFree'
+import Featured from '~/components/courses/Featured'
+import Free from '~/components/courses/Free'
 import Hero from '~/components/static/HeroBanner'
 import MeetTeachers from '~/components/static/MeetTeachers'
 import CommunitySupport from '~/components/static/CommunitySupport'
@@ -32,7 +32,10 @@ import CheatSheetMain from '~/components/static/CheatSheetMain'
 import VueConfBanner from '~/components/static/VueConfBanner'
 
 export default {
+  name: 'page-home',
+
   middleware: 'anonymous',
+
   head () {
     return {
       title: 'Vue Mastery | The Ultimate Learning Resource for Vue.js Developers',
@@ -68,20 +71,20 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 containers = hero free-videos course-list vue-conf meet-teachers cheatsheet community
 .homepage
   display grid
   grid-template-columns 1fr 1fr
-  grid-template-areas "hero hero"\
-    "free-videos free-videos"\
-    "course-list course-list"\
-    "vue-conf vue-conf"\
-    "meet-teachers meet-teachers"\
-    "cheatsheet cheatsheet"\
-    "community community"
+  grid-template-areas 'hero hero'\
+    'free-videos free-videos'\
+    'course-list course-list'\
+    'vue-conf vue-conf'\
+    'meet-teachers meet-teachers'\
+    'cheatsheet cheatsheet'\
+    'community community'
 
   for container in containers
     .{container}
@@ -113,11 +116,11 @@ containers = hero free-videos course-list vue-conf meet-teachers cheatsheet comm
 
 +desktop-up()
   .homepage
-    grid-template-areas "hero hero"\
-      "free-videos course-list"\
-      "vue-conf vue-conf"\
-      "meet-teachers meet-teachers"\
-      "cheatsheet cheatsheet"\
-      "community community"\
-      "podcast podcast"
+    grid-template-areas 'hero hero'\
+      'free-videos course-list'\
+      'vue-conf vue-conf'\
+      'meet-teachers meet-teachers'\
+      'cheatsheet cheatsheet'\
+      'community community'\
+      'podcast podcast'
 </style>

@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 ul.list-unstyled.empty-media-list
   each val in [1, 2, 3]
     li
@@ -6,4 +6,11 @@ ul.list-unstyled.empty-media-list
         .media.-small.fake
         .body.fake
       .actions.fake
+
 </template>
+
+<script>
+export default {
+  name: 'course-fake-list'
+}
+</script>

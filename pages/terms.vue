@@ -1,15 +1,18 @@
-<template lang="pug">
+<template lang='pug'>
 .container
   .page-header
     .wrapper
       h1.title Terms of Service
   .wrapper
-    div(v-html="terms")
+    div(v-html='terms')
 </template>
 <script>
 import Terms from '~/static/terms.md'
 export default {
+  name: 'page-terms',
+
   middleware: 'anonymous',
+
   head: {
     title: 'Terms of Service'
   },
@@ -21,7 +24,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 .wrapper
   margin-top ($vertical-space/4)

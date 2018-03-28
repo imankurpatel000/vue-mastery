@@ -1,28 +1,31 @@
-<template lang="pug">
+<template lang='pug'>
   .banner
     .wrapper
       .body
         h2.title Grab our free 2-page cheat sheet!
-        DownloadButton(buttonClass='primary' :location='location')
+        DownloadButton(button-class='primary' :location='location')
 </template>
 
 <script>
 import DownloadButton from '~/components/static/DownloadButton'
 
 export default {
+  name: 'cheat-sheet-alt',
+
   props: {
     location: String,
     required: true
   },
+
   components: {
     DownloadButton
-  },
-  name: 'CheatSheetAlt'
+  }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
+
 .wrapper
   grid-template-rows $vertical-space 1fr $vertical-space
   align-items center
@@ -31,6 +34,7 @@ export default {
 
 .banner
   background-image url(/images/bkg-cheatsheet-alt.jpg)
+
   +desktop-up()
     background-repeat repeat-x
     background-size: contain;

@@ -1,16 +1,16 @@
-<template lang="pug">
-  button(type="button" @click.prevent="GoogleButton" :disabled="disabled")
-    i.fab.fa-google
-    | {{ label }}
-  //- <button type="button" class="btn" @click.prevent="GoogleButton" :disabled="disabled">
-  //-   <i class="fab fa-google"></i>
-  //-   {{ label }}
-  //- </button>
+<template lang='pug'>
+button(type='button'
+        :disabled='disabled'
+        @click.prevent='GoogleButton')
+  i.fab.fa-google
+  | {{ label }}
+
 </template>
 
 <script>
 export default {
-  name: 'GoogleButton',
+  name: 'google-button',
+
   props: {
     label: {
       type: String,
@@ -25,6 +25,7 @@ export default {
       default: ''
     }
   },
+
   methods: {
     GoogleButton () {
       this.$store.dispatch('userGoogleLogin')

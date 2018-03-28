@@ -1,15 +1,17 @@
-<template lang="pug">
+<template lang='pug'>
   .banner
-    //- nuxt-link.button.secondary(to="/vueconf") View Talks
+    //- nuxt-link.button.secondary(to='/vueconf') View Talks
 </template>
 
 <script>
 export default {
+  name: 'vue-conf-banner'
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
+
 .banner
   position relative
   height 354px
@@ -17,8 +19,10 @@ export default {
   background-image url(/images/bkg-vueconf.svg)
   background-position center bottom
   background-size 140%
+
   +tablet-up()
     background-size 100%
+
   +laptop-up()
     height 654px
     background-size cover

@@ -1,16 +1,16 @@
-<template lang="pug">
-  button(type="button" @click.prevent="GithubButton" :disabled="disabled")
-    i.fab.fa-github
-    | {{ label }}
-  //- <button type="button" class="btn" @click.prevent="GithubButton" :disabled="disabled">
-  //-   <i class="fab fa-github"></i>
-  //-   {{ label }}
-  //- </button>
+<template lang='pug'>
+button(type='button'
+       :disabled='disabled'
+       @click.prevent='GithubButton')
+  i.fab.fa-github
+  | {{ label }}
+
 </template>
 
 <script>
 export default {
-  name: 'GithubButton',
+  name: 'github-button',
+
   props: {
     label: {
       type: String,
@@ -25,6 +25,7 @@ export default {
       default: ''
     }
   },
+
   methods: {
     GithubButton () {
       this.$store.dispatch('userGithubLogin')

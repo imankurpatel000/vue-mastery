@@ -1,9 +1,14 @@
-<template lang="pug">
-.lessons-nav.paginate(v-if="lessons.length > 1" v-cloak)
-  button.prev(@click="goTo(-1)" rel="prev" :disabled="isFirst")
+<template lang='pug'>
+.lessons-nav.paginate(v-if='lessons.length > 1' v-cloak)
+  button.prev(rel='prev'
+              :disabled='isFirst'
+              @click='goTo(-1)')
     i.fa.fa-chevron-left
     | Previous Lesson
-  button.next(@click="goTo(1)" rel="next" :disabled="isLast")
+
+  button.next(rel='next'
+              :disabled='isLast'
+              @click='goTo(1)')
     | Next Lesson
     i.fa.fa-chevron-right
 </template>
@@ -11,6 +16,7 @@
 <script>
 export default {
   name: 'navigation',
+
   props: {
     lessons: {
       type: Array,
@@ -20,18 +26,17 @@ export default {
       type: Number
     }
   },
+
   computed: {
     isFirst () { return this.selected === 0 },
     isLast () { return this.selected === this.lessons.length - 1 }
   },
+
   methods: {
     goTo (direction) {
-      this.$emit('selectLesson', this.lessons[this.selected + direction].slug)
+      this.$emit('redirect', this.lessons[this.selected + direction].slug)
     }
   }
 }
 </script>
 
-<style lang="stylus" scoped>
-
-</style>

@@ -1,19 +1,21 @@
-<template lang="pug">
+<template lang='pug'>
 .media-block
   .media
-    img(:src="course.image[0].url" :alt="course.title")
+    img(:src='course.image[0].url' :alt='course.title')
 
   .body
     h3.title {{ course.title }}
     p.content {{ course.description }}
 
-    .meta(v-if="showDetail" v-cloak)
+    .meta(v-if='showDetail' v-cloak)
       div
         b {{ course.lessons.length | pluralizeLesson }}
+
       div
         span ・
         | {{ course.difficulty }}
-      div.-has-icon(:aria-label="course.duration | time")
+
+      div.-has-icon(:aria-label='course.duration | time')
         span ・
         i.far.fa-clock
         | {{ course.duration | time }}
@@ -21,6 +23,8 @@
 
 <script>
 export default {
+  name: 'course-list',
+
   props: {
     showDetail: {
       type: Boolean,
@@ -34,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 .media

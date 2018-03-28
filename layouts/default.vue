@@ -1,26 +1,29 @@
-<template lang="pug">
+<template lang='pug'>
   .container(:class="openNav ? 'open-nav': ''")
-    Top(:class="$route.name")
+    PageHeader(:class='$route.name')
     nuxt
     VuePodcast
-    Bottom
+    PageFooter
     AuthForm
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Top from '~/components/header/PageHeader.vue'
+import PageHeader from '~/components/header/Header.vue'
 import VuePodcast from '~/components/static/VuePodcast.vue'
-import Bottom from '~/components/footer/PageFooter.vue'
+import PageFooter from '~/components/footer/Footer.vue'
 import AuthForm from '~/components/account/Accountmodal.vue'
 
 export default {
+  name: 'default-layout',
+
   components: {
-    Top,
+    PageHeader,
     VuePodcast,
-    Bottom,
+    PageFooter,
     AuthForm
   },
+
   computed: {
     ...mapGetters([
       'openNav'

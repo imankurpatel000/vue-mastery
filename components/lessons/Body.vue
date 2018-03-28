@@ -1,17 +1,18 @@
-<template lang="pug">
+<template lang='pug'>
   .lesson-content(:class="locked ? '-locked': 'unlock'")
     div
       h1.title {{ course.title}}
-      .lesson-body(v-html="body")
-    .lesson-locked(v-if="locked" v-cloak)
+      .lesson-body(v-html='body')
+    .lesson-locked(v-if='locked' v-cloak)
       Unlock
 </template>
 
 <script>
-import Unlock from '~/components/lessons/LessonUnlock'
+import Unlock from '~/components/lessons/Unlock'
 
 export default {
   name: 'lesson-content',
+
   props: {
     course: {
       type: Object,
@@ -22,9 +23,11 @@ export default {
       default: false
     }
   },
+
   components: {
     Unlock
   },
+
   computed: {
     body () {
       let text = this.course.markdown
@@ -37,7 +40,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 .lesson-content
@@ -46,22 +49,28 @@ export default {
   align-items center
   padding 0 4%
   margin ($vertical-space/3) 0
-  .title
-    padding-top 0
+
   +tablet-up()
     margin $vertical-space 0
 
+  .title
+    padding-top 0
+
   &.-locked
     position relative
+
     .lesson-locked
       display flex
+
     h2
       opacity 0.5
+
     .lesson-body
       opacity 0.5
       position relative
       height 300px
       overflow hidden
+
       &:after
         content ''
         position absolute
@@ -77,6 +86,7 @@ export default {
 .lesson-body
   max-width 900px
   font-size 16px
+
   +tablet-up()
     font-size 22px
 </style>

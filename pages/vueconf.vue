@@ -1,27 +1,32 @@
-<template lang="pug">
+<template lang='pug'>
   .container.vue-conf-page
     VueConfBanner
+
     .wrapper
       .body
+
         h1.visually-hidden VueConf US Videos
           small New Orleans, LA on March 26-28, 2018
         p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos.  We will begin to release the videos free shortly after the conference.
+      
       .callout.-success
-        courseSubscribe(:account="account" slug="vueConf" message="Notify me when new talks are available.")
-      ConfList(:talks="talks" :account="account")
-    //- CheatSheetAlt(location='Course page cheat sheet download')
+        CourseSubscribe(:account='account' slug='vueConf' message='Notify me when new talks are available.')
+      
+      ConfList(:talks='talks' :account='account')
 </template>
 
 <script>
 import { mapState } from 'vuex'
-
 import ConfList from '~/components/courses/ConfList'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
-import courseSubscribe from '~/components/account/CourseSubscribe'
+import CourseSubscribe from '~/components/account/CourseSubscribe'
 import VueConfBanner from '~/components/static/VueConfBanner'
 
 export default {
+  name: 'page-vueconf',
+
   middleware: 'anonymous',
+
   head () {
     return {
       title: 'Vue Mastery | VueConf US',
@@ -36,7 +41,7 @@ export default {
   components: {
     ConfList,
     CheatSheetAlt,
-    courseSubscribe,
+    CourseSubscribe,
     VueConfBanner
   },
 
@@ -53,7 +58,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 .courses-header

@@ -1,40 +1,44 @@
-<template lang="pug">
+<template lang='pug'>
 .container
   .wrapper
     .contact-body
       h1.title Contact Us
-      p If you have any feedback, suggestions, or need a little support we're here to help.  If you've run into a bug with your Vue.js application and need a hand (aside from googling your error) we'd recommend the <a href="https://forum.vuejs.org/" target="_new">Vue.js Forum</a> or <a href="https://discordapp.com/invite/HBherRA" target="_new">Vue Land Chat</a>. 
+      p If you have any feedback, suggestions, or need a little support we're here to help.  If you've run into a bug with your Vue.js application and need a hand (aside from googling your error) we'd recommend the <a href='https://forum.vuejs.org/' target='_new'>Vue.js Forum</a> or <a href='https://discordapp.com/invite/HBherRA' target='_new'>Vue Land Chat</a>. 
       
       h3.subtitle Follow us
       SocialMediaLinks
 
     .contact-form
-      form.form(@submit.prevent="submit")
+      form.form(@submit.prevent='submit')
         .form-group
-          label.visually-hidden(for="name") Name
-          input(class="input -hollow" placeholder="Name" v-model="name" autofocus)
+          label.visually-hidden(for='name') Name
+          input(class='input -hollow' placeholder='Name' v-model='name' autofocus)
         .form-group
-          label.visually-hidden(for="email") Email
-          input(class="input -hollow" placeholder="Email" type="email" v-model="email")
+          label.visually-hidden(for='email') Email
+          input(class='input -hollow' placeholder='Email' type='email' v-model='email')
         .form-group
-          label.visually-hidden(for="message") Message
-          textarea(class="textarea -hollow" placeholder="Message" rows="5" v-model="message")
+          label.visually-hidden(for='message') Message
+          textarea(class='textarea -hollow' placeholder='Message' rows='5' v-model='message')
 
         .form-error
-          .-is-error(v-if="formError.length > 0" v-text="formError")
-          .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+          .-is-error(v-if='formError.length > 0' v-text='formError')
+          .-is-success(v-if='formSuccess.length > 0' v-text='formSuccess')
 
         .form-group
-          input.button.primary(type="button" value="Send" @click="sendForm()" ref="submit")
+          input.button.primary(type='button' value='Send' @click='sendForm()' ref='submit')
 </template>
 <script>
 import SocialMediaLinks from '~/components/static/SocialMediaLinks'
 
 export default {
+  name: 'page-contact',
+
   middleware: 'anonymous',
+
   components: {
     SocialMediaLinks
   },
+
   head () {
     return {
       title: 'Vue Mastery | Contact Us',
@@ -45,6 +49,7 @@ export default {
       }]
     }
   },
+
   data () {
     return {
       name: '',
@@ -55,10 +60,12 @@ export default {
       formSuccess: ''
     }
   },
+
   methods: {
     resetFormMessages () {
       this.formSuccess = this.formError = ''
     },
+
     sendForm () {
       this.resetFormMessages()
       clearTimeout(this.debounceTimer)
@@ -67,7 +74,7 @@ export default {
           this.formError = 'Please enter your name'
           return false
         }
-        let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        let re = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         if (!re.test(String(this.email).toLowerCase())) {
           this.formError = 'Please enter a valid email'
           return false
@@ -97,15 +104,15 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
   @import '../assets/css/_variables'
   .wrapper
     margin-top ($vertical-space/4)
     margin-bottom ($vertical-space/4)
     grid-template-columns 1fr
     grid-row-gap ($vertical-space/4)
-    grid-template-areas "body"\
-                        "form"
+    grid-template-areas 'body'\
+                        'form'
 
     +laptop-up()
       margin-top $vertical-space
@@ -113,7 +120,7 @@ export default {
       grid-template-columns 1fr 1fr
       grid-row-gap $vertical-space * 1.5
       grid-column-gap ($vertical-space/2)
-      grid-template-areas "body form"
+      grid-template-areas 'body form'
 
   .contact-body
     grid-area body

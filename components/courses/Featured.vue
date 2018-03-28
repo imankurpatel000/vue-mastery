@@ -1,25 +1,26 @@
-<template lang="pug">
+<template lang='pug'>
 div
-  .list(v-if="featured" v-cloak)
-    nuxt-link.list-card.card(v-for="course, key in featured"
-                             v-if="course.lessons"
-                             :key="course.id"
-                             :to="`/courses/${course.slug}/${course.lessons[0].slug}`")
+  .list(v-if='featured' v-cloak)
+    nuxt-link.list-card.card(v-for='course, key in featured'
+                             v-if='course.lessons'
+                             :key='key'
+                             :to='link(course)')
       .card-body
-        courseList(:course="course")
+        CourseList(:course='course')
     .list-card.card.coming-soon(v-else)
       .card-body
-        courseList(:course="course")
+        CourseList(:course='course')
 
-  fakeList(v-else)
+  FakeList(v-else)
 </template>
 
 <script>
-import courseList from '~/components/courses/CourseList'
-import courseAction from '~/components/courses/CourseActions'
-import fakeList from '~/components/courses/CourseFakeList'
+import CourseList from '~/components/courses/List'
+import FakeList from '~/components/courses/FakeList'
 
 export default {
+  name: 'courses-featured',
+
   props: {
     featured: {
       type: Array,
@@ -28,14 +29,19 @@ export default {
   },
 
   components: {
-    courseList,
-    courseAction,
-    fakeList
+    CourseList,
+    FakeList
+  },
+
+  methods: {
+    link (course) {
+      return `/courses/${course.slug}/${course.lessons[0].slug}`
+    }
   }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 .list,
@@ -55,8 +61,7 @@ export default {
 .coming-soon
   position relative
   overflow hidden
-  .media-block
-    opacity 0.4
+
   &:after
     content 'Coming soon'
     position absolute
@@ -71,4 +76,6 @@ export default {
     font-weight 600
     color #fff
 
+  .media-block
+    opacity 0.4
 </style>

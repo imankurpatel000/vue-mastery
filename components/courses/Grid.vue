@@ -1,26 +1,29 @@
-<template lang="pug">
+<template lang='pug'>
 div
-  .grid(v-if="courses" v-cloak)
-    nuxt-link.grid-card.card(v-for="course, key, index in courses"
-                             :key="course.id"
-                             :to="link(course)")
+  .grid(v-if='courses' v-cloak)
+    nuxt-link.grid-card.card(v-for='course, key, index in courses'
+                             :key='course.id'
+                             :to='link(course)')
       .card-body
-        courseList(:course="course")
-        courseAction(:course="course")
-  fakeList(v-else)
+        CourseList(:course='course')
+        CourseAction(:course='course')
+  FakeList(v-else)
 </template>
 
 <script>
-import courseList from '~/components/courses/CourseList'
-import courseAction from '~/components/courses/CourseActions'
-import fakeList from '~/components/courses/CourseFakeList'
+import CourseList from '~/components/courses/List'
+import CourseAction from '~/components/courses/Actions'
+import FakeList from '~/components/courses/FakeList'
 
 export default {
+  name: 'courses-grid',
+
   components: {
-    courseList,
-    courseAction,
-    fakeList
+    CourseList,
+    CourseAction,
+    FakeList
   },
+
   props: {
     account: {
       type: Object,
@@ -60,7 +63,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 .content
@@ -68,9 +71,11 @@ export default {
 
 .grid
   display grid
+
   +tablet-up()
     grid-template-columns repeat(2, 1fr)
     grid-column-gap 40px
+
   +laptop-up()
     grid-template-columns repeat(1, 1fr)
 
@@ -89,8 +94,8 @@ export default {
     grid-row-gap ($vertical-space/3)
     margin-bottom ($vertical-space/3)
     grid-template-columns 1fr
-    grid-template-areas "media"\
-                        "body"
+    grid-template-areas 'media'\
+                        'body'
 
   .actions
     width 100%

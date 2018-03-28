@@ -1,15 +1,18 @@
-<template lang="pug">
-  .lesson-header
-    .wrapper
-      .media
-        img(:src="course.image[0].url")
-      .body
-        h2.title {{ course.title }}
+<template lang='pug'>
+.lesson-header
+  .wrapper
+    .media
+      img(:src='course.image[0].url')
+
+    .body
+      h2.title {{ course.title }}
+      
 </template>
 
 <script>
 export default {
   name: 'lesson-header',
+
   props: {
     course: {
       type: Object,
@@ -19,36 +22,40 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
+
 .wrapper
   color: #fff
-  height 90px
   display flex
   align-items center
+  height 90px
+
+  +tablet-up()
+    height 116px
+
 .lesson-header
   background-color: #0A2B4E
 
 .title
   margin 0
   padding 0
-  font-size 34px
   font-weight 600
+  font-size 34px
+
+  +tablet-up()
+    font-size 48px
 
 .media
-  width 60px
   margin-right 1.5em
-  img
-  height: 90px
-  overflow hidden
-  object-fit contain
+  width 60px
 
-+tablet-up()
-  .wrapper
-    height 116px
-  .media
+  +tablet-up()
     width 90px
-  .title
-    font-size 48px
+
+  img
+    height: 90px
+    overflow hidden
+    object-fit contain
 
 </style>

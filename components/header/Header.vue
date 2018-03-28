@@ -11,11 +11,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Navigation from './PageNavigation'
-import Hambuger from './PageHamburger'
+import Navigation from './Navigation'
+import Hambuger from './Hamburger'
 
 export default {
-  name: 'top',
+  name: 'page-header',
   components: {
     Navigation,
     Hambuger

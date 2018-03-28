@@ -1,23 +1,29 @@
-<template lang="pug">
+<template lang='pug'>
   .container
+
     .courses-header
       .wrapper
         h1.title Our Courses
+
     .courses-body.wrapper
-      CourseList(:courses="courses" :account="account")
-      Latest(:courses="courses" :latests="latests")
+      CourseList(:courses='courses' :account='account')
+      Latest(:courses='courses' :latests='latests')
+
     CheatSheetAlt(location='Course page cheat sheet download')
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-import CourseList from '~/components/courses/CourseAll'
-import Latest from '~/components/courses/CourseLatest'
+import CourseList from '~/components/courses/All'
+import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 
 export default {
+  name: 'page-courses',
+
   middleware: 'anonymous',
+
   head () {
     return {
       title: 'Vue Mastery | Course Listing',
@@ -50,7 +56,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 .courses-header

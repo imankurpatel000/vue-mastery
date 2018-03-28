@@ -1,3 +1,6 @@
+button
+  outline: none
+
 .button
   display inline-block
   height $button-height-small
@@ -131,18 +134,25 @@ a:hover .button
   &:after
     left: 120%
     transition: left 1.5s cubic-bezier(0.19, 1, 0.22, 1)
+
   &.primary
     background linear-gradient(to bottom right, #41B782 , #86D169)
+
   &.secondary
     background linear-gradient(to bottom right, #122549, #203762)
+
   &.danger
     background linear-gradient(to bottom right, #EB4641, #F06372)
+
   &.inverted
     background #fff
+
   &.border
     border-color transparent
     color #fff
+
   &.-only-icon
     background: transparent
+
     i
       transform: scale(.9)

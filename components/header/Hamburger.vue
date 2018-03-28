@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'hamburger',
+  name: 'header-hamburger',
   model: {
     event: 'toggleNav'
   }

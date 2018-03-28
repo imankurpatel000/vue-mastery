@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
   .banner
     .wrapper
       h1.title Downloading in progress
@@ -8,7 +8,10 @@
 
 <script>
 export default {
+  name: 'page-download',
+
   middleware: 'anonymous',
+
   head () {
     return {
       title: '[Downloading...] Vue Cheat Sheet',
@@ -19,13 +22,14 @@ export default {
       }]
     }
   },
+
   mounted () {
     this.$refs.download.click()
   }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 .wrapper
   padding-top $vertical-space

@@ -1,25 +1,27 @@
-<template lang="pug">
+<template lang='pug'>
 div
-  .list(v-if="courses" v-cloak)
-    nuxt-link.list-card.card(v-for="course, key, index in courses"
-                             :key="course.id"
-                             :to="link(course)")
+  .list(v-if='courses' v-cloak)
+    nuxt-link.list-card.card(v-for='course, key, index in courses'
+                             :key='course.id'
+                             :to='link(course)')
       .card-body
-        courseList(:course="course")
-        courseAction(:course="course")
-  fakeList(v-else)
+        CourseList(:course='course')
+        CourseAction(:course='course')
+  FakeList(v-else)
 </template>
 
 <script>
-import courseList from '~/components/courses/CourseList'
-import courseAction from '~/components/courses/CourseActions'
-import fakeList from '~/components/courses/CourseFakeList'
+import CourseList from '~/components/courses/List'
+import CourseAction from '~/components/courses/Actions'
+import FakeList from '~/components/courses/FakeList'
 
 export default {
+  name: 'courses-list',
+
   components: {
-    courseList,
-    courseAction,
-    fakeList
+    CourseList,
+    CourseAction,
+    FakeList
   },
 
   props: {
@@ -68,7 +70,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 .content

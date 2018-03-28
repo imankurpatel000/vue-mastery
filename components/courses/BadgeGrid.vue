@@ -1,16 +1,18 @@
-<template lang="pug">
-div.card.badge-card
+<template lang='pug'>
+.card.badge-card
   .card-body
-    nuxt-link(v-for="course, key, index in courses"
-              :key="course.id"
-              :to="link(course)")
+    nuxt-link(v-for='course, key, index in courses'
+              :key='course.id'
+              :to='link(course)')
       .course-badge
-        img(v-if="course" v-cloak
-            :src="course.image[0].url")
+        img(v-if='course' v-cloak
+            :src='course.image[0].url')
 </template>
 
 <script>
 export default {
+  name: 'course-badge',
+
   props: {
     account: {
       type: Object,
@@ -50,7 +52,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
   .course-badge
     width 30%
 </style>

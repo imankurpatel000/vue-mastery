@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  name: 'header-navigation',
   props: {
     account: {
       type: Object,

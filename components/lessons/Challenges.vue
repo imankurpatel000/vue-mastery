@@ -1,15 +1,16 @@
-<template lang="pug">
-  .lesson-challenge.card
-    .card-body
-      h3
-        i.fa.fa-code
-        | Coding Challenge
-      div(v-html="$md.render(challenges)")
+<template lang='pug'>
+.lesson-challenge.card
+  .card-body
+    h3
+      i.fa.fa-code
+      | Coding Challenge
+    div(v-html='$md.render(challenges)')
+
 </template>
 
 <script>
 export default {
-  name: 'challenges',
+  name: 'lesson-challenges',
   props: {
     challenges: {
       type: String,
@@ -19,8 +20,9 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
+
 .card
   padding 20px
 h3

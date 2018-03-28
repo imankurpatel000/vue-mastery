@@ -1,29 +1,38 @@
-<template lang="pug">
-.lessons-list(v-if="course.lessons" v-cloak)
+<template lang='pug'>
+.lessons-list(v-if='course.lessons' v-cloak)
   h3.title Lessons
+
   .lessons-list-scroll
-    .list-item(v-for="(lesson, index) in course.lessons"
-               :class="[activeOrCompleted(lesson.slug), unloggedAndLock(lesson.lock)]"
-               @click="selectLesson(lesson.slug)")
+    .list-item(v-for='(lesson, index) in course.lessons'
+               :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson.lock)]'
+               @click='selectLesson(lesson.slug)')
+      
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta
           div
             i.far.fa-clock
             span {{ lesson.duration | time}}
+      
       .list-item-actions(@click.stop)
         i.fa.fa-lock
         label.checkmark
-          input(type="checkbox" :checked="isCompleted(lesson.slug)" @change="toggleCompleted(lesson.slug)")
+          input(type='checkbox'
+                :checked='isCompleted(lesson.slug)'
+                @change='toggleCompleted(lesson.slug)')
           span.check
-    .list-subscribe(v-cloak v-if="account")
-      courseSubscribe(:account="account" :slug="course.slug" message="Notify me when new lessons are available." v-cloak v-if="account")
+
+    .list-subscribe(v-if='account' v-cloak)
+      CourseSubscribe(:account='account'
+                      :slug='course.slug'
+                      message='Notify me when new lessons are available.')
+
 </template>
 
 <script>
-import courseSubscribe from '~/components/account/CourseSubscribe'
+import CourseSubscribe from '~/components/account/CourseSubscribe'
 export default {
-  name: 'list',
+  name: 'lessons-list',
 
   props: {
     account: {
@@ -45,12 +54,12 @@ export default {
   },
 
   components: {
-    courseSubscribe
+    CourseSubscribe
   },
 
   methods: {
     selectLesson (lessonSlug) {
-      this.$emit('selectLesson', lessonSlug)
+      this.$emit('redirect', lessonSlug)
     },
 
     toggleCompleted (lessonSlug) {
@@ -101,7 +110,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 headerHeight = 76px
@@ -123,7 +132,7 @@ headerHeight = 76px
     top 60px
     bottom 0
     top headerHeight
-    height "calc(100% - %s)" % headerHeight
+    height 'calc(100% - %s)' % headerHeight
     width: 100%
 
 .list-subscribe
@@ -146,16 +155,20 @@ headerHeight = 76px
     display flex
     align-items center
     color #A1B8BA
+
     i
       margin-right 8px
 
   &.active,
   &:hover
     background: linear-gradient(to right, #41B782 , #86D169)
+
     .list-item-title
       font-weight 600
+
     .list-item-meta
       color #C1FFC3
+
     .checkmark .check
       border-color $primary-color
       background-color #FFF
@@ -167,20 +180,26 @@ headerHeight = 76px
 
   &.completed
     background-color #EBEBEB
-    &:not([class*="active"]) .list-item-title
+
+    &:not([class*='active']) .list-item-title
       opacity 0.4
 
   &.-locked
     opacity 0.4
+
     &:hover
       background transparent
+
       .list-item-title
         font-weight normal
         color #A1B8BA
+
       .list-item-meta
         color #A1B8BA
+
     > .list-item-actions .checkmark
       display none
+
     > .list-item-actions .fa-lock
       display block
 
@@ -194,6 +213,7 @@ headerHeight = 76px
 
 .list-item-actions
   margin-left 20px
+
   .fa-lock
     display none
 
@@ -204,11 +224,12 @@ headerHeight = 76px
   padding 0 24px
   height 60px
   color: $secondary-color
+
   +tablet-up()
     height headerHeight
 
 .title,
-.list-item:not([class*="active"]),
+.list-item:not([class*='active']),
 .list-subscribe
   border-bottom: 1px solid #CACACA
 

@@ -1,14 +1,16 @@
-<template lang="pug">
+<template lang='pug'>
 .container
   .page-header
     .wrapper
       h1.title Privacy Policy
   .wrapper
-    div(v-html="privacy")
+    div(v-html='privacy')
 </template>
 <script>
 import Privacy from '~/static/privacy.md'
 export default {
+  name: 'page-privacy',
+
   middleware: 'anonymous',
   // head: {
   //   title: 'Privacy Policy'
@@ -30,7 +32,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
 .wrapper

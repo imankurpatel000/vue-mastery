@@ -1,30 +1,43 @@
-<template lang="pug">
+<template lang='pug'>
 form.form.card
   .card-body
     .form-group
       label Profile Image
+      
       .upload
         button.button.primary.border Upload Image
-        input.input(type="file" accept="image/*" placeholder="Profile Image" @change="updateProfileImage" ref="fileInput")
+        input.input(type='file'
+                    accept='image/*'
+                    placeholder='Profile Image'
+                    ref='fileInput'
+                    @change='updateProfileImage')
+    
     .form-group
       label Display Name
-      input.input(type="email" placeholder="Display Name" v-model="newData.displayName" @input="updateField('displayName')")
+      input.input(type='email'
+                  placeholder='Display Name'
+                  v-model='newData.displayName'
+                  @input="updateField('displayName')")
 
     .form-error
-      .callout.-error(v-if="formError.length > 0" v-text="formError")
-      .callout.-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+      .callout.-error(v-if='formError.length > 0' v-text='formError')
+      .callout.-success(v-if='formSuccess.length > 0' v-text='formSuccess')
+
 </template>
 
 <script>
 import firebase from 'firebase'
 
 export default {
+  name: 'account-edit',
+
   props: {
     account: {
       type: Object,
       required: true
     }
   },
+
   data () {
     return {
       newData: {
@@ -36,10 +49,12 @@ export default {
       formSuccess: ''
     }
   },
+
   methods: {
     resetFormMessages () {
       this.formSuccess = this.formError = ''
     },
+
     updateField (key) {
       this.resetFormMessages()
       clearTimeout(this.debounceTimer)
@@ -55,6 +70,7 @@ export default {
           })
       }, 500)
     },
+
     updateProfileImage () {
       this.resetFormMessages()
       const file = this.$refs.fileInput.files[0]
@@ -75,11 +91,11 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
-@import '~assets/css/_variables'
+<style lang='stylus' scoped>
 label
   font-weight 600
   margin-bottom 5px
+
 .form-group.-switched
   display flex
   flex-direction: row
