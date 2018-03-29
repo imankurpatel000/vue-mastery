@@ -29,7 +29,9 @@ export default {
       pageSlug: this.page,
       pageTitle: this.current.title,
       description: this.current.description,
-      imageUrl: this.current.image[0].url
+      image: this.current.image[0].url,
+      facebookImage: this.current.facebookImage[0].url,
+      twitterImage: this.current.twitterImage[0].url
     })
   },
 

@@ -17,7 +17,7 @@ export default {
       }, {
         hid: `og:image`,
         property: 'og:image',
-        content: d.imageUrl || `${process.env.url}/images/facbeook_image.png`
+        content: d.facebookImage || d.image || `${process.env.url}/images/facbeook_image.png`
       }, {
         hid: 'twitter:title',
         name: 'twitter:title',
@@ -29,7 +29,7 @@ export default {
       }, {
         hid: 'twitter:image',
         name: 'twitter:image',
-        content: d.imageUrl || `${process.env.url}/images/facbeook_image.png`
+        content: d.twitterImage || d.image || `${process.env.url}/images/facbeook_image.png`
       }]
     }
   }
