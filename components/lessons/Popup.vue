@@ -34,7 +34,7 @@ export default {
   methods: {
     selectLesson () {
       this.$modal.hide('next-lesson')
-      this.$emit('selectLesson', this.lesson.slug)
+      this.$emit('redirect', this.lesson.slug)
     },
 
     beforeOpen (event) {
