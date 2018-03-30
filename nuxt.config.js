@@ -351,6 +351,46 @@ module.exports = {
     }
   },
 
+  getCoursesPage (db) {
+    return db.get('courses', {
+      populate: [ {
+        field: 'lessons',
+        fields: [ 'slug' ]
+      } ]})
+      .then(courses => {
+        let pages = []
+        for (const key of Object.keys(courses)) {
+          const course = courses[key]
+          if (course.hasOwnProperty('lessons')) {
+            for (const id of Object.keys(course.lessons)) {
+              pages.push(`/courses/${course.slug}/${course.lessons[id].slug}`)
+            }
+          }
+        }
+        return this.getTalksPage(db, pages)
+      })
+  },
+
+  getTalksPage (db, pages) {
+    return db.get('conferences', {
+      populate: [ {
+        field: 'talks',
+        fields: [ 'slug' ]
+      } ]})
+      .then(conferences => {
+        let pages = []
+        for (const key of Object.keys(conferences)) {
+          const conference = conferences[key]
+          if (conference.hasOwnProperty('talks')) {
+            for (const id of Object.keys(conference.talks)) {
+              pages.push(`/courses/${conference.slug}/${conference.talks[id].slug}`)
+            }
+          }
+        }
+        return pages
+      })
+  },
+
   generate: {
     minify: false,
     routes: function () {
@@ -364,23 +404,7 @@ module.exports = {
       }
       const firebaseApp = admin.initializeApp(firebaseConfig)
       const db = flamelink({ firebaseApp, isAdminApp: true }).content
-      return db.get('courses', {
-        populate: [ {
-          field: 'lessons',
-          fields: [ 'slug' ]
-        } ]})
-        .then(courses => {
-          let pages = []
-          for (const key of Object.keys(courses)) {
-            const course = courses[key]
-            if (course.hasOwnProperty('lessons')) {
-              for (const id of Object.keys(course.lessons)) {
-                pages.push(`/courses/${course.slug}/${course.lessons[id].slug}`)
-              }
-            }
-          }
-          return pages
-        })
+      return this.getCoursesPage(db)
     }
   }
 }
