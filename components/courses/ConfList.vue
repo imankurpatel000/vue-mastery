@@ -5,7 +5,7 @@
     nuxt-link.card(v-for='talk in talks'
                    :key='talk.slug'
                    :to='path(talk)'
-                   :class="{ 'comingsoon': !talk.isVideoLive }")
+                   :class="{ 'coming-soon': talk.lock }")
       .card-header
         img.card-img(:src='talk.image[0].url'
                      :alt='talk.title')
@@ -37,7 +37,7 @@ export default {
 
   methods: {
     path (talk) {
-      return talk.isVideoLive ? `/conferences/${this.conference}/${talk.slug}` : '#'
+      return talk.lock ? '#' : `/conferences/${this.conference}/${talk.slug}`
     }
   }
 }
@@ -101,7 +101,27 @@ $cardPadding = $vertical-space / 3
 .content
   padding 10px $cardPadding
 
-.comingsoon
+.coming-soon
   pointer-events: none
   cursor: not-allowed
+  position relative
+  overflow hidden
+
+  &:after
+    content: 'Coming soon'
+    position: absolute
+    bottom: 0
+    padding: 0px 23px
+    border-radius: 9px 0 0 0
+    right: 0
+    height: 29px
+    background: linear-gradient(to top right, #41b782, #86d169)
+    font-weight: 600
+    color: #fff
+    font-size: 14px
+    display: flex
+    align-items: center
+
+  .media-block
+    opacity 0.4
 </style>
