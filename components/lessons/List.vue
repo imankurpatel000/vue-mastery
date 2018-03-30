@@ -13,7 +13,7 @@
           div(v-if='lesson.duration')
             i.far.fa-clock
             span {{ lesson.duration | time}}
-          div(v-if='lesson.author')
+          div(v-else)
             i.far.fa-user
             span {{ lesson.author}}
       
