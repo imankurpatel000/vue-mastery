@@ -10,7 +10,7 @@ const state = {
   latests: null,
   free: null,
   featured: null,
-  talks: null
+  conference: null
 }
 
 // getters
@@ -20,7 +20,8 @@ const getters = {
   lessons: state => state.lessons,
   latests: state => state.latests,
   free: state => state.free,
-  featured: state => state.featured
+  featured: state => state.featured,
+  conference: state => state.conference
 }
 
 // actions
@@ -51,6 +52,14 @@ const actions = {
         {
           field: 'image',
           subFields: [ 'image' ]
+        },
+        {
+          field: 'facebookImage',
+          subFields: [ 'facebookImage' ]
+        },
+        {
+          field: 'twitterImage',
+          subFields: [ 'twitterImage' ]
         },
         {
           field: 'lessons',
@@ -98,16 +107,33 @@ const actions = {
     })
   },
 
-  talks ({ commit, state }) {
-    if (state.talks) return true
-    return db.get('talks', {
-      populate: [ {
-        field: 'image',
-        subFields: [ 'image' ]
-      }]
-    }).then(talks => {
-      commit(types.RECEIVE_TALKS, { talks })
-    })
+  getConference ({ commit, state, rootState }, slug) {
+    return db.get('conference', {
+      orderByChild: 'slug',
+      equalTo: slug,
+      populate: [
+        {
+          field: 'image',
+          subFields: [ 'image' ]
+        },
+        {
+          field: 'facebookImage',
+          subFields: [ 'facebookImage' ]
+        },
+        {
+          field: 'twitterImage',
+          subFields: [ 'twitterImage' ]
+        },
+        {
+          field: 'talks',
+          subFields: [ 'talks', 'image' ],
+          populate: [ 'image' ]
+        }
+      ]})
+      .then(conference => {
+        conference = conference[Object.keys(conference)[0]]
+        commit(types.RECEIVE_CONFERENCE, { conference })
+      })
   }
 }
 
@@ -129,8 +155,8 @@ const mutations = {
   [types.RECEIVE_LATEST] (state, { latests }) {
     state.latests = latests.latests
   },
-  [types.RECEIVE_TALKS] (state, { talks }) {
-    state.talks = talks
+  [types.RECEIVE_CONFERENCE] (state, { conference }) {
+    state.conference = conference
   }
 }
 

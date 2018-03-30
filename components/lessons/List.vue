@@ -10,9 +10,12 @@
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta
-          div
+          div(v-if='lesson.duration')
             i.far.fa-clock
             span {{ lesson.duration | time}}
+          div(v-if='lesson.author')
+            i.far.fa-character
+            span {{ lesson.author}}
       
       .list-item-actions(@click.stop)
         i.fa.fa-lock

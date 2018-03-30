@@ -26,7 +26,7 @@ export default {
     return meta.get({
       categoryTitle: this.course.title,
       categorySlug: this.category,
-      pageSlug: this.page,
+      pageSlug: this.current.slug,
       pageTitle: this.current.title,
       description: this.current.description,
       image: this.current.image[0].url,

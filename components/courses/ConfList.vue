@@ -2,12 +2,13 @@
 .playlist
   h2.title Playlist
   .cards(v-if='talks' v-cloak)
-    //- nuxt-link.card(v-for='talk in talks' :to='path(talk)' )
-    .card(v-for='talk in talks')
+    nuxt-link.card(v-for='talk in talks'
+                   :key='talk.slug'
+                   :to='path(talk)'
+                   :class="{ 'comingsoon': !talk.isVideoLive }")
       .card-header
         img.card-img(:src='talk.image[0].url'
-                     :alt='talk.title'
-                     :class="{ 'comingsoon': !talk.isVideoLive }")
+                     :alt='talk.title')
         .card-title
           //- b.releaseDate {{ talk.releaseDate }}
           h4.title {{ talk.title }}
@@ -22,18 +23,21 @@ export default {
   props: {
     account: {
       type: Object,
-      required: true
+      required: false
     },
     talks: {
-      type: Object,
+      type: Array,
+      required: true
+    },
+    conference: {
+      type: String,
       required: true
     }
   },
 
   methods: {
     path (talk) {
-      // return `/courses/${talks.belongsToCourse[0].slug}/${talk.slug}`
-      return '#'
+      return talk.isVideoLive ? `/conferences/${this.conference}/${talk.slug}` : '#'
     }
   }
 }
@@ -97,4 +101,7 @@ $cardPadding = $vertical-space / 3
 .content
   padding 10px $cardPadding
 
+.comingsoon
+  pointer-events: none
+  cursor: not-allowed
 </style>

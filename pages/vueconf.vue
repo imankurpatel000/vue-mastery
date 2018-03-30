@@ -10,9 +10,9 @@
         p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos.  We will begin to release the videos free shortly after the conference.
       
       .callout.-success
-        CourseSubscribe(:account='account' slug='vueConf' message='Notify me when new talks are available.')
+        CourseSubscribe(:account='account' :slug='conference' message='Notify me when new talks are available.')
       
-      ConfList(:talks='talks' :account='account')
+      ConfList(:talks='talks' :account='account' :conference='conference')
 </template>
 
 <script>
@@ -45,15 +45,21 @@ export default {
     VueConfBanner
   },
 
+  data () {
+    return {
+      conference: 'vueconf-2018'
+    }
+  },
+
   computed: {
     ...mapState({
       account: result => result.account.account,
-      talks: result => result.courses.talks
+      talks: result => result.courses.conference.talks
     })
   },
 
   async fetch ({ store }) {
-    await store.dispatch('talks')
+    await store.dispatch('getConference', this.conference)
   }
 }
 </script>

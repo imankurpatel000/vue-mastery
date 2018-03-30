@@ -20,16 +20,22 @@ div
     Body(:course='current' :locked='locked')
 
     aside.lesson-aside(v-if='!locked' v-cloak)
-      .control-group
+      .control-group(v-if='isLesson' v-cloak)
         Download(:courseLink='current.downloadLink', :account='account')
         SocialShare(:lesson='current' :category='category')
+
+      .card.download(v-else)
+        .card-body
+          h3 Download the Vue Cheat Sheet
+          p All the essential syntax at your fingertips
+          DownloadButton(button-class='inverted' location='Vueconf download button')
 
       Resources(v-if='current.resources' v-cloak
                 :resources='current.resources')
     
-      Challenges(:challenges='current.codingChallenge')
+      Challenges(v-if='current.codingChallenge' :challenges='current.codingChallenge')
     
-      .text-center
+      .text-center(v-if='isLesson')
         a.button.primary.border(href='https://www.facebook.com/groups/152305585468331/') Discuss in our Facebook Group
         router-link.button.inverted.-small(to='/contact') Send us Feedback
 
@@ -71,6 +77,7 @@ import SocialShare from '~/components/lessons/SocialSharing'
 import Unlock from '~/components/lessons/Unlock'
 import Video from '~/components/lessons/Video'
 import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
+import DownloadButton from '~/components/static/DownloadButton'
 
 export default {
   name: 'wrapper-lesson',
@@ -101,6 +108,10 @@ export default {
     },
     selected: {
       type: Number
+    },
+    isLesson: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -116,7 +127,8 @@ export default {
     SocialShare,
     Download,
     Unlock,
-    PlayerPlaceholder
+    PlayerPlaceholder,
+    DownloadButton
   },
 
   computed: {
@@ -216,4 +228,14 @@ export default {
 .lessons-nav
   grid-area footer
 
+
+.download
+  color white
+  text-align center
+  align-items center
+  background-image url(/images/bkg-cheatsheet-main.jpg)
+  margin-bottom ($vertical-space/2)
+
+  .button
+    margin 0 auto
 </style>
