@@ -4,6 +4,7 @@
 
   .lessons-list-scroll
     .list-item(v-for='(lesson, index) in course.lessons'
+               v-if='isLesson || !lesson.lock'
                :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson.lock)]'
                @click='selectLesson(lesson.slug)')
       
@@ -53,6 +54,10 @@ export default {
     completedUnlogged: {
       type: Object,
       default: false
+    },
+    isLesson: {
+      type: Boolean,
+      default: true
     }
   },
 

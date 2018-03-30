@@ -15,6 +15,7 @@ div
          :current='page'
          :account='account'
          :completed-unlogged='completedUnlogged'
+         :isLesson='isLesson'
          @redirect='redirect')
 
     Body(:course='current' :locked='locked')
