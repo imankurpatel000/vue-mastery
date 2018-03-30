@@ -14,7 +14,7 @@
             i.far.fa-clock
             span {{ lesson.duration | time}}
           div(v-if='lesson.author')
-            i.far.fa-character
+            i.far.fa-user
             span {{ lesson.author}}
       
       .list-item-actions(@click.stop)
