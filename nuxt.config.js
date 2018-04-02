@@ -1,4 +1,6 @@
+const generator = require('./services/generator.js')
 let baseUrl = 'https://www.vuemastery.com'
+
 module.exports = {
   /*
   ** Build configuration
@@ -351,60 +353,8 @@ module.exports = {
     }
   },
 
-  getCoursesPage (db) {
-    return db.get('courses', {
-      populate: [ {
-        field: 'lessons',
-        fields: [ 'slug' ]
-      } ]})
-      .then(courses => {
-        let pages = []
-        for (const key of Object.keys(courses)) {
-          const course = courses[key]
-          if (course.hasOwnProperty('lessons')) {
-            for (const id of Object.keys(course.lessons)) {
-              pages.push(`/courses/${course.slug}/${course.lessons[id].slug}`)
-            }
-          }
-        }
-        return this.getTalksPage(db, pages)
-      })
-  },
-
-  getTalksPage (db, pages) {
-    return db.get('conferences', {
-      populate: [ {
-        field: 'talks',
-        fields: [ 'slug' ]
-      } ]})
-      .then(conferences => {
-        let pages = []
-        for (const key of Object.keys(conferences)) {
-          const conference = conferences[key]
-          if (conference.hasOwnProperty('talks')) {
-            for (const id of Object.keys(conference.talks)) {
-              pages.push(`/courses/${conference.slug}/${conference.talks[id].slug}`)
-            }
-          }
-        }
-        return pages
-      })
-  },
-
   generate: {
     minify: false,
-    routes: function () {
-      const flamelink = require('flamelink')
-      const admin = require('firebase-admin')
-      const serviceAccount = require('./serviceAccountKey.json')
-      const firebaseConfig = {
-        credential: admin.credential.cert(serviceAccount),
-        databaseURL: 'https://vue-mastery.firebaseio.com',
-        storageBucket: 'vue-mastery.appspot.com'
-      }
-      const firebaseApp = admin.initializeApp(firebaseConfig)
-      const db = flamelink({ firebaseApp, isAdminApp: true }).content
-      return this.getCoursesPage(db)
-    }
+    routes: generator.getDynamicPage
   }
 }
