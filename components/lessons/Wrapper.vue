@@ -7,7 +7,7 @@ div
           :videoId = 'current.videoEmbedId'
           @videoEnded='finished'
           @completed='completed')
-    
+
     .video.-locked(v-else :style='lockedStyle')
       Unlock(:account='account')
 
@@ -34,9 +34,9 @@ div
 
       Resources(v-if='current.resources' v-cloak
                 :resources='current.resources')
-    
+
       Challenges(v-if='current.codingChallenge' :challenges='current.codingChallenge')
-    
+
       .text-center(v-if='isLesson')
         a.button.primary.border(href='https://www.facebook.com/groups/152305585468331/') Discuss in our Facebook Group
         router-link.button.inverted.-small(to='/contact') Send us Feedback

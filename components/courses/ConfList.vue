@@ -49,16 +49,21 @@ export default {
 $headerHeight = 150px
 $cardPadding = $vertical-space / 3
 
+.playlist
+  margin-bottom: ($vertical-space/2);
+
 .playlist > .title
   margin: 15px 0 25px 0
-  
+
   +tablet-up()
     margin-bottom: 35px
 
 .cards
   display: grid
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr))
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
   grid-gap: 1rem
+  @media (min-width: 576px)
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr))
 
 .card
   flex-direction: column
@@ -75,7 +80,7 @@ $cardPadding = $vertical-space / 3
   object-fit contain
 
 .card-header
-  height $headerHeight
+  // height $headerHeight
   display flex
   flex-direction: row-reverse
   justify-content: space-between
@@ -83,7 +88,7 @@ $cardPadding = $vertical-space / 3
   +laptop-up()
     flex-direction row
     justify-content: flex-start
-  
+
   .title
     color $secondary-color
     padding-top 0
@@ -92,7 +97,7 @@ $cardPadding = $vertical-space / 3
   flex-direction column
   justify-content center
   display flex
-  padding $cardPadding
+  padding 0 $cardPadding
 
 .author
   margin 0
