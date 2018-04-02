@@ -62,6 +62,8 @@ $cardPadding = $vertical-space / 3
   display: grid
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
   grid-gap: 1rem
+  @media (min-width: 576px)
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr))
 
 .card
   flex-direction: column
@@ -78,7 +80,7 @@ $cardPadding = $vertical-space / 3
   object-fit contain
 
 .card-header
-  height $headerHeight
+  // height $headerHeight
   display flex
   flex-direction: row-reverse
   justify-content: space-between
@@ -95,7 +97,7 @@ $cardPadding = $vertical-space / 3
   flex-direction column
   justify-content center
   display flex
-  padding $cardPadding
+  padding 0 $cardPadding
 
 .author
   margin 0
