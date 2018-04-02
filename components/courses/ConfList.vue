@@ -4,15 +4,14 @@
   .cards(v-if='talks' v-cloak)
     nuxt-link.card(v-for='talk in talks'
                    :key='talk.slug'
-                   :to='path(talk)'
-                   :class="{ 'coming-soon': talk.lock }")
+                   :to='path(talk)')
       .card-header
         img.card-img(:src='talk.image[0].url'
                      :alt='talk.title')
         .card-title
           //- b.releaseDate {{ talk.releaseDate }}
           h4.title {{ talk.title }}
-          p.author {{ talk.author }}
+          label.underline.author {{ talk.author }}
       p.content {{ talk.description }}
 </template>
 
@@ -73,6 +72,13 @@ $cardPadding = $vertical-space / 3
   +laptop-up()
     margin-bottom ($vertical-space/2)
 
+  .author
+    transition transform ease-out 200ms
+
+  &:hover
+    .author
+      transform translateX(5px)
+
 .card-img
   height $headerHeight
   width $headerHeight
@@ -101,7 +107,11 @@ $cardPadding = $vertical-space / 3
 
 .author
   margin 0
-  color: $gray
+  color $gray
+  align-self left
+  
+  &:before
+    z-index 0
 
 .content
   padding 10px $cardPadding
@@ -129,4 +139,5 @@ $cardPadding = $vertical-space / 3
 
   .media-block
     opacity 0.4
+
 </style>

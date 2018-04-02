@@ -8,7 +8,7 @@ div
       .media.-video
         img(:src='lesson.image[0].url' :alt='lesson.title')
       .body
-        h4 {{ lesson.title }}
+        h4.title-small {{ lesson.title }}
         .meta
           b {{ lessonsCourse(lesson) }}
         .meta
