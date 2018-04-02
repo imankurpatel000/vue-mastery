@@ -251,7 +251,8 @@ module.exports = {
    ** Global CSS
    */
   css: [
-    '~/assets/css/style.styl'
+    '~/assets/css/style.styl',
+    'highlight.js/styles/vs2015.css'
   ],
   /*
    ** Site Modules
@@ -273,7 +274,8 @@ module.exports = {
     typographer: true,
     injected: true,
     use: [
-      'markdown-it-decorate'
+      'markdown-it-decorate',
+      'markdown-it-highlightjs'
     ]
   },
   /*
