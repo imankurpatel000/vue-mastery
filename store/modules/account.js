@@ -218,6 +218,11 @@ const actions = {
     } else {
       state.completedUnlogged = courses
     }
+  },
+  userUpdatePlaybackRate ({ state, commit }, newRate) {
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+      playbackRate: newRate
+    })
   }
 }
 
@@ -228,7 +233,7 @@ const mutations = {
     state.user = user
     return this.dispatch('setAccountRef', `accounts/${state.user.uid}`)
   },
-  [types.NEW_USER] () {}
+  [types.NEW_USER] (state) {}
 }
 
 export default {

@@ -16,6 +16,10 @@ export default {
     videoId: {
       type: String,
       required: true
+    },
+    account: {
+      type: Object,
+      required: false
     }
   },
 
@@ -30,9 +34,17 @@ export default {
     this.ready = true
   },
 
+  watch: {
+    account () {
+      this.updatePlaybackRate()
+    }
+  },
+
   methods: {
     onReady () {
       this.$refs.player.play()
+      this.$refs.player.player.on('playbackratechange', this.playbackratechange)
+      this.updatePlaybackRate()
     },
 
     videoProgress (data) {
@@ -44,6 +56,38 @@ export default {
 
     videoEnded () {
       this.$emit('videoEnded')
+    },
+
+    playbackratechange () {
+      this.$refs.player.player
+        .getPlaybackRate()
+        .then((playbackRate) => {
+          if (this.account) {
+            this.$store.dispatch('userUpdatePlaybackRate', playbackRate)
+          } else {
+            window.localStorage.setItem('playbackRate', playbackRate)
+          }
+        })
+    },
+
+    setPlayback (rate) {
+      if (rate) {
+        this.$refs.player.player
+          .getPlaybackRate()
+          .then((playbackRate) => {
+            if (rate !== playbackRate) {
+              this.$refs.player.player.setPlaybackRate(rate)
+            }
+          })
+      }
+    },
+
+    updatePlaybackRate () {
+      if (this.account) {
+        this.setPlayback(this.account.playbackRate)
+      } else {
+        this.setPlayback(window.localStorage.playbackRate)
+      }
     }
   }
 }

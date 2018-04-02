@@ -6,7 +6,8 @@ div
     Video(v-if='current && !locked'
           :videoId = 'current.videoEmbedId'
           @videoEnded='finished'
-          @completed='completed')
+          @completed='completed'
+          :account='account')
 
     .video.-locked(v-else :style='lockedStyle')
       Unlock(:account='account')
