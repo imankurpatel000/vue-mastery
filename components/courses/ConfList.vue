@@ -49,15 +49,18 @@ export default {
 $headerHeight = 150px
 $cardPadding = $vertical-space / 3
 
+.playlist
+  margin-bottom: ($vertical-space/2);
+
 .playlist > .title
   margin: 15px 0 25px 0
-  
+
   +tablet-up()
     margin-bottom: 35px
 
 .cards
   display: grid
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr))
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
   grid-gap: 1rem
 
 .card
@@ -83,7 +86,7 @@ $cardPadding = $vertical-space / 3
   +laptop-up()
     flex-direction row
     justify-content: flex-start
-  
+
   .title
     color $secondary-color
     padding-top 0
