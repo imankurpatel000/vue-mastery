@@ -19,6 +19,7 @@ div
          @redirect='redirect')
 
     Body(:course='current' :locked='locked')
+      Profile(:current='current' v-if='!isLesson' v-cloak)
 
     aside.lesson-aside(v-if='!locked' v-cloak)
       .control-group(v-if='isLesson' v-cloak)
@@ -77,6 +78,7 @@ import Resources from '~/components/lessons/Resources'
 import SocialShare from '~/components/lessons/SocialSharing'
 import Unlock from '~/components/lessons/Unlock'
 import Video from '~/components/lessons/Video'
+import Profile from '~/components/lessons/Profile'
 import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
 import DownloadButton from '~/components/static/DownloadButton'
 
@@ -129,6 +131,7 @@ export default {
     Download,
     Unlock,
     PlayerPlaceholder,
+    Profile,
     DownloadButton
   },
 

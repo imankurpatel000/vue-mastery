@@ -2,7 +2,9 @@
   .lesson-content(:class="locked ? '-locked': 'unlock'")
     div
       h1.title {{ course.title}}
+      slot
       .lesson-body(v-html='body')
+
     .lesson-locked(v-if='locked' v-cloak)
       Unlock
 </template>
