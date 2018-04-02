@@ -11,8 +11,8 @@
         nuxt-link.button.primary.border(to='/courses')
           | More
           span.visually-hidden Courses
-    //- .vue-conf
-    //-   VueConfBanner
+    .vue-conf
+      VueConfBanner
     .meet-teachers
       MeetTeachers
     .cheatsheet
