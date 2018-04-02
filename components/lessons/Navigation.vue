@@ -4,12 +4,12 @@
               :disabled='isFirst'
               @click='goTo(-1)')
     i.fa.fa-chevron-left
-    | Previous Lesson
+    | Previous {{type}}
 
   button.next(rel='next'
               :disabled='isLast'
               @click='goTo(1)')
-    | Next Lesson
+    | Next {{type}}
     i.fa.fa-chevron-right
 </template>
 
@@ -24,6 +24,10 @@ export default {
     },
     selected: {
       type: Number
+    },
+    type: {
+      type: String,
+      default: 'Lesson'
     }
   },
 

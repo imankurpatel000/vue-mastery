@@ -44,6 +44,7 @@ div
     Nav(v-if='current'
         :lessons='course.lessons'
         :selected='selected'
+        :type="isLesson ? 'lesson': 'talk'"
         @redirect='redirect')
 
     Popup(@redirect='redirect')
