@@ -1,7 +1,7 @@
 <template lang='pug'>
   nav.navbar(role='navigation' aria-label='main navigation' @click="$emit('toggleNav')")
     .navbar-main
-      router-link.navbar-item.underline(to="/account" v-if="account") Dashboard
+      router-link.navbar-item.underline(to="/account?section=Dashboard" v-if="account") Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/vueconf") VueConf
       router-link.navbar-item.underline(to="/about") About

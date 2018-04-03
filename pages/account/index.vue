@@ -8,7 +8,7 @@
       h3(v-text="account.displayName")
 
   .account-actions
-    button.tab(type="button" v-for="tab in tabs" :disabled="!account" @click="selectedTab = tab" :class="{'active-tab': selectedTab == tab}") {{ tab }}
+    button.tab(type="button" v-for="tab in tabs" :disabled="!account" @click="goTo(tab)" :class="{'active-tab': selectedTab == tab}") {{ tab }}
 
   div.account-content
     div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
@@ -118,6 +118,11 @@ export default {
       uncompleted: {}
     }
   },
+  watch: {
+    $route (to, from) {
+      this.selectedTab = this.$route.query.section
+    }
+  },
   mounted () {
     this.$store.dispatch('getAllCourses')
   },
@@ -142,6 +147,10 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+    goTo (tab) {
+      this.selectedTab = tab
+      this.$router.push(`/account?section=${tab}`)
     }
   }
 }
