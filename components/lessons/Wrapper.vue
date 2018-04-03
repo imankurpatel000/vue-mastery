@@ -9,7 +9,7 @@ div
           @completed='completed'
           :account='account')
 
-    .video.-locked(v-else :style='lockedStyle')
+    .lesson-video.-locked(v-else :style='lockedStyle')
       Unlock(:account='account')
 
     List(:course='course'
