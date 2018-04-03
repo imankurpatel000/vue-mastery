@@ -253,8 +253,7 @@ module.exports = {
       {
         type: 'text/javascript',
         defer: 'defer',
-        src: 'https://js.chargebee.com/v2/chargebee.js',
-        'data-cb-site': 'vuemastery-test'
+        src: 'https://js.chargebee.com/v2/chargebee.js'
       }
     ]
   },

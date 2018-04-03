@@ -12,6 +12,7 @@
   "dependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "chargebee": "^2.3.5",
     "firebase-admin": "^5.9.1",
     "firebase-functions": "^0.8.1",
     "mailerlite": "git+https://github.com/pieer/mailerlite-sdk-nodejs.git",

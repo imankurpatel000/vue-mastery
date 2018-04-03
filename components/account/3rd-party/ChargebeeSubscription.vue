@@ -1,6 +1,6 @@
 <template lang='pug'>
-a.button.-small.link(
-  href='javascript:void(0)'
+button.button.-small.link(
+  :href='link'
   data-cb-type='checkout'
   :data-cb-plan-id='plan')
   | {{ label }}
@@ -19,9 +19,9 @@ export default {
       type: String,
       required: true
     },
-    redirect: {
+    link: {
       type: String,
-      default: ''
+      default: 'javascript:void(0)'
     }
   }
 }

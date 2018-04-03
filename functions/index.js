@@ -1,4 +1,5 @@
 const functions = require('firebase-functions')
+const chargebee = require('chargebee')
 const subscription = require('./subscription')
 const db = require('./helpers')
 // const payment = require('./payment')
@@ -98,5 +99,14 @@ module.exports = {
           console.log('Subscriber deleted')
         })
       })
+    }),
+
+  create_portal_session: functions.https.onRequest((req, res) => {
+    const customerId = req.query.customer_id
+    return chargebee.PortalSession.create({
+      customer: {
+        id: customerId
+      }
     })
+  })
 }
