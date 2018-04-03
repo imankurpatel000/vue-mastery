@@ -15,8 +15,7 @@ const createStore = () => {
       courses
     },
     state: {
-      openNav: false,
-      storage: null
+      openNav: false
     },
     getters: {
       openNav: state => state.openNav
@@ -39,9 +38,8 @@ const createStore = () => {
         commit('toggleNav', forceClose)
       },
       sendContactRequest ({ commit }, newData) {
-        const addr = '/inquiries/'
         // Get a key for a new contact.
-        return firebase.database().ref(addr).push(newData)
+        return firebase.database().ref('/inquiries/').push(newData)
       }
     },
     mutations: {
