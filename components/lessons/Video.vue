@@ -83,11 +83,7 @@ export default {
     },
 
     updatePlaybackRate () {
-      if (this.account) {
-        this.setPlayback(this.account.playbackRate)
-      } else {
-        this.setPlayback(window.localStorage.playbackRate)
-      }
+      this.setPlayback(this.account ? this.account.playbackRate : window.localStorage.playbackRate)
     }
   }
 }
