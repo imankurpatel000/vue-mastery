@@ -240,12 +240,21 @@ module.exports = {
       {
         href: '/manifest.json',
         rel: 'manifest'
-      },
+      }
+    ],
+    script: [
       // Vimeo analytics
       {
         type: 'text/javascript',
         defer: 'defer',
         src: 'https://extend.vimeocdn.com/ga/72160148.js'
+      },
+      // Chargebee
+      {
+        type: 'text/javascript',
+        defer: 'defer',
+        src: 'https://js.chargebee.com/v2/chargebee.js',
+        'data-cb-site': 'vuemastery-test'
       }
     ]
   },
