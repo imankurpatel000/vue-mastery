@@ -1,14 +1,14 @@
 <template lang='pug'>
   nav.navbar(role='navigation' aria-label='main navigation' @click="$emit('toggleNav')")
     .navbar-main
-      router-link.navbar-item.underline(to="/account?section=Dashboard" v-if="account") Dashboard
+      router-link.navbar-item.underline(to="/account/dashboard" v-if="account") Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/vueconf") VueConf
       router-link.navbar-item.underline(to="/about") About
     no-ssr
       .navbar-secondary(v-cloak v-if='account')
         button.button.primary.-small(type='button' @click='signOut') Sign Out
-        nuxt-link.navbar-profile(to='/account?section=Profile')
+        nuxt-link.navbar-profile(to='/account/profile')
           img(v-bind:src='account.image' v-bind:alt='account.displayName')
       .navbar-secondary(v-cloak v-else)
         button.button.inverted.-small(type='button' @click='openSignUp') Sign Up

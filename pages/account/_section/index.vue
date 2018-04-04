@@ -8,10 +8,10 @@
       h3(v-text="account.displayName")
 
   .account-actions
-    button.tab(type="button" v-for="tab in tabs" :disabled="!account" @click="goTo(tab)" :class="{'active-tab': selectedTab == tab}") {{ tab }}
+    button.tab(type="button" v-for="tab in tabs" :disabled="!account" @click="goTo(tab)" :class="{'active-tab': selectedTab == tab}") {{ tab.replace('_', ' ') }}
 
   div.account-content
-    div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
+    div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
       div.main-course-list
         h3.title In Progress
         CourseList(:courses="inProgress" :account="account" v-if="Object.keys(inProgress).length !== 0" v-cloak)
@@ -46,12 +46,12 @@
           h3.title Recommended Courses
           CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
 
-    div.settings(v-if="selectedTab == 'Profile'" v-cloak)
+    div.settings(v-if="selectedTab == 'profile'" v-cloak)
       .profile-settings
         h3.title Update Profile
-        EditAccountForm(:account="account")
+        EditAccountForm(:account="account" v-if='account')
 
-    div(v-else-if="selectedTab == 'Account Settings'" v-cloak)
+    div(v-else-if="selectedTab == 'account_settings'" v-cloak)
       AccountSettings
 </template>
 
@@ -73,6 +73,9 @@ export default {
     BadgeGrid,
     AccountSettings,
     DownloadButton
+  },
+  transition (from, to) {
+    return from.path.split('/')[1] === to.path.split('/')[1] ? 'settings' : 'page'
   },
   computed: {
     ...mapState({
@@ -110,9 +113,9 @@ export default {
   },
   data () {
     return {
-      tabs: ['Dashboard', 'Profile', 'Account Settings'],
+      tabs: ['dashboard', 'profile', 'account_settings'],
       editing: false,
-      selectedTab: this.$route.query.section || 'Dashboard',
+      selectedTab: this.$route.params.section || 'dashboard',
       completed: {},
       recommended: {},
       uncompleted: {}
@@ -120,7 +123,7 @@ export default {
   },
   watch: {
     $route (to, from) {
-      this.selectedTab = this.$route.query.section
+      this.selectedTab = this.$route.params.section
     }
   },
   mounted () {
@@ -150,7 +153,7 @@ export default {
     },
     goTo (tab) {
       this.selectedTab = tab
-      this.$router.push(`/account?section=${tab}`)
+      this.$router.replace(`/account/${tab}`, false)
     }
   }
 }
@@ -247,6 +250,7 @@ export default {
   line-height $button-height-small
   border none
   cursor pointer
+  text-transform capitalize
 
   &:focus
     outline none

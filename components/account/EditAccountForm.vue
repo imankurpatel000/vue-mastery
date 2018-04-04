@@ -23,12 +23,22 @@ export default {
   data () {
     return {
       newData: {
-        displayName: this.account.displayName,
-        image: this.account.image
+        displayName: this.account.displayName || '',
+        image: this.account.image || ''
       },
       debounceTimer: setTimeout(() => {}),
       formError: '',
       formSuccess: ''
+    }
+  },
+  watch: {
+    account () {
+      if (this.account) {
+        this.newData = {
+          displayName: this.account.displayName,
+          image: this.account.image
+        }
+      }
     }
   },
   methods: {
