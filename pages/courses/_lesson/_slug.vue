@@ -59,6 +59,16 @@ import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
   middleware: 'anonymous',
+  transition (from, to) {
+    if (from && to) {
+      const fromArray = from.path.split('/')
+      const toArray = to.path.split('/')
+      if (fromArray.length > 3 && toArray.length > 3) {
+        return fromArray[2] === toArray[2] ? 'settings' : 'page'
+      }
+    }
+    return 'page'
+  },
   head () {
     return {
       title: `${this.course.title}: ${this.current.title}`,

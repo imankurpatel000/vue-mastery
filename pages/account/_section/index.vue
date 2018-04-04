@@ -75,7 +75,14 @@ export default {
     DownloadButton
   },
   transition (from, to) {
-    return from.path.split('/')[1] === to.path.split('/')[1] ? 'settings' : 'page'
+    if (from && to) {
+      const fromArray = from.path.split('/')
+      const toArray = to.path.split('/')
+      if (fromArray.length > 2 && toArray.length > 2) {
+        return fromArray[1] === toArray[1] ? 'settings' : 'page'
+      }
+    }
+    return 'page'
   },
   computed: {
     ...mapState({

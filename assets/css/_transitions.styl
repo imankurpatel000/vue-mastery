@@ -9,3 +9,30 @@
 .page-leave-to
   opacity: 0
   transform: translateY(20px)
+
+.course-enter-active, .course-leave-active
+  transition: none .1s
+  .lesson-video
+  .lessons-list
+    transition: opacity .1s
+
+.course-enter 
+  .lesson-video
+  .lessons-list
+    opacity: 0
+
+.course-leave-to
+  .lesson-video
+  .lessons-list
+    opacity: 0
+
+.settings-enter-active, .settings-leave-active
+  transition: none .1s
+  .account-content
+    transition: opacity .1s
+
+.settings-enter .account-wrapper
+  opacity: 0
+
+.settings-leave-to .account-content
+  opacity: 0

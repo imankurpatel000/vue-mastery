@@ -9,7 +9,7 @@
     ChangePassword
 
     h3.title Notifications
-    SubscribeToMailingList(:account="account")
+    SubscribeToMailingList(:account="account" v-if='account')
 
     h3.title Delete Account
     DeleteAccount
