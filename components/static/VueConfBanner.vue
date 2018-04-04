@@ -34,6 +34,7 @@ export default {
   background-size contain
 
   +laptop-up()
+    height 654px
     background-size cover
 
 .title

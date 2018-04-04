@@ -1,32 +1,52 @@
 <template lang='pug'>
   nav.navbar(role='navigation' aria-label='main navigation' @click="$emit('toggleNav')")
     .navbar-main
-      router-link.navbar-item.underline(to="/account" v-if="account") Dashboard
+      transition(name="linkin" mode='out-in' appear)
+        router-link.navbar-item.underline(to="/account/dashboard" v-if="account") Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/vueconf") VueConf
       router-link.navbar-item.underline(to="/about") About
+
     no-ssr
-      .navbar-secondary(v-cloak v-if='account')
-        button.button.primary.-small(type='button' @click='signOut') Sign Out
-        nuxt-link.navbar-profile(to='/account?section=Profile')
-          img(:src='account.image' :alt='account.displayName')
-      .navbar-secondary(v-cloak v-else)
-        button.button.inverted.-small(type='button' @click='openSignUp') Sign Up
-        button.button.primary.-small(type='button' @click='openLogin') Login
+      transition(:name="account ? 'signin' : 'signout'" mode='out-in' appear)
+        .navbar-secondary(v-if='account' v-cloak key='islogged')
+          button.button.primary.-small.appear(type='button' @click='signOut') Sign Out
+
+          nuxt-link.navbar-profile.appear(to='/account/profile')
+            img(:src='account.image' :alt='account.displayName')
+
+        .navbar-secondary.notlogged(v-else-if='ready' v-cloak key='notlogged')
+          button.button.inverted.-small(type='button' @click='openSignUp') Sign Up
+          button.button.primary.-small(type='button' @click='openLogin') Login
 </template>
 
 <script>
 export default {
   name: 'header-navigation',
+
   props: {
     account: {
       type: Object,
       required: false
     }
   },
+
+  data () {
+    return {
+      ready: false
+    }
+  },
+
   model: {
     event: 'toggleNav'
   },
+
+  mounted () {
+    setTimeout(() => {
+      this.ready = true
+    }, 2000)
+  },
+
   methods: {
     signOut () {
       this.$store
@@ -38,9 +58,11 @@ export default {
           console.log(error)
         })
     },
+
     openLogin () {
       this.$modal.show('login-form', { newAccount: false })
     },
+
     openSignUp () {
       this.$modal.show('login-form', {
         newAccount: true,
@@ -155,6 +177,43 @@ export default {
   img
     width: 100%
 
+.signin-enter-active
+  transition opacity ease-in .5s
+    
+  .appear
+    transition transform ease-out .5s
+
+  .navbar-profile
+    transition opacity .3s .2s
+
+.signin-leave-active
+  transition opacity ease-out .3s
+
+.signin-enter, .signin-leave-to
+  opacity: 0
+
+.signin-enter
+  .appear
+    transform translateX(58px)
+
+  .navbar-profile
+    opacity: 0
+
+.linkin-enter-active
+  transition margin-right ease-out .5s, opacity ease-out .3s .5s
+
+.linkin-leave-active
+  transition margin-right ease-out .5s .2s, opacity ease-out .3s
+
+.linkin-enter, .linkin-leave-to
+  margin-right: -91px
+  opacity: 0
+
+.signout-enter-active, .signout-leave-active
+  transition opacity ease-in .3s
+
+.signout-enter, .signout-leave-to
+  opacity: 0
 </style>
 
 <style lang='stylus'>
@@ -162,12 +221,16 @@ export default {
 .open-nav
   max-height: 100vh
   overflow: hidden
+
   .navbar *
     pointer-events: initial
+
   +laptop-up()
     max-height 100%
+
   .navbar
     opacity: 1
+    
   .button,
   .navbar-item
     opacity: 1
@@ -175,6 +238,7 @@ export default {
     for i in (1..2)
       &:nth-child({i})
         transition-delay: (i*100)ms
+
   .button
     for i in (1..2)
       &:nth-child({i})

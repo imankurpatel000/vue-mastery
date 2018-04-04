@@ -16,10 +16,22 @@ import meta from '~/mixins/meta'
 
 export default {
   name: 'page-lesson',
+
   middleware: 'anonymous',
 
   components: {
     LessonWrapper
+  },
+
+  transition (from, to) {
+    if (from && to) {
+      const fromArray = from.path.split('/')
+      const toArray = to.path.split('/')
+      if (fromArray.length > 3 && toArray.length > 3) {
+        return fromArray[2] === toArray[2] ? 'settings' : 'page'
+      }
+    }
+    return 'page'
   },
 
   head () {
