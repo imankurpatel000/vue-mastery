@@ -41,12 +41,23 @@ export default {
   data () {
     return {
       newData: {
-        displayName: this.account.displayName,
-        image: this.account.image
+        displayName: this.account.displayName || '',
+        image: this.account.image || ''
       },
       debounceTimer: setTimeout(() => {}),
       formError: '',
       formSuccess: ''
+    }
+  },
+
+  watch: {
+    account () {
+      if (this.account) {
+        this.newData = {
+          displayName: this.account.displayName,
+          image: this.account.image
+        }
+      }
     }
   },
 
@@ -74,7 +85,7 @@ export default {
     updateProfileImage () {
       this.resetFormMessages()
       const file = this.$refs.fileInput.files[0]
-      const ref = firebase.storage().ref(`accounts/profile/${this.account.uid}`)
+      const ref = firebase.storage().ref(`accounts/profile/${this.account['.key']}`)
       ref.put(file).then((snapshot) => {
         return this.$store.dispatch('userUpdateImage', snapshot.downloadURL)
       })

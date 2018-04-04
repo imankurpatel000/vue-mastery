@@ -13,10 +13,10 @@
                v-for='tab in tabs'
                :disabled='!account'
                :class="{'active-tab': selectedTab == tab}"
-               @click='selectedTab = tab' ) {{ tab }}
+               @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
 
   div.account-content
-    div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
+    div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
       div.main-course-list
         h3.title In Progress
         CourseList(v-if='Object.keys(inProgress).length !== 0' v-cloak
@@ -58,12 +58,13 @@
                      :courses='recommended'
                      :account='account')
 
-    div.settings(v-if="selectedTab == 'Profile'" v-cloak)
+    div.settings(v-if="selectedTab == 'profile'" v-cloak)
       .profile-settings
         h3.title Update Profile
-        EditAccountForm(:account='account')
 
-    div(v-else-if="selectedTab == 'Account Settings'" v-cloak)
+        EditAccountForm(:account='account' v-if='account')
+
+    div(v-else-if="selectedTab == 'account_settings'" v-cloak)
       AccountSettings
 </template>
 
@@ -92,13 +93,24 @@ export default {
 
   data () {
     return {
-      tabs: ['Dashboard', 'Profile', 'Account Settings'],
+      tabs: ['dashboard', 'profile', 'account_settings'],
       editing: false,
-      selectedTab: this.$route.query.section || 'Dashboard',
+      selectedTab: this.$route.params.section || 'dashboard',
       completed: {},
       recommended: {},
       uncompleted: {}
     }
+  },
+
+  transition (from, to) {
+    if (from && to) {
+      const fromArray = from.path.split('/')
+      const toArray = to.path.split('/')
+      if (fromArray.length > 2 && toArray.length > 2) {
+        return fromArray[1] === toArray[1] ? 'settings' : 'page'
+      }
+    }
+    return 'page'
   },
 
   computed: {
@@ -106,6 +118,7 @@ export default {
       account: result => result.account.account,
       courses: result => result.courses.courses
     }),
+
     inProgress () {
       for (let courseId in this.courses) {
         let category = 'recommended'
@@ -136,6 +149,12 @@ export default {
     }
   },
 
+  watch: {
+    $route (to, from) {
+      this.selectedTab = this.$route.params.section
+    }
+  },
+
   mounted () {
     this.$store.dispatch('getAllCourses')
   },
@@ -144,6 +163,7 @@ export default {
     toggleEditForm () {
       this.editing = !this.editing
     },
+
     scrollTo: function (e) {
       let target = e.currentTarget.dataset.target
       let element = document.getElementById(target)
@@ -153,6 +173,7 @@ export default {
         element.classList.remove('-flash')
       }, 1000)
     },
+
     signOut () {
       this.$store.dispatch('userLogout')
         .then(() => {
@@ -161,6 +182,11 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+
+    goTo (tab) {
+      this.selectedTab = tab
+      this.$router.replace(`/account/${tab}`, false)
     }
   }
 }
@@ -171,6 +197,7 @@ export default {
 .settings
   display flex
   justify-content center
+
 .account
   display flex
   justify-items flex-start
@@ -209,6 +236,7 @@ export default {
     color $secondary-color
     font-weight 600
     margin-bottom: 22px
+
     +tablet-up()
       font-size 40.5px
 
@@ -236,13 +264,12 @@ export default {
   border-bottom solid 2px $secondary-color
 
 .download
-  // display flex
-  // flex-direction column
   color white
   text-align center
   align-items center
   background-image url(/images/bkg-cheatsheet-main.jpg)
   margin-bottom ($vertical-space/2)
+
   .button
     margin 0 auto
 
@@ -257,6 +284,7 @@ export default {
   line-height $button-height-small
   border none
   cursor pointer
+  text-transform capitalize
 
   &:focus
     outline none
@@ -268,6 +296,7 @@ export default {
 .profile-settings
   width 100%
   margin-bottom: $vertical-space
+
   +tablet-up()
     width 70%
 
