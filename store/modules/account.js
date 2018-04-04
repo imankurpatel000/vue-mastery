@@ -53,9 +53,11 @@ function checkForFirstTime (user, commit, state) {
       // Merge completed lesson while not logged in
       if (state.completedUnlogged !== {}) {
         const courses = mergeDeep(userData.courses, state.completedUnlogged)
-        firebase.database()
-          .ref(`accounts/${state.user.uid}`)
-          .update({ courses })
+        if (courses) {
+          firebase.database()
+            .ref(`accounts/${state.user.uid}`)
+            .update({ courses })
+        }
       }
     }
   })
