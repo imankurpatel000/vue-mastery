@@ -1,8 +1,15 @@
 <template lang='pug'>
-.lesson-video(v-if='videoId && ready' v-cloak)
+.lesson-video(v-if='video && ready' v-cloak
+              itemprop='video' itemscope itemtype='http://schema.org/VideoObject')
+  meta(itemprop='name' :content='video.title')
+  meta(itemprop='duration' :content='video.duration')
+  meta(itemprop='thumbnailUrl' :content='video.image[0].url')
+  meta(itemprop='contentURL' :content='url')
+  meta(itemprop='uploadDate' :content='video.date')
+  meta(itemprop='description' :content='video.description')
   vimeo-player.video-wrapper(ref='player'
                              player-width='860'
-                             :video-id = 'videoId'
+                             :video-id = 'video.videoEmbedId'
                              @progress='videoProgress'
                              @ready='onReady'
                              @ended='videoEnded()')
@@ -13,13 +20,17 @@ export default {
   name: 'lesson-video',
 
   props: {
-    videoId: {
-      type: String,
+    video: {
+      type: Object,
       required: true
     },
     account: {
       type: Object,
       required: false
+    },
+    url: {
+      type: String,
+      required: true
     }
   },
 

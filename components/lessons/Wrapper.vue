@@ -4,7 +4,8 @@ div
     Header(:course='course')
 
     Video(v-if='current && !locked'
-          :videoId = 'current.videoEmbedId'
+          :video = 'current'
+          :url = 'baseUrl + current.slug'
           @videoEnded='finished'
           @completed='completed'
           :account='account')
@@ -146,12 +147,16 @@ export default {
       return {
         backgroundImage: `url(${this.current.image[0].url})`
       }
+    },
+
+    baseUrl () {
+      return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
     }
   },
 
   methods: {
     redirect (slug) {
-      this.$router.push(`/courses/${this.category}/${slug}`)
+      this.$router.push(this.baseUrl + slug)
     },
 
     completed () {
