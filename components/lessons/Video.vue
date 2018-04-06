@@ -4,7 +4,8 @@
   meta(itemprop='name' :content='video.title')
   meta(itemprop='duration' :content='video.duration')
   meta(itemprop='thumbnailUrl' :content='video.image[0].url')
-  meta(itemprop='contentURL' :content='url')
+  //- meta(itemprop='contentURL' :content='url')
+  meta(itemprop='embedURL' :content="'https://player.vimeo.com/video/'+video.videoEmbedId")
   meta(itemprop='uploadDate' :content='video.date')
   meta(itemprop='description' :content='video.description')
   vimeo-player.video-wrapper(ref='player'
