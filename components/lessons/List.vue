@@ -1,6 +1,6 @@
 <template lang='pug'>
 .lessons-list(v-if='course.lessons' v-cloak)
-  h3.title Lessons
+  h3.title {{isLesson ? 'Lessons' : 'Talks'}}
 
   .lessons-list-scroll
     .list-item(v-for='(lesson, index) in course.lessons'

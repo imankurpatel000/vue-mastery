@@ -24,11 +24,11 @@ div
       Profile(:current='current' v-if='!isLesson' v-cloak)
 
     aside.lesson-aside(v-if='!locked' v-cloak)
-      .control-group(v-if='isLesson' v-cloak)
+      .control-group
         Download(:courseLink='current.downloadLink', :account='account')
         SocialShare(:lesson='current' :category='category')
 
-      .card.download(v-else)
+      .card.download(v-if='!isLesson' v-cloak)
         .card-body
           h3 Download the Vue Cheat Sheet
           p All the essential syntax at your fingertips

@@ -3,7 +3,7 @@
     img.card-img(:src='current.image[0].url'
                   :alt='current.title')
     .card-title
-      h4.author {{ current.author }}
+      h2.author {{ current.author }}
       time.date Presented {{ current.releaseDate | moment("D MMMM, YYYY") }}
 </template>
 
@@ -35,4 +35,7 @@ export default {
 
 .date
   color: $gray
+
+.author
+  font-size: 1.25em
 </style>
