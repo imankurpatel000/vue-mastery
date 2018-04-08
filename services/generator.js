@@ -60,7 +60,7 @@ const getTalksPage = async function (db) {
         if (conference.hasOwnProperty('talks')) {
           for (const id of Object.keys(conference.talks)) {
             const talk = conference.talks[id]
-            const url = `/talks/${conference.slug}/${talk.slug}`
+            const url = `/conferences/${conference.slug}/${talk.slug}`
             result.pages.push(url)
             result.sitemap.push(createVideoTags(url, talk))
           }
