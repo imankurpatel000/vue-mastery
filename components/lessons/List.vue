@@ -29,7 +29,7 @@
     .list-subscribe(v-if='account' v-cloak)
       CourseSubscribe(:account='account'
                       :slug='course.slug'
-                      message='Notify me when new lessons are available.')
+                      :message='message')
 
 </template>
 
@@ -58,6 +58,12 @@ export default {
     isLesson: {
       type: Boolean,
       default: true
+    }
+  },
+
+  data () {
+    return {
+      message: `Notify me when new ${this.isLesson ? 'lessons' : 'talks'} are available.`
     }
   },
 
