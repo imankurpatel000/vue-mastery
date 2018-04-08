@@ -1,4 +1,4 @@
-const generator = require('./services/generator.js')
+const generator = require('./services/generator.js')()
 let baseUrl = 'https://www.vuemastery.com'
 
 module.exports = {
@@ -265,7 +265,8 @@ module.exports = {
     ['@nuxtjs/google-analytics', {
       id: 'UA-90157003-2'
     }],
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    '@nuxtjs/sitemap'
   ],
   /*
   ** Render Markdown
@@ -354,9 +355,27 @@ module.exports = {
       }
     }
   },
-
+  /*
+  ** Generate Sitemap
+  */
+  sitemap: {
+    generate: true,
+    hostname: baseUrl,
+    routes: function () {
+      return generator.then(function (result) {
+        return result.sitemap
+      })
+    }
+  },
+  /*
+  ** Generate Static pages
+  */
   generate: {
     minify: false,
-    routes: generator.getDynamicPage
+    routes: function () {
+      return generator.then(function (result) {
+        return result.pages
+      })
+    }
   }
 }

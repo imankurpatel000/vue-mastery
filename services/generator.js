@@ -1,58 +1,89 @@
+let result = {
+  pages: [],
+  sitemap: []
+}
+
+const createVideoTags = function (url, lesson) {
+  return {
+    url: url,
+    video: {
+      thumbnail_loc: lesson.image[0].url,
+      title: lesson.title,
+      description: lesson.description,
+      player_loc: `https://player.vimeo.com/video/${lesson.videoEmbedId}`,
+      duration: lesson.duration
+    }
+  }
+}
+
 const getCoursesPage = async function (db) {
   return db.get('courses', {
-    populate: [ {
+    populate: [{
       field: 'lessons',
-      fields: [ 'slug' ]
-    } ]})
+      subFields: [ 'lessons', 'image' ],
+      populate: [ 'image' ]
+    }, {
+      field: 'image',
+      subFields: [ 'image' ]
+    }]})
     .then(async courses => {
-      let pages = []
       for (const key of Object.keys(courses)) {
         const course = courses[key]
         if (course.hasOwnProperty('lessons')) {
           for (const id of Object.keys(course.lessons)) {
-            pages.push(`/courses/${course.slug}/${course.lessons[id].slug}`)
+            const lesson = course.lessons[id]
+            const url = `/courses/${course.slug}/${lesson.slug}`
+            result.pages.push(url)
+            result.sitemap.push(createVideoTags(url, lesson))
           }
         }
       }
-      return pages
+      return result
     })
 }
 
-const getTalksPage = async function (db, pages) {
+// TODO: refactor the identical functions once conference table is renamed conferences
+// and vue/conf v1 is not in prod
+const getTalksPage = async function (db) {
   return db.get('conference', {
-    populate: [ {
+    populate: [{
       field: 'talks',
-      fields: [ 'slug' ]
-    } ]})
+      subFields: [ 'lessons', 'image' ],
+      populate: [ 'image' ]
+    }, {
+      field: 'image',
+      subFields: [ 'image' ]
+    }]})
     .then(async conferences => {
-      let pages = []
-      console.log(conferences)
       for (const key of Object.keys(conferences)) {
         const conference = conferences[key]
         if (conference.hasOwnProperty('talks')) {
           for (const id of Object.keys(conference.talks)) {
-            pages.push(`/conferences/${conference.slug}/${conference.talks[id].slug}`)
+            const talk = conference.talks[id]
+            const url = `/talks/${conference.slug}/${talk.slug}`
+            result.pages.push(url)
+            result.sitemap.push(createVideoTags(url, talk))
           }
         }
       }
-      return pages
+      return result
     })
 }
 
-module.exports = {
-  async getDynamicPage () {
-    const flamelink = require('flamelink')
-    const admin = require('firebase-admin')
-    const serviceAccount = require('../serviceAccountKey.json')
-    const firebaseConfig = {
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: 'https://vue-mastery.firebaseio.com',
-      storageBucket: 'vue-mastery.appspot.com'
-    }
-    const firebaseApp = admin.initializeApp(firebaseConfig)
-    const db = flamelink({ firebaseApp, isAdminApp: true }).content
-    let pages = []
-    pages = await getCoursesPage(db)
-    return pages.concat(await getTalksPage(db))
+module.exports = async function (nuxt, generateOptions) {
+  console.log('Get dynamic routes')
+  const flamelink = require('flamelink')
+  const admin = require('firebase-admin')
+  const serviceAccount = require('../serviceAccountKey.json')
+  const firebaseConfig = {
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://vue-mastery.firebaseio.com',
+    storageBucket: 'vue-mastery.appspot.com'
   }
+  const firebaseApp = admin.initializeApp(firebaseConfig)
+  const db = flamelink({ firebaseApp, isAdminApp: true }).content
+
+  await getCoursesPage(db, result)
+  await getTalksPage(db, result)
+  return result
 }
