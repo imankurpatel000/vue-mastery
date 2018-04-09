@@ -3,13 +3,17 @@
     .canvas
       img.lgo-vue(src='/images/lgo-vue.svg')
       h2.h1.title VueConf US
+      //- h2.title Learn from the experts. <br/> Watch the VueConf US talks.
+      //- p.lead The first ever VueConf US took place in New Orleans on March 26-28, 2018. Vue Mastery sponsored the conference for the talks to be captured and published free.
+
       p.lead
         i New Orleans, LA on March 26-28, 2018
       p.lead-2 Conference Videos
+      div
+        nuxt-link.button.secondary.-has-icon(to='/vueconf')
+          i.fa.fa-play
+          | View Talks
       .stand
-    nuxt-link.button.secondary.-has-icon(to='/vueconf')
-      i.fa.fa-play
-      | View Talks
     img.vue-img-right(src='/images/img-vueconf-right.svg')
     img.vue-img-left(src='/images/img-vueconf-left.svg')
 </template>
@@ -59,13 +63,17 @@ export default {
 
 
 .canvas
+  display flex
+  flex-flow column
+  justify-content center
+  align-items center
   position relative
   background #FFF
   color $secondary-color
   padding 40px
-  margin 50px 0 160px 0
+  margin 100px 0 160px 0
   width 90%
-  max-width 500px
+  max-width 600px
   height auto
   text-align center
   border solid 1px $secondary-color
@@ -83,7 +91,7 @@ export default {
     border-radius 2px
 
 .lgo-vue
-  max-width 137px
+  max-width 100px
 
 .stand
   position absolute
@@ -138,13 +146,7 @@ export default {
     transform scale(1) translateX(50%)
 
 .button
-  position absolute
-  left 50%
-  bottom 70px
-  transform translateX(-50%)
-
-  +tablet-up()
-    bottom 50px
+  margin-bottom 0
 
 .vue-conf-page
   .button
@@ -155,6 +157,7 @@ export default {
     margin-top -100px
 
   .canvas
+    margin-top 50px
     margin-bottom 120px
 
   .stand
