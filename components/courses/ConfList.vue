@@ -4,7 +4,8 @@
   .cards(v-if='talks' v-cloak)
     nuxt-link.card(v-for='talk in talks'
                    :key='talk.slug'
-                   :to='path(talk)')
+                   :to='path(talk)'
+                   :class="{ 'coming-soon': talk.lock }")
       .card-header
         img.card-img(:src='talk.image[0].url'
                      :alt='talk.title')
