@@ -1,5 +1,6 @@
 const generator = require('./services/generator.js')()
 let baseUrl = 'https://www.vuemastery.com'
+// let baseUrl = 'https://vue-mastery-staging.firebaseapp.com/'
 
 module.exports = {
   /*
