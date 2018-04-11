@@ -175,7 +175,14 @@ const actions = {
       .then(() => {
         // Email sent.
         this.$toast.show('We\'ve sent an email to let you reset your password. Please check your inbox.', {
-          duration: 5000
+          duration: 7000,
+          className: 'vm-toasted',
+          action: {
+            text: 'Close',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
         })
         console.log(`Retreive password for the account ${account.email}`)
       }).catch((error) => {

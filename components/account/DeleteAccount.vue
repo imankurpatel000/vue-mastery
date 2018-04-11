@@ -36,8 +36,15 @@ export default {
     deleteAccount () {
       this.$store.dispatch('deleteUser')
         .then(() => {
-          this.$toast.show('Your account has been deleted', {
-            duration: 5000
+          this.$toast.show('Your account has been deleted.', {
+            duration: 7000,
+            className: 'vm-toasted',
+            action: {
+              text: 'Close',
+              onClick: (e, toastObject) => {
+                toastObject.goAway(0)
+              }
+            }
           })
           this.$router.push('/')
         })
