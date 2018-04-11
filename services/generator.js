@@ -3,15 +3,24 @@ let result = {
   sitemap: []
 }
 
+const timeConvert = function (time) {
+  if (time) {
+    time = time.split(':')
+    return (+time[0]) * 60 * 60 + (+time[1]) * 60 + (+time[2])
+  } else {
+    return null
+  }
+}
+
 const createVideoTags = function (url, lesson) {
   return {
     url: url,
     video: {
-      thumbnail_loc: lesson.image[0].url,
+      thumbnail_loc: lesson.image[0].url.replace(/&/g, '&amp;'),
       title: lesson.title,
       description: lesson.description,
       player_loc: `https://player.vimeo.com/video/${lesson.videoEmbedId}`,
-      duration: lesson.duration
+      duration: timeConvert(lesson.duration)
     }
   }
 }
