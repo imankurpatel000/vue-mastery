@@ -76,13 +76,19 @@ export default {
   margin-bottom 0
   padding 0
 
-
 .lead
   font-size 1.2em
   font-weight 400
+  max-width 500px
+  margin-left auto
+  margin-right auto
 
   +tablet-up()
     font-size 20px
+
+  +laptop-up()
+    margin-left 0
+    margin-right 0
 
 .vue-conf-buildings
   position absolute
