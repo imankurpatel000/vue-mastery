@@ -1,17 +1,14 @@
 <template lang='pug'>
   .container.vue-conf-page
-    VueConfBanner
+    VueConfHero
 
     .wrapper
       .body
-
-        h1.visually-hidden VueConf US Videos
-          small New Orleans, LA on March 26-28, 2018
         p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos.  We will begin to release the videos free shortly after the conference.
-      
+
       .callout.-success
         CourseSubscribe(:account='account' :slug='conference' message='Notify me when new talks are available.')
-      
+
       ConfList(:talks='talks' :account='account' :conference='conference')
 </template>
 
@@ -20,7 +17,7 @@ import { mapState } from 'vuex'
 import ConfList from '~/components/courses/ConfList'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import CourseSubscribe from '~/components/account/CourseSubscribe'
-import VueConfBanner from '~/components/static/VueConfBanner'
+import VueConfHero from '~/components/static/VueConfHero'
 
 export default {
   name: 'page-vueconf',
@@ -42,7 +39,7 @@ export default {
     ConfList,
     CheatSheetAlt,
     CourseSubscribe,
-    VueConfBanner
+    VueConfHero
   },
 
   data () {
