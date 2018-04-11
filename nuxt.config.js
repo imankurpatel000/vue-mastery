@@ -1,5 +1,6 @@
-const generator = require('./services/generator.js')
+const generator = require('./services/generator.js')()
 let baseUrl = 'https://www.vuemastery.com'
+// let baseUrl = 'https://vue-mastery-staging.firebaseapp.com/'
 
 module.exports = {
   /*
@@ -233,8 +234,10 @@ module.exports = {
         rel: 'stylesheet'
       },
       {
-        href: 'https://use.fontawesome.com/releases/v5.0.6/css/all.css',
-        rel: 'stylesheet'
+        href: 'https://use.fontawesome.com/releases/v5.0.10/css/all.css',
+        rel: 'stylesheet',
+        integrity: 'sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg',
+        crossorigin: 'anonymous'
       },
       // Manifest
       {
@@ -273,7 +276,8 @@ module.exports = {
     ['@nuxtjs/google-analytics', {
       id: 'UA-90157003-2'
     }],
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    '@nuxtjs/sitemap'
   ],
   /*
   ** Render Markdown
@@ -362,9 +366,27 @@ module.exports = {
       }
     }
   },
-
+  /*
+  ** Generate Sitemap
+  */
+  sitemap: {
+    generate: true,
+    hostname: baseUrl,
+    routes: function () {
+      return generator.then(function (result) {
+        return result.sitemap
+      })
+    }
+  },
+  /*
+  ** Generate Static pages
+  */
   generate: {
     minify: false,
-    routes: generator.getDynamicPage
+    routes: function () {
+      return generator.then(function (result) {
+        return result.pages
+      })
+    }
   }
 }

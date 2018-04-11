@@ -4,7 +4,8 @@ div
     Header(:course='course')
 
     Video(v-if='current && !locked'
-          :videoId = 'current.videoEmbedId'
+          :video = 'current'
+          :url = 'baseUrl + current.slug'
           @videoEnded='finished'
           @completed='completed'
           :account='account')
@@ -23,11 +24,11 @@ div
       Profile(:current='current' v-if='!isLesson' v-cloak)
 
     aside.lesson-aside(v-if='!locked' v-cloak)
-      .control-group(v-if='isLesson' v-cloak)
+      .control-group
         Download(:courseLink='current.downloadLink', :account='account')
         SocialShare(:lesson='current' :category='category')
 
-      .card.download(v-else)
+      .card.download(v-if='!isLesson' v-cloak)
         .card-body
           h3 Download the Vue Cheat Sheet
           p All the essential syntax at your fingertips
@@ -146,12 +147,16 @@ export default {
       return {
         backgroundImage: `url(${this.current.image[0].url})`
       }
+    },
+
+    baseUrl () {
+      return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
     }
   },
 
   methods: {
     redirect (slug) {
-      this.$router.push(`/courses/${this.category}/${slug}`)
+      this.$router.push(this.baseUrl + slug)
     },
 
     completed () {

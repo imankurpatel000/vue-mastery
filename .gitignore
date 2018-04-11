@@ -27,3 +27,4 @@ todo.md
 cypress/integration/example_spec.js
 cypress/screenshots/
 .nvmrc
+static/sitemap.xml

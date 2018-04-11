@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    AuthForm(newAccount="true")
+    AuthForm(:newAccount='true')
 </template>
 
 <script>

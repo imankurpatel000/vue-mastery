@@ -36,12 +36,14 @@ export default {
     account () {
       if (this.account && this.isOpen) {
         this.$modal.hide('login-form', { newAccount: false })
-        this.$toast.show('You are now logged in. You can now view your course progress on your', {
-          duration: 5000,
+        this.$toast.show('<span><b>You are now logged in</b>. View your course progress in the Dashboard.</span>', {
+          duration: 7000,
+          className: 'vm-toasted',
           action: {
-            text: 'dashboard.',
+            text: 'Close',
             onClick: (e, toastObject) => {
-              this.$router.push('/account')
+              toastObject.goAway(0)
+              // this.$router.push('/account')
             }
           }})
         if (this.redirect) this.$router.push(this.redirect)
