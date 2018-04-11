@@ -3,6 +3,7 @@
   h2.title Playlist
   .cards(v-if='talks' v-cloak)
     nuxt-link.card(v-for='talk in talks'
+                   v-if='talk'
                    :key='talk.slug'
                    :to='path(talk)'
                    :class="{ 'coming-soon': talk.lock }")
