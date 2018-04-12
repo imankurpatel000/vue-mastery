@@ -1,3 +1,6 @@
+// const client = require('../firebase.js')
+// const baseUrl = client.authDomain
+
 let result = {
   pages: [],
   sitemap: []
@@ -86,7 +89,9 @@ module.exports = async function (nuxt, generateOptions) {
   const serviceAccount = require('../serviceAccountKey.json')
   const firebaseConfig = {
     credential: admin.credential.cert(serviceAccount),
+    // databaseURL: baseUrl,
     databaseURL: 'https://vue-mastery.firebaseio.com',
+    // databaseURL: 'https://vue-mastery-staging.firebaseapp.com/',
     storageBucket: 'vue-mastery.appspot.com'
   }
   const firebaseApp = admin.initializeApp(firebaseConfig)
