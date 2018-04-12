@@ -11,7 +11,7 @@
         img.card-img(:src='talk.image[0].url'
                      :alt='talk.title')
         .card-title
-          //- b.releaseDate {{ talk.releaseDate }}
+          b.releaseDate(v-if="talk.showRelease") To be released on: {{ talk.releaseDate | moment("MMMM D, YYYY") }}
           h4.title {{ talk.title }}
           label.underline.author {{ talk.author }}
       p.content {{ talk.description }}
