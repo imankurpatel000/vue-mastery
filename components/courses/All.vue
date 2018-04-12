@@ -81,6 +81,12 @@ export default {
   > a
     margin-bottom: 35px
 
+.list-card
+  color $black
+
+  &:hover
+    text-decoration none
+
 .card-body
   display flex
   flex-direction column
