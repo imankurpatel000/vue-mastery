@@ -11,10 +11,13 @@
         img.card-img(:src='talk.image[0].url'
                      :alt='talk.title')
         .card-title
-          //- b.releaseDate {{ talk.releaseDate }}
           h4.title {{ talk.title }}
           label.underline.author {{ talk.author }}
-      p.content {{ talk.description }}
+      .content
+        p.releaseDate
+          b To be released on:&nbsp;
+          span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
+        p {{ talk.description }}
 </template>
 
 <script>
@@ -111,12 +114,15 @@ $cardPadding = $vertical-space / 3
   margin 0
   color $gray
   align-self left
-  
+
   &:before
     z-index 0
 
 .content
   padding 10px $cardPadding
+
+.releaseDate
+  font-style italic
 
 .coming-soon
   pointer-events: none
