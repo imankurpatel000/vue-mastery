@@ -61,7 +61,7 @@ export default {
       if (this.page === null) this.page = this.conference.talk[0].slug
       this.conference.talks.map((talk, index) => {
         // Find the selected talk in the list
-        if (this.page === talk.slug) {
+        if (talk && this.page === talk.slug) {
           // Load the current talk
           currentPage = talk
           // Keep track of talk index for the carousel
