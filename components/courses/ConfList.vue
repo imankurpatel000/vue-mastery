@@ -14,7 +14,7 @@
           h4.title {{ talk.title }}
           label.underline.author {{ talk.author }}
       .content
-        p.releaseDate
+        p.releaseDate(v-if="talk.showRelease")
           b To be released on:&nbsp;
           span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
         p {{ talk.description }}
