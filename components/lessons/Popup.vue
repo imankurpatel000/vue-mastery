@@ -2,7 +2,7 @@
 no-ssr
   modal(name='next-lesson' height='auto' @before-open='beforeOpen')
     h3.form-title(v-if='account' v-cloak) Next {{isLesson ? 'Lesson' : 'Talk'}}: {{ lesson.title }}
-    h3.form-title(v-else v-cloak) Great job finishing the lesson!
+    h3.form-title(v-else v-cloak) Great job finishing the {{isLesson ? 'lesson' : 'talk'}}!
 
     .body
       p(v-if='account' v-cloak) {{ lesson.description }}
