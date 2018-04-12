@@ -4,7 +4,7 @@
 
   .lessons-list-scroll
     .list-item(v-for='(lesson, index) in course.lessons'
-               v-if='isLesson || !lesson.lock'
+               v-if='lesson && isLesson || lesson && !lesson.lock'
                :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson.lock)]'
                @click='selectLesson(lesson.slug)')
       
@@ -26,7 +26,7 @@
                 @change='toggleCompleted(lesson.slug)')
           span.check
 
-    .list-subscribe(v-if='account' v-cloak)
+    .list-subscribe
       CourseSubscribe(:account='account'
                       :slug='course.slug'
                       :message='message')
