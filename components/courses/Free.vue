@@ -26,7 +26,6 @@
   nuxt-link.button.primary.border(to='/courses')
     | More
     span.visually-hidden Lessons
-
 </template>
 
 <script>
@@ -88,6 +87,7 @@ export default {
     text-align left
 
   .meta
+    color #FFFFFF
     justify-content flex-start
 
 </style>

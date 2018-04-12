@@ -73,6 +73,10 @@ $cardPadding = $vertical-space / 3
   flex-direction: column
   margin: 0 0 $vertical-space/3 0
   overflow: hidden
+  color $black
+
+  &:hover
+    text-decoration none
 
   +laptop-up()
     margin-bottom ($vertical-space/2)

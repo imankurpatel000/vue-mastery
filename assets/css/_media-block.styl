@@ -28,20 +28,20 @@
     img
       object-fit contain
       max-width 100px
-      
+
       +tablet-up()
         max-width 200px
-      
+
       +tablet-up()
         &.-small
           width 120px
-      
+
         &.-large
           width 200px
 
     &.-video
       position relative
-      
+
       &:before
         content ''
         position absolute
@@ -51,7 +51,7 @@
         bottom 0
         background rgba(0,0,0,0.4)
         transition background 0.3s ease
-      
+
       &:after
         content ''
         position absolute
@@ -73,13 +73,13 @@
   .body
     grid-area body
     text-align center
-    
+
     +tablet-up()
       max-width 400px
       min-width: calc(100% - 200px)
       margin 0
       text-align left
-    
+
       .title
         font-size 27px
 
@@ -92,16 +92,17 @@
     .meta
       display flex
       justify-content center
+      color $black
       margin-top: 10px
       font-weight 200
-     
+
       +tablet-up()
         justify-content flex-start
-     
+
       .-has-icon
         display flex
         align-items center
-       
+
         i
           margin-right 5px
 
@@ -109,15 +110,17 @@
   text-align center
   margin 0 auto
 
-.media-block:hover a
+.media-block:hover a,
 a:hover .media-block
+  text-decoration none
+  
   .title-small
     color $primary-color
-  
+
   .-video
     &:before
       background rgba(0,0,0,0)
-   
+
     &:after
       transform scale(1.1) translate(-50%, -50%)
       filter drop-shadow(0 2px 3px #000)
