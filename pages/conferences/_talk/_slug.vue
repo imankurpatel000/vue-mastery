@@ -29,10 +29,11 @@ export default {
       categorySlug: this.conferenceSlug,
       pageSlug: this.current.slug,
       pageTitle: this.current.title,
+      category: 'conferences',
       description: this.current.description,
-      image: this.current.image[0].url
-      // facebookImage: this.current.facebookImage[0].url,
-      // twitterImage: this.current.twitterImage[0].url
+      image: this.current.image[0].url,
+      facebookImage: this.current.facebookImage[0].url || this.current.image[0].url,
+      twitterImage: this.current.twitterImage[0].url || this.current.image[0].url
     })
   },
 

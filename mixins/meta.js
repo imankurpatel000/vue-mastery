@@ -9,7 +9,7 @@ export default {
       }, {
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/courses/${d.categorySlug}/${d.pageSlug}`
+        content: `${process.env.url}/${d.category}/${d.categorySlug}/${d.pageSlug}`
       }, {
         hid: `og:title`,
         property: 'og:title',
