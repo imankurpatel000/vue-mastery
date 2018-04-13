@@ -5,7 +5,7 @@ div
   no-ssr
     modal(name='share' v-cloak height='270')
       h3.form-title Share this lesson
-      social-sharing(inline-template :url='link'
+      social-sharing(inline-template :url="baseUrl+'/'+category+'/'+lesson.slug"
                     :title='lesson.socialSharingDescription || lesson.title'
                     :description='lesson.description'
                     twitter-user='vuemastery')
@@ -42,13 +42,15 @@ export default {
     }
   },
 
+  data () {
+    return {
+      baseUrl: process.env.url
+    }
+  },
+
   methods: {
     openShare () {
       this.$modal.show('share')
-    },
-
-    link () {
-      return `${process.env.url}/${this.category}/${this.lesson.slug}`
     }
   }
 }
