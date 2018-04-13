@@ -33,7 +33,9 @@ export default {
 
   computed: {
     isFirst () { return this.selected === 0 },
-    isLast () { return this.selected === this.lessons.length - 1 }
+    isLast () {
+      return this.selected === this.lessons.length - 1 || this.lessons[this.selected + 1].lock
+    }
   },
 
   methods: {

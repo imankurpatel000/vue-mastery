@@ -47,7 +47,9 @@ export default {
 .list,
 .list-unstyled
   > .list-card
+    color: $black
     margin-bottom: 35px
+    text-decoration none
 
 .card-body
   display flex

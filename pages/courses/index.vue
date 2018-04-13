@@ -9,6 +9,8 @@
       CourseList(:courses='courses' :account='account')
       Latest(:courses='courses' :latests='latests')
 
+    .vue-conf
+      VueConfBanner
     CheatSheetAlt(location='Course page cheat sheet download')
 </template>
 
@@ -18,6 +20,7 @@ import { mapState } from 'vuex'
 import CourseList from '~/components/courses/All'
 import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
+import VueConfBanner from '~/components/static/VueConfBanner'
 
 export default {
   name: 'page-courses',
@@ -38,7 +41,8 @@ export default {
   components: {
     CourseList,
     Latest,
-    CheatSheetAlt
+    CheatSheetAlt,
+    VueConfBanner
   },
 
   async fetch ({ store }) {

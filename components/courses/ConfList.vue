@@ -3,6 +3,7 @@
   h2.title Playlist
   .cards(v-if='talks' v-cloak)
     nuxt-link.card(v-for='talk in talks'
+                   v-if='talk'
                    :key='talk.slug'
                    :to='path(talk)'
                    :class="{ 'coming-soon': talk.lock }")
@@ -10,10 +11,13 @@
         img.card-img(:src='talk.image[0].url'
                      :alt='talk.title')
         .card-title
-          //- b.releaseDate {{ talk.releaseDate }}
           h4.title {{ talk.title }}
           label.underline.author {{ talk.author }}
-      p.content {{ talk.description }}
+      .content
+        p.releaseDate(v-if="talk.showRelease")
+          b To be released on:&nbsp;
+          span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
+        p {{ talk.description }}
 </template>
 
 <script>
@@ -69,6 +73,10 @@ $cardPadding = $vertical-space / 3
   flex-direction: column
   margin: 0 0 $vertical-space/3 0
   overflow: hidden
+  color $black
+
+  &:hover
+    text-decoration none
 
   +laptop-up()
     margin-bottom ($vertical-space/2)
@@ -110,12 +118,15 @@ $cardPadding = $vertical-space / 3
   margin 0
   color $gray
   align-self left
-  
+
   &:before
     z-index 0
 
 .content
   padding 10px $cardPadding
+
+.releaseDate
+  font-style italic
 
 .coming-soon
   pointer-events: none

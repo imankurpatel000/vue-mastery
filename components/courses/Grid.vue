@@ -85,6 +85,10 @@ export default {
   justify-content space-between
   cursor pointer
   margin-bottom ($vertical-space/2)
+  color $black
+
+  &:hover
+    text-decoration none
 
 .recommend-course-list .grid-card
   width 100%
