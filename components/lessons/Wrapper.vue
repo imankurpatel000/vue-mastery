@@ -26,7 +26,7 @@ div
     aside.lesson-aside(v-if='!locked' v-cloak)
       .control-group
         Download(:courseLink='current.downloadLink', :account='account')
-        SocialShare(:lesson='current' :category='category')
+        SocialShare(:lesson='current' :baseUrl='baseUrl')
 
       .card.download(v-if='!isLesson' v-cloak)
         .card-body
