@@ -74,7 +74,9 @@ const getTalksPage = async function (db) {
             const talk = conference.talks[id]
             const url = `/conferences/${conference.slug}/${talk.slug}`
             result.pages.push(url)
-            result.sitemap.push(createVideoTags(url, talk))
+            if (!talk.lock) {
+              result.sitemap.push(createVideoTags(url, talk))
+            }
           }
         }
       }
