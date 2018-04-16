@@ -85,13 +85,16 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 .pricing-content
   display flex
   flex-direction column
-  justify-content center
+  justify-content start
 
   .title
     color $secondary-color
-
   +laptop-up()
-    text-align left
+    padding-top $vertical-space
+
+  +desktop-up()
+    justify-content center
+    padding-top 0
 
 .pricing-structure
   display grid
@@ -110,7 +113,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
                         'monthly annually'\
                         'team team'
 
-  +laptop-up()
+  +desktop-up()
     align-items stretch
     grid-template-columns 1fr 1fr 1fr
     grid-template-areas 'page-title page-title page-title'\
