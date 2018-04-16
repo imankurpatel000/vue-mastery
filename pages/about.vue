@@ -64,9 +64,9 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '../assets/css/_variables'
+@import '~assets/css/_variables'
 
-containers = mission mission-media team-media team why why-media
+build-grid-area(mission mission-media team-media team why why-media)
 
 .wrapper
   margin-top: ($vertical-space / 4)
@@ -75,10 +75,6 @@ containers = mission mission-media team-media team why why-media
   grid-row-gap: ($vertical-space / 4)
   align-items: center
   grid-template-areas: 'mission-media' 'mission' 'team-media' 'team' 'why-media' 'why'
-
-for container in containers
-  .{container}
-    grid-area: container
 
 .title
   color: $primary-color

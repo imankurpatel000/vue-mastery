@@ -74,7 +74,8 @@ export default {
 <style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
-containers = hero free-videos course-list vue-conf meet-teachers cheatsheet community
+build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet community)
+
 .homepage
   display grid
   grid-template-columns 1fr 1fr
@@ -85,10 +86,6 @@ containers = hero free-videos course-list vue-conf meet-teachers cheatsheet comm
     'meet-teachers meet-teachers'\
     'cheatsheet cheatsheet'\
     'community community'
-
-  for container in containers
-    .{container}
-      grid-area container
 
 .section
   .title

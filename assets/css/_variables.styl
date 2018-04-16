@@ -1,3 +1,4 @@
+@import _mixins
 
 $font-family-base = 'Source Sans Pro', sans-serif
 $font-size-base = 18px
@@ -26,24 +27,3 @@ $states = {
 // Spacing
 $vertical-space = 90px
 $header-height = 100px
-
-// Media Queries
-mobile-only()
-  @media screen and (max-width: 39.9375em)
-    {block}
-tablet-up()
-  @media screen and (min-width: 40em)
-    {block}
-laptop-up()
-  @media screen and (min-width: 64em)
-    {block}
-laptop-down()
-  @media screen and (max-width: 63.9375em)
-    {block}
-desktop-up()
-  @media screen and (min-width: 82em)
-    {block}
-// Reconsider; doesn't work well.
-desktop-only()
-  @media screen and (min-width: 64em) and (max-width: 74.9375em)
-    {block}
