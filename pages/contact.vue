@@ -3,8 +3,8 @@
   .wrapper
     .contact-body
       h1.title Contact Us
-      p If you have any feedback, suggestions, or need a little support we're here to help.  If you've run into a bug with your Vue.js application and need a hand (aside from googling your error) we'd recommend the <a href='https://forum.vuejs.org/' target='_new'>Vue.js Forum</a> or <a href='https://discordapp.com/invite/HBherRA' target='_new'>Vue Land Chat</a>. 
-      
+      p If you have any feedback, suggestions, or need a little support we're here to help.  If you've run into a bug with your Vue.js application and need a hand (aside from googling your error) we'd recommend the <a href='https://forum.vuejs.org/' target='_new'>Vue.js Forum</a> or <a href='https://discordapp.com/invite/HBherRA' target='_new'>Vue Land Chat</a>.
+
       h3.subtitle Follow us
       SocialMediaLinks
 
@@ -105,14 +105,17 @@ export default {
 }
 </script>
 <style lang='stylus' scoped>
-  @import '../assets/css/_variables'
+  @import '~assets/css/_variables'
+  
+  build-grid-area(contact-body contact-form)
+
   .wrapper
     margin-top ($vertical-space/4)
     margin-bottom ($vertical-space/4)
     grid-template-columns 1fr
     grid-row-gap ($vertical-space/4)
-    grid-template-areas 'body'\
-                        'form'
+    grid-template-areas 'contact-body'\
+                        'contact-form'
 
     +laptop-up()
       margin-top $vertical-space
@@ -120,12 +123,8 @@ export default {
       grid-template-columns 1fr 1fr
       grid-row-gap $vertical-space * 1.5
       grid-column-gap ($vertical-space/2)
-      grid-template-areas 'body form'
+      grid-template-areas 'contact-body contact-form'
 
-  .contact-body
-    grid-area body
-  .contact-form
-    grid-area form
   .title
     color: $primary-color
     font-weight 600

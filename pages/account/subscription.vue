@@ -10,12 +10,11 @@ div
         ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink')
 
       .form-group
-        Label Yearly Subscription
+        Label Monthly Subscription
         ChargeBeeSubscription(plan='monthly-subscription' :link='chargbeeLink')
   div(v-else)
     h3 You need to login first
     AuthForm
-
 </template>
 
 <script>
@@ -79,3 +78,7 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+
+</style>
