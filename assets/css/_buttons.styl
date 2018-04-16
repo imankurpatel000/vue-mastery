@@ -138,6 +138,8 @@ button
 
 a:hover .button
 .button:hover
+  text-decoration none
+  
   &:after
     left: 120%
     transition: left 1.5s cubic-bezier(0.19, 1, 0.22, 1)
@@ -159,7 +161,8 @@ a:hover .button
     color #fff
 
   &.-only-icon
-    background: transparent
+    background transparent
+    text-decoration none
 
     i
       transform: scale(.9)

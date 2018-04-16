@@ -55,6 +55,9 @@ export default {
 <style lang='stylus' scoped>
 @import '~assets/css/_variables'
 
+a:hover
+  text-decoration none
+  
 .title
   color $primary-color
   font-weight 600

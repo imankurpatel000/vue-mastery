@@ -1,3 +1,6 @@
+// const client = require('../firebase.js')
+// const baseUrl = client.authDomain
+
 let result = {
   pages: [],
   sitemap: []
@@ -71,7 +74,9 @@ const getTalksPage = async function (db) {
             const talk = conference.talks[id]
             const url = `/conferences/${conference.slug}/${talk.slug}`
             result.pages.push(url)
-            result.sitemap.push(createVideoTags(url, talk))
+            if (!talk.lock) {
+              result.sitemap.push(createVideoTags(url, talk))
+            }
           }
         }
       }
@@ -86,7 +91,9 @@ module.exports = async function (nuxt, generateOptions) {
   const serviceAccount = require('../serviceAccountKey.json')
   const firebaseConfig = {
     credential: admin.credential.cert(serviceAccount),
+    // databaseURL: baseUrl,
     databaseURL: 'https://vue-mastery.firebaseio.com',
+    // databaseURL: 'https://vue-mastery-staging.firebaseapp.com/',
     storageBucket: 'vue-mastery.appspot.com'
   }
   const firebaseApp = admin.initializeApp(firebaseConfig)

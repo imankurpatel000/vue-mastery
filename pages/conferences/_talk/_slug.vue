@@ -29,10 +29,11 @@ export default {
       categorySlug: this.conferenceSlug,
       pageSlug: this.current.slug,
       pageTitle: this.current.title,
+      category: 'conferences',
       description: this.current.description,
-      image: this.current.image[0].url
-      // facebookImage: this.current.facebookImage[0].url,
-      // twitterImage: this.current.twitterImage[0].url
+      image: this.current.image[0].url,
+      facebookImage: this.current.facebookImage[0].url || this.current.image[0].url,
+      twitterImage: this.current.twitterImage[0].url || this.current.image[0].url
     })
   },
 
@@ -61,7 +62,7 @@ export default {
       if (this.page === null) this.page = this.conference.talk[0].slug
       this.conference.talks.map((talk, index) => {
         // Find the selected talk in the list
-        if (this.page === talk.slug) {
+        if (talk && this.page === talk.slug) {
           // Load the current talk
           currentPage = talk
           // Keep track of talk index for the carousel

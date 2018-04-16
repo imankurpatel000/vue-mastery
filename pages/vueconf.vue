@@ -4,7 +4,7 @@
 
     .wrapper
       .body
-        p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos.  We will begin to release the videos free shortly after the conference.
+        p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos. We'll be releasing videos over the next few weeks as we receive them.
 
       .callout.-success
         CourseSubscribe(:account='account' :slug='conference' message='Notify me when new talks are available.')

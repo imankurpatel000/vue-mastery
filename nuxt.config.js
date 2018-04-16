@@ -1,6 +1,8 @@
+// const client = require('./firebase.js')
 const generator = require('./services/generator.js')()
 let baseUrl = 'https://www.vuemastery.com'
 // let baseUrl = 'https://vue-mastery-staging.firebaseapp.com/'
+// const baseUrl = client.authDomain
 
 module.exports = {
   /*

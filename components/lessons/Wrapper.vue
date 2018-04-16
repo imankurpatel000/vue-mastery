@@ -26,7 +26,7 @@ div
     aside.lesson-aside(v-if='!locked' v-cloak)
       .control-group
         Download(:courseLink='current.downloadLink', :account='account')
-        SocialShare(:lesson='current' :category='category')
+        SocialShare(:lesson='current' :baseUrl='baseUrl')
 
       .card.download(v-if='!isLesson' v-cloak)
         .card-body
@@ -171,7 +171,8 @@ export default {
       if (this.selected < this.course.lessons.length - 1) {
         this.$modal.show('next-lesson', {
           lesson: this.course.lessons[this.selected + 1],
-          account: this.account
+          account: this.account,
+          isLesson: this.isLesson
         })
       }
     }
