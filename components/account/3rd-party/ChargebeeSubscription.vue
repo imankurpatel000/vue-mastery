@@ -1,8 +1,9 @@
 <template lang='pug'>
-button.button.-small.link(
+button(
   :href='link'
   data-cb-type='checkout'
-  :data-cb-plan-id='plan')
+  :data-cb-plan-id='plan'
+  :class='className')
   | {{ label }}
 </template>
 
@@ -13,7 +14,7 @@ export default {
   props: {
     label: {
       type: String,
-      default: 'Subscribe'
+      default: 'Select Plan'
     },
     plan: {
       type: String,
@@ -22,6 +23,10 @@ export default {
     link: {
       type: String,
       default: 'javascript:void(0)'
+    },
+    className: {
+      type: String,
+      default: 'button'
     }
   }
 }
