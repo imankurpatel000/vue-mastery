@@ -123,6 +123,11 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 
 .card
   height 100%
+  color $secondary-color
+  
+  &:hover
+    text-decoration none
+
   h3
     padding-top 0
 
