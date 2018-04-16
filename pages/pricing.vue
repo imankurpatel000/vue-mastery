@@ -86,7 +86,6 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   display flex
   flex-direction column
   justify-content center
-  text-align center
 
   .title
     color $secondary-color
@@ -124,7 +123,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 .card
   height 100%
   color $secondary-color
-  
+
   &:hover
     text-decoration none
 
@@ -170,16 +169,16 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
     h3
       width 100%
     img
-      margin-top 10px
-      margin-bottom 0px
+      margin 10px auto 0
       max-width 140px
+
+    div
+      flex-grow 1
 
     +tablet-up()
       display flex
-      justify-content space-around
       align-items center
       flex-wrap wrap
-      text-align left
 
     +laptop-up()
       text-align center
