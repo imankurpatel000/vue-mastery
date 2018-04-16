@@ -7,59 +7,132 @@
         li The ability to track your course progress.
         li Supporting the Vue.js News Podcast.
         li Most importantly, supporting the Vue.js project itself.
+
     .pricing-structure
       .page-title.text-center
         h2 Pricing
+
       .monthly
         nuxt-link.card(to="/")
           .card-body
             h3.text-center Monthly
+
             .money
               .symbol $
               .decimal 19
-            div.text-center
+            
+            .text-center
               i per month
+            
             .benefit
               img(src="/images/lgo-vue.svg" alt="Vue.js")
               span $5 of your monthly subscription goes to supporting the Vue.js project itself.
+            
             .benefit.color-gold
               i.fas.fa-shield-alt
               b Guaranteed Value
-            button.button.primary.border.-full Select Plan
+
+            ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink' class-name='border')
+
       .annually
         nuxt-link.card(to="/")
           .card-body
             h3.text-center Annual
+            
             .money
               .symbol $
               .decimal 190
-            div.text-center
+            
+            .text-center
               i per year
+            
             .benefit
               img(src="/images/lgo-vue.svg" alt="Vue.js")
               span $50 of your monthly subscription goes to supporting the Vue.js project itself.
+            
             .benefit.color-primary
               i.fa.fa-piggy-bank
               b Get 2 months free <br>
                 small ($38 discount)
+            
             .benefit.color-gold
               i.fas.fa-shield-alt
               b Guaranteed Value
-            button.button.primary.-full Select Plan
+
+            ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink')
+
       .team
         nuxt-link.card.secondary(to="/")
           .card-body
             h3.text-center Team
             img(src="/images/img-group.svg" alt="Team accounts VueMastery")
+            
             div
               p Please contact us, and we’ll take care of you.
               p FYI, all team accounts are billed yearly.
+            
             button.button.inverted.border Contact Us
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import axios from 'axios'
+import ChargeBeeSubscription from '~/components/account/3rd-party/ChargeBeeSubscription.vue'
+import AuthForm from '~/components/account/AuthForm.vue'
+
 export default {
-  name: 'page-pricing'
+  name: 'page-pricing',
+
+  middleware: 'anonymous',
+
+  components: {
+    ChargeBeeSubscription,
+    AuthForm
+  },
+
+  data () {
+    return {
+      chargebeeInstance: null,
+      chargbeeLink: ''
+    }
+  },
+
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
+  },
+
+  watch: {
+    account () {
+      this.getPortalLink()
+    }
+  },
+
+  mounted () {
+    if (!process.server) {
+      this.chargebeeInstance = window.Chargebee.init({
+        site: 'vuemastery-test'
+      })
+      if (this.account) {
+        this.getPortalLink()
+      }
+    }
+  },
+
+  methods: {
+    getPortalLink () {
+      console.log('Get portal link method', this.chargebeeInstance, this.chargebeeInstance.setPortalSession)
+      this.chargebeeInstance.setPortalSession(() => {
+        console.log('Get portal Session')
+        return axios.post('/create_portal_session', {customer_id: this.account.key})
+          .then((response) => {
+            console.log('Charge be response.data', response.data)
+            this.link = response.data.access_url
+          })
+      })
+    }
+  }
 }
 </script>
 

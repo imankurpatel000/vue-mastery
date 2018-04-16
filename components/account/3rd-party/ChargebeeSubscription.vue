@@ -1,5 +1,5 @@
 <template lang='pug'>
-button(
+button.button.primary.-full(
   :href='link'
   data-cb-type='checkout'
   :data-cb-plan-id='plan'
