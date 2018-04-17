@@ -2,7 +2,7 @@
 no-ssr
   modal(name="contact-team-form" v-cloak height="auto" scrollable=true)
     form.form(@submit.prevent='submit')
-      h3.form-title {{ title }}
+      h3.form-title Contact Us
 
     .contact-form
       form.form(@submit.prevent='submit')
@@ -42,8 +42,8 @@ export default {
 
   data () {
     return {
-      name: this.account.name || '',
-      email: this.account.email || '',
+      name: '',
+      email: this.account ? this.account.email : '',
       companyWebsite: '',
       accountNumber: '',
       phoneNumber: '',

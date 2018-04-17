@@ -14,7 +14,7 @@
         h2 Pricing
 
       .monthly
-        nuxt-link.card(to="/")
+        .card
           .card-body
             h3.text-center Monthly
 
@@ -36,7 +36,7 @@
             ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink' class-name='border')
 
       .annually
-        nuxt-link.card(to="/")
+        .card
           .card-body
             h3.text-center Annual
             
@@ -63,7 +63,7 @@
             ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink')
 
       .team
-        nuxt-link.card.secondary(to="/")
+        .card.secondary
           .card-body
             h3.text-center Team
             img(src="/images/img-group.svg" alt="Team accounts VueMastery")
@@ -72,7 +72,7 @@
               p Please contact us, and we’ll take care of you.
               p FYI, all team accounts are billed yearly.
             
-            button.button.inverted.border(@click='') Contact Us
+            button.button.inverted.border(@click='openTeamContact') Contact Us
 </template>
 
 <script>
