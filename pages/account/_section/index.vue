@@ -14,6 +14,8 @@
                :disabled='!account'
                :class="{'active-tab': selectedTab == tab}"
                @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
+    //- TODO: This will pop up the Chargebee modal for account settings.
+    button.tab(type="button") My Subscription
 
   div.account-content
     div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
@@ -57,11 +59,8 @@
 
         EditAccountForm(:account='account' v-if='account')
 
-    div(v-if="selectedTab == 'account_settings'" v-cloak)
+    div(v-else-if="selectedTab == 'account_settings'" v-cloak)
       AccountSettings
-
-    div(v-else-if="selectedTab == 'my_subscription'" v-cloak)
-      h3.title My Subscription information
 </template>
 
 <script>
@@ -89,7 +88,7 @@ export default {
 
   data () {
     return {
-      tabs: ['dashboard', 'profile', 'account_settings', 'my_subscription'],
+      tabs: ['dashboard', 'profile', 'account_settings'],
       editing: false,
       selectedTab: this.$route.params.section || 'dashboard',
       completed: {},
