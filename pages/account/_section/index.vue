@@ -9,11 +9,13 @@
       h3(v-text='account.displayName')
 
   .account-actions
-    button.tab(type='button' 
+    button.tab(type='button'
                v-for='tab in tabs'
                :disabled='!account'
                :class="{'active-tab': selectedTab == tab}"
                @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
+    //- TODO: This will pop up the Chargebee modal for account settings.
+    button.tab(type="button") My Subscription
 
   div.account-content
     div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
@@ -38,13 +40,6 @@
                      :account='account')
           .empty(v-else)
             h4.empty-title You have not completed any courses yet
-
-      //- aside.earned-badge-list
-      //-   h3.title Earned Badges
-      //-   BadgeGrid(:courses='completed' :account='account'
-      //-     v-if='Object.keys(completed).length !== 0' v-cloak)
-      //-   .empty(v-else)
-      //-     h5.empty-title You have not completed any courses yet
 
       aside.recommend-course-list
         .card.download
@@ -259,12 +254,12 @@ export default {
 
 .account-actions
   display flex
-  justify-content start
+  justify-items flex-start
   margin-bottom: ($vertical-space/2)
   border-bottom solid 2px $secondary-color
 
 .download
-  color white
+  color #FFFFFF
   text-align center
   align-items center
   background-image url(/images/bkg-cheatsheet-main.jpg)
@@ -282,9 +277,13 @@ export default {
   text-decoration none
   text-align center
   line-height $button-height-small
+  background transparent
   border none
   cursor pointer
   text-transform capitalize
+
+  &:last-of-type
+    margin-left auto
 
   &:focus
     outline none

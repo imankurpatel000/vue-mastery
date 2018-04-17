@@ -7,11 +7,19 @@ footer.footer
         img(src="/images/lgo-vue-mastery-green.png" role="logo" alt="Vue Mastery logo")
       p As the ultimate resource for Vue.js developers, Vue Mastery produces weekly lessons so you can learn what you need to succeed as a Vue.js Developer.
       SocialMediaLinks
-    .nav
-      h4 Navigate
+
+    .nav-1
+      h4 Vue Mastery
       ul.list-unstyled
         li
           nuxt-link(to='/courses' class="-inverted") Courses
+        li
+          nuxt-link(to='/contact' class="-inverted") VueConf US
+        li
+          nuxt-link(to='/privacy' class="-inverted") Pricing
+    .nav-2
+      h4 About Us
+      ul.list-unstyled
         li
           nuxt-link(to='/about' class="-inverted") About
         li
@@ -36,6 +44,8 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 
+build-grid-area(brand nav-1 nav-2)
+
 .footer
   background-color $secondary-color
   color #fff
@@ -43,10 +53,9 @@ export default {
 .wrapper
   display grid
   text-align center
-  grid-template-columns 1fr
-  grid-template-areas "nav"\
-                      "brand"\
-                      "form"
+  grid-template-columns 1fr 1fr
+  grid-template-areas "nav-1 nav-2"\
+                      "brand brand"
 
   >>> .social
     justify-content: center
@@ -54,19 +63,14 @@ export default {
 
   +tablet-up()
     text-align left
-    grid-template-columns 1fr 1fr
-    grid-template-areas "brand nav"
+    grid-template-columns 1fr 22% 22%
+    grid-column-gap 4%
+    grid-template-areas "brand nav-1 nav-2"
     >>> .social
       justify-content: left
       margin: 0
-    // grid-template-areas "brand nav ."\
-    //                     "form . ."
-  // +laptop-up()
-  //   grid-template-columns 1fr 1fr 1fr
-  //   grid-template-areas "brand nav form"
 
 .brand
-  grid-area brand
   margin-bottom ($vertical-space/2)
 
   .logo
@@ -93,25 +97,14 @@ export default {
   display flex
   font-size 1.5em
 
-.nav
-  grid-area nav
+.nav-1
+.nav-2
   justify-self center
 
   h4
-    padding-top 0
     text-transform uppercase
 
   li
     margin 15px 0
-
-.form-section
-  grid-area form
-
-  .form
-    display grid
-
-    .button
-      justify-self end
-
 
 </style>
