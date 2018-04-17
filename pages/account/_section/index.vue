@@ -39,13 +39,6 @@
           .empty(v-else)
             h4.empty-title You have not completed any courses yet
 
-      //- aside.earned-badge-list
-      //-   h3.title Earned Badges
-      //-   BadgeGrid(:courses='completed' :account='account'
-      //-     v-if='Object.keys(completed).length !== 0' v-cloak)
-      //-   .empty(v-else)
-      //-     h5.empty-title You have not completed any courses yet
-
       aside.recommend-course-list
         .card.download
           .card-body
@@ -64,8 +57,11 @@
 
         EditAccountForm(:account='account' v-if='account')
 
-    div(v-else-if="selectedTab == 'account_settings'" v-cloak)
+    div(v-if="selectedTab == 'account_settings'" v-cloak)
       AccountSettings
+
+    div(v-else-if="selectedTab == 'my_subscription'" v-cloak)
+      h3.title My Subscription information
 </template>
 
 <script>
@@ -93,7 +89,7 @@ export default {
 
   data () {
     return {
-      tabs: ['dashboard', 'profile', 'account_settings'],
+      tabs: ['dashboard', 'profile', 'account_settings', 'my_subscription'],
       editing: false,
       selectedTab: this.$route.params.section || 'dashboard',
       completed: {},
@@ -259,12 +255,12 @@ export default {
 
 .account-actions
   display flex
-  justify-content start
+  justify-items flex-start
   margin-bottom: ($vertical-space/2)
   border-bottom solid 2px $secondary-color
 
 .download
-  color white
+  color #FFFFFF
   text-align center
   align-items center
   background-image url(/images/bkg-cheatsheet-main.jpg)
@@ -286,6 +282,9 @@ export default {
   border none
   cursor pointer
   text-transform capitalize
+
+  &:last-of-type
+    margin-left auto
 
   &:focus
     outline none
