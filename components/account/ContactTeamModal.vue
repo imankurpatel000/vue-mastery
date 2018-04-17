@@ -1,6 +1,6 @@
 <template lang='pug'>
 no-ssr
-  modal(name="contact-team-form" v-cloak height="auto" @before-open="beforeOpen" @before-close="beforeClose" scrollable=true)
+  modal(name="contact-team-form" v-cloak height="auto" scrollable=true)
     form.form(@submit.prevent='submit')
       h3.form-title {{ title }}
 
@@ -37,13 +37,13 @@ export default {
     account: {
       type: Object,
       required: false
-    },
+    }
   },
 
   data () {
     return {
-      name: account.name || '',
-      email: account.email || '',
+      name: this.account.name || '',
+      email: this.account.email || '',
       companyWebsite: '',
       accountNumber: '',
       phoneNumber: '',
@@ -83,7 +83,7 @@ export default {
           this.formError = 'Please enter a phone number'
           return false
         }
-        
+
         this.$store.dispatch('sendTeamSubscriptionRequest', {
           name: this.name,
           email: this.email,
@@ -120,5 +120,5 @@ export default {
 }
 </script>
 <style lang='stylus' scoped>
-  @import '../assets/css/_variables'
+
 </style>

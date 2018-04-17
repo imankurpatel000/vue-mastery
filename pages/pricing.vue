@@ -1,5 +1,6 @@
 <template lang="pug">
   .wrapper
+    ContactTeamModal(:account='account')
     .pricing-content
       h2.title Becoming a Vue Mastery Subscriber means
       ul
@@ -71,7 +72,7 @@
               p Please contact us, and we’ll take care of you.
               p FYI, all team accounts are billed yearly.
             
-            button.button.inverted.border Contact Us
+            button.button.inverted.border(@click='') Contact Us
 </template>
 
 <script>
@@ -79,6 +80,7 @@ import { mapState } from 'vuex'
 import axios from 'axios'
 import ChargeBeeSubscription from '~/components/account/3rd-party/ChargeBeeSubscription.vue'
 import AuthForm from '~/components/account/AuthForm.vue'
+import ContactTeamModal from '~/components/account/ContactTeamModal.vue'
 
 export default {
   name: 'page-pricing',
@@ -87,7 +89,8 @@ export default {
 
   components: {
     ChargeBeeSubscription,
-    AuthForm
+    AuthForm,
+    ContactTeamModal
   },
 
   data () {
@@ -131,6 +134,10 @@ export default {
             this.link = response.data.access_url
           })
       })
+    },
+
+    openTeamContact () {
+      this.$modal.show('contact-team-form')
     }
   }
 }
