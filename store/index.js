@@ -40,6 +40,9 @@ const createStore = () => {
       sendContactRequest ({ commit }, newData) {
         // Get a key for a new contact.
         return firebase.database().ref('/inquiries/').push(newData)
+      },
+      sendTeamSubscriptionRequest ({ commit }, newData) {
+        return firebase.database().ref('/team-request/').push(newData)
       }
     },
     mutations: {

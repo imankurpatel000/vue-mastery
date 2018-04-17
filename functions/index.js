@@ -77,6 +77,20 @@ module.exports = {
       })
     }),
 
+  // Subscribe a user to a course on the mailerLite course list
+  sendTeamSubscriptionRequest: functions.database.ref('/inquiries/{cid}')
+    .onCreate(event => {
+      const snapshot = event.data
+      let form = snapshot.val()
+      return subscription.sendTeamSubscriptionRequest({
+        name: form.name,
+        email: form.email,
+        companyWebsite: form.companyWebsite,
+        accountNumber: form.accountNumber,
+        phoneNumber: form.phoneNumber
+      })
+    }),
+
   // Update lesson count in a course
   countLessonsInCourse: functions.database.ref('/flamelink/environments/production/content/courses/en-US/{cid}/lessons/{lid}')
     .onWrite(event => {
