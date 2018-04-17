@@ -9,7 +9,7 @@
       h3(v-text='account.displayName')
 
   .account-actions
-    button.tab(type='button' 
+    button.tab(type='button'
                v-for='tab in tabs'
                :disabled='!account'
                :class="{'active-tab': selectedTab == tab}"
@@ -282,6 +282,7 @@ export default {
   text-decoration none
   text-align center
   line-height $button-height-small
+  background transparent
   border none
   cursor pointer
   text-transform capitalize
