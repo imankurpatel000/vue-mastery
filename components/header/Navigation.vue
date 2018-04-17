@@ -4,6 +4,7 @@
       transition(name="linkin" mode='out-in' appear)
         router-link.navbar-item.underline(to="/account/dashboard" v-if="account") Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
+      router-link.navbar-item.underline(to="/pricing") Pricing
       router-link.navbar-item.underline(to="/vueconf") VueConf
       router-link.navbar-item.underline(to="/about") About
 
@@ -179,7 +180,7 @@ export default {
 
 .signin-enter-active
   transition opacity ease-in .5s
-    
+
   .appear
     transition transform ease-out .5s
 
@@ -230,7 +231,7 @@ export default {
 
   .navbar
     opacity: 1
-    
+
   .button,
   .navbar-item
     opacity: 1
