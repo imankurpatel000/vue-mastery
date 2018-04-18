@@ -120,10 +120,9 @@ module.exports = {
     }),
 
   create_portal_session: functions.https.onRequest((req, res) => {
-    const customerId = req.query.customer_id
-    return chargebee.PortalSession.create({
+    return chargebee.portal_session.create({
       customer: {
-        id: customerId
+        id: req.body.customer_id
       }
     })
   }),

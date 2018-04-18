@@ -34,7 +34,6 @@
               b Guaranteed Value
 
             button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
-            //- ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink'  @click="subscribe('year-subscription')" class-name='border')
 
       .annually
         .card
@@ -62,7 +61,6 @@
               b Guaranteed Value
 
             button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
-            //- ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink' @click='subscribe')
 
       .team
         .card.secondary
@@ -80,7 +78,6 @@
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
-import ChargeBeeSubscription from '~/components/account/3rd-party/ChargeBeeSubscription.vue'
 import AuthForm from '~/components/account/AuthForm.vue'
 import ContactTeamModal from '~/components/account/ContactTeamModal.vue'
 
@@ -90,7 +87,6 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    ChargeBeeSubscription,
     AuthForm,
     ContactTeamModal
   },
@@ -108,43 +104,17 @@ export default {
     })
   },
 
-  watch: {
-    account () {
-      this.getPortalLink()
-    }
-  },
-
   mounted () {
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
-        site: 'vuemastery-test'
+        site: 'vuemastery-test',
+        domain: process.env.url
       })
-      if (this.account) {
-        this.getPortalLink()
-      }
     }
   },
 
   methods: {
-    getPortalLink () {
-      console.log('Get portal link method', this.chargebeeInstance, this.chargebeeInstance.setPortalSession)
-      // this.chargebeeInstance.setPortalSession(() => {
-      //   console.log('Get portal Session')
-      //   // return axios.post('/create_portal_session', {customer_id: this.account.key})
-      //   //   .then((response) => {
-      //   //     console.log('Charge be response.data', response.data)
-      //   //     this.link = response.data.access_url
-      //   //   })
-      // })
-    },
-
     subscribe (plan) {
-      // let cbPortal = this.chargebeeInstance.createChargebeePortal()
-      // cbPortal.open({
-      //   close () {
-      //     // close callbacks
-      //   }
-      // })
       if (this.account) {
         this.chargebeeInstance.openCheckout({
           // This function returns a promise that resolves a hosted page object.

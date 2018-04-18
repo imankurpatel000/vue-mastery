@@ -14,8 +14,8 @@
                :disabled='!account'
                :class="{'active-tab': selectedTab == tab}"
                @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
-    //- TODO: This will pop up the Chargebee modal for account settings.
-    button.tab(type="button") My Subscription
+
+    button.tab(@click="openPortal") My Subscription
 
   div.account-content
     div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
@@ -71,6 +71,7 @@ import CourseGrid from '~/components/courses/Grid.vue'
 import BadgeGrid from '~/components/courses/BadgeGrid.vue'
 import AccountSettings from '~/components/account/AccountSettings.vue'
 import DownloadButton from '~/components/static/DownloadButton'
+import axios from 'axios'
 
 export default {
   name: 'page-dashboard',
@@ -93,7 +94,10 @@ export default {
       selectedTab: this.$route.params.section || 'dashboard',
       completed: {},
       recommended: {},
-      uncompleted: {}
+      uncompleted: {},
+      portalLink: '',
+      chargebeeInstance: null,
+      chargebeePortalInstance: null
     }
   },
 
@@ -139,12 +143,54 @@ export default {
       }
       return this.uncompleted
     },
+
     imageAlt () {
       return `${this.account.displayName} profile image`
+    },
+
+    openPortal () {
+      if (this.chargebeePortalInstance) {
+        this.chargebeePortalInstance.open({
+          loaded () {
+            // called when chargebee portal is loaded
+          },
+          close () {
+            // called when chargebee portal is closed
+          },
+          visit (sectionName) {
+            // called whenever the customer navigates across different sections in portal
+          },
+          paymentSourceAdd () {
+            // called whenever a new payment source is added in portal
+          },
+          paymentSourceUpdate () {
+            // called whenever a payment source is updated in portal
+          },
+          paymentSourceRemove () {
+            // called whenever a payment source is removed in portal.
+          },
+          subscriptionChanged (data) {
+            // called whenever a subscription is changed
+            // data.subscription.id will give you the subscription id
+            // Make sure you whitelist your domain in the checkout settings page
+          },
+          subscriptionCancelled (data) {
+            // called when a subscription is cancelled
+            // data.subscription.id will give you the subscription id
+            // Make sure you whitelist your domain in the checkout settings page
+          }
+        })
+      }
     }
   },
 
   watch: {
+    account () {
+      if (!this.chargebeeInstance) {
+        this.getPortalLink()
+      }
+    },
+
     $route (to, from) {
       this.selectedTab = this.$route.params.section
     }
@@ -152,6 +198,17 @@ export default {
 
   mounted () {
     this.$store.dispatch('getAllCourses')
+
+    if (!process.server) {
+      this.chargebeeInstance = window.Chargebee.init({
+        site: 'vuemastery-test',
+        domain: process.env.url
+      })
+
+      if (this.account && !this.chargebeeInstance) {
+        this.getPortalLink()
+      }
+    }
   },
 
   methods: {
@@ -182,6 +239,19 @@ export default {
     goTo (tab) {
       this.selectedTab = tab
       this.$router.replace(`/account/${tab}`, false)
+    },
+
+    getPortalLink () {
+      console.log('Get portal link method', this.chargebeeInstance, this.chargebeeInstance.setPortalSession)
+      this.chargebeeInstance.setPortalSession(() => {
+        console.log('Get portal Session')
+        this.chargebeePortalInstance = axios.post('/create_portal_session', {
+          customer_id: this.account.key
+        })
+          .then((response) => {
+            console.log('Charge be response.data', response.data)
+          })
+      })
     }
   }
 }
