@@ -155,7 +155,8 @@ export default {
             params.append('email', this.account.email)
             params.append('plan_id', plan)
             // We will discuss on how to implement this end point below.
-            return axios.post('https://vue-mastery-staging.firebaseapp.com/generate_hp_url', params)
+            // return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/generate_hp_url', params)
+            return axios.post('http://localhost:5000/vue-mastery-staging/us-central1/generate_hp_url', params)
               .then((response) => {
                 console.log(response)
                 return response.data
