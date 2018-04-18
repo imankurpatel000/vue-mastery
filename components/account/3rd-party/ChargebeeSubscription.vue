@@ -1,5 +1,6 @@
 <template lang='pug'>
 button.button.primary.-full(
+  @click=''
   :href='link'
   data-cb-type='checkout'
   :data-cb-plan-id='plan'
@@ -12,6 +13,10 @@ export default {
   name: 'chargebee-subscription',
 
   props: {
+    account: {
+      type: Object,
+      required: false
+    },
     label: {
       type: String,
       default: 'Select Plan'

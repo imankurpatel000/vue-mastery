@@ -33,7 +33,8 @@
               i.fas.fa-shield-alt
               b Guaranteed Value
 
-            ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink' class-name='border')
+            button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
+            //- ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink'  @click="subscribe('year-subscription')" class-name='border')
 
       .annually
         .card
@@ -60,7 +61,8 @@
               i.fas.fa-shield-alt
               b Guaranteed Value
 
-            ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink')
+            button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
+            //- ChargeBeeSubscription(plan='year-subscription' :link='chargbeeLink' @click='subscribe')
 
       .team
         .card.secondary
@@ -126,14 +128,46 @@ export default {
   methods: {
     getPortalLink () {
       console.log('Get portal link method', this.chargebeeInstance, this.chargebeeInstance.setPortalSession)
-      this.chargebeeInstance.setPortalSession(() => {
-        console.log('Get portal Session')
-        return axios.post('/create_portal_session', {customer_id: this.account.key})
-          .then((response) => {
-            console.log('Charge be response.data', response.data)
-            this.link = response.data.access_url
-          })
-      })
+      // this.chargebeeInstance.setPortalSession(() => {
+      //   console.log('Get portal Session')
+      //   // return axios.post('/create_portal_session', {customer_id: this.account.key})
+      //   //   .then((response) => {
+      //   //     console.log('Charge be response.data', response.data)
+      //   //     this.link = response.data.access_url
+      //   //   })
+      // })
+    },
+
+    subscribe (plan) {
+      // let cbPortal = this.chargebeeInstance.createChargebeePortal()
+      // cbPortal.open({
+      //   close () {
+      //     // close callbacks
+      //   }
+      // })
+      if (this.account) {
+        this.chargebeeInstance.openCheckout({
+          // This function returns a promise that resolves a hosted page object.
+          // If the library that you use for making ajax calls, can return a promise, you can directly return that
+
+          hostedPage: () => {
+            let params = new URLSearchParams()
+            params.append('email', this.account.email)
+            params.append('plan_id', plan)
+            // We will discuss on how to implement this end point below.
+            return axios.post('https://vue-mastery-staging.firebaseapp.com/generate_hp_url', params)
+              .then((response) => {
+                console.log(response)
+                return response.data
+              })
+          },
+
+          success (hostedPageId) {
+            // success callback
+            console.log(hostedPageId)
+          }
+        })
+      }
     },
 
     openTeamContact () {

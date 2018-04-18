@@ -5,6 +5,10 @@ const db = require('./helpers')
 // const payment = require('./payment')
 
 const mainListId = functions.config().mailerlite.mainlistid
+chargebee.configure({
+  site: 'vuemastery-test',
+  api_key: 'test_70lBzQ4lXcoToVnmaIoFpVLjN2jlpLzW'
+})
 
 module.exports = {
   // On account creation we add the user to mailerlite and create stripe account (phase 2)
@@ -120,6 +124,24 @@ module.exports = {
     return chargebee.PortalSession.create({
       customer: {
         id: customerId
+      }
+    })
+  }),
+
+  generate_hp_url: functions.https.onRequest((req, res) => {
+    chargebee.hosted_page.checkout_new({
+      subscription: {
+        'plan_id': req.body.plan_id
+      },
+      customer: {
+        'email': req.body.email
+      }
+    }).request(function (error, result) {
+      if (error) {
+        // handle error
+        console.log(error)
+      } else {
+        res.send(result)
       }
     })
   })
