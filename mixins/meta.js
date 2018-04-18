@@ -3,8 +3,12 @@ export default {
     return {
       title: `${d.categoryTitle}: ${d.pageTitle}`,
       meta: [{
-        hid: `og:description`,
+        hid: `description`,
         name: 'description',
+        content: d.description
+      }, {
+        hid: `og:description`,
+        name: 'og:description',
         content: d.description
       }, {
         hid: 'og:url',
@@ -30,6 +34,10 @@ export default {
         hid: 'twitter:image',
         name: 'twitter:image',
         content: d.twitterImage || d.image || `${process.env.url}/images/facbeook_image.png`
+      }, {
+        hid: `author`,
+        name: 'author',
+        content: d.author || 'Adam Jahr'
       }]
     }
   }

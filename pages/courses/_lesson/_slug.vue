@@ -44,7 +44,8 @@ export default {
       category: 'courses',
       image: this.current.image[0].url,
       facebookImage: (this.current.facebookImage && this.current.facebookImage[0].url) || this.current.image[0].url,
-      twitterImage: (this.current.twitterImage && this.current.twitterImage[0].url) || this.current.image[0].url
+      twitterImage: (this.current.twitterImage && this.current.twitterImage[0].url) || this.current.image[0].url,
+      author: 'Adam Jahr'
     })
   },
 

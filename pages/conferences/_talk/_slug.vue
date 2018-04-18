@@ -33,7 +33,8 @@ export default {
       description: this.current.description,
       image: this.current.image[0].url,
       facebookImage: this.current.facebookImage[0].url || this.current.image[0].url,
-      twitterImage: this.current.twitterImage[0].url || this.current.image[0].url
+      twitterImage: this.current.twitterImage[0].url || this.current.image[0].url,
+      author: this.current.author || 'Adam Jahr'
     })
   },
 
