@@ -2,12 +2,10 @@
   .homepage
     .cheatsheet
       CheatSheetMain
-    .community
-      CommunitySupport
+
 </template>
 
 <script>
-import CommunitySupport from '~/components/static/CommunitySupport'
 import CheatSheetMain from '~/components/static/CheatSheetMain'
 
 export default {
@@ -27,7 +25,6 @@ export default {
   },
 
   components: {
-    CommunitySupport,
     CheatSheetMain
   }
 }
