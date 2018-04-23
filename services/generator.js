@@ -88,13 +88,12 @@ module.exports = async function (nuxt, generateOptions) {
   console.log('Get dynamic routes')
   const flamelink = require('flamelink')
   const admin = require('firebase-admin')
-  const serviceAccount = require('../serviceAccountKey.json')
+  const conf = require('../firebase')
+  const serviceAccount = require('../serviceAccountKey' + (conf.projectId === 'vue-mastery-staging' ? 'Staging' : '') + '.json')
   const firebaseConfig = {
     credential: admin.credential.cert(serviceAccount),
-    // databaseURL: baseUrl,
-    databaseURL: 'https://vue-mastery.firebaseio.com',
-    // databaseURL: 'https://vue-mastery-staging.firebaseapp.com/',
-    storageBucket: 'vue-mastery.appspot.com'
+    databaseURL: conf.databaseURL,
+    storageBucket: conf.storageBucket
   }
   const firebaseApp = admin.initializeApp(firebaseConfig)
   const db = flamelink({ firebaseApp, isAdminApp: true }).content
