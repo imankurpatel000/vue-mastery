@@ -142,6 +142,7 @@ module.exports = {
     res.header('Content-Type', 'application/json')
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Headers', 'Content-Type')
+
     chargebee.hosted_page.checkout_new({
       subscription: {
         'plan_id': req.body.plan_id
@@ -153,9 +154,15 @@ module.exports = {
       if (error) {
         // handle error
         console.log(error)
+        res.status(500).send(error)
       } else {
         res.send(result.hosted_page)
       }
     })
+  }),
+
+  subscription_update: functions.https.onRequest((req, res) => {
+    console.log('Update', req.body)
+    res.sendStatus(200)
   })
 }
