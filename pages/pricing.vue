@@ -98,7 +98,7 @@ export default {
 
   computed: {
     ...mapState({
-      account: result => result.account.account
+      account: result => result.account.user
     })
   },
 
@@ -130,9 +130,9 @@ export default {
               })
           },
 
-          success (hostedPageId) {
-            // success callback
-            console.log(hostedPageId)
+          success: (hostedPageId) => {
+            const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
+            this.$router.push(redirect)
           }
         })
       } else {
