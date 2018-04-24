@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1495.92" height="153.82" viewBox="0 0 1495.92 153.82">
+  <defs>
+    <style>
+      .e1e71844-5236-4e79-87b5-0bb8fe01bd79 {
+        opacity: 0.53;
+        fill: url(#08030265-0e93-4333-8805-365194f4a269);
+      }
+    </style>
+    <linearGradient id="08030265-0e93-4333-8805-365194f4a269" x1="-397.03" y1="-179.18" x2="1098.88" y2="-179.18" gradientTransform="translate(1098.88 -102.28) rotate(180)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.79"/>
+      <stop offset="0.19" stop-color="#fff" stop-opacity="0.63"/>
+      <stop offset="0.52" stop-color="#fff" stop-opacity="0.3"/>
+      <stop offset="0.59" stop-color="#fff" stop-opacity="0.34"/>
+      <stop offset="0.7" stop-color="#fff" stop-opacity="0.44"/>
+      <stop offset="0.85" stop-color="#fff" stop-opacity="0.61"/>
+      <stop offset="0.99" stop-color="#fff" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+  <title>img-cloud-middle</title>
+  <g id="200edbe4-b1a4-4116-ae05-099178b4549d" data-name="Layer 2">
+    <g id="bd8483ba-8860-40e0-84e3-faa578707069" data-name="clouds middle">
+      <path class="e1e71844-5236-4e79-87b5-0bb8fe01bd79" d="M243.57,106.26c40.35,20.36,167.66,35.22,318.49,35.22q18.41,0,36.31-.29c45.41,7.59,125.35,12.63,216.41,12.63,141.43,0,256.09-12.16,256.09-27.15,0-3.61-6.63-7-18.66-10.19,257.1-.92,443.71-21.67,443.71-44.79,0-11.63-76.1-21.78-189.38-27.26C1297.61,19.73,1106,0,870.81,0,727.36,0,600.1,7.34,520.62,18.68,467,13.19,402,10,331.84,10,148.57,10,0,31.92,0,59,0,81.55,103.15,100.55,243.57,106.26Z"/>
+    </g>
+  </g>
+</svg>
