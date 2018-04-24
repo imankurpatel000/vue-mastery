@@ -120,14 +120,29 @@ module.exports = {
     }),
 
   create_portal_session: functions.https.onRequest((req, res) => {
-    return chargebee.portal_session.create({
+    res.header('Content-Type', 'application/json')
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Content-Type')
+    chargebee.portal_session.create({
       customer: {
-        id: req.body.customer_id
+        // id: req.body.customer_id
+        redirect_url: 'https://yourdomain.com/users/3490343',
+        id: '1mk51SKQpeYl1NDKo'
+      }
+    }).request((error, result) => {
+      if (error) {
+        console.log('error', error)
+      } else {
+        res.send(result.portal_session)
       }
     })
   }),
 
   generate_hp_url: functions.https.onRequest((req, res) => {
+    res.header('Content-Type', 'application/json')
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Content-Type')
+
     chargebee.hosted_page.checkout_new({
       subscription: {
         'plan_id': req.body.plan_id
@@ -139,9 +154,15 @@ module.exports = {
       if (error) {
         // handle error
         console.log(error)
+        res.status(500).send(error)
       } else {
-        res.send(result)
+        res.send(result.hosted_page)
       }
     })
+  }),
+
+  subscription_update: functions.https.onRequest((req, res) => {
+    console.log('Update', req.body)
+    res.sendStatus(200)
   })
 }

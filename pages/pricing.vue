@@ -78,7 +78,6 @@
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
-import AuthForm from '~/components/account/AuthForm.vue'
 import ContactTeamModal from '~/components/account/ContactTeamModal.vue'
 
 export default {
@@ -87,7 +86,6 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    AuthForm,
     ContactTeamModal
   },
 
@@ -100,15 +98,15 @@ export default {
 
   computed: {
     ...mapState({
-      account: result => result.account.account
+      account: result => result.account.user
     })
   },
 
   mounted () {
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
-        site: 'vuemastery-test',
-        domain: process.env.url
+        site: 'vuemastery-test'
+        // domain: process.env.url
       })
     }
   },
@@ -119,24 +117,29 @@ export default {
         this.chargebeeInstance.openCheckout({
           // This function returns a promise that resolves a hosted page object.
           // If the library that you use for making ajax calls, can return a promise, you can directly return that
-
           hostedPage: () => {
             let params = new URLSearchParams()
             params.append('email', this.account.email)
             params.append('plan_id', plan)
             // We will discuss on how to implement this end point below.
-            // return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/generate_hp_url', params)
-            return axios.post('http://localhost:5000/vue-mastery-staging/us-central1/generate_hp_url', params)
+            return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/generate_hp_url', params)
+            // return axios.post('http://localhost:5000/vue-mastery-staging/us-central1/generate_hp_url', params)
               .then((response) => {
                 console.log(response)
                 return response.data
               })
           },
 
-          success (hostedPageId) {
-            // success callback
-            console.log(hostedPageId)
+          success: (hostedPageId) => {
+            const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
+            this.$router.push(redirect)
           }
+        })
+      } else {
+        this.$modal.show('login-form', {
+          newAccount: true,
+          headerTitle: 'Please Create an Account',
+          location: 'Pricing page'
         })
       }
     },

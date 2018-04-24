@@ -81,8 +81,8 @@ export default {
     }
   },
 
-  async fetch ({ store }) {
-    await store.dispatch('getCourse', this.category)
+  async fetch ({ store, params }) {
+    await store.dispatch('getCourse', params.lesson)
   }
 }
 </script>

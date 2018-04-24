@@ -4,6 +4,7 @@ import courses from './modules/courses'
 import firebase from 'firebase'
 import * as types from './mutation-types'
 import { analyticsMiddleware } from 'vue-analytics'
+import conf from '~/firebase'
 const flamelink = (process.server ? require('flamelink') : null)
 const firebaseAdmin = (process.server ? require('firebase-admin') : null)
 const serviceAccount = require('../serviceAccountKey.json')
@@ -25,8 +26,8 @@ const createStore = () => {
         if (!firebaseAdmin.apps.length) {
           const firebaseConfig = {
             credential: firebaseAdmin.credential.cert(serviceAccount), // required
-            databaseURL: 'https://vue-mastery.firebaseio.com',
-            storageBucket: 'vue-mastery.appspot.com'
+            databaseURL: conf.databaseURL,
+            storageBucket: conf.storageBucket
           }
           const firebaseApp = firebaseAdmin.initializeApp(firebaseConfig)
           this.commit(types.APP_READY, flamelink({ firebaseApp, isAdminApp: true }))

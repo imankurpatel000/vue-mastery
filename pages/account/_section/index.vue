@@ -15,7 +15,7 @@
                :class="{'active-tab': selectedTab == tab}"
                @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
 
-    button.tab(@click="openPortal") My Subscription
+    button.tab(@click="openPortal()") My Subscription
 
   div.account-content
     div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
@@ -146,48 +146,13 @@ export default {
 
     imageAlt () {
       return `${this.account.displayName} profile image`
-    },
-
-    openPortal () {
-      if (this.chargebeePortalInstance) {
-        this.chargebeePortalInstance.open({
-          loaded () {
-            // called when chargebee portal is loaded
-          },
-          close () {
-            // called when chargebee portal is closed
-          },
-          visit (sectionName) {
-            // called whenever the customer navigates across different sections in portal
-          },
-          paymentSourceAdd () {
-            // called whenever a new payment source is added in portal
-          },
-          paymentSourceUpdate () {
-            // called whenever a payment source is updated in portal
-          },
-          paymentSourceRemove () {
-            // called whenever a payment source is removed in portal.
-          },
-          subscriptionChanged (data) {
-            // called whenever a subscription is changed
-            // data.subscription.id will give you the subscription id
-            // Make sure you whitelist your domain in the checkout settings page
-          },
-          subscriptionCancelled (data) {
-            // called when a subscription is cancelled
-            // data.subscription.id will give you the subscription id
-            // Make sure you whitelist your domain in the checkout settings page
-          }
-        })
-      }
     }
   },
 
   watch: {
     account () {
       if (!this.chargebeeInstance) {
-        this.getPortalLink()
+        this.getPortalInstance()
       }
     },
 
@@ -201,13 +166,11 @@ export default {
 
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
-        site: 'vuemastery-test',
-        domain: process.env.url
+        site: 'vuemastery-test'
+        // domain: process.env.url
       })
 
-      if (this.account && !this.chargebeeInstance) {
-        this.getPortalLink()
-      }
+      this.getPortalInstance()
     }
   },
 
@@ -241,16 +204,49 @@ export default {
       this.$router.replace(`/account/${tab}`, false)
     },
 
-    getPortalLink () {
-      console.log('Get portal link method', this.chargebeeInstance, this.chargebeeInstance.setPortalSession)
+    getPortalInstance () {
       this.chargebeeInstance.setPortalSession(() => {
-        console.log('Get portal Session')
-        this.chargebeePortalInstance = axios.post('/create_portal_session', {
-          customer_id: this.account.key
+        return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/create_portal_session', {
+          customer_id: '1mk51SKQpeYl1NDKo'
         })
           .then((response) => {
-            console.log('Charge be response.data', response.data)
+            console.log(response)
+            return response.data
           })
+      })
+    },
+
+    openPortal () {
+      const cbPortal = this.chargebeeInstance.createChargebeePortal()
+      cbPortal.open({
+        loaded () {
+          // called when chargebee portal is loaded
+        },
+        close () {
+          // called when chargebee portal is closed
+        },
+        visit (sectionName) {
+          // called whenever the customer navigates across different sections in portal
+        },
+        paymentSourceAdd () {
+          // called whenever a new payment source is added in portal
+        },
+        paymentSourceUpdate () {
+          // called whenever a payment source is updated in portal
+        },
+        paymentSourceRemove () {
+          // called whenever a payment source is removed in portal.
+        },
+        subscriptionChanged (data) {
+          // called whenever a subscription is changed
+          // data.subscription.id will give you the subscription id
+          // Make sure you whitelist your domain in the checkout settings page
+        },
+        subscriptionCancelled (data) {
+          // called when a subscription is cancelled
+          // data.subscription.id will give you the subscription id
+          // Make sure you whitelist your domain in the checkout settings page
+        }
       })
     }
   }
