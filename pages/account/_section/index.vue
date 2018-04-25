@@ -15,7 +15,7 @@
                :class="{'active-tab': selectedTab == tab}"
                @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
 
-    button.tab(@click="openPortal()") My Subscription
+    button.tab(@click="openPortal()" v-if="account && account.chargebeeId" v-cloak) My Subscription
 
   div.account-content
     div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
@@ -154,11 +154,11 @@ export default {
       if (!this.chargebeeInstance) {
         this.getPortalInstance()
       }
-    },
-
-    $route (to, from) {
-      this.selectedTab = this.$route.params.section
     }
+
+    // $route (to, from) {
+    //   this.selectedTab = this.$route.params.section
+    // }
   },
 
   mounted () {
@@ -171,6 +171,10 @@ export default {
       })
 
       this.getPortalInstance()
+    }
+
+    if (this.selectedTab === 'my-subscription') {
+      this.openPortal()
     }
   },
 
@@ -206,11 +210,10 @@ export default {
 
     getPortalInstance () {
       this.chargebeeInstance.setPortalSession(() => {
-        return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/create_portal_session', {
-          customer_id: '1mk51SKQpeYl1NDKo'
-        })
+        let params = new URLSearchParams()
+        params.append('customer_id', this.account.chargebeeId)
+        return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/create_portal_session', params)
           .then((response) => {
-            console.log(response)
             return response.data
           })
       })
@@ -218,36 +221,7 @@ export default {
 
     openPortal () {
       const cbPortal = this.chargebeeInstance.createChargebeePortal()
-      cbPortal.open({
-        loaded () {
-          // called when chargebee portal is loaded
-        },
-        close () {
-          // called when chargebee portal is closed
-        },
-        visit (sectionName) {
-          // called whenever the customer navigates across different sections in portal
-        },
-        paymentSourceAdd () {
-          // called whenever a new payment source is added in portal
-        },
-        paymentSourceUpdate () {
-          // called whenever a payment source is updated in portal
-        },
-        paymentSourceRemove () {
-          // called whenever a payment source is removed in portal.
-        },
-        subscriptionChanged (data) {
-          // called whenever a subscription is changed
-          // data.subscription.id will give you the subscription id
-          // Make sure you whitelist your domain in the checkout settings page
-        },
-        subscriptionCancelled (data) {
-          // called when a subscription is cancelled
-          // data.subscription.id will give you the subscription id
-          // Make sure you whitelist your domain in the checkout settings page
-        }
-      })
+      cbPortal.open()
     }
   }
 }

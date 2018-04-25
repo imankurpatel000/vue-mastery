@@ -98,7 +98,7 @@ export default {
 
   computed: {
     ...mapState({
-      account: result => result.account.user
+      account: result => result.account.account
     })
   },
 
@@ -114,27 +114,12 @@ export default {
   methods: {
     subscribe (plan) {
       if (this.account) {
-        this.chargebeeInstance.openCheckout({
-          // This function returns a promise that resolves a hosted page object.
-          // If the library that you use for making ajax calls, can return a promise, you can directly return that
-          hostedPage: () => {
-            let params = new URLSearchParams()
-            params.append('email', this.account.email)
-            params.append('plan_id', plan)
-            // We will discuss on how to implement this end point below.
-            return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/generate_hp_url', params)
-            // return axios.post('http://localhost:5000/vue-mastery-staging/us-central1/generate_hp_url', params)
-              .then((response) => {
-                console.log(response)
-                return response.data
-              })
-          },
-
-          success: (hostedPageId) => {
-            const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
-            this.$router.push(redirect)
-          }
-        })
+        console.log(this.account.chargebeeId)
+        if (this.account.chargebeeId) {
+          this.$router.push('/account/my-subscription')
+        } else {
+          this.openCheckout(plan)
+        }
       } else {
         this.$modal.show('login-form', {
           newAccount: true,
@@ -146,6 +131,33 @@ export default {
 
     openTeamContact () {
       this.$modal.show('contact-team-form')
+    },
+
+    openCheckout (plan) {
+      this.chargebeeInstance.openCheckout({
+        // This function returns a promise that resolves a hosted page object.
+        // If the library that you use for making ajax calls, can return a promise, you can directly return that
+        hostedPage: () => {
+          let params = new URLSearchParams()
+          params.append('email', this.account.email)
+          params.append('plan_id', plan)
+          if (this.account.chargebeeId) {
+            params.append('customer_id', this.account.chargebeeId)
+          }
+          return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/generate_hp_url', params)
+          // return axios.post('http://localhost:5000/vue-mastery-staging/us-central1/generate_hp_url', params)
+            .then((response) => {
+              console.log(response)
+              return response.data
+            })
+        },
+
+        success: (hostedPageId) => {
+          console.log(this.chargebeeInstance)
+          const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
+          this.$router.push(redirect)
+        }
+      })
     }
   }
 }

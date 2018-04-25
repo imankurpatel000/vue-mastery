@@ -21,9 +21,9 @@
       transition(name="thankyou")
         .card(v-if="card")
           .card-body
-            p We will be sending $X of your monthly payment to the Vue.js project.
+            p We will be sending ${{monthlyPayment}} of your monthly payment to the Vue.js project.
             router-link(to='https://github.com/vuejs/roadmap' target='_blank') VUE. JS ROADMAP
-            p Your subscription will automatically renew on {date}
+            p Your subscription will automatically renew on {{renewal}}
             p If you ever want to modify, suspend, or cancel your subscription, just head over to your profile page by clicking the image in the top right of your screen, and hitting the button that looks like:
             router-link(to='/account/my-subscription') MY SUBSCRIPTION
             p
@@ -40,6 +40,17 @@ export default {
   name: 'thank-you',
 
   middleware: 'anonymous',
+
+  props: {
+    monthlyPayment: {
+      type: String,
+      required: true
+    },
+    renewal: {
+      type: String,
+      required: true
+    }
+  },
 
   data () {
     return {

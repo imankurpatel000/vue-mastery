@@ -9,6 +9,21 @@ module.exports = {
     return admin.database().ref(accountPath).once('value')
   },
 
+  subscribe (email, id, subscribing = true) {
+    return admin
+      .database()
+      .ref('accounts')
+      .orderByChild('email')
+      .equalTo(email)
+      .once('child_added', (snapshot) => {
+        snapshot.ref
+          .update({
+            subscribed: subscribing,
+            chargebeeId: id
+          })
+      })
+  },
+
   course (id) {
     const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}`
     return admin.database().ref(pathToCourse).once('value')

@@ -123,11 +123,10 @@ module.exports = {
     res.header('Content-Type', 'application/json')
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Headers', 'Content-Type')
+
     chargebee.portal_session.create({
       customer: {
-        // id: req.body.customer_id
-        redirect_url: 'https://yourdomain.com/users/3490343',
-        id: '1mk51SKQpeYl1NDKo'
+        id: req.body.customer_id
       }
     }).request((error, result) => {
       if (error) {
@@ -149,7 +148,8 @@ module.exports = {
       },
       customer: {
         'email': req.body.email
-      }
+      },
+      embed: 'false'
     }).request(function (error, result) {
       if (error) {
         // handle error
@@ -161,8 +161,25 @@ module.exports = {
     })
   }),
 
-  subscription_update: functions.https.onRequest((req, res) => {
+  subscription_changes: functions.https.onRequest((req, res) => {
     console.log('Update', req.body)
+    const customer = req.body.content.customer
+    switch (req.body.event_type) {
+      case 'subscription_activated':
+      case 'subscription_created': {
+        db.subscribe(customer.email, customer.id)
+        break
+      }
+      case 'subscription_paused':
+      case 'subscription_cancelled': {
+        db.subscribe(customer.email, customer.id, false)
+        break
+      }
+      default: {
+        console.log(req.body.event_type)
+        break
+      }
+    }
     res.sendStatus(200)
   })
 }
