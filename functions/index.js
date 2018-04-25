@@ -162,7 +162,6 @@ module.exports = {
   }),
 
   subscription_changes: functions.https.onRequest((req, res) => {
-    console.log('Update', req.body)
     const customer = req.body.content.customer
     switch (req.body.event_type) {
       case 'subscription_activated':
