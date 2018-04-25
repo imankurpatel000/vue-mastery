@@ -11,7 +11,7 @@ div
           :account='account')
 
     .lesson-video.-locked(v-else :style='lockedStyle')
-      Unlock(:account='account')
+      Unlock(:free='current.free')
 
     List(:course='course'
          :current='page'
@@ -20,7 +20,7 @@ div
          :isLesson='isLesson'
          @redirect='redirect')
 
-    Body(:course='current' :locked='locked')
+    Body(:course='current' :locked='locked' :free='current.free')
       Profile(:current='current' v-if='!isLesson' v-cloak)
 
     aside.lesson-aside(v-if='!locked' v-cloak)
@@ -140,7 +140,15 @@ export default {
 
   computed: {
     locked () {
-      return this.current.lock && !this.account
+      if (this.current.free && !this.current.lock) {
+        return false
+      } else {
+        if (this.current.lock) {
+          return !this.account
+        } else {
+          return this.account && !this.account.subscribed
+        }
+      }
     },
 
     lockedStyle () {

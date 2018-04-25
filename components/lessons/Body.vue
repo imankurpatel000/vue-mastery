@@ -6,7 +6,7 @@
       .lesson-body(v-html='body')
 
     .lesson-locked(v-if='locked' v-cloak)
-      Unlock
+      Unlock(:free='free')
 </template>
 
 <script>
@@ -21,6 +21,10 @@ export default {
       required: true
     },
     locked: {
+      type: Boolean,
+      default: false
+    },
+    free: {
       type: Boolean,
       default: false
     }

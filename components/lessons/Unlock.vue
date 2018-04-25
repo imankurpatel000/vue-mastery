@@ -2,9 +2,10 @@
 no-ssr
   .locked-action
     h3 This Lesson Is Locked.
-    h5 Create a free account to unlock it.
+    h5(v-if='free') Create a free account to unlock it.
+    h5(v-else) Subscribe to a plan to unlock it.
 
-    button.button.primary.-small.-has-icon(v-cloak @click='openLogin')
+    button.button.primary.-small.-has-icon(@click='openLogin')
       i.fa.fa-unlock-alt
       | Unlock Content
 
@@ -14,13 +15,24 @@ no-ssr
 export default {
   name: 'unlock-button',
 
+  props: {
+    free: {
+      type: Boolean,
+      required: true
+    }
+  },
+
   methods: {
     openLogin () {
-      this.$modal.show('login-form', {
-        newAccount: true,
-        headerTitle: 'Sign up to Unlock Free Content',
-        location: 'Lesson page locked video'
-      })
+      if (this.free) {
+        this.$modal.show('login-form', {
+          newAccount: true,
+          headerTitle: 'Sign up to Unlock Free Content',
+          location: 'Lesson page locked video'
+        })
+      } else {
+        this.$router.push('/pricing')
+      }
     }
   }
 }

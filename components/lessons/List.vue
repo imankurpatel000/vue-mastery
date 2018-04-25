@@ -5,7 +5,7 @@
   .lessons-list-scroll
     .list-item(v-for='(lesson, index) in course.lessons'
                v-if='lesson && isLesson || lesson && !lesson.lock'
-               :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson.lock)]'
+               :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson)]'
                @click='selectLesson(lesson.slug)')
       
       .list-item-content
@@ -117,8 +117,8 @@ export default {
       }
     },
 
-    unloggedAndLock (lock) {
-      return !this.account && lock ? '-locked' : 'unlock'
+    unloggedAndLock (lesson) {
+      return (!this.account && lesson.lock) || (!lesson.free && !this.account.subscribed) ? '-locked' : 'unlock'
     }
   }
 }

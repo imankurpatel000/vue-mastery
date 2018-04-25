@@ -155,10 +155,6 @@ export default {
         this.getPortalInstance()
       }
     }
-
-    // $route (to, from) {
-    //   this.selectedTab = this.$route.params.section
-    // }
   },
 
   mounted () {
@@ -167,10 +163,10 @@ export default {
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
         site: 'vuemastery-test'
-        // domain: process.env.url
       })
-
-      this.getPortalInstance()
+      if (this.account) {
+        this.getPortalInstance()
+      }
     }
 
     if (this.selectedTab === 'my-subscription') {

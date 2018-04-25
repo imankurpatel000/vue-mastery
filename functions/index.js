@@ -164,6 +164,7 @@ module.exports = {
   subscription_changes: functions.https.onRequest((req, res) => {
     const customer = req.body.content.customer
     switch (req.body.event_type) {
+      case 'subscription_reactivated':
       case 'subscription_activated':
       case 'subscription_created': {
         db.subscribe(customer.email, customer.id)
