@@ -4,12 +4,6 @@
   .cloud-cover
   .wrapper
     div(v-if='ready')
-      .title
-        transition-group(name="thankyou" @after-enter="showCard")
-          h1.headline(v-if='show' key="headline") Thank You
-          p.copy(v-if='show' key="copy") You now have access to all of our paid content.
-          nuxt-link.start.button.primary(to='/courses' v-if='show' key="start") START LEARNING
-
       transition-group(name="nature" @after-enter="showContent" appear)
         img.sm-range(src="/images/img-sm-mountain.svg" key="sm-range")
         img.bk-cloud(src="/images/img-cloud-back.svg" key="bk-cloud")
@@ -18,11 +12,17 @@
         img.lg-range(src="/images/img-lg-mountain.svg" key="lg-range")
         img.fr-cloud(src="/images/img-cloud-front.svg" key="fr-cloud")
 
+      .title
+        transition-group(name="thankyou" @after-enter="showCard")
+          h1.headline(v-if='show' key="headline") Thank You
+          p.copy(v-if='show' key="copy") You now have access to all of our paid content.
+          nuxt-link.start.button.primary(to='/courses' v-if='show' key="start") START LEARNING
+
       transition(name="thankyou")
         .card(v-if="card")
           .card-body
             p We will be sending ${{monthlyPayment}} of your monthly payment to the Vue.js project.
-            router-link.button.primary.border(to='https://github.com/vuejs/roadmap' target='_blank') Vue.js Roadmap
+            a.button.primary.border(href='https://github.com/vuejs/roadmap' target='_blank') Vue.js Roadmap
             p Your subscription will automatically renew on {{renewal}}
             p If you ever want to modify, suspend, or cancel your subscription, just head over to your profile page by clicking the image in the top right of your screen, and hitting the button that looks like:
             router-link.button.primary.border(to='/account/my-subscription') My Subscription

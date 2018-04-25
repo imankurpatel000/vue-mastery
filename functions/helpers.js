@@ -1,5 +1,6 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
+const subscription = require('./subscription')
 
 admin.initializeApp(functions.config().firebase)
 
@@ -16,6 +17,9 @@ module.exports = {
       .orderByChild('email')
       .equalTo(email)
       .once('child_added', (snapshot) => {
+        const val = snapshot.val()
+        subscription.getMailerList('Vue Mastery Subscribers')
+          .then(listID => subscription.subscribeUser(val, listID, subscribing))
         snapshot.ref
           .update({
             subscribed: subscribing,

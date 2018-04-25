@@ -1,6 +1,6 @@
 <template lang='pug'>
 div
-  .lesson-wrapper(v-if='course'  v-cloak)
+  .lesson-wrapper(v-if='course' v-cloak)
     Header(:course='course')
 
     Video(v-if='current && !locked'
@@ -8,7 +8,7 @@ div
           :url = 'baseUrl + current.slug'
           @videoEnded='finished'
           @completed='completed'
-          :account='account')
+          :account='account' v-cloak)
 
     .lesson-video.-locked(v-else :style='lockedStyle')
       Unlock(:free='current.free')
@@ -140,15 +140,13 @@ export default {
 
   computed: {
     locked () {
-      if (this.current.free && !this.current.lock) {
-        return false
-      } else {
-        if (this.current.lock) {
-          return !this.account
-        } else {
-          return this.account && !this.account.subscribed
-        }
+      if (!this.current.free) {
+        return this.account ? !this.account.subscribed : true
       }
+      if (this.current.lock) {
+        return this.account
+      }
+      return false
     },
 
     lockedStyle () {

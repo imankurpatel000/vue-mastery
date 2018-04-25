@@ -167,7 +167,7 @@ module.exports = {
       case 'subscription_reactivated':
       case 'subscription_activated':
       case 'subscription_created': {
-        db.subscribe(customer.email, customer.id)
+        db.subscribe(customer.email, customer.id, true)
         break
       }
       case 'subscription_paused':

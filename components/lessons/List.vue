@@ -118,7 +118,14 @@ export default {
     },
 
     unloggedAndLock (lesson) {
-      return (!this.account && lesson.lock) || (this.account && !lesson.free && !this.account.subscribed) ? '-locked' : 'unlock'
+      let isLocked = false
+      if (!lesson.free) {
+        isLocked = this.account ? !this.account.subscribed : true
+      }
+      if (lesson.lock) {
+        isLocked = this.account
+      }
+      return isLocked ? '-locked' : 'unlock'
     }
   }
 }

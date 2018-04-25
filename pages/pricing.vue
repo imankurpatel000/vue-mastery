@@ -114,7 +114,6 @@ export default {
   methods: {
     subscribe (plan) {
       if (this.account) {
-        console.log(this.account.chargebeeId)
         if (this.account.chargebeeId) {
           this.$router.push('/account/my-subscription')
         } else {
@@ -147,13 +146,11 @@ export default {
           return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/generate_hp_url', params)
           // return axios.post('http://localhost:5000/vue-mastery-staging/us-central1/generate_hp_url', params)
             .then((response) => {
-              console.log(response)
               return response.data
             })
         },
 
         success: (hostedPageId) => {
-          console.log(this.chargebeeInstance)
           const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
           this.$router.push(redirect)
         }
