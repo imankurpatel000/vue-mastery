@@ -92,7 +92,8 @@ export default {
   data () {
     return {
       chargebeeInstance: null,
-      chargbeeLink: ''
+      chargbeeLink: '',
+      success: false
     }
   },
 
@@ -154,9 +155,14 @@ export default {
             })
         },
 
-        success: (hostedPageId) => {
-          const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
-          this.$router.push(redirect)
+        success: () => {
+          this.success = true
+        },
+        close: () => {
+          if (this.success) {
+            const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
+            this.$router.push(redirect)
+          }
         }
       })
     }
