@@ -123,7 +123,11 @@ export default {
         this.$modal.show('login-form', {
           newAccount: true,
           headerTitle: 'Please Create an Account',
-          location: 'Pricing page'
+          location: 'Pricing page',
+          redirect: {
+            function: this.openCheckout,
+            params: plan
+          }
         })
       }
     },

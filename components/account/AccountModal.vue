@@ -46,7 +46,10 @@ export default {
               // this.$router.push('/account')
             }
           }})
-        if (this.redirect) this.$router.push(this.redirect)
+        if (this.redirect) {
+          if (typeof (this.redirect) === 'string') this.$router.push(this.redirect)
+          else this.redirect.function(this.redirect.params)
+        }
       }
     }
   },
