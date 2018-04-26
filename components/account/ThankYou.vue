@@ -15,17 +15,38 @@
       .title
         transition-group(name="thankyou" @after-enter="showCard")
           h1.headline(v-if='show' key="headline") Thank You
-          p.copy(v-if='show' key="copy") You now have access to all of our paid content.
+          p.copy(v-if='show' key="copy") You now have access to all of our content.
           nuxt-link.start.button.primary(to='/courses' v-if='show' key="start") START LEARNING
 
       transition(name="thankyou")
         .card(v-if="card")
           .card-body
-            p We will be sending ${{monthlyPayment}} of your monthly payment to the Vue.js project.
-            a.button.primary.border(href='https://github.com/vuejs/roadmap' target='_blank') Vue.js Roadmap
+            h4
+              i.fa.fa-piggy-bank &nbsp;
+              | You are supporting Open Source!
+            p
+              | We will be sending ${{monthlyPayment}} of your {{paySchedule}} payment to support the Vue.js project. If you’re wondering what they’re working on next, see&nbsp;
+              a(href='https://github.com/vuejs/roadmap' target='_blank') their Roadmap.
+
+            h4
+              i.fa.fa-book &nbsp;
+              | Our Content
+            p
+              | We’ll be releasing content weekly.  Click here to see what’s planned. If you want to request content, email&nbsp;
+              a(href='mailto:team@vuemastery.com' target='_blank') team@vuemastery.com
+              | . Your support also helps us produce the weekly&nbsp;
+              a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast
+              | , where we cover the latest news and tutorials.
+
+            h4
+              i.fa.fa-dollar-sign &nbsp;
+              | Your Subscription
             p Your subscription will automatically renew on {{renewal}}
-            p If you ever want to modify, suspend, or cancel your subscription, just head over to your profile page by clicking the image in the top right of your screen, and hitting the button that looks like:
-            router-link.button.primary.border(to='/account/my-subscription') My Subscription
+            p If you ever want to modify or cancel your subscription, just head over to your dashboard and click the “My Subscription” button you’ll find there.
+
+            h4
+              i.far.fa-thumbs-up &nbsp;
+              | Your Feedback
             p
               | If you have any feedback for us, need some support, or want to request any content, we’d love to hear from you. You can use the&nbsp;
               nuxt-link(to='/contact') contact
@@ -45,6 +66,10 @@ export default {
     monthlyPayment: {
       type: String,
       required: true
+    },
+    paySchedule: {
+      type: String,
+      require: true
     },
     renewal: {
       type: String,
@@ -94,20 +119,25 @@ export default {
   background linear-gradient(to bottom right, #90C3D3, #EDFFED)
 
 .cloud-cover
-  position absolute
-  top -500px
-  width 100%
-  height 100%
-  background-size cover
-  background-position center top
-  background-repeat no-repeat
-  background-image url(/images/bkg-cloud-top.svg)
+  display none
+
+  +laptop-up()
+    display block
+    position absolute
+    top -590px
+    width 100%
+    height 100%
+    background-size cover
+    background-position center top
+    background-repeat no-repeat
+    background-image url(/images/bkg-cloud-top.svg)
 
 .wrapper
   position relative
   height 950px
-  +laptop-up()
-    height 800px
+
+  +desktop-up()
+    height 890px
 
 .button
   margin-bottom 0
@@ -174,6 +204,7 @@ img[class*="cloud"]
   bottom 0
   z-index 10
   width 100%
+
   +laptop-up()
     margin-top $vertical-space*1.5
     padding-left 5%
@@ -186,19 +217,19 @@ img[class*="cloud"]
   color #FFFFFF
   font-size 60px
   +tablet-up()
-    font-size 85px
+    font-size 80px
 
 .copy
   position absolute
   top 90px
   +tablet-up()
-    top 130px
+    top 120px
 
 .start
   position absolute
   top 140px
   +tablet-up()
-    top 180px
+    top 170px
 
 .card
   position absolute
@@ -222,6 +253,14 @@ img[class*="cloud"]
 
 .card-body
   padding 22px 40px
+  h4
+    color $secondary-color
+  i
+    color $primary-color
+
+  +tablet-up()
+    p
+      padding-left 28px
 
 .nature-enter-active
   transition opacity .3s ease-in

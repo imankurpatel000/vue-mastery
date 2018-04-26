@@ -40,7 +40,6 @@ export default {
   display flex
   justify-content: center
   position relative
-  margin-bottom ($vertical-space/3)
   border-bottom: solid 4px $primary-color
   background-image url(/images/bkg-outline-mountains.svg)
   background-position center bottom
