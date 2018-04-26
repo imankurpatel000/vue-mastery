@@ -32,8 +32,8 @@
               i.fa.fa-book &nbsp;
               | Our Content
             p
-              | We’ll be releasing content weekly.  Click here to see what’s planned. If you want to request content, email&nbsp;
-              a(href='mailto:team@vuemastery.com' target='_blank') team@vuemastery.com
+              | We’ll be releasing content weekly.  See our most recent lessons and what's upcoming on the&nbsp; 
+              nuxt-link(to='/courses') courses page
               | . Your support also helps us produce the weekly&nbsp;
               a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast
               | , where we cover the latest news and tutorials.
