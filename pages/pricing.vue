@@ -160,7 +160,7 @@ export default {
         },
         close: () => {
           if (this.success) {
-            const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
+            const redirect = plan === 'monthly-subscription' ? 'thankyoumonthly' : 'thankyouannual'
             this.$router.push(redirect)
           }
         }
