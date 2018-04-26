@@ -17,6 +17,8 @@ footer.footer
           nuxt-link(to='/contact' class="-inverted") VueConf US
         li
           nuxt-link(to='/privacy' class="-inverted") Pricing
+        li
+          nuxt-link(to='/vue-cheat-sheet' class="-inverted") Vue Cheat Sheet
     .nav-2
       h4 About Us
       ul.list-unstyled

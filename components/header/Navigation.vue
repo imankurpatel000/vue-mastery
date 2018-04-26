@@ -6,7 +6,6 @@
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/pricing" v-if="!account || (account && !account.subscribed)" v-cloak) Pricing
       router-link.navbar-item.underline(to="/vueconf") VueConf
-      router-link.navbar-item.underline(to="/about") About
 
     no-ssr
       transition(:name="account ? 'signin' : 'signout'" mode='out-in' appear)
