@@ -1,5 +1,4 @@
 <template lang="pug">
-//- .container(v-if='account')
 .container
   .cloud-cover
   .wrapper
@@ -55,8 +54,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
   name: 'thank-you',
 
@@ -89,12 +86,6 @@ export default {
     setTimeout(() => {
       this.ready = true
     }, 500)
-  },
-
-  computed: {
-    ...mapState({
-      account: result => result.account.account
-    })
   },
 
   methods: {
