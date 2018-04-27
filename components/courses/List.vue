@@ -20,8 +20,6 @@
         i.far.fa-clock
         | {{ course.duration | time }}
 
-    //- TODO: Ask Gregg. Unsure if this only for courses page or global.
-    //- TODO: Cloak `.upcoming` if no new lessons coming.
     .upcoming(v-if="$route.path === '/courses' && gotDraft")
       h5
         i.far.fa-calendar-alt &nbsp;
