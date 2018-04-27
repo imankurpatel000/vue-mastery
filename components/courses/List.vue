@@ -19,6 +19,18 @@
         span ・
         i.far.fa-clock
         | {{ course.duration | time }}
+
+    //- TODO: Ask Gregg. Unsure if this only for courses page or global.
+    //- TODO: Cloak `.upcoming` if no new lessons coming.
+    .upcoming(v-if="$route.path === '/courses'")
+      h5
+        i.far.fa-calendar-alt &nbsp;
+        | Upcoming courses
+      ul
+        //- TODO: Add upcoming course titles & release dates
+        li {Reactivity in Vue.js} - {May 8, 2018}
+        li {Reactivity in Vue.js} - {May 8, 2018}
+        li {Reactivity in Vue.js} - {May 8, 2018}
 </template>
 
 <script>
@@ -42,6 +54,8 @@ export default {
 @import '~assets/css/_variables'
 
 .media
+  align-self start
+
   img
     +tablet-up()
       width: 120px
@@ -49,5 +63,39 @@ export default {
 
 .title
   padding-top 0
+
+.upcoming
+  margin-top 10px
+
+  i
+    color $primary-color
+
+  ul
+    position relative
+
+    +tablet-up()
+      &::before
+        content ''
+        position absolute
+        left -12px
+        top 0
+        bottom 30px
+        width 1px
+        background #CCC
+
+    li
+      position relative
+      list-style-type none
+
+      +tablet-up()
+        &::before
+          content ''
+          position absolute
+          top 10px
+          width 20px
+          height 1px
+          background #CCC
+          left -31px
+
 
 </style>
