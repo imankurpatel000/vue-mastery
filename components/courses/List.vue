@@ -22,15 +22,12 @@
 
     //- TODO: Ask Gregg. Unsure if this only for courses page or global.
     //- TODO: Cloak `.upcoming` if no new lessons coming.
-    .upcoming(v-if="$route.path === '/courses'")
+    .upcoming(v-if="$route.path === '/courses' && gotDraft")
       h5
         i.far.fa-calendar-alt &nbsp;
         | Upcoming courses
       ul
-        //- TODO: Add upcoming course titles & release dates
-        li {Reactivity in Vue.js} - {May 8, 2018}
-        li {Reactivity in Vue.js} - {May 8, 2018}
-        li {Reactivity in Vue.js} - {May 8, 2018}
+        li(v-for='lesson in course.lessons' v-if='lesson.status === "draft"') {{lesson.title}} - {{lesson.date | moment("MMMM D, YYYY")}}
 </template>
 
 <script>
@@ -45,6 +42,18 @@ export default {
     course: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    gotDraft () {
+      let draft = false
+      if (this.course.lessons) {
+        this.course.lessons.map((lesson) => {
+          if (lesson.status === 'draft') draft = true
+        })
+      }
+      return draft
     }
   }
 }
