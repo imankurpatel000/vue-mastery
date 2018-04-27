@@ -21,14 +21,14 @@
             .money
               .symbol $
               .decimal 19
-            
+
             .text-center
               i per month
-            
+
             .benefit
               img(src="/images/lgo-vue.svg" alt="Vue.js")
               span $5 of your monthly subscription goes to supporting the Vue.js project itself.
-            
+
             .benefit.color-gold
               i.fas.fa-shield-alt
               b Guaranteed Value
@@ -39,23 +39,23 @@
         .card
           .card-body
             h3.text-center Annual
-            
+
             .money
               .symbol $
               .decimal 190
-            
+
             .text-center
               i per year
-            
+
             .benefit
               img(src="/images/lgo-vue.svg" alt="Vue.js")
-              span $50 of your monthly subscription goes to supporting the Vue.js project itself.
-            
+              span $50 of your yearly subscription goes to supporting the Vue.js project itself.
+
             .benefit.color-primary
               i.fa.fa-piggy-bank
               b Get 2 months free <br>
                 small ($38 discount)
-            
+
             .benefit.color-gold
               i.fas.fa-shield-alt
               b Guaranteed Value
@@ -67,11 +67,11 @@
           .card-body
             h3.text-center Team
             img(src="/images/img-group.svg" alt="Team accounts VueMastery")
-            
+
             div
               p Please contact us, and we’ll take care of you.
               p FYI, all team accounts are billed yearly.
-            
+
             button.button.inverted.border(@click='openTeamContact') Contact Us
 </template>
 
