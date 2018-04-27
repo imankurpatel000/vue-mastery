@@ -17,9 +17,9 @@
 
     button.tab(@click="openPortal()" v-if="account && account.chargebeeId" v-cloak) My Subscription
 
-  div.account-content
-    div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
-      div.main-course-list
+  .account-content
+    .course-list(v-if="selectedTab == 'dashboard' || selectedTab == 'my-subscription'" v-cloak)
+      .main-course-list
         h3.title In Progress
         CourseList(v-if='Object.keys(inProgress).length !== 0' v-cloak
                    :courses='inProgress'
@@ -32,7 +32,7 @@
                                                   @click='scrollTo'
                                                   data-target='recommended') Browse Courses
 
-      div.completed-course-list
+      .completed-course-list
         aside.completed-course-list
           h3.title Completed Courses
           CourseList(v-if='Object.keys(completed).length !== 0' v-cloak
@@ -53,13 +53,13 @@
                      :courses='recommended'
                      :account='account')
 
-    div.settings(v-if="selectedTab == 'profile'" v-cloak)
+    .settings(v-if="selectedTab == 'profile'" v-cloak)
       .profile-settings
         h3.title Update Profile
 
         EditAccountForm(:account='account' v-if='account')
 
-    div(v-else-if="selectedTab == 'account_settings'" v-cloak)
+    div(v-else-if="selectedTab == 'account-settings'" v-cloak)
       AccountSettings
 </template>
 
@@ -89,7 +89,7 @@ export default {
 
   data () {
     return {
-      tabs: ['dashboard', 'profile', 'account_settings'],
+      tabs: ['dashboard', 'profile', 'account-settings'],
       editing: false,
       selectedTab: this.$route.params.section || 'dashboard',
       completed: {},
@@ -166,10 +166,20 @@ export default {
       })
       if (this.account) {
         this.getPortalInstance()
+      } else {
+        this.$modal.show('login-form', {
+          newAccount: true,
+          headerTitle: 'Please Login to access your dashboard',
+          location: 'Dashboard page',
+          redirect: {
+            function: this.openPortal,
+            params: null
+          }
+        })
       }
     }
 
-    if (this.selectedTab === 'my-subscription') {
+    if (this.selectedTab === 'my-subscription' && this.account) {
       this.openPortal()
     }
   },
