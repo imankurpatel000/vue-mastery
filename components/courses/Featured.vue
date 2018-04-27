@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   .list(v-if='featured' v-cloak)
-    nuxt-link.list-card.card(v-for='course, key in featured'
+    nuxt-link.list-card.card(v-for='course, key in Object.values(featured)'
                              v-if='course.lessons'
                              :key='key'
                              :to='link(course)')
@@ -23,7 +23,7 @@ export default {
 
   props: {
     featured: {
-      type: Array,
+      type: Object,
       required: false
     }
   },

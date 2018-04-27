@@ -7,7 +7,7 @@
 
     .courses-body.wrapper
       CourseList(:courses='courses' :account='account')
-      Latest(:courses='courses' :latests='latests')
+      Latest(:courses='courses' :latests='featured')
 
     .vue-conf
       VueConfBanner
@@ -46,7 +46,7 @@ export default {
   },
 
   async fetch ({ store }) {
-    await store.dispatch('latest')
+    await store.dispatch('featured')
     await store.dispatch('getAllCourses')
   },
 
@@ -54,7 +54,7 @@ export default {
     ...mapState({
       account: result => result.account.account,
       courses: result => result.courses.courses,
-      latests: result => result.courses.latests
+      featured: result => result.courses.featured
     })
   }
 }

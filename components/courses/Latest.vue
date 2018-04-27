@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
-  h2.title Latest Free Videos
-  nuxt-link(v-for='lesson in latests'
+  h2.title Latest Lessons
+  nuxt-link(v-for='lesson in Object.values(latests)'
             :key='lesson.id'
             :to='link(lesson)')
     .media-block
@@ -24,7 +24,7 @@ export default {
 
   props: {
     latests: {
-      type: Array,
+      type: Object,
       required: true
     },
     courses: {
@@ -36,7 +36,7 @@ export default {
   methods: {
     link (lesson) {
       if (this.courses) {
-        const course = this.courses[lesson.belongsToCourse]
+        const course = this.courses[lesson.belongsToCourse[0].id]
         return `/courses/${course.slug}/${lesson.slug}`
       }
       return '#'
@@ -44,7 +44,7 @@ export default {
 
     lessonsCourse (lesson) {
       if (this.courses) {
-        const course = this.courses[lesson.belongsToCourse]
+        const course = this.courses[lesson.belongsToCourse[0].id]
         return course.title
       }
     }

@@ -1,8 +1,8 @@
 <template lang='pug'>
 .section
-  h2.title Free Lessons
+  h2.title Latest Lessons
   .media-wrapper(v-if='free' v-cloak)
-    .media-block(v-for='lesson in free')
+    .media-block(v-for='lesson in Object.values(free)')
       nuxt-link(:to='path(lesson)')
         .media.-video
           img(:src='lesson.image[0].url' class='-large' :alt='lesson.title')
@@ -36,7 +36,7 @@ export default {
 
   props: {
     free: {
-      type: Array,
+      type: Object,
       required: false
     }
   },

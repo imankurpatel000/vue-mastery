@@ -92,7 +92,8 @@ export default {
   data () {
     return {
       chargebeeInstance: null,
-      chargbeeLink: ''
+      chargbeeLink: '',
+      success: false
     }
   },
 
@@ -123,7 +124,11 @@ export default {
         this.$modal.show('login-form', {
           newAccount: true,
           headerTitle: 'Please Create an Account',
-          location: 'Pricing page'
+          location: 'Pricing page',
+          redirect: {
+            function: this.openCheckout,
+            params: plan
+          }
         })
       }
     },
@@ -150,9 +155,14 @@ export default {
             })
         },
 
-        success: (hostedPageId) => {
-          const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
-          this.$router.push(redirect)
+        success: () => {
+          this.success = true
+        },
+        close: () => {
+          if (this.success) {
+            const redirect = plan === 'monthly-subscription' ? 'thankyoumonthly' : 'thankyouannual'
+            this.$router.push(redirect)
+          }
         }
       })
     }

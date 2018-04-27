@@ -2,7 +2,7 @@
   .container(:class="openNav ? 'open-nav': ''")
     PageHeader(:class='$route.name')
     nuxt
-    VuePodcast(v-if="$route.path !== '/thank-you-annual' && $route.path !== '/thank-you-monthly'" v-cloak)
+    VuePodcast(v-if="$route.path !== '/thankyouannual' && $route.path !== '/thankyoumonthly'" v-cloak)
     PageFooter
     AuthForm
 </template>

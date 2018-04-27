@@ -78,16 +78,24 @@ const actions = {
   },
 
   featured ({ commit, state }) {
-    if (state.free && state.featured) return true
-    return db.get('home', {
-      populate: [ {
-        field: 'free',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
-        populate: [ 'image', 'belongsToCourse' ]
+    // if (state.free && state.featured) return true
+    return db.get('lessons', {
+      limitToLast: 3,
+      populate: [{
+        field: 'belongsToCourse',
+        subFields: [ 'slug' ]
       }, {
-        field: 'featured',
-        fields: [ 'title', 'slug', 'description', 'image', 'lessons' ],
-        populate: [ 'image', 'lessons' ]
+        field: 'image',
+        subFields: [ 'image' ]
+      // return db.get('home', {
+      //   populate: [ {
+      //     field: 'free',
+      //     fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
+      //     populate: [ 'image', 'belongsToCourse' ]
+      //   }, {
+      //     field: 'featured',
+      //     fields: [ 'title', 'slug', 'description', 'image', 'lessons' ],
+      //     populate: [ 'image', 'lessons' ]
       }]
     }).then(featured => {
       commit(types.RECEIVE_FEATURED, { featured })
@@ -149,8 +157,9 @@ const mutations = {
     state.course = course
   },
   [types.RECEIVE_FEATURED] (state, { featured }) {
-    state.free = featured.free
-    state.featured = featured.featured
+    // state.free = featured.free
+    // state.featured = featured.featured
+    state.featured = featured
   },
   [types.RECEIVE_LATEST] (state, { latests }) {
     state.latests = latests.latests
