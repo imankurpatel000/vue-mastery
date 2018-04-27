@@ -7,8 +7,8 @@
 
       .video
         .video-wrapper
-          iframe(src='https://player.vimeo.com/video/257962818' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
-        //- vimeo-player(ref='player' video-id='257962818' player-width='800')
+          iframe(src='https://player.vimeo.com/video/266753814' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
+        //- vimeo-player(ref='player' video-id='266753814' player-width='800')
 
       .actions
         nuxt-link.button.secondary(to='/courses') START LEARNING
