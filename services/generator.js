@@ -50,6 +50,10 @@ const getCoursesPage = async function (db) {
           }
         }
       }
+      result.pages.push('/account/profile')
+      result.pages.push('/account/dashboard')
+      result.pages.push('/account/account-settings')
+      result.pages.push('/account/my-subscription')
       return result
     })
 }
