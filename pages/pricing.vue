@@ -92,8 +92,7 @@ export default {
   data () {
     return {
       chargebeeInstance: null,
-      chargbeeLink: '',
-      success: false
+      chargbeeLink: ''
     }
   },
 
@@ -156,13 +155,9 @@ export default {
         },
 
         success: () => {
-          this.success = true
-        },
-        close: () => {
-          if (this.success) {
-            const redirect = plan === 'monthly-subscription' ? 'thankyoumonthly' : 'thankyouannual'
-            this.$router.push(redirect)
-          }
+          this.chargebeeInstance.closeAll()
+          const redirect = plan === 'monthly-subscription' ? 'thankyoumonthly' : 'thankyouannual'
+          this.$router.push(redirect)
         }
       })
     }
