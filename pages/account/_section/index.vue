@@ -15,7 +15,7 @@
                :class="{'active-tab': selectedTab == tab}"
                @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
 
-    button.tab(@click="openPortal()" v-if="account && account.chargebeeId" v-cloak) My Subscription
+    button.tab.last-tab(@click="openPortal()" v-if="account && account.chargebeeId" v-cloak) My Subscription
 
   div.account-content
     div.course-list(v-if="selectedTab == 'dashboard'" v-cloak)
@@ -318,7 +318,7 @@ export default {
   cursor pointer
   text-transform capitalize
 
-  &:last-of-type
+  &.last-tab
     margin-left auto
 
   &:focus
