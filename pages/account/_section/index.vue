@@ -15,7 +15,7 @@
                :class="{'active-tab': selectedTab == tab}"
                @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
 
-    button.tab.last-tab(@click="openPortal()" v-if="account && account.chargebeeId" v-cloak) My Subscription
+    button.tab.last-tab(@click="openPortal()" v-if="account && account.chargebeeId && chargebeeInstance" v-cloak) My Subscription
 
   .account-content
     .course-list(v-if="selectedTab == 'dashboard' || selectedTab == 'my-subscription'" v-cloak)
