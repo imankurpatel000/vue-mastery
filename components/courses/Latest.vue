@@ -5,7 +5,7 @@ div
             :key='lesson.id'
             :to='link(lesson)')
     .media-block
-      .media.-video
+      .media.-video(v-if='lesson.image')
         img(:src='lesson.image[0].url' :alt='lesson.title')
       .body
         h4.title-small {{ lesson.title }}

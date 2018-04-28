@@ -4,7 +4,7 @@
   .media-wrapper(v-if='free' v-cloak)
     .media-block(v-for='lesson in Object.values(free)')
       nuxt-link(:to='path(lesson)')
-        .media.-video
+        .media.-video(v-if='lesson.image')
           img(:src='lesson.image[0].url' class='-large' :alt='lesson.title')
 
       .body
