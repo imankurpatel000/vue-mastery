@@ -23,6 +23,7 @@
     "firebase-admin": "^5.10.0",
     "firebase-auth": "^0.1.2",
     "flamelink": "^0.14.1",
+    "lodash": "^4.17.10",
     "markdown-it-decorate": "^1.2.2",
     "markdown-it-highlightjs": "^3.0.0",
     "markdown-it-implicit-figures": "^0.6.0",

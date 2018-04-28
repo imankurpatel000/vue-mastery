@@ -1,4 +1,5 @@
 import * as types from '../mutation-types'
+import _ from 'lodash'
 
 let db = null
 
@@ -36,7 +37,7 @@ const actions = {
         },
         {
           field: 'lessons',
-          fields: [ 'slug', 'status', 'date', 'title' ]
+          fields: [ 'slug', 'status', 'date', 'title', 'lessonNumber' ]
         }
       ]})
       .then(courses => {
@@ -78,15 +79,17 @@ const actions = {
   },
 
   featured ({ commit, state }) {
-    // if (state.free && state.featured) return true
     return db.get('lessons', {
       limitToLast: 3,
+      orderByChild: 'status',
+      equalTo: 'published',
       populate: [{
         field: 'belongsToCourse',
         subFields: [ 'slug' ]
       }, {
         field: 'image',
         subFields: [ 'image' ]
+      // if (state.free && state.featured) return true
       // return db.get('home', {
       //   populate: [ {
       //     field: 'free',
@@ -151,6 +154,11 @@ const mutations = {
     db = app.content
   },
   [types.RECEIVE_COURSES] (state, { courses }) {
+    for (let course in courses) {
+      if (courses.hasOwnProperty(course) && courses[course].lessons) {
+        courses[course].lessons = _.orderBy(courses[course].lessons, 'lessonNumber')
+      }
+    }
     state.courses = courses
   },
   [types.RECEIVE_COURSE] (state, { course }) {
