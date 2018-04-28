@@ -32,7 +32,7 @@ const getCoursesPage = async function (db) {
   return db.get('courses', {
     populate: [{
       field: 'lessons',
-      subFields: [ 'lessons', 'image' ],
+      subFields: [ 'lessons', 'image', 'status' ],
       populate: [ 'image' ]
     }, {
       field: 'image',
@@ -44,9 +44,11 @@ const getCoursesPage = async function (db) {
         if (course.hasOwnProperty('lessons')) {
           for (const id of Object.keys(course.lessons)) {
             const lesson = course.lessons[id]
-            const url = `/courses/${course.slug}/${lesson.slug}`
-            result.pages.push(url)
-            result.sitemap.push(createVideoTags(url, lesson))
+            if (lesson.status === 'published') {
+              const url = `/courses/${course.slug}/${lesson.slug}`
+              result.pages.push(url)
+              result.sitemap.push(createVideoTags(url, lesson))
+            }
           }
         }
       }
