@@ -20,12 +20,13 @@
         i.far.fa-clock
         | {{ course.duration | time }}
 
-    .upcoming(v-if="$route.path === '/courses' && gotDraft")
+    .upcoming(v-if="$route.name === 'courses' && gotDraft")
       h5
         i.far.fa-calendar-alt &nbsp;
         | Upcoming courses
       ul
-        li(v-for='lesson in course.lessons' v-if='lesson.status === "draft"') {{lesson.title}} - {{lesson.date | moment("MMMM D, YYYY")}}
+        li(v-for='lesson in course.lessons' v-if='lesson.status === "draft"') 
+          | {{lesson.title}} - {{lesson.date | moment("MMMM D, YYYY")}}
 </template>
 
 <script>
@@ -47,6 +48,7 @@ export default {
     gotDraft () {
       let draft = false
       if (this.course.lessons) {
+        console.log(this.course.lessons)
         this.course.lessons.map((lesson) => {
           if (lesson.status === 'draft') draft = true
         })
