@@ -177,10 +177,10 @@ export default {
           }
         })
       }
-    }
 
-    if (this.selectedTab === 'my-subscription' && this.account) {
-      this.openPortal()
+      if (this.$route.params.section === 'my-subscription') {
+        this.openPortal()
+      }
     }
   },
 
