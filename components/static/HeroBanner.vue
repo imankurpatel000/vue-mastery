@@ -11,7 +11,8 @@
         //- vimeo-player(ref='player' video-id='266753814' player-width='800')
 
       .actions
-        nuxt-link.button.secondary(to='/courses') START LEARNING
+        nuxt-link.button.inverted(to='/courses') VIEW COURSES
+        nuxt-link.button.secondary(to='/pricing') SUBSCRIBE
 </template>
 
 <script>
@@ -76,6 +77,8 @@ export default {
 .actions
   display flex
   justify-content center
+  .button
+    margin-right 10px
 
 .video
   +tablet-up()

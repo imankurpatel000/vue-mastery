@@ -31,7 +31,7 @@
               i.fa.fa-book &nbsp;
               | Our Content
             p
-              | We’ll be releasing content weekly.  See our most recent lessons and what's upcoming on the&nbsp; 
+              | We’ll be releasing content weekly.  See our most recent lessons and what's upcoming on the&nbsp;
               nuxt-link(to='/courses') courses page
               | . Your support also helps us produce the weekly&nbsp;
               a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast
@@ -125,7 +125,11 @@ export default {
 
 .wrapper
   position relative
-  height 950px
+  height 1050px
+
+  // Media for iPhone 5/SE
+  @media (max-width: 325px)
+    height 1200px
 
   +desktop-up()
     height 890px
@@ -193,7 +197,7 @@ img[class*="cloud"]
   position relative
   top 0
   bottom 0
-  z-index 10
+  z-index 1
   width 100%
 
   +laptop-up()
@@ -226,6 +230,7 @@ img[class*="cloud"]
   position absolute
   box-shadow none
   width 90%
+  left 5%
   top 240px
   transform-origin top center
 
