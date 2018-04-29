@@ -91,7 +91,7 @@ export default {
   opacity: 0
   transition: opacity .2s ease-in
   pointer-events: none
-  top: 50px
+  top: 0
 
   *
     pointer-events none
