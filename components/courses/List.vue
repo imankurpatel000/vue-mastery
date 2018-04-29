@@ -23,7 +23,7 @@
     .upcoming(v-if="$route.name === 'courses' && gotDraft")
       h5
         i.far.fa-calendar-alt &nbsp;
-        | Upcoming courses
+        | Upcoming lessons
       ul
         li(v-for='lesson in course.lessons' v-if='lesson.status === "draft"') 
           | {{lesson.title}} - {{lesson.date | moment("MMMM D, YYYY")}}

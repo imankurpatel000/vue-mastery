@@ -3,9 +3,14 @@
     "flamelink": {
       ".read": "true",
       ".write": "auth != null",
-      "environments": { "production": {"content":{"courses":{"en-US": {
-        ".indexOn": "slug"
-      }}}}}
+      "environments": { "production": {"content":{
+        "courses":{"en-US": {
+        	".indexOn": "slug"
+      	}},
+        "lessons":{"en-US": {
+          ".indexOn": "status"
+        }}
+      }}}
     },
     "accounts": {
       "$uid": {

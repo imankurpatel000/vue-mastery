@@ -31,5 +31,10 @@ module.exports = {
   course (id) {
     const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}`
     return admin.database().ref(pathToCourse).once('value')
+  },
+
+  lesson (id) {
+    const pathToCourse = `flamelink/environments/production/content/lessons/en-US/${id}`
+    return admin.database().ref(pathToCourse).once('value')
   }
 }

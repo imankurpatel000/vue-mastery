@@ -100,13 +100,22 @@ module.exports = {
     .onWrite(event => {
       const collectionRef = event.data.ref.parent
       const countRef = collectionRef.parent.child('lessonsCount')
-
-      return collectionRef.once('value')
-        .then(lessons => {
-          const count = lessons.numChildren()
-          console.log(`Lesson number recount: ${count}`)
-          countRef.set(count)
+      let count = 0
+      return collectionRef.once('value', (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          let childData = childSnapshot.val()
+          Promise.all([db.lesson(childData).then((lessonSnapshot) => {
+            const lesson = lessonSnapshot.val()
+            if (lesson.status === 'published') {
+              count++
+            }
+            return true
+          })])
+            .then(() => {
+              countRef.set(count)
+            })
         })
+      })
     }),
 
   deleteCustomer: functions.auth.user()
