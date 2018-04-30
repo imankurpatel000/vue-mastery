@@ -23,6 +23,11 @@
       "$uid": {
         ".write": "true"
       }
+    },
+    "team-request": {
+      "$uid": {
+        ".write": "true"
+      }
     }
   }
 }

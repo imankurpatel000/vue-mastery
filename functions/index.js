@@ -82,7 +82,7 @@ module.exports = {
     }),
 
   // Subscribe a user to a course on the mailerLite course list
-  sendTeamSubscriptionRequest: functions.database.ref('/inquiries/{cid}')
+  sendTeamSubscriptionRequest: functions.database.ref('/team-request/{cid}')
     .onCreate(event => {
       const snapshot = event.data
       let form = snapshot.val()
