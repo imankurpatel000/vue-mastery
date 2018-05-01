@@ -5,26 +5,30 @@
   .lessons-list-scroll
     .list-item(v-for='(lesson, index) in course.lessons'
                v-if='lesson && isLesson || lesson && !lesson.lock'
-               :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson)]'
+               :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson), notPublished(lesson)]'
                @click='selectLesson(lesson.slug)')
       
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
-        .list-item-meta
+        .list-item-meta(v-if='lesson.status === "published"')
           div(v-if='lesson.duration')
             i.far.fa-clock
             span {{ lesson.duration | time}}
           div(v-else)
             i.far.fa-user
             span {{ lesson.author}}
+        .list-item-meta(v-else)
+          | To be released on {{lesson.date | moment("MMMM D")}}
       
-      .list-item-actions(@click.stop)
+      .list-item-actions(@click.stop v-if='lesson.status === "published"')
         i.fa.fa-lock
         label.checkmark
           input(type='checkbox'
                 :checked='isCompleted(lesson.slug)'
                 @change='toggleCompleted(lesson.slug)')
           span.check
+      .list-item-actions(v-else)
+        i.far.fa-calendar-alt
 
     .list-subscribe
       CourseSubscribe(:account='account'
@@ -126,6 +130,10 @@ export default {
         isLocked = this.account
       }
       return isLocked ? '-locked' : 'unlock'
+    },
+
+    notPublished (lesson) {
+      return lesson.status === 'published' ? '' : 'draft'
     }
   }
 }
@@ -253,5 +261,8 @@ headerHeight = 76px
 .list-item:not([class*='active']),
 .list-subscribe
   border-bottom: 1px solid #CACACA
+
+.draft
+  pointer-events: none
 
 </style>
