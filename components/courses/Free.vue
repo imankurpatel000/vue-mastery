@@ -14,8 +14,9 @@
 
         nuxt-link(:to='path(lesson)' class='-inverted')
           div.meta
-            label.badge.secondary.-inverted(v-if="lesson.free" v-cloak) Free
-            label ・
+            label.-has-icon(v-if="lesson.free" v-cloak)
+              span.badge.secondary.-inverted Free
+              span ・
             b {{ lesson.belongsToCourse[0].title }}
             label.-has-icon
               span ・
