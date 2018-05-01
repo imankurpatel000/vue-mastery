@@ -35,7 +35,7 @@
               nuxt-link(to='/courses') courses page
               | . Your support also helps us produce the weekly&nbsp;
               a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast
-              | , where we cover the latest news and tutorials.
+              | , where we cover the latest Vue news and tutorials.
 
             h4
               i.fa.fa-dollar-sign &nbsp;
@@ -48,8 +48,8 @@
               | Your Feedback
             p
               | If you have any feedback for us, need some support, or want to request any content, we’d love to hear from you. You can use the&nbsp;
-              nuxt-link(to='/contact') contact
-              |  us form or just email&nbsp;
+              nuxt-link(to='/contact') contact us
+              | form or just email&nbsp;
               a(href='mailto:team@vuemastery.com' target='_blank') team@vuemastery.com
 </template>
 
