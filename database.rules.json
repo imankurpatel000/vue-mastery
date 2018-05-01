@@ -9,7 +9,10 @@
       	}},
         "lessons":{"en-US": {
           ".indexOn": "status"
-        }}
+        }},
+        "team":{"en-US": {"members": {
+          ".indexOn": "email"
+        }}}
       }}}
     },
     "accounts": {
