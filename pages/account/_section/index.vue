@@ -13,7 +13,7 @@
                v-for='tab in tabs'
                :disabled='!account'
                :class="{'active-tab': selectedTab == tab}"
-               @click='goTo(tab)' ) {{ tab.replace('_', ' ') }}
+               @click='goTo(tab)' ) {{ tab.replace('-', ' ') }}
 
     button.tab.last-tab(@click="openPortal()" v-if="account && account.chargebeeId && chargebeeInstance" v-cloak) My Subscription
 
