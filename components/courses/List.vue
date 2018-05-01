@@ -6,7 +6,7 @@
   .body
     h3.title
       | {{ course.title }}
-      
+      span.badge.primary FREE
     p.content {{ course.description }}
 
     .meta(v-if='showDetail' v-cloak)
@@ -78,6 +78,7 @@ export default {
 .badge
   position relative
   top -2px
+  margin-left 10px
 
 .upcoming
   margin-top 10px
