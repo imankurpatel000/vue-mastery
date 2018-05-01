@@ -70,7 +70,6 @@ export default {
       if (this.page === null) this.page = this.course.lessons[0].slug
       this.course.lessons.map((lesson, index) => {
         // Find the selected lesson in the list
-        console.log('YOLO', this.page, lesson.slug)
         if (this.page === lesson.slug) {
           // Load the current lesson
           currentPage = lesson
