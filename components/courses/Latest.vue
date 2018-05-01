@@ -12,9 +12,10 @@ div
         .meta
           b {{ lessonsCourse(lesson) }}
         .meta
-          span.badge.secondary(v-if="lesson.free") Free
-          label.-has-icon
+          label.-has-icon(v-if="lesson.free" v-cloak)
+            span.badge.secondary Free
             span ・
+          label.-has-icon
             i.far.fa-clock
             | {{ lesson.duration | time }}
 </template>
