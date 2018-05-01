@@ -48,7 +48,6 @@ export default {
     gotDraft () {
       let draft = false
       if (this.course.lessons) {
-        console.log(this.course.lessons)
         this.course.lessons.map((lesson) => {
           if (lesson.status === 'draft') draft = true
         })

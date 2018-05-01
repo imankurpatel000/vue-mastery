@@ -48,13 +48,11 @@ export default {
           for (let el of course.lessons) {
             let key = el.slug
             if (lessons.hasOwnProperty(key) && lessons[key]) {
-              if (lessons.hasOwnProperty(key) && lessons[key]) {
-                lastLessonFound = true
-                lessonSlug = key
-              }
+              lastLessonFound = true
+              lessonSlug = key
             } else {
               // If there is lesson after the one completed, then redirect to the next one
-              if (lastLessonFound === true) {
+              if (lastLessonFound === true && lessons[key].status === 'published') {
                 lessonSlug = key
                 lastLessonFound = false
               }
