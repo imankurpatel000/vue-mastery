@@ -144,7 +144,7 @@ export default {
         return this.account ? !this.account.subscribed : true
       }
       if (this.current.lock) {
-        return this.account
+        return !this.account
       }
       return false
     },
@@ -174,9 +174,10 @@ export default {
     },
 
     finished () {
-      if (this.selected < this.course.lessons.length - 1) {
+      const next = this.course.lessons[this.selected + 1]
+      if (this.selected < this.course.lessons.length - 1 && next.status === 'published') {
         this.$modal.show('next-lesson', {
-          lesson: this.course.lessons[this.selected + 1],
+          lesson: next,
           account: this.account,
           isLesson: this.isLesson
         })
