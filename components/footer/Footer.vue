@@ -14,9 +14,9 @@ footer.footer
         li
           nuxt-link(to='/courses' class="-inverted") Courses
         li
-          nuxt-link(to='/contact' class="-inverted") VueConf US
+          nuxt-link(to='/vueconf' class="-inverted") VueConf US
         li
-          nuxt-link(to='/privacy' class="-inverted") Pricing
+          nuxt-link(to='/pricing' class="-inverted") Pricing
         li
           nuxt-link(to='/vue-cheat-sheet' class="-inverted") Vue Cheat Sheet
     .nav-2
