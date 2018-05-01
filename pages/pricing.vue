@@ -63,16 +63,16 @@
             button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
 
       .team
-        .card.secondary
+        .card
           .card-body
             h3.text-center Team
-            img(src="/images/img-group.svg" alt="Team accounts VueMastery")
+            img(src="/images/img-group-dark.svg" alt="Team accounts VueMastery")
 
             div
               p Please contact us, and we’ll take care of you.
               p FYI, all team accounts are billed yearly.
 
-            button.button.inverted.border(@click='openTeamContact') Contact Us
+            button.button.secondary.border(@click='openTeamContact') Contact Us
 </template>
 
 <script>
