@@ -15,7 +15,7 @@ module.exports = {
   createCustomer: functions.auth.user()
     .onCreate(event => {
       const user = event.data
-      // payment.register(user)
+      db.checkUserTeamSubscription(user)
       return subscription.getMailerList(mainListId)
         .then(listID => subscription.subscribeUser(user, listID, true))
     }),
@@ -116,6 +116,31 @@ module.exports = {
             })
         })
       })
+    }),
+
+  subscribeTeamMember: functions.database.ref('/flamelink/environments/production/content/team/en-US/{cid}')
+    .onWrite(event => {
+      const snapshot = event.data
+      const newTeam = snapshot.val()
+      if (event.data.previous.exists()) {
+        const previous = event.data.previous.val()
+        previous.members.forEach((member) => {
+          let existingEmail = false
+          newTeam.members.forEach((newMember) => {
+            if (newMember.email === member.email) {
+              existingEmail = true
+            }
+          })
+          if (!existingEmail) {
+            console.log(`Unsubscribe ${member.email}`)
+            db.subscribe(member.email, null, false)
+          }
+        })
+      }
+      newTeam.members.forEach((member) => {
+        db.subscribe(member.email, null, true)
+      })
+      return true
     }),
 
   deleteCustomer: functions.auth.user()
