@@ -127,7 +127,7 @@ export default {
         isLocked = this.account ? !this.account.subscribed : true
       }
       if (lesson.lock) {
-        isLocked = this.account
+        isLocked = !this.account
       }
       return isLocked ? '-locked' : 'unlock'
     },
