@@ -1,5 +1,4 @@
 <template lang='pug'>
-//- TODO Add class if upcoming lessons in course to move the action to the top of the card. Unless happy with align center.
 .actions
   div(v-if='course.lessonsCount && !course.pushToSubscribe' v-cloak)
     span(v-if="course.hasOwnProperty('progression')") {{course.progression}}

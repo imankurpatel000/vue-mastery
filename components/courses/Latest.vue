@@ -12,7 +12,9 @@ div
         .meta
           b {{ lessonsCourse(lesson) }}
         .meta
+          span.badge.secondary(v-if="lesson.free") Free
           label.-has-icon
+            span ・
             i.far.fa-clock
             | {{ lesson.duration | time }}
 </template>
@@ -57,7 +59,7 @@ export default {
 
 a:hover
   text-decoration none
-  
+
 .title
   color $primary-color
   font-weight 600
@@ -82,6 +84,7 @@ a:hover
   max-width 160px
 
 .meta
+  display flex
   margin-bottom 10px
 
 h4
