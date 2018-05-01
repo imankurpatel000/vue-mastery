@@ -4,7 +4,9 @@
     img(:src='course.image[0].url' :alt='course.title')
 
   .body
-    h3.title {{ course.title }}
+    h3.title
+      | {{ course.title }}
+      span.badge.primary FREE
     p.content {{ course.description }}
 
     .meta(v-if='showDetail' v-cloak)
@@ -25,7 +27,7 @@
         i.far.fa-calendar-alt &nbsp;
         | Upcoming lessons
       ul
-        li(v-for='lesson in course.lessons' v-if='lesson.status === "draft"') 
+        li(v-for='lesson in course.lessons' v-if='lesson.status === "draft"')
           | {{lesson.title}} - {{lesson.date | moment("MMMM D")}}
 </template>
 
@@ -70,7 +72,13 @@ export default {
       height: 120px
 
 .title
+  position relative
   padding-top 0
+
+.badge
+  position relative
+  top -2px
+  margin-left 10px
 
 .upcoming
   margin-top 10px
