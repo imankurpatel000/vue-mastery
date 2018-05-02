@@ -23,34 +23,23 @@
             h4
               i.fa.fa-piggy-bank &nbsp;
               | You are supporting Open Source!
-            p
-              | We will be sending ${{monthlyPayment}} of your {{paySchedule}} payment to support the Vue.js project. If you’re wondering what they’re working on next, see&nbsp;
-              a(href='https://github.com/vuejs/roadmap' target='_blank') their Roadmap.
+            p We will be sending ${{monthlyPayment}} of your {{paySchedule}} payment to support the Vue.js project. If you’re wondering what they’re working on next, see #[a(href='https://github.com/vuejs/roadmap' target='_blank') their Roadmap].
 
             h4
               i.fa.fa-book &nbsp;
               | Our Content
-            p
-              | We’ll be releasing content weekly.  See our most recent lessons and what's upcoming on the&nbsp;
-              nuxt-link(to='/courses') courses page
-              | . Your support also helps us produce the weekly&nbsp;
-              a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast
-              | , where we cover the latest Vue news and tutorials.
+            p We’ll be releasing content weekly.  See our most recent lessons and what's upcoming on the #[nuxt-link(to='/courses') courses page]. Your support also helps us produce the weekly #[a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast], where we cover the latest Vue news and tutorials.
 
             h4
               i.fa.fa-dollar-sign &nbsp;
               | Your Subscription
-            p Your subscription will automatically renew on {{renewal}}
+            p Your subscription will automatically renew on {{renewal}}.
             p If you ever want to modify or cancel your subscription, just head over to your dashboard and click the “My Subscription” button you’ll find there.
 
             h4
               i.far.fa-thumbs-up &nbsp;
               | Your Feedback
-            p
-              | If you have any feedback for us, need some support, or want to request any content, we’d love to hear from you. You can use the&nbsp;
-              nuxt-link(to='/contact') contact us
-              | form or just email&nbsp;
-              a(href='mailto:team@vuemastery.com' target='_blank') team@vuemastery.com
+            p If you have any feedback for us, need some support, or want to request any content, we’d love to hear from you. You can use the #[nuxt-link(to='/contact') contact us] form or just email #[a(href='mailto:team@vuemastery.com' target='_blank') team@vuemastery.com].
 </template>
 
 <script>
