@@ -232,7 +232,7 @@ module.exports = {
       },
       // Fonts
       {
-        href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700',
+        href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700|Inconsolata',
         rel: 'stylesheet'
       },
       {

@@ -8,7 +8,7 @@
         nuxt-link.button.secondary(to='/vueconf') View All Talks
     .vue-conf-feature.text-center
       img.img-circle.img-200(src='/images/img-evan-you.jpg' alt="Founder of Vue.js, Evan You")
-      p Watch, the founder of Vue.js,<br/> Evan You’s Keynote
+      p Watch the founder of Vue.js<br/> Evan You’s Keynote
       div
         nuxt-link.button.secondary.border.-has-icon(to='/conferences/vueconf-2018/opening-keynote-evan-you')
           i.fa.fa-play

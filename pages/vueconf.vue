@@ -10,6 +10,30 @@
         CourseSubscribe(:account='account' :slug='conference' message='Notify me when new talks are available.')
 
       ConfList(:talks='talks' :account='account' :conference='conference')
+
+      h2 Lightning Talks
+
+      ul.talks-list
+        li.talk-item
+          a(href="#")
+            h4.talk-item-title Talk Title
+            label.underline.author Author Name
+        li.talk-item
+          a(href="#")
+            h4.talk-item-title Talk Title
+            label.underline.author Author Name
+        li.talk-item
+          a(href="#")
+            h4.talk-item-title Talk Title
+            label.underline.author Author Name
+        li.talk-item
+          a(href="#")
+            h4.talk-item-title Talk Title
+            label.underline.author Author Name
+        li.talk-item
+          a(href="#")
+            h4.talk-item-title Talk Title
+            label.underline.author Author Name
 </template>
 
 <script>
@@ -108,4 +132,37 @@ export default {
 
   +laptop-up()
     grid-template-columns 63% 33%
+
+.talks-list
+  display flex
+  flex-wrap wrap
+  justify-content space-between
+
+.talk-item-title
+  color $secondary-color
+
+.talk-item
+  width 100%
+
+  +tablet-up()
+    width 48%
+
+  > a
+    display block
+
+  a:hover
+    text-decoration none
+
+    .talk-item-title
+      color $primary-color
+
+.author
+  display inline-block
+  overflow hidden
+  color $gray
+
+  &:before
+    z-index 0
+
+
 </style>

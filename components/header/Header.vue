@@ -3,7 +3,7 @@
     .wrapper(@click='toggleNav(true)')
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
-        img(src="/images/logo.png" role="logo" alt="Vue Mastery logo")
+        img(src="/images/lgo-vuemastery.svg" role="logo" alt="Vue Mastery logo")
 
       Navigation(:account='account' @closeNav='toggleNav(true)')
     Hambuger(@toggleNav='toggleNav()')
