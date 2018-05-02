@@ -1,5 +1,6 @@
-// const client = require('../firebase.js')
-// const baseUrl = client.authDomain
+const flamelink = require('flamelink')
+const admin = require('firebase-admin')
+const conf = require('../firebase')
 
 let result = {
   pages: [],
@@ -80,7 +81,7 @@ const getTalksPage = async function (db) {
             const talk = conference.talks[id]
             const url = `/conferences/${conference.slug}/${talk.slug}`
             result.pages.push(url)
-            if (!talk.lock) {
+            if (!talk.lock && conf.projectId !== 'vue-mastery-staging') {
               result.sitemap.push(createVideoTags(url, talk))
             }
           }
@@ -92,9 +93,6 @@ const getTalksPage = async function (db) {
 
 module.exports = async function (nuxt, generateOptions) {
   console.log('Get dynamic routes')
-  const flamelink = require('flamelink')
-  const admin = require('firebase-admin')
-  const conf = require('../firebase')
   const serviceAccount = require('../serviceAccountKey' + (conf.projectId === 'vue-mastery-staging' ? 'Staging' : '') + '.json')
   const firebaseConfig = {
     credential: admin.credential.cert(serviceAccount),
