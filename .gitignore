@@ -2,8 +2,7 @@
 node_modules
 
 # logs
-npm-debug.log
-firebase-debug.log
+*.log
 
 #locks
 yarn.lock

@@ -6,7 +6,7 @@ form.form.card
         input(id='subscribeSwitch' type='checkbox' v-model='subscribedToMailingList' @change='subscribe')
         label(for='subscribeSwitch')
 
-      span I want to receive occasional emails about new educational content
+      span I want to receive occasional emails about new educational content.
 
     .form-error
       .callout.-error(v-if='formError.length > 0' v-text='formError')

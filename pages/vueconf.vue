@@ -108,4 +108,5 @@ export default {
 
   +laptop-up()
     grid-template-columns 63% 33%
+
 </style>

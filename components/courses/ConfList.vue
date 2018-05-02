@@ -3,7 +3,7 @@
   h2.title Playlist
   .cards(v-if='talks' v-cloak)
     nuxt-link.card(v-for='talk in talks'
-                   v-if='talk'
+                   v-if='talk && !talk.lightningTalks'
                    :key='talk.slug'
                    :to='path(talk)'
                    :class="{ 'coming-soon': talk.lock }")
@@ -18,6 +18,16 @@
           b To be released on:&nbsp;
           span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
         p {{ talk.description }}
+  
+  div(v-if="gotLightningTalks()")
+    h2 Lightning Talks
+      ul.talks-list
+        li.talk-item(v-for='talk in talks'
+                    v-if='talk && talk.lightningTalks'
+                    :key='talk.slug')
+          nuxt-link(:to='path(talk)')
+            h4.talk-item-title {{ talk.title }}
+            label.underline.lightning-author {{ talk.author }}
 </template>
 
 <script>
@@ -42,6 +52,16 @@ export default {
   methods: {
     path (talk) {
       return talk.lock ? '#' : `/conferences/${this.conference}/${talk.slug}`
+    },
+
+    gotLightningTalks () {
+      let gotLightning = false
+      this.talks.map((talk) => {
+        if (talk.lightningTalks) {
+          gotLightning = true
+        }
+      })
+      return gotLightning
     }
   }
 }
@@ -152,4 +172,35 @@ $cardPadding = $vertical-space / 3
   .media-block
     opacity 0.4
 
+.talks-list
+  display flex
+  flex-wrap wrap
+  justify-content space-between
+  font-size: 18px
+
+.talk-item-title
+  color $secondary-color
+
+.talk-item
+  width 100%
+
+  +tablet-up()
+    width 48%
+
+  > a
+    display block
+
+  a:hover
+    text-decoration none
+
+    .talk-item-title
+      color $primary-color
+
+.lightning-author
+  display inline-block
+  overflow hidden
+  color $gray
+
+  &:before
+    z-index 0
 </style>
