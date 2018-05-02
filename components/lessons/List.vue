@@ -2,10 +2,11 @@
 .lessons-list(v-if='course.lessons' v-cloak)
   h3.title {{isLesson ? 'Lessons' : 'Talks'}}
 
-  .lessons-list-scroll
+  .lessons-list-scroll(ref="list")
     .list-item(v-for='(lesson, index) in course.lessons'
                v-if='lesson && isLesson || lesson && !lesson.lock'
                :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson), notPublished(lesson)]'
+               :ref='current === lesson.slug ? "active" : ""'
                @click='selectLesson(lesson.slug)')
       
       .list-item-content
@@ -134,6 +135,21 @@ export default {
 
     notPublished (lesson) {
       return lesson.status === 'published' ? '' : 'draft'
+    },
+
+    scrollToactive () {
+      // Scroll to active element
+      this.$refs.list.scrollTop = (this.$refs.active[0].offsetTop)
+    }
+  },
+
+  mounted () {
+    this.scrollToactive()
+  },
+
+  watch: {
+    account () {
+      this.scrollToactive()
     }
   }
 }
