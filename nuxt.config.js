@@ -1,8 +1,11 @@
-// const client = require('./firebase.js')
+const conf = require('./firebase')
 const generator = require('./services/generator.js')()
-// let baseUrl = 'https://www.vuemastery.com'
-let baseUrl = 'https://vue-mastery-staging.firebaseapp.com/'
-// const baseUrl = client.authDomain
+let baseUrl = 'https://www.vuemastery.com'
+let bots = 'index, follow'
+if (conf.projectId === 'vue-mastery-staging') {
+  baseUrl = 'https://vue-mastery-staging.firebaseapp.com/'
+  bots = 'noindex'
+}
 
 module.exports = {
   /*
@@ -18,6 +21,10 @@ module.exports = {
     title: 'Vue Mastery',
     meta: [
       { charset: 'utf-8' },
+      {
+        name: 'robots',
+        content: bots
+      },
       {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1'
