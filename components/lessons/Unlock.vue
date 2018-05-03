@@ -18,7 +18,7 @@ export default {
   props: {
     free: {
       type: Boolean,
-      required: true
+      default: false
     }
   },
 
