@@ -50,7 +50,7 @@ div
         @redirect='redirect')
 
     Popup(@redirect='redirect')
-    //- Congrats(:course='course')
+    Congrats(:course='course')
 
   .container(v-else)
     .header.fake
@@ -67,6 +67,7 @@ div
               .body.fake
     .content.fake
     .lesson-aside.fake
+
 </template>
 
 <script>
@@ -88,6 +89,7 @@ import Congrats from '~/components/courses/Congrats'
 
 export default {
   name: 'wrapper-lesson',
+
   props: {
     category: {
       type: String,
@@ -169,12 +171,20 @@ export default {
     },
 
     finished () {
+      console.log(this.course.lessons.length, this.account.courses[this.course.slug])
+      this.$modal.show('finish-course')
       if (this.selected < this.course.lessons.length - 1) {
         this.$modal.show('next-lesson', {
           lesson: this.course.lessons[this.selected + 1],
           account: this.account,
           isLesson: this.isLesson
         })
+      } else {
+        if (this.account.courses && this.account.courses[this.course.slug]) {
+          if (this.account.courses[this.course.slug] >= this.course.lessons.length) {
+            this.$modal.show('finish-course')
+          }
+        }
       }
     }
   }
