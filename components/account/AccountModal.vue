@@ -1,6 +1,6 @@
 <template lang="pug">
   no-ssr
-    modal(name="login-form" v-cloak height="auto" @before-open="beforeOpen" @before-close="beforeClose" scrollable=true)
+    modal(name="login-form" v-cloak height="auto" @before-open="beforeOpen" @before-close="beforeClose" :scrollable="true" :adaptive="true")
       AuthForm(:new-account="newAccount" :header-title="headerTitle" :header="header" :location="location")
 </template>
 
