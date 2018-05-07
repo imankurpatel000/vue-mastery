@@ -24,6 +24,7 @@ div
       Profile(:current='current' v-if='!isLesson' v-cloak)
 
     aside.lesson-aside(v-if='!locked' v-cloak)
+      Congrats(:course='course')
       .control-group
         Download(:courseLink='current.downloadLink', :account='account')
         SocialShare(:lesson='current' :baseUrl='baseUrl')
@@ -66,7 +67,6 @@ div
               .body.fake
     .content.fake
     .lesson-aside.fake
-
 </template>
 
 <script>
@@ -84,10 +84,10 @@ import Video from '~/components/lessons/Video'
 import Profile from '~/components/lessons/Profile'
 import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
 import DownloadButton from '~/components/static/DownloadButton'
+import Congrats from '~/components/courses/Congrats'
 
 export default {
   name: 'wrapper-lesson',
-
   props: {
     category: {
       type: String,
@@ -135,7 +135,8 @@ export default {
     Unlock,
     PlayerPlaceholder,
     Profile,
-    DownloadButton
+    DownloadButton,
+    Congrats
   },
 
   computed: {

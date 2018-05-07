@@ -319,7 +319,7 @@ module.exports = {
     {
       src: '~/plugins/moment',
       ssr: true
-    }
+    },
   ],
   /*
   ** Taost conf
