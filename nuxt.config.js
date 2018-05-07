@@ -320,6 +320,10 @@ module.exports = {
       src: '~/plugins/moment',
       ssr: true
     },
+    {
+      src: '~/plugins/confetti',
+      ssr: false
+    }
   ],
   /*
   ** Taost conf

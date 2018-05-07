@@ -1,6 +1,10 @@
 <template lang="pug">
-  .course-popper
-    img(:src='course.image[0].url')
+no-ssr
+  modal(name='finish-course' height='auto' )
+    h3.form-title Congratulations
+    .body
+      p You have successfully completed the course.
+      img(:src='course.image[0].url')
 </template>
 
 <script>
@@ -12,11 +16,14 @@ export default {
       required: true
     }
   },
+  mounted () {
+    this.$confetti.start({shape: 'rect'})
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
-.course-popper
+.body
   display flex
   justify-content center
   align-items flex-end

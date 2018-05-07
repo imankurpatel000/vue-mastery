@@ -16,7 +16,6 @@ no-ssr
       button.button.secondary.border(v-if='!account' v-cloak
                                      @click='signup') Save my Progress
       button.button.primary(rel='next' @click='selectLesson') Go to Next {{isLesson ? 'Lesson' : 'Talk'}}
-
 </template>
 
 <script>
