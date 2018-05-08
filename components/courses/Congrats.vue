@@ -1,6 +1,6 @@
 <template lang="pug">
 no-ssr
-  modal(name='finish-course' height='auto' @before-open='beforeOpen')
+  modal(name='finish-course' height='auto' @before-open='beforeOpen' @before-close="beforeClose")
     h3.form-title Congratulations
     .body
       p You have successfully completed the course.
@@ -19,7 +19,12 @@ export default {
 
   methods: {
     beforeOpen (event) {
+      console.log(event)
       this.$confetti.start({shape: 'rect'})
+    },
+    beforeClose (event) {
+      console.log(event)
+      this.$confetti.stop()
     }
   }
 }
