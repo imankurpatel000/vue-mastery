@@ -8,6 +8,7 @@ no-ssr
           img(:src='course.image[0].url')
       h5 Tell others about your accomplishment.
       .social-wrapper
+        //- TODO: Add social sharing text: "I've reached a milestone on my Journey to Vue Mastery by completing the {{ course.title }} course on @vuemastery"
         a.underline.-has-icon(href='facebook')
           i.fab.fa-facebook
           span Facebook
@@ -24,6 +25,7 @@ no-ssr
           i.fab.fa-twitter
           span Twitter
     .form-footer.text-center
+      //- TODO: Add redirect method to stop confetti when navigating to another page
       nuxt-link.button.link(to="/courses") Back to Courses
 </template>
 
@@ -82,12 +84,13 @@ export default {
 
     &:last-of-type
       margin-right 0
+
 img
   position absolute
   top 0
 
 .badge-enter-active
-  transition transform 0.5s ease-in-out
+  transition transform 0.7s ease-in-out
 
 .badge-enter
 .badge-leave-to

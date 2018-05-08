@@ -24,7 +24,6 @@ div
       Profile(:current='current' v-if='!isLesson' v-cloak)
 
     aside.lesson-aside(v-if='!locked' v-cloak)
-      button(@click="finished") Done
       .control-group
         Download(:courseLink='current.downloadLink', :account='account')
         SocialShare(:lesson='current' :baseUrl='baseUrl')
