@@ -64,7 +64,8 @@ export default {
 
   data () {
     return {
-      message: `Notify me when new ${this.isLesson ? 'lessons' : 'talks'} are available.`
+      message: `Notify me when new ${this.isLesson ? 'lessons' : 'talks'} are available.`,
+      initialScroll: true
     }
   },
 
@@ -145,7 +146,10 @@ export default {
 
   watch: {
     account () {
-      this.scrollToactive()
+      if (this.initialScroll) {
+        this.scrollToactive()
+        this.initialScroll = false
+      }
     }
   }
 }
