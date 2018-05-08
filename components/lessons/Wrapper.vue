@@ -18,8 +18,9 @@ div
          :account='account'
          :completed-unlogged='completedUnlogged'
          :isLesson='isLesson'
+         :is-course-completed='isCompleted' 
          @redirect='redirect'
-         @completed='isCourseCompleted')
+         @completed='showCongrat')
 
     Body(:course='current' :locked='locked')
       Profile(:current='current' v-if='!isLesson' v-cloak)
@@ -141,6 +142,12 @@ export default {
     Congrats
   },
 
+  data () {
+    return {
+      isCompleted: false
+    }
+  },
+
   computed: {
     locked () {
       return this.current.lock && !this.account
@@ -172,11 +179,18 @@ export default {
           }
         )
         if (total >= this.course.lessons.length) {
-          this.$modal.show('finish-course')
-          return false
+          return true
         }
       }
-      return true
+      return false
+    },
+
+    showCongrat (slug) {
+      const showCongrats = this.isCourseCompleted(slug)
+      if (showCongrats) {
+        this.$modal.show('finish-course')
+      }
+      return !showCongrats
     },
 
     completed () {
@@ -188,13 +202,21 @@ export default {
     },
 
     finished () {
-      const showNext = this.isCourseCompleted()
+      const showNext = this.showCongrat()
       if (this.selected < this.course.lessons.length - 1 && showNext) {
         this.$modal.show('next-lesson', {
           lesson: this.course.lessons[this.selected + 1],
           account: this.account,
           isLesson: this.isLesson
         })
+      }
+    }
+  },
+
+  watch: {
+    account () {
+      if (this.account) {
+        this.isCompleted = this.isCourseCompleted()
       }
     }
   }

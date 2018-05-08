@@ -28,7 +28,8 @@
           span.check
 
     .list-subscribe
-      CourseSubscribe(:account='account'
+      CourseSubscribe(v-if='!isCourseCompleted'
+                      :account='account'
                       :slug='course.slug'
                       :message='message')
 
@@ -59,6 +60,10 @@ export default {
     isLesson: {
       type: Boolean,
       default: true
+    },
+    isCourseCompleted: {
+      type: Boolean,
+      default: false
     }
   },
 

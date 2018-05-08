@@ -8,8 +8,7 @@ no-ssr
           img(:src='course.image[0].url')
       h5 Tell others about your accomplishment.
       social-sharing(inline-template :url="base+'/'+course.slug"
-                    :title="congratsTitle"
-                    twitter-user='vuemastery')
+                    :title="congratsTitle")
         .social-wrapper
           //- network.underline.-has-icon(network='facebook')
           //-   i.fab.fa-facebook
@@ -48,7 +47,7 @@ export default {
 
   computed: {
     congratsTitle () {
-      return `I've reached a milestone on my Journey to Vue Mastery by completing the ${this.course.title} course on @vuemastery`
+      return `I've reached a milestone on my Journey to Vue Mastery by completing the ${this.course.title} course`
     }
   },
 
