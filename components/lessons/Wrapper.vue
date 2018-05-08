@@ -164,14 +164,13 @@ export default {
 
     completed () {
       this.$store.dispatch('userUpdateCompleted', {
-        page: this.page,
-        category: this.category,
+        courseSlug: this.category,
+        lessonSlug: this.current.slug,
         isCompleted: true
       })
     },
 
     finished () {
-      console.log(this.course.lessons.length, this.account.courses[this.course.slug])
       this.$modal.show('finish-course')
       if (this.selected < this.course.lessons.length - 1) {
         this.$modal.show('next-lesson', {
@@ -181,7 +180,7 @@ export default {
         })
       } else {
         if (this.account.courses && this.account.courses[this.course.slug]) {
-          if (this.account.courses[this.course.slug] >= this.course.lessons.length) {
+          if (this.account.courses[this.course.slug].completedLessons.length >= this.course.lessons.length) {
             this.$modal.show('finish-course')
           }
         }

@@ -61,7 +61,7 @@ export default {
 
     videoProgress (data) {
       if (data.percent > 0.85 && !this.completed) {
-        this.$emit('lessonCompleted')
+        this.$emit('completed')
         this.completed = true
       }
     },
