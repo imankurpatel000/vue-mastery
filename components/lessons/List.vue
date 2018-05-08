@@ -127,9 +127,9 @@ export default {
 
     unloggedAndLock (lesson) {
       let isLocked = false
-      if (!lesson.free) {
-        isLocked = this.account ? !this.account.subscribed : true
-      }
+      // if (!lesson.free) {
+      //   isLocked = this.account ? !this.account.subscribed : true
+      // }
       if (lesson.lock) {
         isLocked = !this.account
       }

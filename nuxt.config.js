@@ -381,6 +381,9 @@ module.exports = {
   */
   generate: {
     minify: false,
+    workers: 4,
+    workerConcurrency: 500,
+    concurrency: 1,
     routes: function () {
       return generator.then(function (result) {
         return result.pages
