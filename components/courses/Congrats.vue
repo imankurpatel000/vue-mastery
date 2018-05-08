@@ -21,7 +21,6 @@ export default {
     beforeOpen (event) {
       this.$confetti.start({shape: 'rect'})
     },
-
     beforeClose (event) {
       this.$confetti.stop()
     }
