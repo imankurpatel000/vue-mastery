@@ -79,10 +79,11 @@ export default {
     },
 
     toggleCompleted (lessonSlug) {
+      const isLessonCompleted = !this.isCompleted(lessonSlug)
       this.$store.dispatch('userUpdateCompleted', {
         lessonSlug: lessonSlug,
         courseSlug: this.course.slug,
-        isCompleted: !this.isCompleted(lessonSlug)
+        isCompleted: isLessonCompleted
       })
       if (!this.account) {
         this.$modal.show('login-form', {
@@ -90,6 +91,11 @@ export default {
           location: 'Lesson page checkbox'
         })
         return true
+      } else {
+        // Check if all checkbox been completed
+        if (isLessonCompleted) {
+          this.$emit('completed', lessonSlug)
+        }
       }
     },
 

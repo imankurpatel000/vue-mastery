@@ -18,7 +18,8 @@ div
          :account='account'
          :completed-unlogged='completedUnlogged'
          :isLesson='isLesson'
-         @redirect='redirect')
+         @redirect='redirect'
+         @completed='isCourseCompleted')
 
     Body(:course='current' :locked='locked')
       Profile(:current='current' v-if='!isLesson' v-cloak)
@@ -161,6 +162,23 @@ export default {
       this.$router.push(this.baseUrl + slug)
     },
 
+    isCourseCompleted (slug) {
+      if (this.account.courses && this.account.courses[this.course.slug]) {
+        let total = 0
+        Object.entries(this.account.courses[this.course.slug].completedLessons).forEach(
+          ([key, value]) => {
+            if (slug && slug === key) total++
+            else if (value) total++
+          }
+        )
+        if (total >= this.course.lessons.length) {
+          this.$modal.show('finish-course')
+          return false
+        }
+      }
+      return true
+    },
+
     completed () {
       this.$store.dispatch('userUpdateCompleted', {
         courseSlug: this.category,
@@ -170,19 +188,13 @@ export default {
     },
 
     finished () {
-      this.$modal.show('finish-course')
-      if (this.selected < this.course.lessons.length - 1) {
+      const showNext = this.isCourseCompleted()
+      if (this.selected < this.course.lessons.length - 1 && showNext) {
         this.$modal.show('next-lesson', {
           lesson: this.course.lessons[this.selected + 1],
           account: this.account,
           isLesson: this.isLesson
         })
-      } else {
-        if (this.account.courses && this.account.courses[this.course.slug]) {
-          if (this.account.courses[this.course.slug].completedLessons.length >= this.course.lessons.length) {
-            this.$modal.show('finish-course')
-          }
-        }
       }
     }
   }

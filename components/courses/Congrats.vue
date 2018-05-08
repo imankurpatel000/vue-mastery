@@ -1,32 +1,33 @@
 <template lang="pug">
 no-ssr
-  modal(name='finish-course' height='auto' @before-open='beforeOpen' @before-close="beforeClose")
+  modal(name='finish-course' height='auto' @before-open='beforeOpen' @before-close='beforeClose')
     .body
       p.lead.text-center You've completed our #[b {{ course.title }} Course], and earned this completion badge.
       div.media
         transition(name="badge" appear)
           img(:src='course.image[0].url')
       h5 Tell others about your accomplishment.
-      .social-wrapper
-        //- TODO: Add social sharing text: "I've reached a milestone on my Journey to Vue Mastery by completing the {{ course.title }} course on @vuemastery"
-        a.underline.-has-icon(href='facebook')
-          i.fab.fa-facebook
-          span Facebook
-        a.underline.-has-icon(href='googleplus')
-          i.fab.fa-google-plus
-          span Google +
-        a.underline.-has-icon(href='linkedin')
-          i.fab.fa-linkedin
-          span LinkedIn
-        a.underline.-has-icon(href='reddit')
-          i.fab.fa-reddit
-          span Reddit
-        a.underline.-has-icon(href='twitter')
-          i.fab.fa-twitter
-          span Twitter
+      social-sharing(inline-template :url="base+'/'+course.slug"
+                    :title="congratsTitle"
+                    twitter-user='vuemastery')
+        .social-wrapper
+          //- network.underline.-has-icon(network='facebook')
+          //-   i.fab.fa-facebook
+          //-   span Facebook
+          //- network.underline.-has-icon(network='googleplus')
+          //-   i.fab.fa-google-plus
+          //-   span Google +
+          //- network.underline.-has-icon(network='linkedin')
+          //-   i.fab.fa-linkedin
+          //-   span LinkedIn
+          //- network.underline.-has-icon(network='reddit')
+          //-   i.fab.fa-reddit
+          //-   span Reddit
+          network.underline.-has-icon(network='twitter')
+            i.fab.fa-twitter
+            span Twitter
     .form-footer.text-center
-      //- TODO: Add redirect method to stop confetti when navigating to another page
-      nuxt-link.button.link(to="/courses") Back to Courses
+      a.button.link(@click.prevent='redirectToCourse') Back to Courses
 </template>
 
 <script>
@@ -39,12 +40,28 @@ export default {
     }
   },
 
+  data () {
+    return {
+      base: process.env.url
+    }
+  },
+
+  computed: {
+    congratsTitle () {
+      return `I've reached a milestone on my Journey to Vue Mastery by completing the ${this.course.title} course on @vuemastery`
+    }
+  },
+
   methods: {
     beforeOpen (event) {
       this.$confetti.start({shape: 'rect'})
     },
     beforeClose (event) {
       this.$confetti.stop()
+    },
+    redirectToCourse: function () {
+      this.$confetti.stop()
+      this.$router.push('/courses')
     }
   }
 }
@@ -77,10 +94,10 @@ export default {
   display flex
   flex-flow wrap
   justify-content space-evenly
+  margin-top 1em
 
   > a
     margin-right 2%
-    margin-top 1em
 
     &:last-of-type
       margin-right 0
