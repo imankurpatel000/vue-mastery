@@ -1,0 +1,115 @@
+<template lang="pug">
+no-ssr
+  modal(name='finish-course' height='auto' @before-open='beforeOpen' @before-close='beforeClose')
+    .body
+      p.lead.text-center You've completed our #[b {{ course.title }} Course], and earned this completion badge.
+      div.media
+        transition(name="badge" appear)
+          img(:src='course.image[0].url')
+      h5 Tell others about your accomplishment.
+      social-sharing(inline-template :url="base+'/'+course.slug"
+                    :title="congratsTitle")
+        .social-wrapper
+          //- network.underline.-has-icon(network='facebook')
+          //-   i.fab.fa-facebook
+          //-   span Facebook
+          //- network.underline.-has-icon(network='googleplus')
+          //-   i.fab.fa-google-plus
+          //-   span Google +
+          //- network.underline.-has-icon(network='linkedin')
+          //-   i.fab.fa-linkedin
+          //-   span LinkedIn
+          //- network.underline.-has-icon(network='reddit')
+          //-   i.fab.fa-reddit
+          //-   span Reddit
+          network.underline.-has-icon(network='twitter')
+            i.fab.fa-twitter
+            span Twitter
+    .form-footer.text-center
+      a.button.link(@click.prevent='redirectToCourse') Back to Courses
+</template>
+
+<script>
+export default {
+  name: 'course-congratulations',
+  props: {
+    course: {
+      type: Object,
+      required: true
+    }
+  },
+
+  data () {
+    return {
+      base: process.env.url
+    }
+  },
+
+  computed: {
+    congratsTitle () {
+      return `I've reached a milestone on my Journey to Vue Mastery by completing the ${this.course.title} course`
+    }
+  },
+
+  methods: {
+    beforeOpen (event) {
+      this.$confetti.start({shape: 'rect'})
+    },
+    beforeClose (event) {
+      this.$confetti.stop()
+    },
+    redirectToCourse: function () {
+      this.$confetti.stop()
+      this.$router.push('/courses')
+    }
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~assets/css/_variables'
+.lead
+  font-size 1.4em
+
+.body
+  display flex
+  flex-flow column
+  justify-content center
+  align-items center
+  padding: 0 4%
+
+.media
+  position relative
+  overflow hidden
+  width 110px
+  height 125px
+  margin 0 auto
+
+  +tablet-up()
+    width 150px
+    height 165px
+
+.social-wrapper
+  display flex
+  flex-flow wrap
+  justify-content space-evenly
+  margin 0.5em 0
+
+  > span
+    margin-right 2%
+
+    &:last-of-type
+      margin-right 0
+
+img
+  position absolute
+  top 0
+
+.badge-enter-active
+  transition transform 0.7s ease-in-out
+
+.badge-enter
+.badge-leave-to
+  transform translateY(-100%)
+
+</style>

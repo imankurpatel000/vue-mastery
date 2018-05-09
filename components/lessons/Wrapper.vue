@@ -18,7 +18,9 @@ div
          :account='account'
          :completed-unlogged='completedUnlogged'
          :isLesson='isLesson'
-         @redirect='redirect')
+         :is-course-completed='isCompleted' 
+         @redirect='redirect'
+         @completed='showCongrat')
 
     Body(:course='current' :locked='locked' :free='current.free')
       Profile(:current='current' v-if='!isLesson' v-cloak)
@@ -50,6 +52,7 @@ div
         @redirect='redirect')
 
     Popup(@redirect='redirect')
+    Congrats(:course='course')
 
   .container(v-else)
     .header.fake
@@ -66,7 +69,6 @@ div
               .body.fake
     .content.fake
     .lesson-aside.fake
-
 </template>
 
 <script>
@@ -84,6 +86,7 @@ import Video from '~/components/lessons/Video'
 import Profile from '~/components/lessons/Profile'
 import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
 import DownloadButton from '~/components/static/DownloadButton'
+import Congrats from '~/components/courses/Congrats'
 
 export default {
   name: 'wrapper-lesson',
@@ -135,7 +138,14 @@ export default {
     Unlock,
     PlayerPlaceholder,
     Profile,
-    DownloadButton
+    DownloadButton,
+    Congrats
+  },
+
+  data () {
+    return {
+      isCompleted: false
+    }
   },
 
   computed: {
@@ -165,22 +175,55 @@ export default {
       this.$router.push(this.baseUrl + slug)
     },
 
+    isCourseCompleted (slug) {
+      if (this.account.courses && this.account.courses[this.course.slug]) {
+        let total = 0
+        Object.entries(this.account.courses[this.course.slug].completedLessons).forEach(
+          ([key, value]) => {
+            if (slug && slug === key) total++
+            else if (value) total++
+          }
+        )
+        if (total >= this.course.lessons.length) {
+          return true
+        }
+      }
+      return false
+    },
+
+    showCongrat (slug) {
+      const showCongrats = this.isCourseCompleted(slug)
+      if (showCongrats) {
+        this.$modal.show('finish-course')
+      }
+      return !showCongrats
+    },
+
     completed () {
       this.$store.dispatch('userUpdateCompleted', {
-        page: this.page,
-        category: this.category,
+        courseSlug: this.category,
+        lessonSlug: this.current.slug,
         isCompleted: true
       })
     },
 
     finished () {
       const next = this.course.lessons[this.selected + 1]
-      if (this.selected < this.course.lessons.length - 1 && next.status === 'published') {
+      const showNext = this.showCongrat()
+      if (this.selected < this.course.lessons.length - 1 && showNext && next.status === 'published') {
         this.$modal.show('next-lesson', {
           lesson: next,
           account: this.account,
           isLesson: this.isLesson
         })
+      }
+    }
+  },
+
+  watch: {
+    account () {
+      if (this.account) {
+        this.isCompleted = this.isCourseCompleted()
       }
     }
   }

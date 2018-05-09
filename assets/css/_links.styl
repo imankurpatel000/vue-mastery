@@ -3,6 +3,17 @@
   overflow: hidden
   padding-bottom 2px
   margin-bottom -2px
+  cursor pointer
+  color $primary-color
+
+  &.-has-icon
+    display inline-flex
+    align-items center
+    justify-content center
+    overflow visible
+    i[class*=fa],
+    i[class*=fab]
+      margin-right 10px
 
   &:before
     position absolute
@@ -17,7 +28,11 @@
     transform:  translateX(-100%)
 
   &:hover:before
+    z-index 0
     transform:  translateX(0)
+
+  &:hover
+    text-decoration none
 
 a:hover .underline:before
   transform:  translateX(0)

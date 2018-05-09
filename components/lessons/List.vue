@@ -32,7 +32,8 @@
         i.far.fa-calendar-alt
 
     .list-subscribe
-      CourseSubscribe(:account='account'
+      CourseSubscribe(v-if='!isCourseCompleted'
+                      :account='account'
                       :slug='course.slug'
                       :message='message')
 
@@ -63,12 +64,17 @@ export default {
     isLesson: {
       type: Boolean,
       default: true
+    },
+    isCourseCompleted: {
+      type: Boolean,
+      default: false
     }
   },
 
   data () {
     return {
-      message: `Notify me when new ${this.isLesson ? 'lessons' : 'talks'} are available.`
+      message: `Notify me when new ${this.isLesson ? 'lessons' : 'talks'} are available.`,
+      initialScroll: true
     }
   },
 
@@ -82,10 +88,11 @@ export default {
     },
 
     toggleCompleted (lessonSlug) {
+      const isLessonCompleted = !this.isCompleted(lessonSlug)
       this.$store.dispatch('userUpdateCompleted', {
         lessonSlug: lessonSlug,
         courseSlug: this.course.slug,
-        isCompleted: !this.isCompleted(lessonSlug)
+        isCompleted: isLessonCompleted
       })
       if (!this.account) {
         this.$modal.show('login-form', {
@@ -93,6 +100,11 @@ export default {
           location: 'Lesson page checkbox'
         })
         return true
+      } else {
+        // Check if all checkbox been completed
+        if (isLessonCompleted) {
+          this.$emit('completed', lessonSlug)
+        }
       }
     },
 
@@ -149,7 +161,10 @@ export default {
 
   watch: {
     account () {
-      this.scrollToactive()
+      if (this.initialScroll) {
+        this.scrollToactive()
+        this.initialScroll = false
+      }
     }
   }
 }
