@@ -93,9 +93,9 @@ export default {
   display flex
   flex-flow wrap
   justify-content space-evenly
-  margin-top 1em
+  margin 0.5em 0
 
-  > a
+  > span
     margin-right 2%
 
     &:last-of-type
