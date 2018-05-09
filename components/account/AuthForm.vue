@@ -34,7 +34,7 @@ form.form(@submit.prevent='submit')
 
   .form-group.-center(v-if='isNew' v-cloak)
     label.checkbox(for='terms')
-      input(type='checkbox' name='terms' v-model='terms')
+      input(type='checkbox' name='terms' v-model='terms' id='terms')
       span I accept the&nbsp
       a(href='/terms' target='_blank' ) terms and conditions
 
