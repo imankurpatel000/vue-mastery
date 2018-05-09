@@ -123,7 +123,9 @@ export default {
             className: 'vm-toasted',
             action: {
               text: 'Click here to Susbcribe',
-              onClick: this.subscribe(plan)
+              onClick: (e, toastObject) => {
+                this.subscribe(plan)
+              }
             }})
         }
       } else {
@@ -132,7 +134,7 @@ export default {
           headerTitle: 'Please Create an Account',
           location: 'Pricing page',
           redirect: {
-            function: this.openCheckout,
+            function: this.subscribe,
             params: plan
           }
         })
