@@ -16,6 +16,7 @@ module.exports = {
     .onCreate(event => {
       const user = event.data
       db.checkUserTeamSubscription(user)
+      db.checkIfTeamMember(user.email)
       return subscription.getMailerList(mainListId)
         .then(listID => subscription.subscribeUser(user, listID, true))
     }),
@@ -125,20 +126,17 @@ module.exports = {
       if (event.data.previous.exists()) {
         const previous = event.data.previous.val()
         previous.members.forEach((member) => {
-          let existingEmail = false
-          newTeam.members.forEach((newMember) => {
-            if (newMember.email === member.email) {
-              existingEmail = true
-            }
+          let existingEmail = newTeam.members.some((newMember) => {
+            return newMember.email === member.email
           })
           if (!existingEmail) {
             console.log(`Unsubscribe ${member.email}`)
-            db.subscribe(member.email, null, false)
+            db.subscribeTeamMember(member.email, null, false)
           }
         })
       }
       newTeam.members.forEach((member) => {
-        db.subscribe(member.email, null, true)
+        db.subscribeTeamMember(member.email, newTeam, true)
       })
       return true
     }),

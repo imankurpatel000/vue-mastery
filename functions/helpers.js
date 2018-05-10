@@ -1,8 +1,18 @@
-const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const subscription = require('./subscription')
 
+const functions = require('firebase-functions')
 admin.initializeApp(functions.config().firebase)
+
+// Staging test
+// admin.initializeApp({
+//   apiKey: 'AIzaSyCmZ4OeHnKXqrWm2E91fJacNCqeCbWd7eQ',
+//   authDomain: 'vue-mastery-staging.firebaseapp.com',
+//   databaseURL: 'https://vue-mastery-staging.firebaseio.com',
+//   projectId: 'vue-mastery-staging',
+//   storageBucket: 'vue-mastery-staging.appspot.com',
+//   messagingSenderId: '881339498347'
+// })
 
 module.exports = {
   account (id) {
@@ -53,6 +63,49 @@ module.exports = {
             subscribed: subscribing,
             chargebeeId: id
           })
+        console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
+        return subscription.getMailerList('Vue Mastery Subscribers')
+          .then(listID => { return subscription.subscribeUser(val, listID, subscribing) })
+      })
+  },
+
+  checkIfTeamMember (email) {
+    return admin
+      .database()
+      .ref('/flamelink/environments/production/content/team/en-US')
+      .on('value', (snapshot) => {
+        snapshot.forEach((teamSnapshot) => {
+          let team = teamSnapshot.val()
+          team.members.forEach((member) => {
+            if (email === member.email) {
+              this.subscribeTeamMember(email, team, true)
+            }
+          })
+        })
+      })
+  },
+
+  subscribeTeamMember (email, team, subscribing = true) {
+    return admin
+      .database()
+      .ref('accounts')
+      .orderByChild('email')
+      .equalTo(email)
+      .once('child_added', (snapshot) => {
+        const val = snapshot.val()
+        let teamData = {
+          subscribed: subscribing,
+          team: null
+        }
+        if (team) {
+          teamData.team = {
+            companyName: team.companyName,
+            adminName: team.adminName,
+            adminEmail: team.adminEmail
+          }
+        }
+        snapshot.ref
+          .update(teamData)
         console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
         return subscription.getMailerList('Vue Mastery Subscribers')
           .then(listID => { return subscription.subscribeUser(val, listID, subscribing) })
