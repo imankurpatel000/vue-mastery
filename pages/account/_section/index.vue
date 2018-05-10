@@ -16,6 +16,7 @@
                @click='goTo(tab)' ) {{ tab.replace('-', ' ') }}
 
     button.tab.last-tab(@click="openPortal()" v-if="account && account.chargebeeId && chargebeeInstance" v-cloak) My Subscription
+    button.tab.last-tab(@click="openTeamPopup()" v-if="account && account.subscribed && account.team" v-cloak) Team {{account.team.companyName}}
 
   .account-content
     .course-list(v-if="selectedTab == 'dashboard' || selectedTab == 'my-subscription'" v-cloak)
@@ -228,6 +229,20 @@ export default {
     openPortal () {
       const cbPortal = this.chargebeeInstance.createChargebeePortal()
       cbPortal.open()
+    },
+
+    openTeamPopup () {
+      const message = `Please contact your administrator ${this.account.team.adminName} (${this.account.team.adminEmail}) to update your subscriptionsubscription`
+      this.$toast.show(message, {
+        duration: 7000,
+        className: 'vm-toasted',
+        action: {
+          text: 'Close',
+          onClick: (e, toastObject) => {
+            toastObject.goAway(0)
+          }
+        }
+      })
     }
   }
 }
