@@ -107,7 +107,7 @@ module.exports = {
         snapshot.ref
           .update(teamData)
         console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
-        return subscription.getMailerList('Vue Mastery Subscribers')
+        return subscription.getMailerList('Vue Mastery Team Subscribers')
           .then(listID => { return subscription.subscribeUser(val, listID, subscribing) })
       })
   },
