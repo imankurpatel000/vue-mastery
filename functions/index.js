@@ -179,7 +179,9 @@ module.exports = {
         'plan_id': req.body.plan_id
       },
       customer: {
-        'email': req.body.email
+        'email': req.body.email,
+        'last_name': req.body.last_name,
+        'first_name': req.body.first_name
       },
       embed: 'false'
     }).request(function (error, result) {

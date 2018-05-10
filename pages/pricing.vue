@@ -152,6 +152,8 @@ export default {
         hostedPage: () => {
           let params = new URLSearchParams()
           params.append('email', this.account.email)
+          params.append('last_name', this.account.displayName.split(" ")[1])
+          params.append('first_name', this.account.displayName.split(" ")[0])
           params.append('plan_id', plan)
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
