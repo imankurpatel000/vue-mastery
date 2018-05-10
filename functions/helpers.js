@@ -4,16 +4,6 @@ const subscription = require('./subscription')
 const functions = require('firebase-functions')
 admin.initializeApp(functions.config().firebase)
 
-// Staging test
-// admin.initializeApp({
-//   apiKey: 'AIzaSyCmZ4OeHnKXqrWm2E91fJacNCqeCbWd7eQ',
-//   authDomain: 'vue-mastery-staging.firebaseapp.com',
-//   databaseURL: 'https://vue-mastery-staging.firebaseio.com',
-//   projectId: 'vue-mastery-staging',
-//   storageBucket: 'vue-mastery-staging.appspot.com',
-//   messagingSenderId: '881339498347'
-// })
-
 module.exports = {
   account (id) {
     const accountPath = `accounts/${id}`
