@@ -3,8 +3,12 @@
   div(v-if='course.lessonsCount && !course.pushToSubscribe' v-cloak)
     span(v-if="course.hasOwnProperty('progression')") {{course.progression}}
     span(v-else) {{ course.lessonsCount | pluralizeLesson }}
-    .button.primary.-full(v-if='checkCourseStarted()' v-cloak)
-      | Resume
+    div(v-if='checkCourseStarted' v-cloak)
+      .button.primary.-full(v-if='isCourseCompleted' v-cloak)
+        | Replay
+
+      .button.secondary.border.-full(v-else)
+        | Resume
 
     .button.secondary.border.-full(v-else v-cloak)
       | Play
@@ -40,7 +44,32 @@ export default {
   computed: {
     ...mapState({
       account: result => result.account.account
-    })
+    }),
+
+    checkCourseStarted () {
+      let started = false
+      try {
+        started = this.account.courses[this.course.slug].started
+      } catch (error) {}
+      return started
+    },
+
+    isCourseCompleted () {
+      try {
+        let total = 0
+        if (this.course.completable) {
+          Object.entries(this.account.courses[this.course.slug].completedLessons).forEach(
+            ([key, value]) => {
+              if (value) total++
+            }
+          )
+          if (total >= this.course.lessonsCount) {
+            return true
+          }
+        }
+      } catch (error) {}
+      return false
+    }
   },
 
   mounted () {
@@ -50,14 +79,6 @@ export default {
   },
 
   methods: {
-    checkCourseStarted () {
-      let started = false
-      try {
-        started = this.account.courses[this.course.slug].started
-      } catch (error) {}
-      return started
-    },
-
     isSubscribed () {
       let subscribed = false
       if (this.account && typeof (this.account['courses']) !== 'undefined') {

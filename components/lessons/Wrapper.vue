@@ -184,7 +184,7 @@ export default {
             else if (value) total++
           }
         )
-        if (total >= this.course.lessons.length) {
+        if (total >= this.course.lessonsCount) {
           return true
         }
       }
