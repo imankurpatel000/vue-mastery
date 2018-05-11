@@ -6,7 +6,7 @@
   .body
     h3.title
       | {{ course.title }}
-      span.badge.primary FREE
+      span.badge.primary(v-if='course.free') FREE
     p.content {{ course.description }}
 
     .meta(v-if='showDetail' v-cloak)
