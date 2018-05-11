@@ -151,9 +151,11 @@ export default {
         // If the library that you use for making ajax calls, can return a promise, you can directly return that
         hostedPage: () => {
           let params = new URLSearchParams()
+          const lastName = this.account.displayName.split(' ')[1] || this.account.displayName
+          const firstName = this.account.displayName.split(' ')[0] || ' '
           params.append('email', this.account.email)
-          params.append('last_name', this.account.displayName.split(" ")[1])
-          params.append('first_name', this.account.displayName.split(" ")[0])
+          params.append('last_name', lastName)
+          params.append('first_name', firstName)
           params.append('plan_id', plan)
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
