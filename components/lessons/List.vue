@@ -32,7 +32,7 @@
         i.far.fa-calendar-alt
 
     .list-subscribe
-      CourseSubscribe(v-if='!isCourseCompleted'
+      CourseSubscribe(v-if='!isCourseCompleted && !course.completable'
                       :account='account'
                       :slug='course.slug'
                       :message='message')

@@ -1,6 +1,6 @@
 <template lang='pug'>
 .actions
-  div(v-if='course.lessonsCount && !course.pushToSubscribe' v-cloak)
+  div(v-if='course.lessonsCount && !course.pushToSubscribe || course.completable' v-cloak)
     span(v-if="course.hasOwnProperty('progression')") {{course.progression}}
     span(v-else) {{ course.lessonsCount | pluralizeLesson }}
     div(v-if='checkCourseStarted' v-cloak)
