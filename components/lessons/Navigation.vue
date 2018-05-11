@@ -18,6 +18,10 @@ export default {
   name: 'navigation',
 
   props: {
+    account: {
+      type: Object,
+      required: false
+    },
     lessons: {
       type: Array,
       required: true
@@ -35,7 +39,7 @@ export default {
     isFirst () { return this.selected === 0 },
     isLast () {
       const next = this.lessons[this.selected + 1]
-      return this.selected === this.lessons.length - 1 || next.lock || next.status === 'draft'
+      return this.selected === this.lessons.length - 1 || (!this.account && next.lock) || next.status === 'draft'
     }
   },
 

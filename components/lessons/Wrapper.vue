@@ -48,6 +48,7 @@ div
     Nav(v-if='current'
         :lessons='course.lessons'
         :selected='selected'
+        :account='account'
         :type="isLesson ? 'lesson': 'talk'"
         @redirect='redirect')
 
