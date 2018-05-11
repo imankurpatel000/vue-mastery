@@ -28,7 +28,7 @@
             h4
               i.fa.fa-book &nbsp;
               | Our Content
-            p We’ll be releasing content weekly.  See our most recent lessons and what's upcoming on the #[nuxt-link(to='/courses') courses page]. Your support also helps us produce the weekly #[a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast], where we cover the latest Vue news and tutorials.
+            p We release content weekly.  See our most recent lessons and what is coming up on the #[nuxt-link(to='/courses') courses page]. Your support also helps us produce the weekly #[a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast], where we cover the latest Vue news and tutorials.
 
             h4
               i.fa.fa-dollar-sign &nbsp;
@@ -39,7 +39,7 @@
             h4
               i.far.fa-thumbs-up &nbsp;
               | Your Feedback
-            p If you have any feedback for us, need some support, or want to request any content, we’d love to hear from you. You can use the #[nuxt-link(to='/contact') contact us] form or just email #[a(href='mailto:team@vuemastery.com' target='_blank') team@vuemastery.com].
+            p If you have any feedback for us, need some support, or have suggestions for future content, we’d love to hear from you. You can use the #[nuxt-link(to='/contact') contact] form or just email #[a(href='mailto:team@vuemastery.com' target='_blank') team@vuemastery.com].
 </template>
 
 <script>
