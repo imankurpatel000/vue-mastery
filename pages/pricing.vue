@@ -1,84 +1,88 @@
 <template lang="pug">
+.container
+  ContactTeamModal(:account='account')
   .wrapper
-    ContactTeamModal(:account='account')
-    .pricing-content
-      h2.title Becoming a Vue Mastery Subscriber means
-      ul
-        li Access to all paid content.  New Lessons Weekly.
-        li The ability to track your course progress.
-        li Supporting the Vue.js News Podcast.
-        li Most importantly, supporting the Vue.js project itself.
+    .pricing-layout
+      .pricing-content
+        h2.title Becoming a Vue Mastery Subscriber means
+        ul
+          li Access to all paid content.  New Lessons Weekly.
+          li The ability to track your course progress.
+          li Supporting the Vue.js News Podcast.
+          li Most importantly, supporting the Vue.js project itself.
 
-    .pricing-structure
-      .page-title.text-center
-        h2 Pricing
+      .pricing-structure
+        .page-title.text-center
+          h2 Pricing
 
-      .monthly
-        .card
-          .card-body
-            h3.text-center Monthly
+        .monthly
+          .card
+            .card-body
+              h3.text-center Monthly
 
-            .money
-              .symbol $
-              .decimal 19
+              .money
+                .symbol $
+                .decimal 19
 
-            .text-center
-              i per month
+              .text-center
+                i per month
 
-            .benefit
-              img(src="/images/lgo-vue.svg" alt="Vue.js")
-              span $5 of your monthly subscription goes to supporting the Vue.js project itself.
+              .benefit
+                img(src="/images/lgo-vue.svg" alt="Vue.js")
+                span $5 of your monthly subscription goes to supporting the Vue.js project itself.
 
-            .benefit.color-gold
-              i.fas.fa-shield-alt
-              b Guaranteed Value
+              .benefit.color-gold
+                i.fas.fa-shield-alt
+                span 14-day money-back guarantee
 
-            button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
+              button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
 
-      .annually
-        .card
-          .card-body
-            h3.text-center Annual
+        .annually
+          .card
+            .card-body
+              h3.text-center Annual
 
-            .money
-              .symbol $
-              .decimal 190
+              .money
+                .symbol $
+                .decimal 190
 
-            .text-center
-              i per year
+              .text-center
+                i per year
 
-            .benefit
-              img(src="/images/lgo-vue.svg" alt="Vue.js")
-              span $50 of your yearly subscription goes to supporting the Vue.js project itself.
+              .benefit
+                img(src="/images/lgo-vue.svg" alt="Vue.js")
+                span $50 of your yearly subscription goes to supporting the Vue.js project itself.
 
-            .benefit.color-primary
-              i.fa.fa-piggy-bank
-              b Get 2 months free <br>
-                small ($38 discount)
+              .benefit.color-gold
+                i.fas.fa-shield-alt
+                span 14-day money-back guarantee
 
-            .benefit.color-gold
-              i.fas.fa-shield-alt
-              b Guaranteed Value
+              .benefit.color-primary
+                i.fa.fa-piggy-bank
+                b Get 2 months free <br>
+                  small ($38 discount)
 
-            button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
+              button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
 
-      .team
-        .card
-          .card-body
-            h3.text-center Team
-            img(src="/images/img-group-dark.svg" alt="Team accounts VueMastery")
+        .team
+          .card
+            .card-body
+              h3.text-center Team
+              img(src="/images/img-group-dark.svg" alt="Team accounts VueMastery")
 
-            div
-              p Please contact us, and we’ll take care of you.
-              p FYI, all team accounts are billed yearly.
+              div
+                p Reach out for special pricing for your team.
+                p FYI, all team accounts are billed yearly.
 
-            button.button.secondary.border(@click='openTeamContact') Contact Us
+              button.button.secondary.border(@click='openTeamContact') Contact Us
+  Testimonials
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
 import ContactTeamModal from '~/components/account/ContactTeamModal.vue'
+import Testimonials from '~/components/static/Testimonials.vue'
 
 export default {
   name: 'page-pricing',
@@ -86,7 +90,8 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    ContactTeamModal
+    ContactTeamModal,
+    Testimonials
   },
 
   data () {
@@ -183,10 +188,8 @@ export default {
 
 build-grid-area(pricing-content pricing-structure page-title monthly annually team)
 
-.wrapper
-  background url(/images/bkg-outline-mountains.svg)
-  background-position center bottom
-  background-size cover
+.pricing-layout
+  display grid
   grid-template-columns 1fr
   grid-template-areas 'pricing-content'\
                       'pricing-structure'
@@ -195,7 +198,6 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
     grid-template-columns 33% 1fr
     grid-column-gap 2%
     grid-template-areas 'pricing-content pricing-structure'
-
 
 .pricing-content
   display flex
