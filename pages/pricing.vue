@@ -67,7 +67,7 @@
         .team
           .card
             .card-body
-              h3.text-center Team
+              h3.text-center Team Accounts
               img(src="/images/img-group-dark.svg" alt="Team accounts VueMastery")
 
               div
