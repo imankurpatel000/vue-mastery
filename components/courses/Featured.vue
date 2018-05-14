@@ -25,6 +25,10 @@ export default {
     featured: {
       type: Object,
       required: false
+    },
+    account: {
+      type: Object,
+      required: false
     }
   },
 
