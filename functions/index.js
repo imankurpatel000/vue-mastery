@@ -7,7 +7,7 @@ const db = require('./helpers')
 const mainListId = functions.config().mailerlite.mainlistid
 chargebee.configure({
   site: 'vuemastery',
-  api_key: 'test_70lBzQ4lXcoToVnmaIoFpVLjN2jlpLzW'
+  api_key: 'live_ISpiJg6kYCeb8iDb1izcubVZvcu2S2zAwP'
 })
 
 module.exports = {
