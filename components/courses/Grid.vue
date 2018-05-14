@@ -5,7 +5,7 @@ div
                              :key='course.id'
                              :to='link(course)')
       .card-body
-        CourseList(:course='course')
+        CourseList(:course='course' :account='account')
         CourseAction(:course='course')
   FakeList(v-else)
 </template>

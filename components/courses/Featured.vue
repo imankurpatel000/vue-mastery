@@ -6,10 +6,10 @@ div
                              :key='key'
                              :to='link(course)')
       .card-body
-        CourseList(:course='course')
+        CourseList(:course='course' :account='account')
     .list-card.card.coming-soon(v-else)
       .card-body
-        CourseList(:course='course')
+        CourseList(:course='course' :account='account')
 
   FakeList(v-else)
 </template>
