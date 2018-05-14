@@ -232,6 +232,9 @@ const actions = {
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
       playbackRate: newRate
     })
+  },
+  fakeSubscribe ({ commit }) {
+    commit('fakeSubscribe')
   }
 }
 
@@ -242,7 +245,12 @@ const mutations = {
     state.user = user
     return this.dispatch('setAccountRef', `accounts/${state.user.uid}`)
   },
-  [types.NEW_USER] (state) {}
+  [types.NEW_USER] (state) {},
+  fakeSubscribe (state) {
+    if (state.account) {
+      state.account.subscribed = true
+    }
+  }
 }
 
 export default {
