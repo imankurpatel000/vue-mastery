@@ -163,7 +163,7 @@ export default {
 
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
-        site: 'vuemastery-test'
+        site: 'vuemastery'
       })
       if (this.account) {
         this.getPortalInstance()

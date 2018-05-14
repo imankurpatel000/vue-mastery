@@ -110,8 +110,7 @@ export default {
   mounted () {
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
-        site: 'vuemastery-test'
-        // domain: process.env.url
+        site: 'vuemastery'
       })
     }
   },
