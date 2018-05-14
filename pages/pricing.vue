@@ -123,15 +123,6 @@ export default {
           this.$router.push('/account/my-subscription')
         } else {
           this.openCheckout(plan)
-          this.$toast.show('<span><b>You are now logged in</b>.</span>', {
-            duration: 7000,
-            className: 'vm-toasted',
-            action: {
-              text: 'Click here to Susbcribe',
-              onClick: (e, toastObject) => {
-                this.subscribe(plan)
-              }
-            }})
         }
       } else {
         this.$modal.show('login-form', {

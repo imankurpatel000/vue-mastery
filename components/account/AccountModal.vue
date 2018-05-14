@@ -36,19 +36,33 @@ export default {
     account () {
       if (this.account && this.isOpen) {
         this.$modal.hide('login-form', { newAccount: false })
-        this.$toast.show('<span><b>You are now logged in</b>. View your course progress in the Dashboard.</span>', {
-          duration: 7000,
-          className: 'vm-toasted',
-          action: {
-            text: 'Close',
-            onClick: (e, toastObject) => {
-              toastObject.goAway(0)
-              // this.$router.push('/account')
-            }
-          }})
         if (this.redirect) {
           if (typeof (this.redirect) === 'string') this.$router.push(this.redirect)
-          else this.redirect.function(this.redirect.params)
+          else {
+            try {
+              this.redirect.function(this.redirect.params)
+            } catch (error) {
+              this.$toast.show('<span><b>You are now logged in</b>.</span>', {
+                duration: 20000,
+                className: 'vm-toasted',
+                action: {
+                  text: 'Click here to Susbcribe',
+                  onClick: (e, toastObject) => {
+                    this.redirect.function(this.redirect.params)
+                  }
+                }})
+            }
+          }
+        } else {
+          this.$toast.show('<span><b>You are now logged in</b>. View your course progress in the Dashboard.</span>', {
+            duration: 7000,
+            className: 'vm-toasted',
+            action: {
+              text: 'Close',
+              onClick: (e, toastObject) => {
+                toastObject.goAway(0)
+              }
+            }})
         }
       }
     }
