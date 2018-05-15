@@ -14,7 +14,7 @@
 
         nuxt-link(:to='path(lesson)' class='-inverted')
           div.meta
-            label.-has-icon(v-if="lesson.free" v-cloak)
+            label.-has-icon(v-if="lesson.free && !account || lesson.free && !account.subscribed" v-cloak)
               span.badge.secondary.-inverted Free
               span ・
             b {{ lesson.belongsToCourse[0].title }}
@@ -39,6 +39,10 @@ export default {
 
   props: {
     free: {
+      type: Object,
+      required: false
+    },
+    account: {
       type: Object,
       required: false
     }

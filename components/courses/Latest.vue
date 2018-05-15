@@ -12,7 +12,7 @@ div
         .meta
           b {{ lessonsCourse(lesson) }}
         .meta
-          label.-has-icon(v-if="lesson.free" v-cloak)
+          label.-has-icon(v-if="lesson.free && !account || lesson.free && !account.subscribed" v-cloak)
             span.badge.secondary Free
             span ・
           label.-has-icon
@@ -31,6 +31,10 @@ export default {
       required: true
     },
     courses: {
+      type: Object,
+      required: false
+    },
+    account: {
       type: Object,
       required: false
     }

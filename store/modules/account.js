@@ -68,9 +68,7 @@ const actions = {
   setAccountRef: firebaseAction(({ bindFirebaseRef }, path) => {
     return bindFirebaseRef('account', firebase.database().ref(path))
   }),
-  resetUser ({
-    state
-  }) {
+  resetUser ({state}) {
     state.user = null
     state.account = null
   },
@@ -233,7 +231,7 @@ const actions = {
       playbackRate: newRate
     })
   },
-  fakeSubscribe ({ commit }) {
+  fakeSubscribe ({ commit, state }) {
     commit('fakeSubscribe')
   }
 }
@@ -248,7 +246,10 @@ const mutations = {
   [types.NEW_USER] (state) {},
   fakeSubscribe (state) {
     if (state.account) {
-      state.account.subscribed = true
+      const subs = {
+        subscribed: true
+      }
+      state.account = {...state.account, ...subs}
     }
   }
 }

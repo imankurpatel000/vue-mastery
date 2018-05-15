@@ -3,11 +3,11 @@
     .hero
       Hero
     .free-videos
-      Free(:free='featured')
+      Free(:free='featured' :account='account')
     .course-list
       .section
         h2.title Courses
-        Featured(:featured='courses')
+        Featured(:featured='courses' :account='account')
         nuxt-link.button.primary.border(to='/courses')
           | More
           span.visually-hidden Courses
@@ -58,8 +58,11 @@ export default {
   },
 
   computed: {
-    ...mapState({ courses: result => result.courses.courses }),
-    ...mapState({ featured: result => result.courses.featured })
+    ...mapState({
+      courses: result => result.courses.courses,
+      featured: result => result.courses.featured,
+      account: result => result.account.account
+    })
   },
 
   async fetch ({ store }) {

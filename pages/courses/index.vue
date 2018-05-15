@@ -7,7 +7,7 @@
 
     .courses-body.wrapper
       CourseList(:courses='courses' :account='account')
-      Latest(:courses='courses' :latests='featured')
+      Latest(:courses='courses' :latests='featured' :account='account')
 
     .vue-conf
       VueConfBanner
