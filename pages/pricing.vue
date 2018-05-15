@@ -165,7 +165,7 @@ export default {
 
         success: () => {
           this.chargebeeInstance.closeAll()
-          const redirect = plan === 'monthly-subscription' ? 'thank-you-monthly' : 'thank-you-annual'
+          const redirect = plan === 'monthly-subscription' ? '/thank-you-monthly' : '/thank-you-annual'
           this.$store.dispatch('fakeSubscribe')
           this.$router.push(redirect)
         }
