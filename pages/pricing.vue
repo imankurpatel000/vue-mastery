@@ -159,6 +159,7 @@ export default {
           return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/generate_hp_url', params)
           // return axios.post('http://localhost:5000/vue-mastery-staging/us-central1/generate_hp_url', params)
             .then((response) => {
+              this.$toast.clear()
               return response.data
             })
         },
