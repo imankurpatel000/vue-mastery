@@ -64,14 +64,18 @@ module.exports = {
       .database()
       .ref('/flamelink/environments/production/content/team/en-US')
       .on('value', (snapshot) => {
-        snapshot.forEach((teamSnapshot) => {
-          let team = teamSnapshot.val()
-          team.members.forEach((member) => {
-            if (email === member.email) {
-              this.subscribeTeamMember(email, team, true)
+        if (snapshot !== undefined) {
+          snapshot.forEach((teamSnapshot) => {
+            let team = teamSnapshot.val()
+            if (team !== undefined) {
+              team.members.forEach((member) => {
+                if (email === member.email) {
+                  this.subscribeTeamMember(email, team, true)
+                }
+              })
             }
           })
-        })
+        }
       })
   },
 

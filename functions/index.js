@@ -82,7 +82,7 @@ module.exports = {
       })
     }),
 
-  // Subscribe a user to a course on the mailerLite course list
+  // Send request for a team subscription
   sendTeamSubscriptionRequest: functions.database.ref('/team-request/{cid}')
     .onCreate(event => {
       const snapshot = event.data
@@ -125,19 +125,25 @@ module.exports = {
       const newTeam = snapshot.val()
       if (event.data.previous.exists()) {
         const previous = event.data.previous.val()
-        previous.members.forEach((member) => {
-          let existingEmail = newTeam.members.some((newMember) => {
-            return newMember.email === member.email
+        if (previous.members !== undefined) {
+          previous.members.forEach((member) => {
+            let existingEmail = newTeam.members.some((newMember) => {
+              return newMember.email === member.email
+            })
+            if (!existingEmail) {
+              console.log(`Unsubscribe ${member.email}`)
+              db.subscribeTeamMember(member.email, null, false)
+            }
           })
-          if (!existingEmail) {
-            console.log(`Unsubscribe ${member.email}`)
-            db.subscribeTeamMember(member.email, null, false)
-          }
-        })
+        }
       }
-      newTeam.members.forEach((member) => {
-        db.subscribeTeamMember(member.email, newTeam, true)
-      })
+      if (newTeam.members !== undefined) {
+        newTeam.members.forEach((member) => {
+          db.subscribeTeamMember(member.email, newTeam, true)
+        })
+      } else {
+        console.log('No member for the team:', newTeam)
+      }
       return true
     }),
 
