@@ -118,7 +118,6 @@ export default {
   methods: {
     subscribe (plan) {
       if (this.account) {
-        this.$store.dispatch('fakeSubscribe')
         if (this.account.chargebeeId) {
           this.$router.push('/account/my-subscription')
         } else {
