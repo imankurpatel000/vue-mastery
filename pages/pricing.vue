@@ -130,7 +130,8 @@ export default {
           location: 'Pricing page',
           redirect: {
             function: this.subscribe,
-            params: plan
+            params: plan,
+            newSubscription: true
           }
         })
       }
