@@ -117,23 +117,33 @@ export default {
 
   methods: {
     subscribe (plan) {
-      if (this.account) {
-        if (this.account.chargebeeId) {
-          this.$router.push('/account/my-subscription')
-        } else {
-          this.openCheckout(plan)
+      this.$modal.show('login-form', {
+        newAccount: true,
+        headerTitle: 'Please Create an Account',
+        location: 'Pricing page',
+        redirect: {
+          function: this.subscribe,
+          params: plan,
+          newSubscription: true
         }
-      } else {
-        this.$modal.show('login-form', {
-          newAccount: true,
-          headerTitle: 'Please Create an Account',
-          location: 'Pricing page',
-          redirect: {
-            function: this.subscribe,
-            params: plan
-          }
-        })
-      }
+      })
+      // if (this.account) {
+      //   if (this.account.chargebeeId) {
+      //     this.$router.push('/account/my-subscription')
+      //   } else {
+      //     this.openCheckout(plan)
+      //   }
+      // } else {
+      //   this.$modal.show('login-form', {
+      //     newAccount: true,
+      //     headerTitle: 'Please Create an Account',
+      //     location: 'Pricing page',
+      //     redirect: {
+      //       function: this.subscribe,
+      //       params: plan
+      //     }
+      //   })
+      // }
     },
 
     openTeamContact () {

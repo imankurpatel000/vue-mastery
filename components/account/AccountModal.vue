@@ -39,9 +39,9 @@ export default {
         if (this.redirect) {
           if (typeof (this.redirect) === 'string') this.$router.push(this.redirect)
           else {
-            try {
-              this.redirect.function(this.redirect.params)
-            } catch (error) {
+            // Check for mobile because the chargebee popup doesn't show after login
+            const isMobile = typeof window.orientation !== 'undefined' || navigator.userAgent.indexOf('IEMobile') !== -1
+            if (this.redirect.newSubscription && isMobile) {
               this.$toast.show('<span><b>You are now logged in</b>.</span>', {
                 duration: 20000,
                 className: 'vm-toasted',
@@ -51,6 +51,8 @@ export default {
                     this.redirect.function(this.redirect.params)
                   }
                 }})
+            } else {
+              this.redirect.function(this.redirect.params)
             }
           }
         } else {
