@@ -118,7 +118,7 @@ export default {
   methods: {
     subscribe (plan) {
       if (this.account) {
-        if (this.account.chargebeeId) {
+        if (this.account.subscribed) {
           this.$router.push('/account/my-subscription')
         } else {
           this.openCheckout(plan)
