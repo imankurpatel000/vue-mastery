@@ -232,7 +232,7 @@ export default {
     },
 
     openTeamPopup () {
-      const message = `Please contact your administrator ${this.account.team.adminName} (${this.account.team.adminEmail}) to update your subscriptionsubscription`
+      const message = `Please contact your administrator ${this.account.team.adminName} (${this.account.team.adminEmail}) to update your subscription`
       this.$toast.show(message, {
         duration: 7000,
         className: 'vm-toasted',
