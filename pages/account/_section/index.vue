@@ -317,7 +317,7 @@ export default {
   display flex
   justify-items flex-start
   margin-bottom: ($vertical-space/2)
-  border-bottom solid 2px $secondary-color
+  box-shadow: inset 0 -2px 0 0 $secondary-color
   overflow-x scroll
 
 .download
@@ -333,7 +333,7 @@ export default {
 .tab
   display inline-block
   height $button-height-small
-  margin 0.25em 0
+  margin 0.25em 0 0
   padding 0 10px
   color $gray
   text-decoration none
@@ -352,8 +352,9 @@ export default {
     outline none
 
 .active-tab
-  color $secondary-color
+  color $primary-color
   font-weight 600
+  border-bottom solid 2px $primary-color
 
 .profile-settings
   width 100%
