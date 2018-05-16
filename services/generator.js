@@ -79,7 +79,7 @@ const getTalksPage = async function (db) {
         if (conference.hasOwnProperty('talks')) {
           for (const id of Object.keys(conference.talks)) {
             const talk = conference.talks[id]
-            if (talk.IsVideoLive === true) {
+            if (talk.isVideoLive === 'true') {
               const url = `/conferences/${conference.slug}/${talk.slug}`
               result.pages.push(url)
               if (!talk.lock && conf.projectId !== 'vue-mastery-staging') {

@@ -11,7 +11,7 @@
       
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
-        .list-item-meta(v-if='lesson.status === "published"')
+        .list-item-meta(v-if='lesson.status === "published" || lesson.isVideoLive === "true"')
           div(v-if='lesson.duration')
             i.far.fa-clock
             span {{ lesson.duration | time}}
@@ -136,7 +136,7 @@ export default {
 
     unloggedAndLock (lesson) {
       let isLocked = false
-      if (!lesson.free) {
+      if (lesson.free === false) {
         isLocked = this.account ? !this.account.subscribed : true
       }
       if (lesson.lock) {
