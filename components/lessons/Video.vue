@@ -10,6 +10,7 @@
   meta(itemprop='description' :content='video.description')
   vimeo-player.video-wrapper(ref='player'
                              player-width='860'
+                             autoplay='true'
                              :video-id = 'video.videoEmbedId'
                              @progress='videoProgress'
                              @ready='onReady'
@@ -54,9 +55,10 @@ export default {
 
   methods: {
     onReady () {
-      this.$refs.player.play()
-      this.$refs.player.player.on('playbackratechange', this.playbackratechange)
+      const player = this.$refs.player
+      player.player.on('playbackratechange', this.playbackratechange)
       this.updatePlaybackRate()
+      // player.play()
     },
 
     videoProgress (data) {
