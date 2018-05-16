@@ -4,14 +4,14 @@
     blockquote Use Vue? Wish it had something like Laracasts/Railscasts? You NEED to check out Vue Mastery. Weekly, high-quality video tutorials by two veterans: Gregg Pollack and Adam Jahr.
 
     cite
-      img(src='images/chris-avatar.jpg')
+      img(src='/images/chris-avatar.jpg')
       | Chris Fritz, #[br]Vue Core Team
 
   .quote-box
     blockquote Vue Mastery has been doing a great job curating important and relevant materials, if you're into Vue, you should consider following them!
 
     cite
-      img(src='images/sarah-avatar.jpg')
+      img(src='/images/sarah-avatar.jpg')
       | Sarah Drasner, #[br]Vue Core Team
 </template>
 
