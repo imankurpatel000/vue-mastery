@@ -15,8 +15,9 @@
                :class="{'active-tab': selectedTab == tab}"
                @click='goTo(tab)' ) {{ tab.replace('-', ' ') }}
 
-    button.tab.last-tab(@click="openPortal()" v-if="account && account.chargebeeId && chargebeeInstance" v-cloak) My Subscription
-    button.tab.last-tab(@click="openTeamPopup()" v-if="account && account.subscribed && account.team" v-cloak) Team {{account.team.companyName}}
+    div.last-tab
+      button.tab(@click="openPortal()" v-if="account && account.chargebeeId && chargebeeInstance" v-cloak) My Subscription
+      button.tab(@click="openTeamPopup()" v-if="account && account.subscribed && account.team" v-cloak) Team {{account.team.companyName}}
 
   .account-content
     .course-list(v-if="selectedTab == 'dashboard' || selectedTab == 'my-subscription'" v-cloak)
@@ -232,7 +233,7 @@ export default {
     },
 
     openTeamPopup () {
-      const message = `Please contact your administrator ${this.account.team.adminName} (${this.account.team.adminEmail}) to update your subscription`
+      const message = `Please contact your administrator ${this.account.team.adminName} (${this.account.team.adminEmail}) to update your subscription.`
       this.$toast.show(message, {
         duration: 7000,
         className: 'vm-toasted',
@@ -345,11 +346,13 @@ export default {
   cursor pointer
   text-transform capitalize
 
-  &.last-tab
-    margin-left auto
-
   &:focus
     outline none
+
+.last-tab
+  display flex
+  flex-wrap nowrap
+  margin-left auto
 
 .active-tab
   color $primary-color
