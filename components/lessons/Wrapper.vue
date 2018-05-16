@@ -151,7 +151,7 @@ export default {
 
   computed: {
     locked () {
-      if (!this.current.free) {
+      if (this.current.free === false) {
         return this.account ? !this.account.subscribed : true
       }
       if (this.current.lock) {
