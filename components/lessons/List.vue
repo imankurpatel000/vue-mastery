@@ -21,7 +21,7 @@
         .list-item-meta(v-else)
           | To be released on {{lesson.date | moment("MMMM D")}}
       
-      .list-item-actions(@click.stop v-if='lesson.status === "published"')
+      .list-item-actions(@click.stop v-if='lesson.status === "published" || lesson.isVideoLive === "true"')
         i.fa.fa-lock
         label.checkmark
           input(type='checkbox'
@@ -146,7 +146,7 @@ export default {
     },
 
     notPublished (lesson) {
-      return lesson.status === 'published' ? '' : 'draft'
+      return (lesson.status === 'published' || lesson.isVideoLive === 'true') ? '' : 'draft'
     },
 
     scrollToactive () {
