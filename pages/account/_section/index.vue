@@ -318,6 +318,7 @@ export default {
   justify-items flex-start
   margin-bottom: ($vertical-space/2)
   border-bottom solid 2px $secondary-color
+  overflow-x scroll
 
 .download
   color #FFFFFF
@@ -340,6 +341,7 @@ export default {
   line-height $button-height-small
   background transparent
   border none
+  white-space nowrap
   cursor pointer
   text-transform capitalize
 
