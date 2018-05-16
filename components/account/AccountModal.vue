@@ -44,13 +44,14 @@ export default {
             if (this.redirect.newSubscription && isMobile) {
               this.$toast.show('<span><b>You are now logged in</b>.</span>', {
                 duration: 20000,
-                className: 'vm-toasted',
+                className: 'vm-toasted-subscribe',
                 action: {
                   text: 'Click here to Susbcribe',
                   onClick: (e, toastObject) => {
                     this.redirect.function(this.redirect.params)
                   }
-                }})
+                }
+              })
             } else {
               this.redirect.function(this.redirect.params)
             }
