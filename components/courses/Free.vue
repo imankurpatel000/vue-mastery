@@ -2,7 +2,7 @@
 .section
   h2.title Latest Lessons
   .media-wrapper(v-if='free' v-cloak)
-    .media-block(v-for='lesson in Object.values(free)')
+    .media-block(v-for='lesson in orderList')
       nuxt-link(:to='path(lesson)')
         .media.-video(v-if='lesson.image')
           img(:src='lesson.image[0].url' class='-large' :alt='lesson.title')
@@ -50,6 +50,20 @@ export default {
 
   components: {
     FakeList
+  },
+
+  computed: {
+    orderList () {
+      const t = Object.keys(this.free).map((key) => {
+        return this.free[key]
+      })
+      t.sort((a, b) => {
+        a = new Date(a.date)
+        b = new Date(b.date)
+        return a > b ? -1 : a < b ? 1 : 0
+      })
+      return t
+    }
   },
 
   methods: {
