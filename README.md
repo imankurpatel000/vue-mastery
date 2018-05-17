@@ -131,8 +131,30 @@ You should probably generate the static porject before you deploy as the deploym
 The functions folder is also copy over and help us to repsond to specific backend tasks.
 
 ``` bash
-# deploy solution to firebase
+# deploy the complete solution:
 $ firebase deploy
+# deploy only the functions:
 $ firebase deploy --only functions
+# deploy only the generated static pages:
 $ firebase deploy --only hosting
+# Shortcut that you should probably use all the time for deployment:
+$ npm run generate; firebase deploy
 ```
+
+### Staging vs production
+
+You can deploy on staging or in production with this command:
+
+``` bash
+# deploy solution in production
+$ firebase use default
+# deploy solution on staging
+$ firebase use staging
+```
+
+You can control which database you want to use using the firebase.js file (this file is private and not in github)
+firebase.js file  should contain the two configurations for the diferrent database: staging and production.
+One is commented and the other define the database used.
+
+All the paths to images and data are connected according to this settings.
+So you can deploy staging env using production database if you want.
