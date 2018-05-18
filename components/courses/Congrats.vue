@@ -2,6 +2,7 @@
 no-ssr
   modal(name='finish-course' height='auto' @before-open='beforeOpen' @before-close='beforeClose')
     .body
+      button(class="modal-close" @click="$modal.hide('finish-course')" @before-close="beforeClose") &times;
       p.lead.text-center You've completed our #[b {{ course.title }} Course], and earned this completion badge.
       div.media
         transition(name="badge" appear)
@@ -76,7 +77,8 @@ export default {
   flex-flow column
   justify-content center
   align-items center
-  padding: 0 4%
+  position relative
+  padding: 16px 4% 0
 
 .media
   position relative
@@ -104,6 +106,15 @@ export default {
 img
   position absolute
   top 0
+
+.modal-close
+  position absolute
+  top 0
+  right 10px
+  background none
+  border 0
+  color $secondary-color
+  font-size 2em
 
 .badge-enter-active
   transition transform 0.7s ease-in-out

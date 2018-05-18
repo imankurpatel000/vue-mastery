@@ -1,6 +1,8 @@
 <template lang='pug'>
 form.form(@submit.prevent='submit')
-  h3.form-title {{ title }}
+  h3.form-title
+    span {{ title }}
+    button(@click="$modal.hide('login-form')") &times;
   .form-header(v-if="header !== ''" v-html='header')
 
   .form-group
@@ -198,6 +200,9 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+.form-title
+  justify-content space-between
+
 .form-actions .control-group .label
   margin-right 2%
 

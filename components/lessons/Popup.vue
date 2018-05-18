@@ -1,8 +1,12 @@
 <template lang='pug'>
 no-ssr
   modal(name='next-lesson' height='auto' @before-open='beforeOpen')
-    h3.form-title(v-if='account' v-cloak) Next {{isLesson ? 'Lesson' : 'Talk'}}: {{ lesson.title }}
-    h3.form-title(v-else v-cloak) Great job finishing the {{isLesson ? 'lesson' : 'talk'}}!
+    h3.form-title(v-if='account' v-cloak)
+      span Next {{isLesson ? 'Lesson' : 'Talk'}}: {{ lesson.title }}
+      button(@click="$modal.hide('next-lesson')") &times;
+    h3.form-title(v-else v-cloak)
+      span Great job finishing the {{isLesson ? 'lesson' : 'talk'}}!
+      button(@click="$modal.hide('next-lesson')") &times;
 
     .body
       p(v-if='account' v-cloak) {{ lesson.description }}
@@ -76,6 +80,9 @@ export default {
 
 .control-group
   margin-bottom 30px
+
+.form-title
+  justify-content space-between
 
 @keyframes blink
   0%
