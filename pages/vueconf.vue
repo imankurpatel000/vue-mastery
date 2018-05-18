@@ -6,8 +6,8 @@
       .body
         p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos. We'll be releasing videos over the next few weeks as we receive them.
 
-      .callout.-success
-        CourseSubscribe(:account='account' :slug='conference' message='Notify me when new talks are available.')
+      //- .callout.-success
+      //-   CourseSubscribe(:account='account' :slug='conference' message='Notify me when new talks are available.')
 
       ConfList(:talks='talks' :account='account' :conference='conference')
 </template>
