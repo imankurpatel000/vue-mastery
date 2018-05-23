@@ -177,7 +177,7 @@ export default {
     },
 
     isCourseCompleted (slug) {
-      if (this.course.completable && this.account.courses && this.account.courses[this.course.slug]) {
+      if (this.course.completable && this.account && this.account.courses && this.account.courses[this.course.slug]) {
         let total = 0
         Object.entries(this.account.courses[this.course.slug].completedLessons).forEach(
           ([key, value]) => {
