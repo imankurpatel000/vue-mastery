@@ -1,18 +1,15 @@
 const conf = require('./firebase')
 const generator = require('./services/generator.js')()
-let baseUrl = 'https://www.vuemastery.com'
-let bots = 'index, follow'
-if (conf.projectId === 'vue-mastery-staging') {
-  baseUrl = 'https://vue-mastery-staging.firebaseapp.com/'
-  bots = 'noindex'
-}
+const baseUrl = conf.baseUrl
 
 module.exports = {
   /*
   ** Build configuration
   */
   env: {
-    url: baseUrl
+    url: conf.baseUrl,
+    cloudfunctions: conf.cloudfunctions,
+    chargebeeSite: conf.chargebeeSite
   },
   /*
   ** Headers of the page
@@ -23,7 +20,7 @@ module.exports = {
       { charset: 'utf-8' },
       {
         name: 'robots',
-        content: bots
+        content: conf.bots
       },
       {
         name: 'viewport',

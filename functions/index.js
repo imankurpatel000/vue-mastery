@@ -2,12 +2,11 @@ const functions = require('firebase-functions')
 const chargebee = require('chargebee')
 const subscription = require('./subscription')
 const db = require('./helpers')
-// const payment = require('./payment')
 
 const mainListId = functions.config().mailerlite.mainlistid
 chargebee.configure({
-  site: 'vuemastery',
-  api_key: 'live_ISpiJg6kYCeb8iDb1izcubVZvcu2S2zAwP'
+  site: functions.config().chargebee.site,
+  api_key: functions.config().chargebee.key
 })
 
 module.exports = {
