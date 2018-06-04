@@ -41,17 +41,25 @@ module.exports = {
   },
 
   subscribe (email, id, subscribing = true) {
+    if (subscribing) console.log(`Attempt to subscribe user with email ${email}`)
+
     return admin
       .database()
       .ref('accounts')
       .orderByChild('email')
       .equalTo(email)
-      .once('child_added', (snapshot) => {
+      .once('value', (snapshot) => {
         const val = snapshot.val()
         snapshot.ref
           .update({
             subscribed: subscribing,
             chargebeeId: id
+          }, (error) => {
+            if (error) {
+              console.log(`Error subscribing the user: ${error}`)
+            } else {
+              console.log(`Success subscribing the user`)
+            }
           })
         console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
         return subscription.getMailerList('Vue Mastery Subscribers')
