@@ -48,7 +48,7 @@ module.exports = {
       .ref('accounts')
       .orderByChild('email')
       .equalTo(email)
-      .once('value', (snapshot) => {
+      .once('child_added', (snapshot) => {
         const val = snapshot.val()
         snapshot.ref
           .update({
