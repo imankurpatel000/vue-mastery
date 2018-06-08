@@ -283,7 +283,11 @@ module.exports = {
       id: 'UA-90157003-2'
     }],
     '@nuxtjs/toast',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    ['nuxt-twitter-pixel-module', {
+      track: 'PageView',
+      pixelId: 'nzno2',
+    }]
   ],
   /*
   ** Render Markdown
