@@ -284,9 +284,13 @@ module.exports = {
     }],
     '@nuxtjs/toast',
     '@nuxtjs/sitemap',
+    ['nuxt-facebook-pixel-module', {
+      track: 'PageView',
+      pixelId: '790526371136735'
+    }],
     ['nuxt-twitter-pixel-module', {
       track: 'PageView',
-      pixelId: 'nzno2',
+      pixelId: 'nzno2'
     }]
   ],
   /*
