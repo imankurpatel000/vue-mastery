@@ -19,7 +19,7 @@
     "@nuxtjs/sitemap": "0.1.1",
     "@nuxtjs/toast": "^3.0.1",
     "axios": "^0.18.0",
-    "firebase": "^5.0.4",
+    "firebase": "^4.13.0",
     "firebase-admin": "^5.12.1",
     "firebase-auth": "^0.1.2",
     "flamelink": "^0.17.1",
