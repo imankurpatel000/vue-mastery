@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import * as types from './mutation-types'
 import { analyticsMiddleware } from 'vue-analytics'
 import conf from '~/firebase'
+const db = firebase.database()
 const flamelink = (process.server ? require('flamelink') : null)
 const firebaseAdmin = (process.server ? require('firebase-admin') : null)
 const projectId = conf.projectId
@@ -41,10 +42,10 @@ const createStore = () => {
       },
       sendContactRequest ({ commit }, newData) {
         // Get a key for a new contact.
-        return firebase.database().ref('/inquiries/').push(newData)
+        return db.ref('/inquiries/').push(newData)
       },
       sendTeamSubscriptionRequest ({ commit }, newData) {
-        return firebase.database().ref('/team-request/').push(newData)
+        return db.ref('/team-request/').push(newData)
       }
     },
     mutations: {
