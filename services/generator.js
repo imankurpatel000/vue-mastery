@@ -101,7 +101,12 @@ module.exports = async function (nuxt, generateOptions) {
     databaseURL: conf.databaseURL,
     storageBucket: conf.storageBucket
   }
-  const firebaseApp = admin.initializeApp(firebaseConfig)
+  let firebaseApp = {}
+  if (admin.apps.length === 0) {
+    firebaseApp = admin.initializeApp(firebaseConfig)
+  } else {
+    firebaseApp = admin.apps[0]
+  }
   const db = flamelink({ firebaseApp, isAdminApp: true }).content
 
   await getCoursesPage(db, result)
