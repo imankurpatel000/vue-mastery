@@ -2,7 +2,6 @@ import * as firebase from 'firebase'
 import * as types from '../mutation-types'
 import { mergeDeep } from '../helpers'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-const db = firebase.database()
 
 // initial state
 const state = {
@@ -24,7 +23,7 @@ function createNewAccount (user, commit, state) {
       analytics: [['set', 'userId', user.uid]]
     }
   })
-  return db.ref(`accounts/${user.uid}`).set({
+  return firebase.database().ref(`accounts/${user.uid}`).set({
     displayName: user.displayName || user.email.split('@')[0], // use part of the email as a username
     email: user.email,
     image: user.newImage || '/images/default-profile.png', // supply a default profile image for all users
@@ -47,7 +46,7 @@ function getCourseHistory (currentHistory, courseSlug) {
 }
 
 function checkForFirstTime (user, commit, state) {
-  db.ref('accounts').child(user.uid).once('value', (snapshot) => {
+  firebase.database().ref('accounts').child(user.uid).once('value', (snapshot) => {
     const userData = snapshot.val()
     if (userData === null) createNewAccount(user, commit, state)
     else {
@@ -55,7 +54,8 @@ function checkForFirstTime (user, commit, state) {
       if (state.completedUnlogged !== {}) {
         const courses = mergeDeep(userData.courses, state.completedUnlogged)
         if (courses) {
-          db.ref(`accounts/${state.user.uid}`)
+          firebase.database()
+            .ref(`accounts/${state.user.uid}`)
             .update({ courses })
         }
       }
@@ -66,7 +66,7 @@ function checkForFirstTime (user, commit, state) {
 // actions
 const actions = {
   setAccountRef: firebaseAction(({ bindFirebaseRef }, path) => {
-    return bindFirebaseRef('account', db.ref(path))
+    return bindFirebaseRef('account', firebase.database().ref(path))
   }),
   resetUser ({state}) {
     state.user = null
@@ -133,7 +133,7 @@ const actions = {
   deleteUser ({ state }) {
     const user = firebase.auth().currentUser
 
-    db.ref(`accounts/${user.uid}`).remove()
+    firebase.database().ref(`accounts/${user.uid}`).remove()
 
     return user.delete().then(() => {
       firebase.auth()
@@ -157,7 +157,7 @@ const actions = {
   },
   userUpdateEmail ({ state }, newEmail) {
     const user = firebase.auth().currentUser
-    db.ref(`accounts/${state.user.uid}`).update({
+    firebase.database().ref(`accounts/${state.user.uid}`).update({
       email: newEmail
     })
     return user.updateEmail(newEmail).then(() => {
@@ -189,24 +189,24 @@ const actions = {
       })
   },
   userUpdateSubscription ({ state }, subscribedToMailingList) {
-    return db.ref(`accounts/${state.user.uid}`).update({
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
       subscribedToMailingList: subscribedToMailingList
     })
   },
   userUpdate ({ state }, newData) {
-    return db.ref(`accounts/${state.user.uid}`).update({
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
       displayName: newData.displayName
     })
   },
   userUpdateImage ({ state }, image) {
-    return db.ref(`accounts/${state.user.uid}`).update({
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
       image
     })
   },
   userUpdateSubscribe ({ state }, courseSlug) {
     let courses = getCourseHistory(state.account.courses, courseSlug)
     courses[courseSlug].subscribed = !courses[courseSlug].subscribed
-    return db.ref(`accounts/${state.user.uid}`).update({
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
       courses
     })
   },
@@ -219,14 +219,15 @@ const actions = {
     }
     courses[lesson.courseSlug].completedLessons[lesson.lessonSlug] = lesson.isCompleted
     if (state.account) {
-      return db.ref(`accounts/${state.user.uid}`)
+      return firebase.database()
+        .ref(`accounts/${state.user.uid}`)
         .update({ courses })
     } else {
       state.completedUnlogged = courses
     }
   },
   userUpdatePlaybackRate ({ state, commit }, newRate) {
-    return db.ref(`accounts/${state.user.uid}`).update({
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
       playbackRate: newRate
     })
   },
