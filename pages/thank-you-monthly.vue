@@ -7,6 +7,12 @@ import ThankYou from '~/components/account/ThankYou'
 export default {
   name: 'page-thank-you-monthly',
 
+  head () {
+    return {
+      title: 'Thank you | Vue Mastery'
+    }
+  },
+
   middleware: 'anonymous',
 
   components: {

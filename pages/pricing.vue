@@ -87,6 +87,12 @@ import Testimonials from '~/components/static/Testimonials.vue'
 export default {
   name: 'page-pricing',
 
+  head () {
+    return {
+      title: 'Pricing | Vue Mastery'
+    }
+  },
+
   middleware: 'anonymous',
 
   components: {

@@ -41,7 +41,7 @@ export default {
 
   head () {
     return {
-      title: 'Vue Mastery | Contact Us',
+      title: 'Contact Us | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',

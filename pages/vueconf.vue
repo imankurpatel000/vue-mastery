@@ -26,7 +26,7 @@ export default {
 
   head () {
     return {
-      title: 'Vue Mastery | VueConf US',
+      title: 'VueConf US | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
