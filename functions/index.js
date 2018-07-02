@@ -203,7 +203,7 @@ module.exports = {
   subscription_changes: functions.https.onRequest((req, res) => {
     console.log(`CHARGEBEE EVENT: ${req.body.event_type}`)
     const customer = req.body.content.customer
-    console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
+    if (customer) console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
     switch (req.body.event_type) {
       case 'subscription_reactivated':
       case 'subscription_activated':
