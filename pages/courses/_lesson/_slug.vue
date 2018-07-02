@@ -35,6 +35,7 @@ export default {
   },
 
   head () {
+    const imageUrl = this.current.image ? this.current.image[0].url : ''
     return meta.get({
       categoryTitle: this.course.title,
       categorySlug: this.category,
@@ -42,9 +43,9 @@ export default {
       pageTitle: this.current.title,
       description: this.current.description,
       category: 'courses',
-      image: this.current.image[0].url,
-      facebookImage: (this.current.facebookImage && this.current.facebookImage[0].url) || this.current.image[0].url,
-      twitterImage: (this.current.twitterImage && this.current.twitterImage[0].url) || this.current.image[0].url,
+      image: imageUrl,
+      facebookImage: (this.current.facebookImage && this.current.facebookImage[0].url) || imageUrl,
+      twitterImage: (this.current.twitterImage && this.current.twitterImage[0].url) || imageUrl,
       author: 'Adam Jahr'
     })
   },

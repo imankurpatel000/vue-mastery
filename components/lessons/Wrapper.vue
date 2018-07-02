@@ -161,8 +161,9 @@ export default {
     },
 
     lockedStyle () {
+      const imageUrl = this.current.image ? `url(${this.current.image[0].url})` : ''
       return {
-        backgroundImage: `url(${this.current.image[0].url})`
+        backgroundImage: imageUrl
       }
     },
 
