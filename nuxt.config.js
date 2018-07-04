@@ -282,6 +282,9 @@ module.exports = {
     ['@nuxtjs/google-analytics', {
       id: 'UA-90157003-2'
     }],
+    ['@nuxtjs/google-tag-manager', {
+      id: 'GTM-5DMGGN2'
+    }],
     '@nuxtjs/toast',
     '@nuxtjs/sitemap',
     ['nuxt-facebook-pixel-module', {
