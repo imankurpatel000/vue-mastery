@@ -1,6 +1,6 @@
 <template lang='pug'>
 .section
-  h2.title Latest Lessons
+  h2.title Featured Lessons
   .media-wrapper(v-if='featured' v-cloak)
     .media-block(v-for='lesson in featured')
       nuxt-link(:to='path(lesson)')
