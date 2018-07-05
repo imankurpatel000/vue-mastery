@@ -9,7 +9,6 @@ const state = {
   course: null,
   lessons: null,
   latests: null,
-  free: null,
   featured: null,
   conference: null
 }
@@ -20,7 +19,6 @@ const getters = {
   course: state => state.course,
   lessons: state => state.lessons,
   latests: state => state.latests,
-  free: state => state.free,
   featured: state => state.featured,
   conference: state => state.conference
 }
@@ -70,26 +68,12 @@ const actions = {
       ]})
       .then(course => {
         course = course[Object.keys(course)[0]]
-        // Disable code compilation from content
-        // for (let lesson of course.lessons) {
-        //   lesson.body = lesson.body.replace('<code>', '<code v-pre>')
-        // }
         commit(types.RECEIVE_COURSE, { course })
       })
   },
 
   featured ({ commit, state }) {
-    // return db.get('lessons', {
-    //   limitToLast: 3,
-    //   orderByChild: 'status',
-    //   equalTo: 'published',
-    //   populate: [{
-    //     field: 'belongsToCourse',
-    //     subFields: [ 'slug' ]
-    //   }, {
-    //     field: 'image',
-    //     subFields: [ 'image' ]
-    // if (state.free && state.featured) return true
+    if (state.featured) return true
     return db.get('home', {
       populate: [ {
         field: 'featured',
@@ -97,18 +81,22 @@ const actions = {
         populate: [ 'image', 'belongsToCourse' ]
       }]
     }).then(featured => {
-      console.log(featured.featured[0].lessons)
       commit(types.RECEIVE_FEATURED, { featured })
     })
   },
 
-  latest ({ commit, state }) {
+  latests ({ commit, state }) {
     if (state.latests) return true
-    return db.get('course', {
-      populate: [ {
-        field: 'latests',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
-        populate: [ 'image' ]
+    return db.get('lessons', {
+      limitToLast: 3,
+      orderByChild: 'status',
+      equalTo: 'published',
+      populate: [{
+        field: 'belongsToCourse',
+        subFields: [ 'slug' ]
+      }, {
+        field: 'image',
+        subFields: [ 'image' ]
       }]
     }).then(latests => {
       commit(types.RECEIVE_LATEST, { latests })
@@ -165,7 +153,7 @@ const mutations = {
     state.featured = featured.featured
   },
   [types.RECEIVE_LATEST] (state, { latests }) {
-    state.latests = latests.latests
+    state.latests = latests
   },
   [types.RECEIVE_CONFERENCE] (state, { conference }) {
     state.conference = conference

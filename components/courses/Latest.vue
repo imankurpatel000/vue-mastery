@@ -27,7 +27,7 @@ export default {
 
   props: {
     latests: {
-      type: Array,
+      type: Object,
       required: true
     },
     courses: {

@@ -1,8 +1,8 @@
 <template lang='pug'>
 .section
   h2.title Latest Lessons
-  .media-wrapper(v-if='free' v-cloak)
-    .media-block(v-for='lesson in free')
+  .media-wrapper(v-if='featured' v-cloak)
+    .media-block(v-for='lesson in featured')
       nuxt-link(:to='path(lesson)')
         .media.-video(v-if='lesson.image')
           img(:src='lesson.image[0].url' class='-large' :alt='lesson.title')
@@ -35,10 +35,10 @@
 import FakeList from '~/components/courses/FakeList'
 
 export default {
-  name: 'courses-free',
+  name: 'featured-lessons',
 
   props: {
-    free: {
+    featured: {
       type: Array,
       required: false
     },
