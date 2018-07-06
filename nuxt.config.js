@@ -279,9 +279,6 @@ module.exports = {
   modules: [
     ['@nuxtjs/pwa', { icon: false }],
     '@nuxtjs/markdownit',
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-90157003-2'
-    }],
     ['@nuxtjs/google-tag-manager', {
       id: 'GTM-5DMGGN2'
     }],
@@ -345,6 +342,10 @@ module.exports = {
     },
     {
       src: '~/plugins/confetti',
+      ssr: false
+    },
+    {
+      src: '~plugins/ga.js',
       ssr: false
     }
   ],
