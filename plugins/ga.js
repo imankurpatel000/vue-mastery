@@ -1,4 +1,5 @@
 /* eslint-disable */
+import Vue from 'vue'
 
 export default ({ app }) => {
   /*
@@ -19,11 +20,15 @@ export default ({ app }) => {
   /*
   ** Every time the route changes (fired on initialization too)
   */
-  app.router.afterEach((to, from) => {
+  app.router.afterEach((to) => {
     /*
     ** We tell Google Analytics to add a `pageview`
     */
     ga('set', 'page', to.fullPath)
     ga('send', 'pageview')
   })
+
+  Vue.prototype.$trackAccount = function(location){
+    ga('send', 'event', 'User', 'Created Account', location, 1)
+  }
 }

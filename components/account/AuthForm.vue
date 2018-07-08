@@ -173,7 +173,7 @@ export default {
       if (!this.isNew) {
         action = this.rememberPassword ? 'userLogin' : 'userRetrievePassword'
       } else {
-        this.$ga.event('User', 'Created Account', this.location, 1)
+        if (this.$trackAccount) this.$trackAccount(this.location)
       }
 
       // Dispach information to the store
