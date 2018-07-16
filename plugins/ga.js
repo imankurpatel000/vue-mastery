@@ -31,4 +31,12 @@ export default ({ app }) => {
   Vue.prototype.$trackAccount = function(location){
     ga('send', 'event', 'User', 'Created Account', location, 1)
   }
+
+  Vue.prototype.$trackMonthly = function(){
+    ga('send', 'event', 'User', 'Monthly Subscription')
+  }
+
+  Vue.prototype.$trackAnnual = function(){
+    ga('send', 'event', 'User', 'Annual Subscription')
+  }
 }
