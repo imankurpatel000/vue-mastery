@@ -3,11 +3,11 @@
     .hero
       Hero
     .free-videos
-      Free(:free='featured' :account='account')
+      FeaturedLessons(:featured='featured' :account='account')
     .course-list
       .section
         h2.title Courses
-        Featured(:featured='courses' :account='account')
+        FeaturedCourses(:featured='courses' :account='account')
         nuxt-link.button.primary.border(to='/courses')
           | More
           span.visually-hidden Courses
@@ -23,8 +23,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Featured from '~/components/courses/Featured'
-import Free from '~/components/courses/Free'
+import FeaturedCourses from '~/components/courses/FeaturedCourses'
+import FeaturedLessons from '~/components/courses/FeaturedLessons'
 import Hero from '~/components/static/HeroBanner'
 import MeetTeachers from '~/components/static/MeetTeachers'
 import CommunitySupport from '~/components/static/CommunitySupport'
@@ -49,8 +49,8 @@ export default {
 
   components: {
     Hero,
-    Featured,
-    Free,
+    FeaturedLessons,
+    FeaturedCourses,
     MeetTeachers,
     CommunitySupport,
     CheatSheetMain,

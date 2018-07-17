@@ -279,11 +279,19 @@ module.exports = {
   modules: [
     ['@nuxtjs/pwa', { icon: false }],
     '@nuxtjs/markdownit',
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-90157003-2'
+    ['@nuxtjs/google-tag-manager', {
+      id: 'GTM-5DMGGN2'
     }],
     '@nuxtjs/toast',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    ['nuxt-facebook-pixel-module', {
+      track: 'PageView',
+      pixelId: '790526371136735'
+    }],
+    ['nuxt-twitter-pixel-module', {
+      track: 'PageView',
+      pixelId: 'nzno2'
+    }]
   ],
   /*
   ** Render Markdown
@@ -335,6 +343,10 @@ module.exports = {
     },
     {
       src: '~/plugins/confetti',
+      ssr: false
+    },
+    {
+      src: '~plugins/ga.js',
       ssr: false
     }
   ],

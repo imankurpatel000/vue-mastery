@@ -7,7 +7,7 @@
 
     .courses-body.wrapper
       CourseList(:courses='courses' :account='account')
-      Latest(:courses='courses' :latests='featured' :account='account')
+      Latest(:courses='courses' :latests='latests' :account='account')
 
     .vue-conf
       VueConfBanner
@@ -29,7 +29,7 @@ export default {
 
   head () {
     return {
-      title: 'Vue Mastery | Course Listing',
+      title: 'Course Listing | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
@@ -46,7 +46,7 @@ export default {
   },
 
   async fetch ({ store }) {
-    await store.dispatch('featured')
+    await store.dispatch('latests')
     await store.dispatch('getAllCourses')
   },
 
@@ -54,7 +54,7 @@ export default {
     ...mapState({
       account: result => result.account.account,
       courses: result => result.courses.courses,
-      featured: result => result.courses.featured
+      latests: result => result.courses.latests
     })
   }
 }

@@ -87,6 +87,12 @@ import Testimonials from '~/components/static/Testimonials.vue'
 export default {
   name: 'page-pricing',
 
+  head () {
+    return {
+      title: 'Pricing | Vue Mastery'
+    }
+  },
+
   middleware: 'anonymous',
 
   components: {
@@ -165,7 +171,14 @@ export default {
 
         success: () => {
           this.chargebeeInstance.closeAll()
-          const redirect = plan === 'monthly-subscription' ? '/thank-you-monthly' : '/thank-you-annual'
+          let redirect
+          if (plan === 'monthly-subscription') {
+            redirect = '/thank-you-monthly'
+            if (this.$trackMonthly) this.$trackMonthly()
+          } else {
+            redirect = '/thank-you-annual'
+            if (this.$trackAnnual) this.$trackAnnual()
+          }
           this.$store.dispatch('fakeSubscribe')
           this.$router.push(redirect)
         }

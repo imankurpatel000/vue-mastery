@@ -12,9 +12,10 @@ export default {
   name: 'page-privacy',
 
   middleware: 'anonymous',
+
   head () {
     return {
-      title: 'Vue Mastery | Privacy Policy',
+      title: 'Privacy Policy | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
