@@ -12,9 +12,6 @@ export default {
   name: 'page-privacy',
 
   middleware: 'anonymous',
-  // head: {
-  //   title: 'Privacy Policy'
-  // }
   head () {
     return {
       title: 'Vue Mastery | Privacy Policy',

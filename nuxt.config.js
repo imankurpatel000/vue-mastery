@@ -295,7 +295,8 @@ module.exports = {
     injected: true,
     use: [
       'markdown-it-decorate',
-      'markdown-it-highlightjs'
+      'markdown-it-highlightjs',
+      'markdown-it-anchor'
     ]
   },
   /*
