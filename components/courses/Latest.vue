@@ -1,7 +1,8 @@
 <template lang='pug'>
 div
   h2.title Latest Lessons
-  nuxt-link(v-for='lesson in Object.values(latests)'
+  nuxt-link(v-for='(lesson, index) in latests'
+            v-if='index < 3'
             :key='lesson.id'
             :to='link(lesson)')
     .media-block
@@ -27,7 +28,7 @@ export default {
 
   props: {
     latests: {
-      type: Object,
+      type: Array,
       required: true
     },
     courses: {

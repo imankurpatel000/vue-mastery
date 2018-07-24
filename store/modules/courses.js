@@ -88,9 +88,9 @@ const actions = {
   latests ({ commit, state }) {
     if (state.latests) return true
     return db.get('lessons', {
-      limitToLast: 3,
-      orderByChild: 'status',
-      equalTo: 'published',
+      limitToLast: 10,
+      orderByChild: 'date',
+      // fields: ['title', 'slug', 'free', 'duration', 'published', 'date', 'belongsToCourse', 'image'],
       populate: [{
         field: 'belongsToCourse',
         subFields: [ 'slug' ]
@@ -99,7 +99,14 @@ const actions = {
         subFields: [ 'image' ]
       }]
     }).then(latests => {
-      commit(types.RECEIVE_LATEST, { latests })
+      let publishedLatest = Object.values(latests)
+      publishedLatest = publishedLatest.filter(key => {
+        return key.status === 'published'
+      }).sort((a, b) => {
+        return new Date(b.date) - new Date(a.date)
+      })
+
+      commit(types.RECEIVE_LATEST, { publishedLatest })
     })
   },
 
@@ -152,8 +159,8 @@ const mutations = {
   [types.RECEIVE_FEATURED] (state, { featured }) {
     state.featured = featured.featured
   },
-  [types.RECEIVE_LATEST] (state, { latests }) {
-    state.latests = latests
+  [types.RECEIVE_LATEST] (state, { publishedLatest }) {
+    state.latests = publishedLatest
   },
   [types.RECEIVE_CONFERENCE] (state, { conference }) {
     state.conference = conference
