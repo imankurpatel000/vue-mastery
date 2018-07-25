@@ -2,7 +2,9 @@ const admin = require('firebase-admin')
 const subscription = require('./subscription')
 
 const functions = require('firebase-functions')
-admin.initializeApp(functions.config().firebase)
+if (admin.apps.length === 0) {
+  admin.initializeApp(functions.config().firebase)
+}
 
 module.exports = {
   account (id) {
@@ -41,6 +43,8 @@ module.exports = {
   },
 
   subscribe (email, id, subscribing = true) {
+    if (subscribing) console.log(`Attempt to subscribe user with email ${email}`)
+
     return admin
       .database()
       .ref('accounts')
@@ -52,6 +56,12 @@ module.exports = {
           .update({
             subscribed: subscribing,
             chargebeeId: id
+          }, (error) => {
+            if (error) {
+              console.log(`Error subscribing the user: ${error}`)
+            } else {
+              console.log(`Success subscribing the user`)
+            }
           })
         console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
         return subscription.getMailerList('Vue Mastery Subscribers')

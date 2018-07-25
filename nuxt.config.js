@@ -1,18 +1,15 @@
 const conf = require('./firebase')
 const generator = require('./services/generator.js')()
-let baseUrl = 'https://www.vuemastery.com'
-let bots = 'index, follow'
-if (conf.projectId === 'vue-mastery-staging') {
-  baseUrl = 'https://vue-mastery-staging.firebaseapp.com/'
-  bots = 'noindex'
-}
+const baseUrl = conf.baseUrl
 
 module.exports = {
   /*
   ** Build configuration
   */
   env: {
-    url: baseUrl
+    url: conf.baseUrl,
+    cloudfunctions: conf.cloudfunctions,
+    chargebeeSite: conf.chargebeeSite
   },
   /*
   ** Headers of the page
@@ -23,7 +20,7 @@ module.exports = {
       { charset: 'utf-8' },
       {
         name: 'robots',
-        content: bots
+        content: conf.bots
       },
       {
         name: 'viewport',
@@ -282,11 +279,19 @@ module.exports = {
   modules: [
     ['@nuxtjs/pwa', { icon: false }],
     '@nuxtjs/markdownit',
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-90157003-2'
+    ['@nuxtjs/google-tag-manager', {
+      id: 'GTM-5DMGGN2'
     }],
     '@nuxtjs/toast',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    ['nuxt-facebook-pixel-module', {
+      track: 'PageView',
+      pixelId: '790526371136735'
+    }],
+    ['nuxt-twitter-pixel-module', {
+      track: 'PageView',
+      pixelId: 'nzno2'
+    }]
   ],
   /*
   ** Render Markdown
@@ -297,6 +302,7 @@ module.exports = {
     typographer: true,
     injected: true,
     use: [
+      'markdown-it-anchor',
       'markdown-it-decorate',
       'markdown-it-highlightjs'
     ]
@@ -337,6 +343,10 @@ module.exports = {
     },
     {
       src: '~/plugins/confetti',
+      ssr: false
+    },
+    {
+      src: '~plugins/ga.js',
       ssr: false
     }
   ],

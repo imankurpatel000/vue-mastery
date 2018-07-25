@@ -8,21 +8,9 @@ no-ssr
         transition(name="badge" appear)
           img(:src='course.image[0].url')
       h5 Tell others about your accomplishment.
-      social-sharing(inline-template :url="base+'/'+course.slug"
+      social-sharing(inline-template :url="base+'/courses/'+course.slug"
                     :title="congratsTitle")
         .social-wrapper
-          //- network.underline.-has-icon(network='facebook')
-          //-   i.fab.fa-facebook
-          //-   span Facebook
-          //- network.underline.-has-icon(network='googleplus')
-          //-   i.fab.fa-google-plus
-          //-   span Google +
-          //- network.underline.-has-icon(network='linkedin')
-          //-   i.fab.fa-linkedin
-          //-   span LinkedIn
-          //- network.underline.-has-icon(network='reddit')
-          //-   i.fab.fa-reddit
-          //-   span Reddit
           network.underline.-has-icon(network='twitter')
             i.fab.fa-twitter
             span Twitter
@@ -48,7 +36,7 @@ export default {
 
   computed: {
     congratsTitle () {
-      return `I've reached a milestone on my Journey to Vue Mastery by completing the ${this.course.title} course`
+      return `I've completed the ${this.course.title} course on @VueMastery, the ultimate resource for #VueJS developers. #JavaScript`
     }
   },
 

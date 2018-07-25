@@ -1,7 +1,7 @@
 export default {
   get (d) {
     return {
-      title: `${d.categoryTitle}: ${d.pageTitle}`,
+      title: `${d.pageTitle} - ${d.categoryTitle} | Vue Mastery`,
       meta: [{
         hid: `description`,
         name: 'description',

@@ -87,6 +87,12 @@ import Testimonials from '~/components/static/Testimonials.vue'
 export default {
   name: 'page-pricing',
 
+  head () {
+    return {
+      title: 'Pricing | Vue Mastery'
+    }
+  },
+
   middleware: 'anonymous',
 
   components: {
@@ -110,7 +116,7 @@ export default {
   mounted () {
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
-        site: 'vuemastery'
+        site: process.env.chargebeeSite
       })
     }
   },
@@ -156,8 +162,7 @@ export default {
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
-          return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/generate_hp_url', params)
-          // return axios.post('http://localhost:5000/vue-mastery-staging/us-central1/generate_hp_url', params)
+          return axios.post(`${process.env.cloudfunctions}/generate_hp_url`, params)
             .then((response) => {
               this.$toast.clear()
               return response.data
@@ -166,7 +171,14 @@ export default {
 
         success: () => {
           this.chargebeeInstance.closeAll()
-          const redirect = plan === 'monthly-subscription' ? '/thank-you-monthly' : '/thank-you-annual'
+          let redirect
+          if (plan === 'monthly-subscription') {
+            redirect = '/thank-you-monthly'
+            if (this.$trackMonthly) this.$trackMonthly()
+          } else {
+            redirect = '/thank-you-annual'
+            if (this.$trackAnnual) this.$trackAnnual()
+          }
           this.$store.dispatch('fakeSubscribe')
           this.$router.push(redirect)
         }

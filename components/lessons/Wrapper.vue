@@ -161,8 +161,9 @@ export default {
     },
 
     lockedStyle () {
+      const imageUrl = this.current.image ? `url(${this.current.image[0].url})` : ''
       return {
-        backgroundImage: `url(${this.current.image[0].url})`
+        backgroundImage: imageUrl
       }
     },
 
@@ -177,7 +178,7 @@ export default {
     },
 
     isCourseCompleted (slug) {
-      if (this.course.completable && this.account.courses && this.account.courses[this.course.slug]) {
+      if (this.course.completable && this.account && this.account.courses && this.account.courses[this.course.slug]) {
         let total = 0
         Object.entries(this.account.courses[this.course.slug].completedLessons).forEach(
           ([key, value]) => {

@@ -17,10 +17,14 @@ const timeConvert = function (time) {
 }
 
 const createVideoTags = function (url, lesson) {
+  const image = lesson.image[0]
+  if (!image || !image.url) {
+    console.log(`Image for the lesson ${lesson.title} does not exist`)
+  }
   return {
     url: url,
     video: {
-      thumbnail_loc: lesson.image[0].url.replace(/&/g, '&amp;'),
+      thumbnail_loc: image.url.replace(/&/g, '&amp;'),
       title: lesson.title,
       description: lesson.description,
       player_loc: `https://player.vimeo.com/video/${lesson.videoEmbedId}`,
@@ -101,7 +105,12 @@ module.exports = async function (nuxt, generateOptions) {
     databaseURL: conf.databaseURL,
     storageBucket: conf.storageBucket
   }
-  const firebaseApp = admin.initializeApp(firebaseConfig)
+  let firebaseApp = {}
+  if (admin.apps.length === 0) {
+    firebaseApp = admin.initializeApp(firebaseConfig)
+  } else {
+    firebaseApp = admin.apps[0]
+  }
   const db = flamelink({ firebaseApp, isAdminApp: true }).content
 
   await getCoursesPage(db, result)

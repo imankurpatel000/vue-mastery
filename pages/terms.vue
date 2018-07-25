@@ -14,7 +14,7 @@ export default {
   middleware: 'anonymous',
 
   head: {
-    title: 'Terms of Service'
+    title: 'Terms of Service | Vue Mastery'
   },
 
   computed: {

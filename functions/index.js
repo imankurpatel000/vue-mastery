@@ -2,12 +2,11 @@ const functions = require('firebase-functions')
 const chargebee = require('chargebee')
 const subscription = require('./subscription')
 const db = require('./helpers')
-// const payment = require('./payment')
 
 const mainListId = functions.config().mailerlite.mainlistid
 chargebee.configure({
-  site: 'vuemastery',
-  api_key: 'live_ISpiJg6kYCeb8iDb1izcubVZvcu2S2zAwP'
+  site: functions.config().chargebee.site,
+  api_key: functions.config().chargebee.key
 })
 
 module.exports = {
@@ -202,7 +201,9 @@ module.exports = {
   }),
 
   subscription_changes: functions.https.onRequest((req, res) => {
+    console.log(`CHARGEBEE EVENT: ${req.body.event_type}`)
     const customer = req.body.content.customer
+    if (customer) console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
     switch (req.body.event_type) {
       case 'subscription_reactivated':
       case 'subscription_activated':

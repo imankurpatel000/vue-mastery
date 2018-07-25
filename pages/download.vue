@@ -14,7 +14,7 @@ export default {
 
   head () {
     return {
-      title: '[Downloading...] Vue Cheat Sheet',
+      title: '[Downloading...] Vue Cheat Sheet | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',

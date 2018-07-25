@@ -220,7 +220,7 @@ export default {
       this.chargebeeInstance.setPortalSession(() => {
         let params = new URLSearchParams()
         params.append('customer_id', this.account.chargebeeId)
-        return axios.post('https://us-central1-vue-mastery-staging.cloudfunctions.net/create_portal_session', params)
+        return axios.post(`${process.env.cloudfunctions}/create_portal_session`, params)
           .then((response) => {
             return response.data
           })

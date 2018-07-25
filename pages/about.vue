@@ -48,7 +48,7 @@ export default {
   middleware: 'anonymous',
   head () {
     return {
-      title: 'Vue Mastery | About Us',
+      title: 'About Us | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
