@@ -77,7 +77,7 @@ const actions = {
     return db.get('home', {
       populate: [ {
         field: 'featured',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image', 'free' ],
         populate: [ 'image', 'belongsToCourse' ]
       }]
     }).then(featured => {
@@ -104,7 +104,7 @@ const actions = {
     return db.get('course', {
       populate: [ {
         field: 'latests',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image', 'free' ],
         populate: [ 'image', 'belongsToCourse' ]
       }]
     }).then(latests => {
