@@ -87,16 +87,25 @@ const actions = {
 
   latests ({ commit, state }) {
     if (state.latests) return true
-    return db.get('lessons', {
-      limitToLast: 3,
-      orderByChild: 'status',
-      equalTo: 'published',
-      populate: [{
-        field: 'belongsToCourse',
-        subFields: [ 'slug' ]
-      }, {
-        field: 'image',
-        subFields: [ 'image' ]
+    // return db.get('lessons', {
+    //   limitToLast: 3,
+    //   orderByChild: 'status',
+    //   equalTo: 'published',
+    //   populate: [{
+    //     field: 'belongsToCourse',
+    //     subFields: [ 'slug' ]
+    //   }, {
+    //     field: 'image',
+    //     subFields: [ 'image' ]
+    //   }]
+    // }).then(latests => {
+    //   commit(types.RECEIVE_LATEST, { latests })
+    // })
+    return db.get('course', {
+      populate: [ {
+        field: 'latests',
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
+        populate: [ 'image', 'belongsToCourse' ]
       }]
     }).then(latests => {
       commit(types.RECEIVE_LATEST, { latests })
@@ -153,7 +162,7 @@ const mutations = {
     state.featured = featured.featured
   },
   [types.RECEIVE_LATEST] (state, { latests }) {
-    state.latests = latests
+    state.latests = latests.latests
   },
   [types.RECEIVE_CONFERENCE] (state, { conference }) {
     state.conference = conference
