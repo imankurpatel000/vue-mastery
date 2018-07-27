@@ -15,6 +15,22 @@
         .page-title.text-center
           h2 Pricing
 
+        .free-sub
+          .card
+            .card-body
+              h3.text-center Free
+
+              .money
+                .symbol $
+                .decimal 0
+
+              .text
+                p Free Vue.js CheatSheet
+                p Updates on new free content weekly.
+
+              button.button.primary.-full(@click='openLogin') Select Plan
+
+
         .monthly
           .card
             .card-body
@@ -122,6 +138,14 @@ export default {
   },
 
   methods: {
+    openLogin () {
+      this.$modal.show('login-form', {
+        newAccount: true,
+        headerTitle: 'Sign Up for a Free Account',
+        location: this.location
+      })
+    },
+
     subscribe (plan) {
       if (this.account) {
         if (this.account.subscribed) {
@@ -191,7 +215,7 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 
-build-grid-area(pricing-content pricing-structure page-title monthly annually team)
+build-grid-area(pricing-content pricing-structure page-title free-sub monthly annually team)
 
 .pricing-layout
   display grid
@@ -199,18 +223,13 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   grid-template-areas 'pricing-content'\
                       'pricing-structure'
 
-  +laptop-up()
-    grid-template-columns 33% 1fr
-    grid-column-gap 2%
-    grid-template-areas 'pricing-content pricing-structure'
-
 .pricing-content
   display flex
+  justify-self center
   flex-direction column
-  justify-content start
+  align-items center
+  max-width 568px
 
-  .title
-    color $secondary-color
   +laptop-up()
     padding-top $vertical-space
 
@@ -218,28 +237,36 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
     justify-content center
     padding-top 0
 
+  .title
+    color $secondary-color
+    text-align center
+
+    +laptop-up()
+      text-align center
+
 .pricing-structure
   display grid
   margin-bottom $vertical-space
-  grid-column-gap 20px
   grid-row-gap 20px
   grid-template-columns 1fr
   grid-template-areas 'page-title'\
+                      'free-sub'\
                       'monthly'\
                       'annually'\
                       'team'
 
   +tablet-up()
-    grid-template-columns 1fr 1fr
-    grid-template-areas 'page-title page-title'\
-                        'monthly annually'\
-                        'team team'
+    grid-column-gap 20px
+    grid-template-columns 1fr 1fr 1fr
+    grid-template-areas 'page-title page-title page-title'\
+                        'free-sub monthly annually'\
+                        'team team team'
 
   +desktop-up()
     align-items stretch
-    grid-template-columns 1fr 1fr 1fr
-    grid-template-areas 'page-title page-title page-title'\
-                        'monthly annually team'\
+    grid-template-columns 1fr 1fr 1fr 1fr
+    grid-template-areas 'page-title page-title page-title page-title'\
+                        'free-sub monthly annually team'\
 
 .page-title h2
   color $secondary-color
@@ -310,6 +337,11 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 
       .button
         width 100%
+
+.free-sub
+  .card-body .text
+    flex-grow 1
+    text-align center
 
 .money
   display flex
