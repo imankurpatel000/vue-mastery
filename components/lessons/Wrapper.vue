@@ -18,32 +18,37 @@ div
          :account='account'
          :completed-unlogged='completedUnlogged'
          :isLesson='isLesson'
-         :is-course-completed='isCompleted' 
+         :is-course-completed='isCompleted'
          @redirect='redirect'
          @completed='showCongrat')
 
     Body(:course='current' :locked='locked' :free='current.free')
       Profile(:current='current' v-if='!isLesson' v-cloak)
 
-    aside.lesson-aside(v-if='!locked' v-cloak)
-      .control-group
-        Download(v-if='current.free' :courseLink='current.downloadLink', :account='account')
-        SocialShare(:lesson='current' :baseUrl='baseUrl')
-
-      .card.download(v-if='!isLesson' v-cloak)
-        .card-body
-          h3 Download the Vue Cheat Sheet
-          p All the essential syntax at your fingertips
-          DownloadButton(button-class='inverted' location='Vueconf download button')
-
-      Resources(v-if='current.resources' v-cloak
-                :resources='current.resources')
-
-      Challenges(v-if='current.codingChallenge' :challenges='current.codingChallenge')
-
-      .text-center(v-if='isLesson')
-        a.button.primary.border(href='https://www.facebook.com/groups/152305585468331/') Discuss in our Facebook Group
-        router-link.button.inverted.-small(to='/contact') Send us Feedback
+    SideBar(:account='account'
+            :course='course'
+            :current='current'
+            :isLesson='isLesson'
+            :free='current.free')
+    //- aside.lesson-aside(v-if='!locked' v-cloak)
+    //-   .control-group
+    //-     Download(:courseLink='current.downloadLink', :account='account')
+    //-     SocialShare(:lesson='current' :baseUrl='baseUrl')
+    //-
+    //-   .card.download(v-if='!isLesson' v-cloak)
+    //-     .card-body
+    //-       h3 Download the Vue Cheat Sheet
+    //-       p All the essential syntax at your fingertips
+    //-       DownloadButton(button-class='inverted' location='Vueconf download button')
+    //-
+    //-   Resources(v-if='current.resources' v-cloak
+    //-             :resources='current.resources')
+    //-
+    //-   Challenges(v-if='current.codingChallenge' :challenges='current.codingChallenge')
+    //-
+    //-   .text-center(v-if='isLesson')
+    //-     a.button.primary.border(href='https://www.facebook.com/groups/152305585468331/') Discuss in our Facebook Group
+    //-     router-link.button.inverted.-small(to='/contact') Send us Feedback
 
     Nav(v-if='current'
         :lessons='course.lessons'
@@ -78,6 +83,7 @@ import Challenges from '~/components/lessons/Challenges'
 import Download from '~/components/lessons/Download'
 import Header from '~/components/lessons/Header'
 import List from '~/components/lessons/List'
+import SideBar from '~/components/lessons/SideBar'
 import Nav from '~/components/lessons/Navigation'
 import Popup from '~/components/lessons/Popup'
 import Resources from '~/components/lessons/Resources'
@@ -131,6 +137,7 @@ export default {
     List,
     Body,
     Nav,
+    SideBar,
     Resources,
     Challenges,
     Popup,

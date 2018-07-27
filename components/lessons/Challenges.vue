@@ -1,11 +1,9 @@
 <template lang='pug'>
-.lesson-challenge.card
-  .card-body
-    h3
-      i.fa.fa-code
-      | Coding Challenge
-    div(v-html='$md.render(challenges)')
-
+.lesson-challenge.card-body
+  h3
+    i.fa.fa-code
+    | Coding Challenge
+  div(v-html='$md.render(challenges)')
 </template>
 
 <script>

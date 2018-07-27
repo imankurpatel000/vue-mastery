@@ -1,13 +1,11 @@
 <template lang='pug'>
-.card(v-if='resources.length' v-cloak)
-  .card-body
-    h3
-      i.fa.fa-folder-open
-      | Lesson Resource{{ resources.length > 1 ? 's' : '' }}
+.card-body(v-if='resources.length' v-cloak)
+  h3
+    i.fa.fa-folder-open
+    | Lesson Resource{{ resources.length > 1 ? 's' : '' }}
 
-    ul.styled-list
-      li(v-for='resource in resources' v-html='$md.render(resource[Object.keys(resource)[0]])')
-
+  ul.styled-list
+    li(v-for='resource in resources' v-html='$md.render(resource[Object.keys(resource)[0]])')
 </template>
 
 <script>

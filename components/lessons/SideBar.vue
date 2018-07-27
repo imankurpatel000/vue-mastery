@@ -3,9 +3,8 @@ aside.lesson-aside
   div(ref="sidebarContent" :class="sidebarStyles")
     .card
       .card-body
-        Download(v-if='current.free'
-              :courseLink='current.downloadLink'
-              :account='account')
+        Download(:courseLink='current.downloadLink'
+                :account='account')
 
         SocialShare(:lesson='current'
                   :baseUrl='baseUrl')
@@ -59,6 +58,10 @@ export default {
     isLesson: {
       type: Boolean,
       default: true
+    },
+    free: {
+      type: Boolean,
+      default: false
     }
   },
 
