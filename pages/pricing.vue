@@ -26,7 +26,8 @@
 
               .text
                 p Free Vue.js CheatSheet
-                p Updates on new free content weekly.
+                p Access to the complete Intro to Vue course
+                p Free education content delivered to your inbox
 
               button.button.primary.-full(@click='openLogin') Select Plan
 
