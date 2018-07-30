@@ -29,7 +29,7 @@
                 p Access to the complete Intro to Vue course
                 p Free education content delivered to your inbox
 
-              button.button.primary.-full(@click='openLogin') Select Plan
+              button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
 
 
         .monthly
@@ -127,7 +127,10 @@ export default {
   computed: {
     ...mapState({
       account: result => result.account.account
-    })
+    }),
+    freeText () {
+      return this.account ? 'Current Plan' : 'Select Plan'
+    }
   },
 
   mounted () {
@@ -140,11 +143,13 @@ export default {
 
   methods: {
     openLogin () {
-      this.$modal.show('login-form', {
-        newAccount: true,
-        headerTitle: 'Sign Up for a Free Account',
-        location: this.location
-      })
+      if (!this.account) {
+        this.$modal.show('login-form', {
+          newAccount: true,
+          headerTitle: 'Sign Up for a Free Account',
+          location: this.location
+        })
+      }
     },
 
     subscribe (plan) {
