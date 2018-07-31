@@ -27,7 +27,7 @@
               .text
                 p Free Vue.js CheatSheet
                 p Access to the complete Intro to Vue course
-                p Free education content delivered to your inbox
+                p Free educational content delivered to your inbox
 
               button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
 
