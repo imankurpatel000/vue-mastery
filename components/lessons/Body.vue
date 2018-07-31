@@ -47,8 +47,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .lesson-content
   display flex
   flex-direction column

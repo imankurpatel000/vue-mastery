@@ -21,8 +21,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .wrapper
   padding-top ($vertical-space/2)
   padding-bottom ($vertical-space/2)

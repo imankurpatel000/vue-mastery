@@ -22,13 +22,11 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .banner
   padding-top $vertical-space
   padding-bottom $vertical-space
   background-image url(/images/bkg-podcast.jpg)
-  
+
   +laptop-up()
     padding-top ($vertical-space * 2)
     padding-bottom ($vertical-space * 2)

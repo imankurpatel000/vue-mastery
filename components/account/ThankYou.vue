@@ -89,8 +89,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
-
 .container
   position relative
   overflow hidden

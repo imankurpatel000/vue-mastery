@@ -86,44 +86,44 @@ export default {
   },
 
   mounted () {
-    this.calculateSidebar()
+    // this.calculateSidebar()
   },
 
   computed: {
     baseUrl () {
       return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
-    },
-
-    sidebarStyles () {
-      if (this.sidebar.height <= this.sidebar.windowHeight) {
-        return { 'fixed-top': true }
-      }
-
-      if ((this.sidebar.windowScrollTop + this.sidebar.windowHeight) > this.sidebar.height) {
-        return { 'fixed-bottom': true }
-      }
     }
+
+    // sidebarStyles () {
+    //   if (this.sidebar.height <= this.sidebar.windowHeight) {
+    //     return { 'fixed-top': true }
+    //   }
+    //
+    //   if ((this.sidebar.windowScrollTop + this.sidebar.windowHeight) > this.sidebar.height) {
+    //     return { 'fixed-bottom': true }
+    //   }
+    // }
   },
 
   methods: {
-    calculateSidebar () {
-      this.sidebar.height = this.$refs.sidebarContent.offsetHeight
-      this.sidebar.windowHeight = window.innerHeight
-    },
-
-    handleResize () {
-      clearTimeout(this.debounceTimer)
-      this.debounceTimer = setTimeout(() => {
-        this.calculateSidebar()
-      }, 100)
-    },
-
-    handleScroll () {
-      clearTimeout(this.debounceTimer)
-      this.debounceTimer = setTimeout(() => {
-        this.sidebar.windowScrollTop = window.pageYOffset || document.documentElement.scrollTop
-      }, 100)
-    }
+    // calculateSidebar () {
+    //   this.sidebar.height = this.$refs.sidebarContent.offsetHeight
+    //   this.sidebar.windowHeight = window.innerHeight
+    // },
+    //
+    // handleResize () {
+    //   clearTimeout(this.debounceTimer)
+    //   this.debounceTimer = setTimeout(() => {
+    //     this.calculateSidebar()
+    //   }, 100)
+    // },
+    //
+    // handleScroll () {
+    //   clearTimeout(this.debounceTimer)
+    //   this.debounceTimer = setTimeout(() => {
+    //     this.sidebar.windowScrollTop = window.pageYOffset || document.documentElement.scrollTop
+    //   }, 100)
+    // }
   },
 
   created () {
@@ -136,7 +136,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
 .lesson-aside
   grid-area sidebar
   padding 0 4%

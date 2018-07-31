@@ -24,8 +24,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
-
 .wrapper
   position relative
   align-items center

@@ -61,8 +61,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .section
   color #fff
   height: 100%

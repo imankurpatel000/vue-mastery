@@ -60,8 +60,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 a:hover
   text-decoration none
 

@@ -21,8 +21,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
-
 .wrapper
   display flex
   padding-bottom $vertical-space
