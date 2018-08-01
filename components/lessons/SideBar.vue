@@ -1,6 +1,8 @@
 <template lang="pug">
 aside.lesson-aside
-  div(ref="sidebarContent" :class="sidebarStyles")
+  affix(relative-element-selector='#lessonContent'
+        :offset='{ top: 20, bottom: 20 }',
+        :enabled='affixOnLaptopUp')
     .card
       .card-body
         Download(:courseLink='current.downloadLink'
@@ -9,6 +11,7 @@ aside.lesson-aside
         SocialShare(:lesson='current'
                   :baseUrl='baseUrl')
 
+      .card-space
         Resources(v-if='current.resources'
                   :resources='current.resources'
                   v-cloak)
@@ -76,60 +79,41 @@ export default {
 
   data () {
     return {
-      sidebar: {
-        height: 0,
-        windowHeight: 0,
-        windowScrollTop: 0
-      },
+      windowWidth: null,
       debounceTimer: setTimeout(() => {})
     }
   },
 
   mounted () {
-    // this.calculateSidebar()
+    this.calculateWindowWidth()
   },
 
   computed: {
     baseUrl () {
       return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
-    }
+    },
 
-    // sidebarStyles () {
-    //   if (this.sidebar.height <= this.sidebar.windowHeight) {
-    //     return { 'fixed-top': true }
-    //   }
-    //
-    //   if ((this.sidebar.windowScrollTop + this.sidebar.windowHeight) > this.sidebar.height) {
-    //     return { 'fixed-bottom': true }
-    //   }
-    // }
+    affixOnLaptopUp () {
+      if (this.windowWidth < 1024) { return false }
+    }
   },
 
   methods: {
-    // calculateSidebar () {
-    //   this.sidebar.height = this.$refs.sidebarContent.offsetHeight
-    //   this.sidebar.windowHeight = window.innerHeight
-    // },
-    //
-    // handleResize () {
-    //   clearTimeout(this.debounceTimer)
-    //   this.debounceTimer = setTimeout(() => {
-    //     this.calculateSidebar()
-    //   }, 100)
-    // },
-    //
-    // handleScroll () {
-    //   clearTimeout(this.debounceTimer)
-    //   this.debounceTimer = setTimeout(() => {
-    //     this.sidebar.windowScrollTop = window.pageYOffset || document.documentElement.scrollTop
-    //   }, 100)
-    // }
+    calculateWindowWidth () {
+      this.windowWidth = window.innerWidth
+    },
+
+    handleResize () {
+      clearTimeout(this.debounceTimer)
+      this.debounceTimer = setTimeout(() => {
+        this.calculateWindowWidth()
+      }, 100)
+    }
   },
 
   created () {
     if (process.browser) {
       window.addEventListener('resize', this.handleResize)
-      window.addEventListener('scroll', this.handleScroll)
     }
   }
 }
@@ -138,13 +122,14 @@ export default {
 <style lang="stylus" scoped>
 .lesson-aside
   grid-area sidebar
-  padding 0 4%
+  padding 0 4% 20px
+
 
   +laptop-up()
     margin $vertical-space 0
 
-  > div
-    margin-bottom 20px
+  .vue-affix.affix
+    margin-right 1.2%
 
   .control-group
     justify-content center
@@ -158,13 +143,27 @@ export default {
       +laptop-up()
         margin-right 0
 
-.fixed-top
-  position fixed
-  top 10px
+.card
+  flex-flow column
 
-.fixed-bottom
-  position fixed
-  bottom 10px
+  .card-space
+    display flex
+    flex-flow column
+
+    +tablet-up()
+      flex-flow row
+
+    +laptop-up()
+      flex-flow column
+
+    > .card-body
+      border-top solid 1px #E6E8EB
+      &:last-of-type
+        border-left none
+        +tablet-up()
+          border-left solid 1px #E6E8EB
+        +laptop-up()
+          border-left none
 
 .download
   margin-top 24px
