@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="168" viewBox="0 0 120 168">
+  <defs>
+    <style>
+      .e8b93654-542b-4ba9-8f53-87a828c11c52 {
+        fill: #36495e;
+      }
+    </style>
+  </defs>
+  <title>document-blue</title>
+  <g id="576c7b91-a7f6-4cd7-81cf-9a19402ad2a0" data-name="Layer 2">
+    <g id="92f0dd31-12c2-4a3e-a22a-407458244713" data-name="Layer 2">
+      <g>
+        <g>
+          <rect class="e8b93654-542b-4ba9-8f53-87a828c11c52" x="24" y="120" width="72" height="8" rx="1" ry="1"/>
+          <rect class="e8b93654-542b-4ba9-8f53-87a828c11c52" x="24" y="96" width="72" height="8" rx="1" ry="1"/>
+          <rect class="e8b93654-542b-4ba9-8f53-87a828c11c52" x="24" y="72" width="72" height="8" rx="1" ry="1"/>
+          <rect class="e8b93654-542b-4ba9-8f53-87a828c11c52" x="24" y="48" width="40" height="8" rx="1" ry="1"/>
+        </g>
+        <path class="e8b93654-542b-4ba9-8f53-87a828c11c52" d="M4,0A4,4,0,0,0,0,4V164a4,4,0,0,0,4,4H116a4,4,0,0,0,4-4V50.9a8.05,8.05,0,0,0-1.85-5.13L82.4,2.88A8,8,0,0,0,76.25,0ZM81.77,14.12l26.86,32.24a1,1,0,0,1-.77,1.64H81a1,1,0,0,1-1-1V14.77A1,1,0,0,1,81.77,14.12ZM8,159V9A1,1,0,0,1,9,8H71a1,1,0,0,1,1,1V52a4,4,0,0,0,4,4h35a1,1,0,0,1,1,1V159a1,1,0,0,1-1,1H9A1,1,0,0,1,8,159Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
