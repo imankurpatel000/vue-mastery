@@ -11,15 +11,17 @@
       p Watch the founder of Vue.js<br/> Evan You’s Keynote
       div
         nuxt-link.button.secondary.border.-has-icon(to='/conferences/vueconf-2018/opening-keynote-evan-you')
-          i.fa.fa-play
+          Icon(name='play-circle')
           span Watch now
 
     img.vue-conf-buildings(src='/images/img-vueconf-buildings.svg')
 </template>
 
 <script>
+import Icon from '~/components/ui/Icon'
 export default {
-  name: 'vue-conf-banner'
+  name: 'vue-conf-banner',
+  components: { Icon }
 }
 </script>
 
