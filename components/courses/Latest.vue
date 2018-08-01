@@ -6,6 +6,7 @@ div
             :to='link(lesson)')
     .media-block
       .media.-video(v-if='lesson.image')
+        Icon(name='play-circle' width='28' height='28')
         img(:src='lesson.image[0].url' :alt='lesson.title')
       .body
         h4.title-small {{ lesson.title }}
@@ -21,10 +22,10 @@ div
 </template>
 
 <script>
-
+import Icon from '~/components/ui/Icon'
 export default {
   name: 'courses-latest',
-
+  components: { Icon },
   props: {
     latests: {
       type: Object,
