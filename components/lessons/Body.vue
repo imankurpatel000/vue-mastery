@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .lesson-content(:class="locked ? '-locked': 'unlock'")
+  .lesson-content#lessonContent(:class="locked ? '-locked': 'unlock'")
     div
       h1.title {{ course.title}}
       slot
