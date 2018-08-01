@@ -1,22 +1,24 @@
 <template lang='pug'>
 no-ssr
-  a.button.secondary.-has-icon(v-cloak
+  a.button.secondary.-full(v-cloak
             v-if='account'
             :href='courseLink'
             download)
-    i.fa.fa-download
+    Icon(name='download-cloud')
     | Download Video
 
-  button.button.secondary.-has-icon(v-else v-cloak @click='openLogin')
-    i.fa.fa-download
+  button.button.secondary.-full(v-else v-cloak @click='openLogin')
+    Icon(name='download-cloud')
     | Download Video
-
 </template>
 
 <script>
+import Icon from '~/components/ui/Icon'
 export default {
   name: 'lesson-download-button',
-
+  components: {
+    Icon
+  },
   props: {
     account: {
       type: Object,

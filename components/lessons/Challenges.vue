@@ -1,8 +1,7 @@
 <template lang='pug'>
 .lesson-challenge.card-body
-  h3
-    i.fa.fa-code
-    | Coding Challenge
+  img.challenge-icon(src='/images/keyboard.svg')
+  h3 Coding Challenge
   div(v-html='$md.render(challenges)')
 </template>
 
@@ -21,6 +20,11 @@ export default {
 <style lang='stylus' scoped>
 .card
   padding 20px
+
+.challenge-icon
+  width 64px
+  height 64px
+
 h3
   padding-top 0
   i

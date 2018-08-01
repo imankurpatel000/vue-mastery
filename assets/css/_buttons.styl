@@ -2,13 +2,15 @@ button
   outline: none
 
 .button
-  display inline-block
+  display inline-flex
   height $button-height-small
   margin 0.25em 0
   padding 0 30px
   color #FFFFFF
   text-decoration none
-  text-align center
+  // text-align center
+  align-items center
+  justify-content: center
   line-height $button-height-small
   border none
   border-radius $form-radius
@@ -89,7 +91,7 @@ button
     display inline-flex
     align-items center
     justify-content center
-    overflow visible
+    overflow hidden
     i[class*=fa],
     i[class*=fab]
       margin-right 10px
@@ -107,6 +109,9 @@ button
     color $secondary-color
     &.inverted
       color #FFF
+
+  .icon
+    margin-right 8px
 
 .control-group
   display flex
@@ -139,7 +144,7 @@ button
 a:hover .button
 .button:hover
   text-decoration none
-  
+
   &:after
     left: 120%
     transition: left 1.5s cubic-bezier(0.19, 1, 0.22, 1)
