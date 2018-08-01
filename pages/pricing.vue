@@ -4,9 +4,9 @@
   .wrapper
     .pricing-layout
       .pricing-content
-        h2.title Becoming a Vue Mastery Subscriber means
+        h2.title Becoming a Vue Mastery Paid Subscriber means
         ul
-          li Access to all paid content.  New Lessons Weekly.
+          li Access to all paid content. New Lessons Weekly.
           li The ability to track your course progress.
           li Supporting the Vue.js News Podcast.
           li Most importantly, supporting the Vue.js project itself.
