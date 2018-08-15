@@ -13,11 +13,11 @@ export default {
       default: 'feather'
     },
     width: {
-      type: Number,
+      type: [Number, String],
       default: 24
     },
     height: {
-      type: Number,
+      type: [Number, String],
       default: 24
     }
   }
