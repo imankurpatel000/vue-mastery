@@ -10,25 +10,25 @@
 
       .actions.control-group
         a.button.primary(href='https://news.vuejs.org/' target='_blank') Read Official Vue.js News
-        a.button.secondary.-has-icon(href='https://news.vuejs.org/' target='_blank')
-          i.fa.fa-volume-up
+        a.button.secondary(href='https://news.vuejs.org/' target='_blank')
+          Icon(name='volume-2')
           span Listen to the Podcast
 </template>
 
 <script>
+import Icon from '~/components/ui/Icon'
 export default {
-  name: 'vue-podcast'
+  name: 'vue-podcast',
+  components: { Icon }
 }
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .banner
   padding-top $vertical-space
   padding-bottom $vertical-space
   background-image url(/images/bkg-podcast.jpg)
-  
+
   +laptop-up()
     padding-top ($vertical-space * 2)
     padding-bottom ($vertical-space * 2)

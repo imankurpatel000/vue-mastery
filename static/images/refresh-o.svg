@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .dda28177-4539-43be-a852-b22100100c60 {
+        fill: url(#67dc0953-813b-43ba-97ea-65138beed9bc);
+      }
+
+      .\38 269a6b1-9796-4cab-8317-72b494461850 {
+        fill: #fff;
+      }
+    </style>
+    <linearGradient id="67dc0953-813b-43ba-97ea-65138beed9bc" data-name="New Gradient Swatch 16" x1="49.99" y1="186.62" x2="150.01" y2="13.38" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#86d169"/>
+      <stop offset="1" stop-color="#41b782"/>
+    </linearGradient>
+  </defs>
+  <title>refresh-o</title>
+  <g id="c6cace34-f69f-4d4f-95b4-11fa0134b157" data-name="Layer 2">
+    <g id="113f63a7-7186-43a5-b30d-24b100e71c96" data-name="Layer 1">
+      <g>
+        <circle class="dda28177-4539-43be-a852-b22100100c60" cx="100" cy="100" r="100"/>
+        <path class="8269a6b1-9796-4cab-8317-72b494461850" d="M160.5,53.78H121A5.23,5.23,0,0,0,115.8,59V98.48a.76.76,0,0,0,.75.75h9a.75.75,0,0,0,.75-.75V70.82a.76.76,0,0,1,1.28-.54,40.56,40.56,0,1,1-39.84-10,.77.77,0,0,0,.52-.92l-2.36-8.63a.76.76,0,0,0-.93-.53,51,51,0,1,0,52.45,15.26.75.75,0,0,1,.57-1.24H160.5a.74.74,0,0,0,.75-.75V54.53A.74.74,0,0,0,160.5,53.78Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

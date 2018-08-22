@@ -39,8 +39,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 h3,
 h4
   padding-top 0

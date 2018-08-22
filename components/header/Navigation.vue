@@ -74,7 +74,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
 
 .navbar
   position: fixed
@@ -217,7 +216,6 @@ export default {
 </style>
 
 <style lang='stylus'>
-@import '~assets/css/_variables'
 .open-nav
   max-height: 100vh
   overflow: hidden

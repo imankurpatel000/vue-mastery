@@ -24,8 +24,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .wrapper
   grid-template-rows $vertical-space 1fr $vertical-space
   align-items center

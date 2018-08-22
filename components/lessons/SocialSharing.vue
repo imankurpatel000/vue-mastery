@@ -1,6 +1,8 @@
 <template lang='pug'>
 div
-  button.button.primary.border(type='button' @click='openShare') Share
+  button.button.inverted.-small.-full(type='button' @click='openShare')
+    Icon(name='share-2')
+    | Share Lesson
 
   no-ssr
     modal(name='share' v-cloak height='270')
@@ -29,9 +31,12 @@ div
 </template>
 
 <script>
+import Icon from '~/components/ui/Icon'
 export default {
   name: 'lesson-social-sharing',
-
+  components: {
+    Icon
+  },
   props: {
     lesson: {
       type: Object,
@@ -60,6 +65,7 @@ export default {
 <style lang='stylus' scoped>
 div
   display inline-flex
+  width 100%
 
 .social-wrapper
   display: flex

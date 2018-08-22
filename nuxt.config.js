@@ -291,7 +291,11 @@ module.exports = {
     ['nuxt-twitter-pixel-module', {
       track: 'PageView',
       pixelId: 'nzno2'
-    }]
+    }],
+    ['nuxt-stylus-resources-loader', [
+      'assets/css/_mixins.styl',
+      'assets/css/_variables.styl'
+    ]]
   ],
   /*
   ** Render Markdown
@@ -343,6 +347,10 @@ module.exports = {
     },
     {
       src: '~/plugins/confetti',
+      ssr: false
+    },
+    {
+      src: '~/plugins/affix',
       ssr: false
     },
     {

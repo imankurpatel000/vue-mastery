@@ -108,8 +108,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .actions
   display flex
   align-items center

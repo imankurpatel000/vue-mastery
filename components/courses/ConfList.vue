@@ -18,7 +18,7 @@
           b To be released on:&nbsp;
           span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
         p {{ talk.description }}
-  
+
   div(v-if="gotLightningTalks()")
     h2 Lightning Talks
       ul.talks-list
@@ -68,8 +68,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 $headerHeight = 150px
 $cardPadding = $vertical-space / 3
 

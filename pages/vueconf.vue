@@ -62,8 +62,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .courses-header
   height 220px
   display flex

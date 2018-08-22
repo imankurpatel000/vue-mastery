@@ -8,7 +8,7 @@
                :class='[activeOrCompleted(lesson.slug), unloggedAndLock(lesson), notPublished(lesson)]'
                :ref='current === lesson.slug ? "active" : ""'
                @click='selectLesson(lesson.slug)')
-      
+
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta(v-if='lesson.status === "published" || lesson.isVideoLive === "true"')
@@ -20,7 +20,7 @@
             span {{ lesson.author}}
         .list-item-meta(v-else)
           | To be released on {{lesson.date | moment("MMMM D")}}
-      
+
       .list-item-actions(@click.stop v-if='lesson.status === "published" || lesson.isVideoLive === "true"')
         i.fa.fa-lock
         label.checkmark
@@ -171,8 +171,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 headerHeight = 76px
 
 .lessons-list
@@ -267,7 +265,7 @@ headerHeight = 76px
   padding-top 0
   font-size 18px
   font-weight 400
-  
+
   +laptop-up()
     font-size 24px
 
