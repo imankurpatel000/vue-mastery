@@ -16,8 +16,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .banner
   display flex
   justify-content: center

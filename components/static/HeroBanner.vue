@@ -28,8 +28,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .wrapper
   grid-row-gap 20px
   margin-top -($header-height)

@@ -105,9 +105,7 @@ export default {
 }
 </script>
 <style lang='stylus' scoped>
-  @import '~assets/css/_variables'
-  
-  build-grid-area(contact-body contact-form)
+build-grid-area(contact-body contact-form)
 
   .wrapper
     margin-top ($vertical-space/4)

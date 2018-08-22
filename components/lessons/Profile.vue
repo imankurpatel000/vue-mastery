@@ -21,7 +21,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
 .card-header
   display: flex
   align-items: center

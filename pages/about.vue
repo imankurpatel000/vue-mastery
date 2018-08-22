@@ -64,8 +64,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 build-grid-area(mission mission-media team-media team why why-media)
 
 .wrapper

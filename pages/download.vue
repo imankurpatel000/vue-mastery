@@ -30,7 +30,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
 .wrapper
   padding-top $vertical-space
   padding-bottom $vertical-space

@@ -44,8 +44,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
-
 build-grid-area(brand nav-1 nav-2)
 
 .footer

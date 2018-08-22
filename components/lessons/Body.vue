@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .lesson-content(:class="locked ? '-locked': 'unlock'")
+  .lesson-content#lessonContent(:class="locked ? '-locked': 'unlock'")
     div
       h1.title {{ course.title}}
       slot
@@ -47,8 +47,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .lesson-content
   display flex
   flex-direction column

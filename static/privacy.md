@@ -1,16 +1,36 @@
-**Effective Date: 03/02/2018**
+**Effective Date: 05/25/2018**
+
+_From time to time, we review and update our privacy policy. Our recent updates include clarifications to help you better understand: (i) the bases we rely on to process personal information; (ii) how we share your personal information; and (iii) how long we retain your personal information._
+
+Our Privacy Policy describes the privacy practices of our apps and websites.  Your relationship is with Code-Pop LLC and the laws of Florida and the United States apply.
+
+**Please note that in order to use our Site and Services (as defined below), you authorize us to transfer your personal information across national borders and to other countries where we and our partners operate, including the United States. The privacy protections and rights of authorities to access your information in these countries may not be equivalent to those in your country. We will only transfer your personal information to these countries where permitted to do so by law and we will take steps intended to ensure that your personal information continues to receive appropriate protections.**
+
+If the content or information that you store on our Sites or in connection with the Services contain personal information of other individuals, you must be legally permitted to share the personal information with us.
+
+## Summary of Key Points
+
+- We use your personal information to enable you to register with us and to provide you with our Sites and Services, and other products or services that you request. [Learn more](#user-choice-and-access).
+- Where your consent is required, we will obtain your permission before: (i) sending you news and promotional material about us; (ii) accessing information stored on your device relating to your use of, and engagement with, the Sites and Services and crash reports; and (iii) using automated systems to analyze your content. You can withdraw your consent to such activities at any time. [Learn more](#user-choice-and-access).
+- This policy explains when we process personal information for our legitimate interests. You can ask us to stop processing this information. [Learn more about your rights and how you can exercise them](#user-choice-and-access).
+- We provide interactive features that engage with social media sites, such as Facebook. If you use these features, these sites will send us personal information about you. Learn more.
+- We use cookies and other technologies to track the use of our Sites and Services. To learn about opportunities to choose not to allow cookies, [click here](#automatic-data-collection-technologies).
+- There are several places within our Sites and Services that may allow you to post comments, upload pictures, or submit content which will be publicly available where you choose to participate in these activities. We may also disclose personal information to other companies in the Code Pop LLC family and with advertising and sales partners consistent with your choices. We also share information with third parties we engage to process information on our behalf or when such sharing is required by law, or in certain other situations such as in connection with the sale or transfer of all or substantially all of our business or assets. [Learn more](#how-we-use-and-disclose-your-information).
+- We transfer your personal information to the US and other countries, which may be outside the country in which you live. [Learn more](#security-and-related-information).
 
 ## Introduction
 
-Code Pop LLC (“Code Pop”, “VueMastery.com”, “we”, “us” or “our”) respects your privacy and is committed to protecting it. This is the Privacy Policy for all digital properties owned and operated by Code Pop including www.vuemastery.com and all corresponding domains, subdomains, applications, web pages and websites associated therewith (collectively, the “Site”), and any other Content, applications, features, functionality, information and services offered by us through the Site (the foregoing subsections are collectively referred to herein as the “Services”), and it applies to all Users of the Services, whether you are accessing and/or using the Services as a registered User or otherwise. Please review our Terms of Use Agreement which governs your use of the Services. Any capitalized terms that are not defined in this Privacy Policy shall have the meaning given in the Terms of Use Agreement.
+Code Pop LLC (“Code Pop”, “VueMastery.com”, “we”, “us” or “our”) respects your privacy and is committed to protecting it. This is the Privacy Policy for all digital properties owned and operated by Code Pop including www.vuemastery.com and all corresponding domains, subdomains, applications, web pages and websites associated therewith (collectively, the “Site”), and any other Content, applications, features, functionality, information and services offered by us through the Site (collectively, and along with the Site, the “Services”), and it applies to all Users of the Services, whether you are accessing and/or using the Services as a registered User or otherwise. Please review our Terms of Use Agreement which governs your use of the Services. Any capitalized terms that are not defined in this Privacy Policy shall have the meaning given in the Terms of Use Agreement.
 
 This Privacy Policy governs only the information we collect in connection with your use of the Services. This Privacy Policy does not cover any other information collected in any other manner or collected by any other entity, unless specifically stated.
 
-### Information We Collect
+
+### Information We Collect and the Legal Basis for the Collection
 
 We generally collect two types of information from and about you on or in connection with the Services:
 
 1. Personally identifiable information that would allow someone to identify you or contact you, such as your name, e-mail address, etc., and other background information that you include in your User Account profile (“Personal Information”).
+
 1. All other information other than Personal Information, which does not personally identify you (“Non-Personal Information,” together with Personal Information shall be collectively referred to herein as “Information”).
 
 We collect Information in multiple ways:
@@ -37,6 +57,7 @@ Other Non-Personal Information – Other Non-Personal Information related to you
 
 We may supplement the Information we collect with information from other sources, such as publicly available information from commercially available sources and information from our affiliates or business partners.
 
+
 ### Automatic Data Collection Technologies
 
 The Information we collect automatically (as described above) is Non-Personal Information. It helps us to improve our Services and to deliver a better and more personalized User experience by enabling us, among other things, to store information about your preferences and to customize our Services. The technologies we use for this automatic data collection may include:
@@ -47,6 +68,7 @@ Flash Cookies – Certain features of the Services may use local stored objects 
 
 Web Beacons – Pages of the Services may contain small electronic files known as web beacons (also referred to as clear gifs. pixel tags and single-pixel gifs) that permit us, for example, to count Users who have visited those pages and/or for other related statistics.
 
+
 ### Third Party Advertising Service Providers
 
 The Services may also use a variety of third party advertising networks, data exchanges, traffic measurement service providers, marketing analytics service providers and other third parties (collectively, “Third Party Advertising Service Providers”) to, for example, serve advertisements on the Services, facilitate targeting of advertisements and/or measure and analyze advertising effectiveness and/or traffic on the Services. These Third Party Advertising Service Providers do not have access to any tracking technologies set by the Services except to the extent necessary to provide services to us in connection with the Services; however, these Third Party Advertising Service Providers may use their own tracking technologies to collect similar Information. We do not control these Third Party Advertising Service Providers, and/or their use of tracking technologies, which is instead governed by the privacy policies of any such Third Party Advertising Service Providers. Please see Section 10 below for more information on how to opt-out of the collection and use of Information collected via certain automatic collection technologies.
@@ -56,8 +78,11 @@ The Services may also use a variety of third party advertising networks, data ex
 We do not sell your information to third-parties. However, we may use and/or disclose the Information we collect to provide the Services (and all features of the Services) to you, including, without limitation, as follows:
 
 1. To measure and improve the Services, as well as improve your experience with both online and offline Services by delivering Content that you will find relevant and interesting, including advertising and marketing messages.
+
 1. To provide you with customer support and to respond to inquiries.
+
 1. To allow service providers, contractors and other third parties to assist us in providing and managing the Services.
+
 1. To contact you and send Notices.
 
 The Services may provide you and other Users with an opportunity to participate in viewing communities and other message, comment and communication features on the Services, including in connection with Third Party Services, and may provide you with the opportunity to submit, post, publish and otherwise make available User Content to other Users of the Services or to the public. Certain Personal Information associated with the User Content, for example, your name, photograph and User Account profile information, may be disclosed. We will disclose any such Personal Information in connection with the display of, and other services relating to, such User Content and by submitting User Content on the Services.
@@ -65,10 +90,26 @@ The Services may provide you and other Users with an opportunity to participate 
 We may further share and disclose your Information as follows:
 
 1. We may share your Information with our affiliates for the purposes described in this Privacy Policy.
+
 1. We may share your Information with business partners to permit them to send you marketing communications consistent with your choices and preferences.
+
 1. We may disclose your Information where we have a good faith belief that such disclosure is necessary in order to: (i) protect, enforce, or defend our legal rights, privacy, safety, and property and the rights of our employees, agents and contractors (including enforcement of our agreements and our Terms of Use); (ii) protect the safety, privacy, and security of Users of the Services or members of the public; (iii) protect against fraud or for risk management purposes; (iv) comply with the law or legal process; and/or (v) respond to requests from public and government authorities.
-1. If we sell all or part of its business or makes a sale or transfer of its assets or is otherwise involved in a merger or transfer of all or a material part of its business, we may transfer your Information to the party or parties involved in the transaction as part of that transaction.
+
+1. We may also share your personal information: (i) when you agree to the sharing; (ii) when we have a good faith belief that the disclosure is necessary to prevent or respond to fraud, defend our apps or websites against attacks, or protect the property and safety of our company, our customers and users, or the public; (iii) if we merge with or are acquired by another company, sell a Code Pop Site or business unit, or if all or a substantial portion of our business or assets are acquired by another company, your information will likely be disclosed to our advisers and any prospective purchaser's/acquirer's advisers and will be one of the assets that is transferred to the new owner.
+
+1. We may share or publish aggregate information that doesn’t specifically identify you, such as statistical information about visitors to our websites or statistical information about how customers use the Services.
+
 1. Additionally we may use and/or disclose your Information in any other way we may describe when you provide the Information and/or receive your consent. Notwithstanding the foregoing, we may use any and all Non-Personal Information collected from or about you for any reasonable purpose that is necessary to provide the Services or other related product and/or service requested. You can choose to opt-out of certain such uses as described below.
+
+Sharing with other Data Controllers
+
+We may share your personal information within the Code Pop family of companies. The types of third parties your information may be shared with include, our resellers and other sales and advertising partners, retailers, research organizations, advertisers, ad agencies, advertising networks and platforms, information service providers, publishers, and non-profit organizations (with your consent, if required).
+
+We will share personal information with companies, organizations or individuals outside of of us if we have a good-faith belief that access, use, preservation or disclosure of the information is reasonably necessary to detect, prevent, or otherwise address fraud, security or technical issues, as well as to protect against harm to the rights, property or safety of our company, our users, or the public as required or permitted by law.
+
+Sharing with Data Processors
+
+We will also share your personal information with companies that help us to run our business by processing personal information on our behalf for the purposes identified in this Privacy Policy. Such companies may include providers of customer support services, payment processing services, fraud monitoring and prevention, email, social media, and other marketing platforms and service providers, and hosting services.
 
 ### User Choice and Access
 
@@ -76,29 +117,48 @@ We strive to provide you with as many choices as possible to access, review, cor
 
 Via Your User Account Settings – If you have registered for a User account, you may have the ability to access and use certain features and functionality that provide you with the ability to set certain privacy, permissions, and User account options. Please be aware that that if you limit the collection of certain Information, you may not be able to use all of the features and functionality of the Services.
 
-Via Email – You may also contact us by email at [info@vuemastery.com](). In your request, please include your email address, name, address, and telephone number and specify clearly what information you would like to access, change, update, or suppress.
+Via Email – You may also contact us by email at info@vuemastery.com. In your request, please include your email address, name, address, and telephone number and specify clearly what information you would like to access, change, update, or suppress.
 
 Additionally, you may opt-out of:
 
-Electronic Communications From Us – If you no longer want to receive marketing-related emails from us on a going-forward basis, you may opt-out of receiving these marketing-related emails by (a) changing or editing your preferences of your User account using the User account settings (as described above), (b) contacting us via email in accordance with the procedure set forth above, and/or (c) using the opt-out mechanism that is contained in each such email. Please note that there are certain service notification emails that you may not opt-out of, such as notifications of changes to the Services or policies.
+Electronic Communications From Us – If you no longer want to receive marketing-related emails from us on a going-forward basis, you may opt-out of receiving these marketing-related emails by (a) changing or editing your preferences of your User account using the User account settings (as described above), (b) contacting us via email in accordance with the procedure set forth above, and/or © using the opt-out mechanism that is contained in each such email. Please note that there are certain service notification emails that you may not opt-out of, such as notifications of changes to the Services or policies.
 
 Third Party Marketing Purposes – You may request that we do not share your Personal Information on a going-forward basis with third parties for their direct marketing purposes by contacting us via email in accordance with the procedure set forth above.
 
 We will try to comply with any request(s) as soon as reasonably practicable.
 
+
 ### Opting-Out of Use of Certain Information Collected by Tracking Technologies
 
-Tracking Technologies Set by Third Party Advertising Service Providers and Similar Third Parties – For more information about Third Party Advertising Service Providers and similar entities that use tracking technologies, see www.aboutads.info/consumers, and to opt-out of such Third Party Advertising Service Providers advertising practices, go to www.aboutads.info/choices.
+Tracking Technologies Set by Third Party Advertising Service Providers and Similar Third Parties – For more information about Third Party Advertising Service Providers and similar entities that use tracking technologies, see http://www.aboutads.info/consumers, and to opt-out of such Third Party Advertising Service Providers advertising practices, go to http://www.aboutads.info/choices.
 
-Tracking Technologies That We Use and Set on the Services – Most browsers are initially set to accept cookies (other than Flash cookies), but you can change your settings to notify you when a cookie is being set or updated, or to block cookies altogether. Please consult the “Help” section of your browser for more information. Users can manage the use of Flash technologies, with the Flash management tools available at Adobe’s website, see [http://www.adobe.com/products/flashplayer/security/privacy_policy/faq.html]().
+Tracking Technologies That We Use and Set on the Services – Most browsers are initially set to accept cookies (other than Flash cookies), but you can change your settings to notify you when a cookie is being set or updated, or to block cookies altogether. Please consult the “Help” section of your browser for more information. Users can manage the use of Flash technologies, with the Flash management tools available at Adobe’s website, see http://www.adobe.com/products/flashplayer/security/privacy_policy/faq.html.
 
 Certain browsers transmit “do-not-track” signals to the websites in which such browsers communicate with; however, this feature, and how it is used and activated, varies from browser to browser. It is not clear whether the signals are intentionally transmitted by a User, or whether a User is even aware of this. Despite current efforts, there is still disagreement amongst leading Internet standards organizations, industry groups, technology companies and regulators, concerning what, if anything, websites should do when they receive such signals and no standard has been adopted to date. With respect to “do not track signals”, we currently do not take action in response to these signals, but, if a standard is established and accepted, we may reassess how to respond to these signals.
 
 Please note that by blocking any or all cookies you may not have access to certain features, Content and/or other personalization available through the Services.
 
-### Security
+
+### Security and Related Information
 
 While no data transmission over the Internet is 100% secure from intrusion, we maintain commercially reasonable physical, electronic and procedural safeguards to protect your Information. Unfortunately, the transmission of information via the internet is not completely secure. Although we do our best to protect your Information, we cannot guarantee the security of your Information transmitted to or through the Services. Any transmission of Information is at your own risk. We are not responsible for circumvention of any. privacy settings or security measures contained on the Services.
+
+Your personal information and files are stored on the servers of companies we hire to provide services to us.
+
+We may transfer your personal information across national borders to other countries in compliance with applicable laws.  Under the law of some countries, you may have the right to ask us for a copy of your personal information; to correct, delete or restrict (stop any active) processing of your personal information; and to obtain the personal information you provide to us for a contract or with your consent in a structured, machine readable format, and to ask us to share (port) this information to another controller.
+In addition, you can object to the processing of your personal information in some circumstances (in particular, where we don’t have to process the information to meet a contractual or other legal requirement, or where we are using the information for direct marketing).
+
+
+These rights may be limited, for example, if fulfilling your request would reveal personal information about another person, or if you ask us to delete information which we are required by law to keep or have compelling legitimate interests in keeping (such as fraud prevention or business record purposes).
+To exercise any of these rights, you can get in touch with us using the details set out below. Additionally, many of our Sites allow you to edit your personal information by accessing the "my account," "my profile," or a similar feature of the app or website you are using. Likewise, you can delete files or photos you have stored in our websites and apps by logging in and using the deletion functions that are available.
+
+
+If you have unresolved concerns, you have the right to report them to an EU or other data protection authority where you live, work or where you believe a potential violation may have occurred.
+To register with us, to create a username and password, and to use some Services, the provision of some information is mandatory: if relevant information is not provided, then we will not be able to administer an account to you, or provide you with the Sites or Services requested. All other provision of your information is optional. Providing optional information will help us offer you a better experience, such as more personalized or tailored content or offerings.
+
+Wherever we rely on your consent, you will always be able to withdraw that consent, although we may have other legal grounds for processing your information for other purposes, such as those set out above. In some cases, we are able to send you direct marketing without your consent, where we rely on our legitimate interests. You have an absolute right to opt-out of direct marketing, or profiling we carry out for direct marketing, at any time, as set forth above.
+
+When you register for an account, we process and keep most personal information we have about you for as long as you are an active user of our Site or Services. When you close your account, after 60 days we begin deleting certain personal information that we no longer have a business reason to retain, such as your hashed password and your payment account data. However, we typically retain personal information related to our contract and business transactions with you for seven years after your last interaction with us.  Where we process personal information for marketing purposes or with your consent, we process the information until you ask us to stop and for a short period after this (to allow us to implement your requests). We also keep a permanent record of the fact that you have asked us not to send you direct marketing or to process your information so that we can respect your request in future.
 
 ### Linked Services
 
@@ -112,4 +172,4 @@ It is our policy to post any changes we make to our Privacy Policy on the Servic
 
 If you have questions about this Privacy Policy, please contact us at:
 
-**Email:** [info@vuemastery.com]()
+**Email:** [info@vuemastery.com](mailto:info@vuemastery.com)

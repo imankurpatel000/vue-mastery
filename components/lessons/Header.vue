@@ -6,7 +6,6 @@
 
     .body
       h2.title {{ course.title }}
-      
 </template>
 
 <script>
@@ -23,8 +22,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .wrapper
   color: #fff
   display flex
