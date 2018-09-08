@@ -1,11 +1,15 @@
 <template lang='pug'>
 div
   .list(v-if='featured' v-cloak)
-    nuxt-link.list-card.card(v-for='course, key in Object.values(featured)'
-                             v-if='course.lessons'
-                             :key='key'
-                             :to='link(course)')
-      .card-body
+    nuxt-link.list-card(v-for='course, key in Object.values(featured)'
+                        v-if='course.lessons'
+                        :key='key'
+                        :to='link(course)')
+      Card(:title='course.title'
+          :badge='showBadge(course, account)'
+          :content='course.description'
+          :image_url='course.image[0].url')
+      //- .card-body
         CourseList(:course='course' :account='account')
     .list-card.card.coming-soon(v-else)
       .card-body
@@ -15,6 +19,7 @@ div
 </template>
 
 <script>
+import Card from '~/components/ui/Card'
 import CourseList from '~/components/courses/List'
 import FakeList from '~/components/courses/FakeList'
 
@@ -33,6 +38,7 @@ export default {
   },
 
   components: {
+    Card,
     CourseList,
     FakeList
   },
@@ -40,6 +46,9 @@ export default {
   methods: {
     link (course) {
       return `/courses/${course.slug}/${course.lessons[0].slug}`
+    },
+    showBadge (course, account) {
+      if ((course.free && !account) || (course.free && account && !account.subscribed)) return true
     }
   }
 }
@@ -49,6 +58,7 @@ export default {
 .list,
 .list-unstyled
   > .list-card
+    display block
     color: $black
     margin-bottom: 35px
     text-decoration none
