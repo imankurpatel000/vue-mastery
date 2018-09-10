@@ -43,6 +43,15 @@ module.exports = {
     })
   },
 
+  emailAdminFailedSubscription (email) {
+    return mailgun.messages().send({
+      from: 'team@vuemastery.com',
+      to: 'schweiger.pierre@gmail.com',
+      subject: `Failed subscription from ${email}`,
+      html: `Failed subscription from ${email}`
+    })
+  },
+
   sendTeamSubscriptionRequest (val) {
     return mailgun.messages().send({
       from: val.email,
