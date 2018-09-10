@@ -25,7 +25,6 @@ export default {
 }
 </script>
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
 .wrapper
   margin-top ($vertical-space/4)
   margin-bottom ($vertical-space/4)

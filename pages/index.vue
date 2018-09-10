@@ -73,8 +73,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet community)
 
 .homepage

@@ -25,8 +25,6 @@ export default {
 
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .wrapper
   grid-template-columns 1fr 1fr
   padding-top $vertical-space
@@ -35,7 +33,7 @@ export default {
 
   +laptop-up()
     grid-template-areas 'media body'\
-                        'media body'  
+                        'media body'
 .banner
   background-image url(/images/bkg-cheatsheet-main.jpg)
 

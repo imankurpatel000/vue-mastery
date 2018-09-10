@@ -24,7 +24,7 @@
 
     .upcoming(v-if="$route.name === 'courses' && gotDraft")
       h5
-        i.far.fa-calendar-alt &nbsp;
+        Icon(name="calendar")
         | Upcoming lessons
       ul
         li(v-for='lesson in course.lessons' v-if='lesson.status === "draft"')
@@ -32,9 +32,10 @@
 </template>
 
 <script>
+import Icon from '~/components/ui/Icon.vue'
 export default {
   name: 'course-list',
-
+  components: { Icon },
   props: {
     showDetail: {
       type: Boolean,
@@ -65,8 +66,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .media
   align-self start
 
@@ -87,7 +86,12 @@ export default {
 .upcoming
   margin-top 10px
 
-  i
+  h5
+    display flex
+    align-items center
+  .icon
+    margin-left -3px
+    margin-right 6px
     color $primary-color
 
   ul

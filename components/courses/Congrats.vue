@@ -56,7 +56,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
 .lead
   font-size 1.4em
 

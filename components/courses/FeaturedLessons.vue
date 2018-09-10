@@ -5,6 +5,7 @@
     .media-block(v-for='lesson in featured')
       nuxt-link(:to='path(lesson)')
         .media.-video(v-if='lesson.image')
+          Icon(name='play-circle' width='28' height='28')
           img(:src='lesson.image[0].url' class='-large' :alt='lesson.title')
 
       .body
@@ -33,7 +34,7 @@
 
 <script>
 import FakeList from '~/components/courses/FakeList'
-
+import Icon from '~/components/ui/Icon'
 export default {
   name: 'featured-lessons',
 
@@ -49,7 +50,8 @@ export default {
   },
 
   components: {
-    FakeList
+    FakeList,
+    Icon
   },
 
   methods: {
@@ -61,8 +63,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .section
   color #fff
   height: 100%

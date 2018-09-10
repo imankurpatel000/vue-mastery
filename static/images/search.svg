@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="147.23" height="147.23" viewBox="0 0 147.23 147.23">
+  <defs>
+    <style>
+      .\39 0b49e61-7a37-4605-ab57-13d8d3140bbe {
+        fill: url(#bd622a6f-f1fd-4184-9cc0-807e706f883a);
+      }
+
+      .f8a8736f-3f04-496e-9499-90e761e18664 {
+        fill: url(#6b506ae1-5adf-4b1c-9b84-e245bb9879c3);
+      }
+    </style>
+    <linearGradient id="bd622a6f-f1fd-4184-9cc0-807e706f883a" data-name="New Gradient Swatch 3" x1="29.51" y1="123.22" x2="121.02" y2="39.62" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b9dcdd"/>
+      <stop offset="1" stop-color="#3387c2"/>
+    </linearGradient>
+    <linearGradient id="6b506ae1-5adf-4b1c-9b84-e245bb9879c3" x1="-3.67" y1="86.9" x2="87.84" y2="3.3" xlink:href="#bd622a6f-f1fd-4184-9cc0-807e706f883a"/>
+  </defs>
+  <title>search</title>
+  <g id="16b3399e-5838-421e-aedb-3951df1b638b" data-name="Layer 2">
+    <g id="0ebc6178-bdb0-4714-b82e-0c22da0f4649" data-name="Layer 1">
+      <g>
+        <path class="90b49e61-7a37-4605-ab57-13d8d3140bbe" d="M110.11,97.07l-2.2,2.2a1,1,0,0,1-1.42,0L99,91.79a1,1,0,0,1-.07-1.34,55.49,55.49,0,1,0-8.48,8.49,1,1,0,0,1,1.32.07l7.49,7.48a1,1,0,0,1,0,1.42l-2.2,2.2a1,1,0,0,0,0,1.41l35.43,35.42a1,1,0,0,0,1.41,0l13-13a1,1,0,0,0,0-1.41L111.52,97.07A1,1,0,0,0,110.11,97.07Zm-86.6-9.36a45.4,45.4,0,1,1,64.2,0A45.11,45.11,0,0,1,23.51,87.71Z"/>
+        <path class="f8a8736f-3f04-496e-9499-90e761e18664" d="M29.86,31.31a35.43,35.43,0,0,0,0,48.6,1,1,0,0,0,1.44,0l6.5-6.5a25.19,25.19,0,0,1,0-35.63l-6.5-6.5A1,1,0,0,0,29.86,31.31Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

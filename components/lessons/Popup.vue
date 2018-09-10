@@ -65,8 +65,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
-
 .body
   padding: 0 20px
 

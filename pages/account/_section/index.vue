@@ -250,7 +250,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables'
 .settings
   display flex
   justify-content center
