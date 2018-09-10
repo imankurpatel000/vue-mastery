@@ -42,9 +42,16 @@ module.exports = {
     //   })
   },
 
+  // subscribe (email, id, subscribing = true, tryNumber = 0) {
   subscribe (email, id, subscribing = true) {
     if (subscribing) console.log(`Attempt to subscribe user with email ${email}`)
-
+    // if (tryNumber) {
+    //   if (tryNumber > 10) {
+    //     subscription.emailAdminFailedSubscription(email)
+    //   } else {
+    //     this.checkIfSubscribed(email, id, subscribing, tryNumber)
+    //   }
+    // }
     return admin
       .database()
       .ref('accounts')
@@ -52,6 +59,7 @@ module.exports = {
       .equalTo(email)
       .once('child_added', (snapshot) => {
         const val = snapshot.val()
+        // console.log(`Found ${val} with email ${email}, now updating chargebeeId: ${id}`)
         snapshot.ref
           .update({
             subscribed: subscribing,
@@ -66,7 +74,26 @@ module.exports = {
         console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
         return subscription.getMailerList('Vue Mastery Subscribers')
           .then(listID => { return subscription.subscribeUser(val, listID, subscribing) })
+      }, (error) => {
+        console.log(error)
       })
+  },
+
+  checkIfSubscribed (email, id, subscribing, tryNumber) {
+    setTimeout(() => {
+      console.log('Checking if subscriber already subscribed')
+      return admin
+        .database()
+        .ref('accounts')
+        .orderByChild('email')
+        .equalTo(email)
+        .once('child_added', (snapshot) => {
+          console.log('Checking success: user found')
+          const val = snapshot.val()
+          tryNumber++
+          if (!val || !val.subscribed) this.subscribe(email, id, subscribing, tryNumber)
+        })
+    }, 10000)
   },
 
   checkIfTeamMember (email) {
