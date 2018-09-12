@@ -5,7 +5,8 @@ aside.lesson-aside
         :enabled='affixOnLaptopUp')
     .card
       .card-body
-        Download(:courseLink='current.downloadLink'
+        Download( v-if="!locked"
+                :courseLink='current.downloadLink'
                 :account='account')
 
         SocialShare(:lesson='current'
@@ -65,6 +66,10 @@ export default {
     free: {
       type: Boolean,
       default: false
+    },
+    locked: {
+      type: Boolean,
+      default: true
     }
   },
 

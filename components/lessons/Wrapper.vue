@@ -26,6 +26,7 @@ div
       Profile(:current='current' v-if='!isLesson' v-cloak)
 
     SideBar(:account='account'
+            :locked='locked'
             :course='course'
             :current='current'
             :isLesson='isLesson'
