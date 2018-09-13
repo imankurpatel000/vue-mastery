@@ -205,6 +205,7 @@ module.exports = {
     const customer = req.body.content.customer
     if (customer) console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
     switch (req.body.event_type) {
+      case 'subscription_renewed':
       case 'subscription_reactivated':
       case 'subscription_activated':
       case 'subscription_created': {
