@@ -45,6 +45,19 @@ function getCourseHistory (currentHistory, courseSlug) {
   return courses
 }
 
+function getConferenceHistory (currentHistory, conferenceSlug) {
+  let conferences = currentHistory || {}
+  // Check if already started the conferences
+  if (typeof (conferences[conferenceSlug]) === 'undefined') {
+    conferences[conferenceSlug] = {
+      started: true,
+      subscribed: false,
+      completedLessons: {}
+    }
+  }
+  return conferences
+}
+
 function checkForFirstTime (user, commit, state) {
   firebase.database().ref('accounts').child(user.uid).once('value', (snapshot) => {
     const userData = snapshot.val()
@@ -208,6 +221,13 @@ const actions = {
     courses[courseSlug].subscribed = !courses[courseSlug].subscribed
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
       courses
+    })
+  },
+  userUpdateSubscribeConference ({ state }, conferenceSlug) {
+    let conferences = getConferenceHistory(state.account.conferences, conferenceSlug)
+    conferences[conferenceSlug].subscribed = !conferences[conferenceSlug].subscribed
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+      conferences
     })
   },
   userUpdateCompleted ({ state }, lesson) {

@@ -6,6 +6,7 @@ let db = null
 // initial state
 const state = {
   courses: null,
+  conferences: null,
   course: null,
   lessons: null,
   latests: null,
@@ -20,6 +21,7 @@ const getters = {
   lessons: state => state.lessons,
   latests: state => state.latests,
   featured: state => state.featured,
+  conferences: state => state.conferences,
   conference: state => state.conference
 }
 
@@ -103,6 +105,25 @@ const actions = {
     })
   },
 
+  getAllConferences ({ commit, state }) {
+    if (state.conferences) return true
+    return db.get('conference', {
+      populate: [
+        {
+          field: 'banner',
+          subFields: [ 'banner' ]
+        },
+        {
+          field: 'talks',
+          // fields: [ 'slug', 'image', 'location', 'title', 'talksNumber', 'lightningTalksNumber', 'available' ],
+          populate: [ 'image' ]
+        }
+      ]})
+      .then(conferences => {
+        commit(types.RECEIVE_CONFERENCES, { conferences })
+      })
+  },
+
   getConference ({ commit, state, rootState }, slug) {
     return db.get('conference', {
       orderByChild: 'slug',
@@ -154,6 +175,9 @@ const mutations = {
   },
   [types.RECEIVE_LATEST] (state, { latests }) {
     state.latests = latests
+  },
+  [types.RECEIVE_CONFERENCES] (state, { conferences }) {
+    state.conferences = conferences
   },
   [types.RECEIVE_CONFERENCE] (state, { conference }) {
     state.conference = conference

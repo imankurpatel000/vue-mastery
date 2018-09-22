@@ -1,8 +1,8 @@
 <template lang='pug'>
 .playlist
   h2.title Playlist
-  .cards(v-if='talks' v-cloak)
-    nuxt-link.card(v-for='talk in talks'
+  .cards(v-if='conference.talks' v-cloak)
+    nuxt-link.card(v-for='talk in conference.talks'
                    v-if='talk && !talk.lightningTalks'
                    :key='talk.slug'
                    :to='path(talk)'
@@ -22,7 +22,7 @@
   div(v-if="gotLightningTalks()")
     h2 Lightning Talks
       ul.talks-list
-        li.talk-item(v-for='talk in talks'
+        li.talk-item(v-for='talk in conference.talks'
                     v-if='talk && talk.lightningTalks'
                     :key='talk.slug')
           nuxt-link(:to='path(talk)')
@@ -39,12 +39,8 @@ export default {
       type: Object,
       required: false
     },
-    talks: {
-      type: Array,
-      required: true
-    },
     conference: {
-      type: String,
+      type: Object,
       required: true
     }
   },
@@ -56,7 +52,7 @@ export default {
 
     gotLightningTalks () {
       let gotLightning = false
-      this.talks.map((talk) => {
+      this.conference.talks.map((talk) => {
         if (talk.lightningTalks) {
           gotLightning = true
         }
