@@ -1,4 +1,4 @@
-import firebaseConfig from '~/firebase'
+import conf from '~/firebase'
 import firebase from 'firebase'
 import * as types from '~/store/mutation-types'
 import flamelink from 'flamelink'
@@ -8,8 +8,8 @@ export default function ({
   redirect
 }) {
   if (!firebase.apps.length) {
-    const firebaseApp = firebase.initializeApp(firebaseConfig)
-    store.commit(types.APP_READY, flamelink({ firebaseApp }))
+    const firebaseApp = firebase.initializeApp(conf)
+    store.commit(types.APP_READY, flamelink({ firebaseApp, env: conf.env }))
   }
 
   return firebase.auth().onAuthStateChanged((user) => {
