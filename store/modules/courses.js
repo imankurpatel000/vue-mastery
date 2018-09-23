@@ -125,9 +125,7 @@ const actions = {
   },
 
   getConference ({ commit, state, rootState }, slug) {
-    return db.get('conference', {
-      orderByChild: 'slug',
-      equalTo: slug,
+    return db.getByField('conference', 'slug', slug, {
       populate: [
         {
           field: 'image',

@@ -31,7 +31,6 @@ const createStore = () => {
           const firebaseApp = firebaseAdmin.initializeApp(firebaseConfig)
           this.commit(types.APP_READY, flamelink({ firebaseApp, isAdminApp: true, env: conf.env }))
         } else {
-          console.log(conf.env)
           this.commit(types.APP_READY, flamelink({ firebaseApp: firebaseAdmin.app(), isAdminApp: true, env: conf.env }))
         }
       },
