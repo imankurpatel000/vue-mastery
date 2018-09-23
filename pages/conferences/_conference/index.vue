@@ -26,11 +26,11 @@ export default {
 
   head () {
     return {
-      title: 'VueConf US | Vue Mastery',
+      title: '${conference.title} | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/vue-conf`
+        content: `${process.env.url}/conferences/${conference.slug}`
       }]
     }
   },

@@ -1,15 +1,12 @@
 <template lang='pug'>
   .container.vue-conf-page
-    VueConfHero
+    VueConfHero(:conference='conference')
 
     .wrapper
       .body
-        p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos. We'll be releasing videos over the next few weeks as we receive them.
+        p.lead {{ conference.description }}
 
-      //- .callout.-success
-      //-   CourseSubscribe(:account='account' :slug='conference' message='Notify me when new talks are available.')
-
-      ConfList(:talks='talks' :account='account' :conference='conference')
+      ConfList(:account='account' :conference='conference')
 </template>
 
 <script>
@@ -42,21 +39,15 @@ export default {
     VueConfHero
   },
 
-  data () {
-    return {
-      conference: 'vueconf-2018'
-    }
-  },
-
   computed: {
     ...mapState({
       account: result => result.account.account,
-      talks: result => result.courses.conference.talks
+      conference: result => result.courses.conference
     })
   },
 
-  async fetch ({ store }) {
-    await store.dispatch('getConference', this.conference)
+  async fetch ({ store, params }) {
+    await store.dispatch('getConference', 'vueconf-us-2018')
   }
 }
 </script>
