@@ -4,10 +4,7 @@
 
     .wrapper
       .body
-        // p.lead Vue Mastery is the sole destination for VueConf US 2018 conference videos. We'll be releasing videos over the next few weeks as we receive them.
         p.lead {{ conference.description }}
-      //- .callout.-success
-      //-   CourseSubscribe(:account='account' :slug='conference' message='Notify me when new talks are available.')
 
       ConfList(:account='account' :conference='conference')
 </template>
@@ -26,11 +23,11 @@ export default {
 
   head () {
     return {
-      title: '${conference.title} | Vue Mastery',
+      title: `${this.conference.title} | Vue Mastery`,
       meta: [{
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/conferences/${conference.slug}`
+        content: `${process.env.url}/conferences/${this.conference.slug}`
       }]
     }
   },
