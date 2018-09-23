@@ -18,7 +18,7 @@ const timeConvert = function (time) {
 
 const createVideoTags = function (url, lesson) {
   const image = lesson.image[0]
-  if (!image || !image.url) {
+  if (!image || !image.url || image.url === null) {
     console.log(`Image for the lesson ${lesson.title} does not exist`)
   }
   return {
@@ -86,7 +86,7 @@ const getTalksPage = async function (db) {
             if (talk.isVideoLive === 'true') {
               const url = `/conferences/${conference.slug}/${talk.slug}`
               result.pages.push(url)
-              if (!talk.lock && conf.projectId !== 'vue-mastery-staging') {
+              if (!talk.lock && conf.env !== 'staging') {
                 result.sitemap.push(createVideoTags(url, talk))
               }
             }
@@ -99,7 +99,7 @@ const getTalksPage = async function (db) {
 
 module.exports = async function (nuxt, generateOptions) {
   console.log('Get dynamic routes')
-  const serviceAccount = require('../serviceAccountKey' + (conf.projectId === 'vue-mastery-staging' ? 'Staging' : '') + '.json')
+  const serviceAccount = require('../serviceAccountKey.json')
   const firebaseConfig = {
     credential: admin.credential.cert(serviceAccount),
     databaseURL: conf.databaseURL,
@@ -111,7 +111,7 @@ module.exports = async function (nuxt, generateOptions) {
   } else {
     firebaseApp = admin.apps[0]
   }
-  const db = flamelink({ firebaseApp, isAdminApp: true }).content
+  const db = flamelink({ firebaseApp, isAdminApp: true, env: conf.env }).content
 
   await getCoursesPage(db, result)
   await getTalksPage(db, result)
