@@ -9,6 +9,20 @@ chargebee.configure({
   api_key: functions.config().chargebee.key
 })
 
+const subscribeToList = (data) => {
+  // If it's not a subscription change then return
+  if (!data.child('subscribed').changed()) return null
+
+  // Wait to get account email data and course title to subscribe the user
+  return Promise.all([db.account(context.params.uid)])
+    .then(results => results.map(result => result.val()))
+    .then(([account]) => {
+      // Get or create email course list
+      subscription.getMailerList(`Course: ${context.params.cid}`)
+        .then(listID => subscription.subscribeUser(account, listID, data.val().subscribed))
+    })
+}
+
 module.exports = {
   // On account creation we add the user to mailerlite and create stripe account (phase 2)
   createCustomer: functions.auth.user().onCreate((user) => {
@@ -48,19 +62,11 @@ module.exports = {
 
   // Subscribe a user to a course on the mailerLite course list
   subscribeUserToCourse: functions.database.ref('/accounts/{uid}/courses/{cid}')
-    .onWrite((data, context) => {
-      // If it's not a subscription change then return
-      if (!data.child('subscribed').changed()) return null
+    .onWrite((data, context) => subscribeToList(data)),
 
-      // Wait to get account email data and course title to subscribe the user
-      return Promise.all([db.account(context.params.uid)])
-        .then(results => results.map(result => result.val()))
-        .then(([account]) => {
-          // Get or create email course list
-          subscription.getMailerList(`Course: ${context.params.cid}`)
-            .then(listID => subscription.subscribeUser(account, listID, data.val().subscribed))
-        })
-    }),
+  // Subscribe a user to a conference on the mailerLite conference list
+  subscribeUserToConference: functions.database.ref('/accounts/{uid}/conferences/{cid}')
+    .onWrite((data, context) => subscribeToList(data)),
 
   // Subscribe a user to a conference on the mailerLite course list
   subscribeUserToConference: functions.database.ref('/accounts/{uid}/conferences/{cid}')
