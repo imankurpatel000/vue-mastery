@@ -11,31 +11,26 @@ chargebee.configure({
 
 module.exports = {
   // On account creation we add the user to mailerlite and create stripe account (phase 2)
-  createCustomer: functions.auth.user()
-    .onCreate(event => {
-      const user = event.data
-      db.checkUserTeamSubscription(user)
-      db.checkIfTeamMember(user.email)
-      return subscription.getMailerList(mainListId)
-        .then(listID => subscription.subscribeUser(user, listID, true))
-    }),
+  createCustomer: functions.auth.user().onCreate((user) => {
+    db.checkUserTeamSubscription(user)
+    db.checkIfTeamMember(user.email)
+    return subscription.getMailerList(mainListId)
+      .then(listID => subscription.subscribeUser(user, listID, true))
+  }),
 
   // Subscribe a user to mailerLite according to his settings.
-  subscribeUser: functions.database.ref('/accounts/{uid}')
-    .onWrite(event => {
-      const snapshot = event.data
-      // If it's not a subscription change then return
-      if (!snapshot.child('subscribedToMailingList').changed()) return null
+  subscribeUser: functions.database.ref('/accounts/{uid}').onWrite(snapshot => {
+    // If it's not a subscription change then return
+    if (!snapshot.child('subscribedToMailingList').changed()) return null
 
-      const val = snapshot.val()
-      return subscription.getMailerList(mainListId)
-        .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
-    }),
+    const val = snapshot.after.val()
+    return subscription.getMailerList(mainListId)
+      .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
+  }),
 
   // Change mailerlite subscriber on email update
   updateEmail: functions.database.ref('/accounts/{uid}')
-    .onUpdate(event => {
-      const snapshot = event.data
+    .onUpdate(snapshot => {
       // If it's not a email change then return
       if (!snapshot.child('email').changed()) return null
 
@@ -53,45 +48,40 @@ module.exports = {
 
   // Subscribe a user to a course on the mailerLite course list
   subscribeUserToCourse: functions.database.ref('/accounts/{uid}/courses/{cid}')
-    .onWrite(event => {
-      const snapshot = event.data
-
+    .onWrite((data, context) => {
       // If it's not a subscription change then return
-      if (!snapshot.child('subscribed').changed()) return null
+      if (!data.child('subscribed').changed()) return null
 
       // Wait to get account email data and course title to subscribe the user
-      return Promise.all([db.account(event.params.uid)])
+      return Promise.all([db.account(context.params.uid)])
         .then(results => results.map(result => result.val()))
         .then(([account]) => {
           // Get or create email course list
-          subscription.getMailerList(`Course: ${event.params.cid}`)
-            .then(listID => subscription.subscribeUser(account, listID, snapshot.val().subscribed))
+          subscription.getMailerList(`Course: ${context.params.cid}`)
+            .then(listID => subscription.subscribeUser(account, listID, data.val().subscribed))
         })
     }),
 
   // Subscribe a user to a conference on the mailerLite course list
   subscribeUserToConference: functions.database.ref('/accounts/{uid}/conferences/{cid}')
-    .onWrite(event => {
-      const snapshot = event.data
-
+    .onWrite((data, context) => {
       // If it's not a subscription change then return
-      if (!snapshot.child('subscribed').changed()) return null
+      if (!data.child('subscribed').changed()) return null
 
       // Wait to get account email data and conference title to subscribe the user
-      return Promise.all([db.account(event.params.uid)])
+      return Promise.all([db.account(context.params.uid)])
         .then(results => results.map(result => result.val()))
         .then(([account]) => {
           // Get or create email conference list
-          subscription.getMailerList(`Conference: ${event.params.cid}`)
-            .then(listID => subscription.subscribeUser(account, listID, snapshot.val().subscribed))
+          subscription.getMailerList(`Conference: ${context.params.cid}`)
+            .then(listID => subscription.subscribeUser(account, listID, data.val().subscribed))
         })
     }),
 
   // Subscribe a user to a course on the mailerLite course list
   sendContactForm: functions.database.ref('/inquiries/{cid}')
-    .onCreate(event => {
-      const snapshot = event.data
-      let form = snapshot.val()
+    .onCreate(data => {
+      let form = data.val()
       return subscription.sendContactEmail({
         name: form.name,
         message: form.message,
@@ -101,9 +91,8 @@ module.exports = {
 
   // Send request for a team subscription
   sendTeamSubscriptionRequest: functions.database.ref('/team-request/{cid}')
-    .onCreate(event => {
-      const snapshot = event.data
-      let form = snapshot.val()
+    .onCreate(data => {
+      let form = data.val()
       return subscription.sendTeamSubscriptionRequest({
         name: form.name,
         email: form.email,
@@ -115,8 +104,8 @@ module.exports = {
 
   // Update lesson count in a course
   countLessonsInCourse: functions.database.ref('/flamelink/environments/production/content/courses/en-US/{cid}/lessons/{lid}')
-    .onWrite(event => {
-      const collectionRef = event.data.ref.parent
+    .onWrite(data => {
+      const collectionRef = data.ref.parent
       const countRef = collectionRef.parent.child('lessonsCount')
       let count = 0
       return collectionRef.once('value', (snapshot) => {
@@ -137,13 +126,12 @@ module.exports = {
     }),
 
   subscribeTeamMember: functions.database.ref('/flamelink/environments/production/content/team/en-US/{cid}')
-    .onWrite(event => {
-      const snapshot = event.data
-      const newTeam = snapshot.val()
-      if (event.data.previous.exists()) {
-        const previous = event.data.previous.val()
-        if (previous.members !== undefined) {
-          previous.members.forEach((member) => {
+    .onWrite((change, snapshot) => {
+      const newTeam = change.after.val()
+      if (change.before.exists()) {
+        const oldTeam = change.before.val()
+        if (oldTeam.members !== undefined) {
+          oldTeam.members.forEach((member) => {
             let existingEmail = newTeam.members.some((newMember) => {
               return newMember.email === member.email
             })
@@ -164,15 +152,13 @@ module.exports = {
       return true
     }),
 
-  deleteCustomer: functions.auth.user()
-    .onDelete(event => {
-      const user = event.data
-      return subscription.getMailerList(mainListId).then(listID => {
-        return subscription.deleteSubscriber(listID, user.email).then(() => {
-          console.log('Subscriber deleted')
-        })
+  deleteCustomer: functions.auth.user().onDelete(user => {
+    return subscription.getMailerList(mainListId).then(listID => {
+      return subscription.deleteSubscriber(listID, user.email).then(() => {
+        console.log('Subscriber deleted')
       })
-    }),
+    })
+  }),
 
   create_portal_session: functions.https.onRequest((req, res) => {
     res.header('Content-Type', 'application/json')

@@ -1,9 +1,8 @@
 const admin = require('firebase-admin')
 const subscription = require('./subscription')
 
-const functions = require('firebase-functions')
 if (admin.apps.length === 0) {
-  admin.initializeApp(functions.config().firebase)
+  admin.initializeApp()
 }
 
 module.exports = {
@@ -18,7 +17,7 @@ module.exports = {
       .database()
       .ref('/flamelink/environments/production/content/team/en-US')
       .once('child_added', (snapshot) => {
-        const teams = snapshot.val()
+        const teams = snapshot.after.val()
         console.log('team: ', teams)
         for (let team in teams) {
           for (let member in team.members) {
@@ -51,7 +50,7 @@ module.exports = {
       .orderByChild('email')
       .equalTo(email)
       .once('child_added', (snapshot) => {
-        const val = snapshot.val()
+        const val = snapshot.after.val()
         snapshot.ref
           .update({
             subscribed: subscribing,
@@ -76,7 +75,7 @@ module.exports = {
       .on('value', (snapshot) => {
         if (snapshot !== undefined) {
           snapshot.forEach((teamSnapshot) => {
-            let team = teamSnapshot.val()
+            let team = teamSnapshot.after.val()
             if (team !== undefined) {
               team.members.forEach((member) => {
                 if (email === member.email) {
@@ -96,7 +95,7 @@ module.exports = {
       .orderByChild('email')
       .equalTo(email)
       .once('child_added', (snapshot) => {
-        const val = snapshot.val()
+        const val = snapshot.after.val()
         let teamData = {
           subscribed: subscribing,
           team: null
