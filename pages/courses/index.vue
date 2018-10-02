@@ -1,7 +1,7 @@
 <template lang='pug'>
   .container
     PageHeader(title='Our Courses'
-              background_image='images/bkg-courses.svg')
+              background_image='url(images/bkg-courses.svg)')
 
     .courses-body.wrapper
       CourseList(:courses='courses' :account='account')
