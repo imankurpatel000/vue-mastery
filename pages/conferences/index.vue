@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     PageHeader(title='Vue Conferences'
-              background_image='images/bkg-cheatsheet-main.jpg')
+              background_image='url(/images/conference-background-transparent.png), linear-gradient(to right, #41B782 , #86D169)')
 
     .wrapper
       .conference-body
