@@ -10,7 +10,7 @@ export default {
   props: ['title', 'background_image'],
   computed: {
     style () {
-      return `background-image: url(${this.background_image})`
+      return `background-image: ${this.background_image}`
     }
   }
 }
