@@ -24,7 +24,7 @@
                         v-if='conference.upcoming'
                         :key='conference.id')
             Card(:title='conference.title'
-              :meta='conference.upcomingDate | moment("MMMM D, YYYY")')
+              :meta='conference.upcomingDate | moment("MMMM YYYY")')
               ConferenceActions(slot='actions' :conference='conference')
 
 </template>
