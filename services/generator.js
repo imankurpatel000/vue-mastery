@@ -17,8 +17,14 @@ const timeConvert = function (time) {
 }
 
 const createVideoTags = function (url, lesson) {
-  const image = lesson.image[0]
-  if (!image || !image.url || image.url === null) {
+  let image
+  try {
+    image = lesson.image[0]
+    if (!image || image === undefined || image.url === undefined || !image.url || image.url === null) {
+      console.log(`Image for the lesson ${lesson.title} does not exist`)
+      image = { url: '' }
+    }
+  } catch (error) {
     console.log(`Image for the lesson ${lesson.title} does not exist`)
   }
   return {
@@ -99,7 +105,8 @@ const getTalksPage = async function (db) {
 
 module.exports = async function (nuxt, generateOptions) {
   console.log('Get dynamic routes')
-  const serviceAccount = require('../serviceAccountKey.json')
+  const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
+  const serviceAccount = require(`../serviceAccountKey${key}.json`)
   const firebaseConfig = {
     credential: admin.credential.cert(serviceAccount),
     databaseURL: conf.databaseURL,

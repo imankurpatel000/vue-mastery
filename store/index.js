@@ -7,7 +7,8 @@ import { analyticsMiddleware } from 'vue-analytics'
 import conf from '~/firebase'
 const flamelink = (process.server ? require('flamelink') : null)
 const firebaseAdmin = (process.server ? require('firebase-admin') : null)
-const serviceAccount = require('../serviceAccountKeyStaging.json')
+const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
+const serviceAccount = require(`../serviceAccountKey${key}.json`)
 const createStore = () => {
   return new Vuex.Store({
     modules: {
