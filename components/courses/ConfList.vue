@@ -47,7 +47,7 @@ export default {
 
   methods: {
     path (talk) {
-      return talk.lock ? '#' : `/conferences/${this.conference}/${talk.slug}`
+      return talk.lock ? '#' : `/conferences/${this.conference.slug}/${talk.slug}`
     },
 
     gotLightningTalks () {
