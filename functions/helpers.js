@@ -1,8 +1,9 @@
 const admin = require('firebase-admin')
 const subscription = require('./subscription')
 
+const functions = require('firebase-functions')
 if (admin.apps.length === 0) {
-  admin.initializeApp()
+  admin.initializeApp(functions.config().firebase)
 }
 
 module.exports = {
@@ -17,7 +18,7 @@ module.exports = {
       .database()
       .ref('/flamelink/environments/production/content/team/en-US')
       .once('child_added', (snapshot) => {
-        const teams = snapshot.after.val()
+        const teams = snapshot.val()
         console.log('team: ', teams)
         for (let team in teams) {
           for (let member in team.members) {
@@ -41,16 +42,24 @@ module.exports = {
     //   })
   },
 
+  // subscribe (email, id, subscribing = true, tryNumber = 0) {
   subscribe (email, id, subscribing = true) {
     if (subscribing) console.log(`Attempt to subscribe user with email ${email}`)
-
+    // if (tryNumber) {
+    //   if (tryNumber > 10) {
+    //     subscription.emailAdminFailedSubscription(email)
+    //   } else {
+    //     this.checkIfSubscribed(email, id, subscribing, tryNumber)
+    //   }
+    // }
     return admin
       .database()
       .ref('accounts')
       .orderByChild('email')
       .equalTo(email)
       .once('child_added', (snapshot) => {
-        const val = snapshot.after.val()
+        const val = snapshot.val()
+        // console.log(`Found ${val} with email ${email}, now updating chargebeeId: ${id}`)
         snapshot.ref
           .update({
             subscribed: subscribing,
@@ -65,7 +74,26 @@ module.exports = {
         console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
         return subscription.getMailerList('Vue Mastery Subscribers')
           .then(listID => { return subscription.subscribeUser(val, listID, subscribing) })
+      }, (error) => {
+        console.log(error)
       })
+  },
+
+  checkIfSubscribed (email, id, subscribing, tryNumber) {
+    setTimeout(() => {
+      console.log('Checking if subscriber already subscribed')
+      return admin
+        .database()
+        .ref('accounts')
+        .orderByChild('email')
+        .equalTo(email)
+        .once('child_added', (snapshot) => {
+          console.log('Checking success: user found')
+          const val = snapshot.val()
+          tryNumber++
+          if (!val || !val.subscribed) this.subscribe(email, id, subscribing, tryNumber)
+        })
+    }, 10000)
   },
 
   checkIfTeamMember (email) {
@@ -75,7 +103,7 @@ module.exports = {
       .on('value', (snapshot) => {
         if (snapshot !== undefined) {
           snapshot.forEach((teamSnapshot) => {
-            let team = teamSnapshot.after.val()
+            let team = teamSnapshot.val()
             if (team !== undefined) {
               team.members.forEach((member) => {
                 if (email === member.email) {
@@ -95,7 +123,7 @@ module.exports = {
       .orderByChild('email')
       .equalTo(email)
       .once('child_added', (snapshot) => {
-        const val = snapshot.after.val()
+        const val = snapshot.val()
         let teamData = {
           subscribed: subscribing,
           team: null
