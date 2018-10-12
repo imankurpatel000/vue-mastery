@@ -3,7 +3,7 @@
   div(v-if='conference.available')
 
     .button.secondary.border.-full
-      | Watch conferences
+      | Watch talk
 
   div(v-else v-cloak)
     div(v-if='isSubscribed()')
