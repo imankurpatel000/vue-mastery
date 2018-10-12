@@ -10,7 +10,7 @@
                         v-if='!conference.upcoming'
                         :key='conference.id'
                         :class='conference.available ? "" : "not-available"'
-                        :to='conference.available ? "conferences/" + conference.slug : ""')
+                        :to='getConferenceUrl(conference)')
             Card(:title='conference.title' v-if='conference'
               :image_url='conference.banner[0].url'
               image_placement='top'
@@ -81,6 +81,13 @@ export default {
   methods: {
     showBadge (course, account) {
       if ((course.free && !account) || (course.free && account && !account.subscribed)) return true
+    },
+    getConferenceUrl (conference) {
+      let url = conference.available ? '/conferences/' + conference.slug : ''
+      if (conference.slug === 'vueconf-us-2018') {
+        url = '/vueconf'
+      }
+      return url
     }
   }
 }
