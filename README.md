@@ -153,8 +153,7 @@ $ firebase use staging
 ```
 
 You can control which database you want to use using the firebase.js file (this file is private and not in github)
-firebase.js file  should contain the two configurations for the diferrent database: staging and production.
-One is commented and the other define the database used.
+firebase.js file you should update the env variable to 'staging' or 'production'.
 
 All the paths to images and data are connected according to this settings.
 So you can deploy staging env using production database if you want.

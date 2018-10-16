@@ -9,7 +9,6 @@
               :isLesson = 'false')
 </template>
 
-
 <script>
 import { mapState } from 'vuex'
 import TalkWrapper from '~/components/lessons/Wrapper'
@@ -40,8 +39,8 @@ export default {
 
   data () {
     return {
-      conferenceSlug: this.$route.params.talk,
-      page: this.$route.params.slug,
+      conferenceSlug: this.$route.params.conference,
+      page: this.$route.params.talk,
       selected: -1
     }
   },

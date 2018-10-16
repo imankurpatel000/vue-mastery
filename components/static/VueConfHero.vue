@@ -2,8 +2,8 @@
   .banner
     .canvas
       img.lgo-vue(src='/images/lgo-vue.svg')
-      h2.title Learn from the experts. <br/> Watch the VueConf US talks.
-      p.lead The first ever VueConf US took place in New Orleans on March 26-28, 2018.
+      h2.title {{ conference.title_line_1 }} <br/> {{ conference.title_line_2 }}
+      p.lead {{ conference.lead }}
       .stand
     img.vue-img-right(src='/images/img-vueconf-right.svg')
     img.vue-img-left(src='/images/img-vueconf-left.svg')
@@ -11,7 +11,13 @@
 
 <script>
 export default {
-  name: 'vue-conf-hero'
+  name: 'vue-conf-hero',
+  props: {
+    conference: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 

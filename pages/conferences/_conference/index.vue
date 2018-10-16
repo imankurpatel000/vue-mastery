@@ -23,11 +23,11 @@ export default {
 
   head () {
     return {
-      title: 'VueConf US | Vue Mastery',
+      title: `${this.conference.title} | Vue Mastery`,
       meta: [{
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/vue-conf`
+        content: `${process.env.url}/conferences/${this.conference.slug}`
       }]
     }
   },
@@ -47,7 +47,7 @@ export default {
   },
 
   async fetch ({ store, params }) {
-    await store.dispatch('getConference', 'vueconf-us-2018')
+    await store.dispatch('getConference', params.conference)
   }
 }
 </script>

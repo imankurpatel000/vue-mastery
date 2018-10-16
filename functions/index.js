@@ -69,6 +69,24 @@ module.exports = {
         })
     }),
 
+  // Subscribe a user to a conference on the mailerLite course list
+  subscribeUserToConference: functions.database.ref('/accounts/{uid}/conferences/{cid}')
+    .onWrite(event => {
+      const snapshot = event.data
+
+      // If it's not a subscription change then return
+      if (!snapshot.child('subscribed').changed()) return null
+
+      // Wait to get account email data and conference title to subscribe the user
+      return Promise.all([db.account(event.params.uid)])
+        .then(results => results.map(result => result.val()))
+        .then(([account]) => {
+          // Get or create email course list
+          subscription.getMailerList(`Conference: ${event.params.cid}`)
+            .then(listID => subscription.subscribeUser(account, listID, snapshot.val().subscribed))
+        })
+    }),
+
   // Subscribe a user to a course on the mailerLite course list
   sendContactForm: functions.database.ref('/inquiries/{cid}')
     .onCreate(event => {

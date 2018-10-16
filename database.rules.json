@@ -3,17 +3,60 @@
     "flamelink": {
       ".read": "true",
       ".write": "auth != null",
-      "environments": { "production": {"content":{
-        "courses":{"en-US": {
-        	".indexOn": "slug"
-      	}},
-        "lessons":{"en-US": {
-          ".indexOn": "status"
-        }},
-        "team":{"en-US": {"members": {
-          ".indexOn": "email"
-        }}}
-      }}}
+      "environments": {
+        "production": {
+          "content": {
+            "courses": {
+              "en-US": {
+                ".indexOn": "slug"
+              }
+            },
+            "conferences": {
+              "en-US": {
+                ".indexOn": "slug"
+              }
+            },
+            "lessons": {
+              "en-US": {
+                ".indexOn": "status"
+              }
+            },
+            "team": {
+              "en-US": {
+                "members": {
+                  ".indexOn": "email"
+                }
+              }
+            }
+          }
+        },
+        "staging": {
+          "content": {
+            "courses": {
+              "en-US": {
+                ".indexOn": "slug"
+              }
+            },
+            "conferences": {
+              "en-US": {
+                ".indexOn": "slug"
+              }
+            },
+            "lessons": {
+              "en-US": {
+                ".indexOn": "status"
+              }
+            },
+            "team": {
+              "en-US": {
+                "members": {
+                  ".indexOn": "email"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "accounts": {
       "$uid": {

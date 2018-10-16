@@ -1,9 +1,7 @@
 <template lang='pug'>
   .container
-
-    .courses-header
-      .wrapper
-        h1.title Our Courses
+    PageHeader(title='Our Courses'
+              background_image='url(images/bkg-courses.svg)')
 
     .courses-body.wrapper
       CourseList(:courses='courses' :account='account')
@@ -21,6 +19,7 @@ import CourseList from '~/components/courses/All'
 import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import VueConfBanner from '~/components/static/VueConfBanner'
+import PageHeader from '~/components/ui/PageHeader'
 
 export default {
   name: 'page-courses',
@@ -42,7 +41,8 @@ export default {
     CourseList,
     Latest,
     CheatSheetAlt,
-    VueConfBanner
+    VueConfBanner,
+    PageHeader
   },
 
   async fetch ({ store }) {
@@ -61,21 +61,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-.courses-header
-  height 220px
-  display flex
-  align-items center
-  background url(/static/images/bkg-courses.svg) no-repeat
-  background-size cover
-
-.title
-  margin 0
-  padding-top 0
-  font-size 60px
-  font-weight 600
-  color #FFFFFF
-  line-height 60px
-
 .courses-body
   display grid
   width 100%

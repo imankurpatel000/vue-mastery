@@ -14,7 +14,7 @@ footer.footer
         li
           nuxt-link(to='/courses' class="-inverted") Courses
         li
-          nuxt-link(to='/vueconf' class="-inverted") VueConf US
+          nuxt-link(to='/conferences' class="-inverted") Conferences
         li
           nuxt-link(to='/pricing' class="-inverted") Pricing
         li

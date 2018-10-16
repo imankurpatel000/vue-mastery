@@ -7,9 +7,8 @@ import { analyticsMiddleware } from 'vue-analytics'
 import conf from '~/firebase'
 const flamelink = (process.server ? require('flamelink') : null)
 const firebaseAdmin = (process.server ? require('firebase-admin') : null)
-const projectId = conf.projectId
-const serviceAccount = require('../serviceAccountKey' + (projectId === 'vue-mastery-staging' ? 'Staging' : '') + '.json')
-
+const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
+const serviceAccount = require(`../serviceAccountKey${key}.json`)
 const createStore = () => {
   return new Vuex.Store({
     modules: {
@@ -31,9 +30,9 @@ const createStore = () => {
             storageBucket: conf.storageBucket
           }
           const firebaseApp = firebaseAdmin.initializeApp(firebaseConfig)
-          this.commit(types.APP_READY, flamelink({ firebaseApp, isAdminApp: true }))
+          this.commit(types.APP_READY, flamelink({ firebaseApp, isAdminApp: true, env: conf.env }))
         } else {
-          this.commit(types.APP_READY, flamelink({ firebaseApp: firebaseAdmin.app(), isAdminApp: true }))
+          this.commit(types.APP_READY, flamelink({ firebaseApp: firebaseAdmin.app(), isAdminApp: true, env: conf.env }))
         }
       },
       toggleNav ({ commit }, forceClose) {

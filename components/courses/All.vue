@@ -1,12 +1,23 @@
 <template lang='pug'>
 div
   .list(v-if='courses' v-cloak)
-    nuxt-link.list-card.card(v-for='course, key, index in courses'
-                             :key='course.id'
-                             :to='link(course)')
-      .card-body
-        CourseList(:course='course' :account='account')
-        CourseAction(:course='course')
+    nuxt-link.list-card(v-for='course, key, index in courses'
+                        :key='course.id'
+                        :to='link(course)')
+      Card(:title='course.title'
+          :badge='showBadge(course, account)'
+          :content='course.description'
+          :image_url='course.image[0].url')
+        Upcoming(slot='upcoming'
+                :course='course')
+        CourseAction(slot='actions'
+                    :course='course')
+    //- nuxt-link.list-card.card(v-for='course, key, index in courses'
+    //-                          :key='course.id'
+    //-                          :to='link(course)')
+    //-   .card-body
+    //-     CourseList(:course='course' :account='account')
+    //-     CourseAction(:course='course')
   FakeList(v-else)
 </template>
 
@@ -14,6 +25,8 @@ div
 import CourseList from '~/components/courses/List'
 import CourseAction from '~/components/courses/Actions'
 import FakeList from '~/components/courses/FakeList'
+import Card from '~/components/ui/Card'
+import Upcoming from '~/components/courses/Upcoming'
 
 export default {
   name: 'courses-list',
@@ -21,6 +34,8 @@ export default {
   components: {
     CourseList,
     CourseAction,
+    Card,
+    Upcoming,
     FakeList
   },
 
@@ -63,6 +78,9 @@ export default {
         return `/courses/${course.slug}/${lessonSlug}`
       }
       return ''
+    },
+    showBadge (course, account) {
+      if ((course.free && !account) || (course.free && account && !account.subscribed)) return true
     }
   }
 }
@@ -75,9 +93,11 @@ export default {
 .list,
 .list-unstyled
   > a
-    margin-bottom: 35px
+    margin-bottom 35px
 
 .list-card
+  display block
+  margin-bottom 35px
   color $black
 
   &:hover
