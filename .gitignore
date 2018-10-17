@@ -31,3 +31,4 @@ cypress/screenshots/
 .nvmrc
 static/sitemap.xml
 *code-workspace
+\.vscode/settings\.json
