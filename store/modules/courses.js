@@ -30,6 +30,7 @@ const actions = {
   getAllCourses ({ commit, state }) {
     if (state.courses) return true
     return db.get('courses', {
+      orderByChild: 'order',
       populate: [
         {
           field: 'image',

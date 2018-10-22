@@ -19,6 +19,8 @@ footer.footer
           nuxt-link(to='/pricing' class="-inverted") Pricing
         li
           nuxt-link(to='/vue-cheat-sheet' class="-inverted") Vue Cheat Sheet
+        li
+          nuxt-link(to='/nuxt-cheat-sheet' class="-inverted") Nuxt Cheat Sheet
     .nav-2
       h4 About Us
       ul.list-unstyled
