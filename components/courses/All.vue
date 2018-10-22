@@ -1,9 +1,9 @@
 <template lang='pug'>
 div
   .list(v-if='courses' v-cloak)
-    nuxt-link.list-card(v-for='course, key, index in courses'
-                        :key='course.id'
-                        :to='link(course)')
+    nuxt-link.list-card(v-for='course, index in ordered'
+                        :key='index'
+                        :to='link(course)') 
       Card(:title='course.title'
           :badge='showBadge(course, account)'
           :content='course.description'
@@ -12,12 +12,6 @@ div
                 :course='course')
         CourseAction(slot='actions'
                     :course='course')
-    //- nuxt-link.list-card.card(v-for='course, key, index in courses'
-    //-                          :key='course.id'
-    //-                          :to='link(course)')
-    //-   .card-body
-    //-     CourseList(:course='course' :account='account')
-    //-     CourseAction(:course='course')
   FakeList(v-else)
 </template>
 
@@ -48,6 +42,17 @@ export default {
       type: Object,
       required: false
     }
+  },
+
+  data () {
+    let ordered = []
+    Object.values(this.courses)
+      .sort((a, b) => {
+        return a.order - b.order
+      }).forEach((key) => {
+        ordered.push(key)
+      })
+    return { ordered }
   },
 
   methods: {
