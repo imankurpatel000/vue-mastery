@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     PageHeader(title='Vue Conferences'
-              background_image='url(images/bkg-cheatsheet-main.jpg)')
+              background_image='images/bkg-cheatsheet-main.jpg')
 
     .wrapper
       .conference-body

@@ -1,7 +1,8 @@
 <template lang="pug">
   .container
     PageHeader(title='Vue Conferences'
-              background_image='url(/images/conference-background-transparent.png), linear-gradient(to right, #41B782 , #86D169)')
+              background_image='/images/conference-background-transparent.png'
+              background_color='linear-gradient(to right, #41B782 , #86D169)')
 
     .wrapper
       .conference-body
@@ -11,6 +12,7 @@
                         :key='conference.id'
                         :class='conference.available ? "" : "not-available"'
                         :to='getConferenceUrl(conference)')
+                        
             Card(:title='conference.title' v-if='conference'
               :image_url='conference.banner[0].url'
               image_placement='top'
