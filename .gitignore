@@ -5,6 +5,7 @@ node_modules
 # logs
 *.log
 *.cache
+*.monitor
 
 #locks
 yarn.lock

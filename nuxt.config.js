@@ -277,6 +277,7 @@ module.exports = {
    ** Site Modules
    */
   modules: [
+    '@nuxtjs/webpackmonitor',
     ['@nuxtjs/pwa', { icon: false }],
     '@nuxtjs/markdownit',
     ['@nuxtjs/google-tag-manager', {
