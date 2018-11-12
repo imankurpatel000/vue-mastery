@@ -18,7 +18,6 @@ import { mapState } from 'vuex'
 import ConfList from '~/components/courses/ConfList'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import CourseSubscribe from '~/components/account/CourseSubscribe'
-import VueConfHero from '~/components/static/VueConfHero'
 import PageHeader from '~/components/ui/PageHeader'
 
 export default {
@@ -41,7 +40,6 @@ export default {
     ConfList,
     CheatSheetAlt,
     CourseSubscribe,
-    VueConfHero,
     PageHeader
   },
 
