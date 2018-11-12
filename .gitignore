@@ -8,6 +8,7 @@ node_modules
 
 #locks
 yarn.lock
+package-lock.json
 
 # Nuxt build
 .nuxt
