@@ -343,7 +343,7 @@ module.exports = {
       ssr: false
     },
     {
-      src: '~/plugins/moment',
+      src: '~/plugins/dateFormat',
       ssr: true
     },
     {
