@@ -7,7 +7,7 @@
     .wrapper
       .conference-body
         .list(v-if='conferences' v-cloak)
-          nuxt-link.list-card(v-for='conference, key, index in conferences'
+          nuxt-link.list-card(v-for='conference, key, index in orderedConferences'
                         v-if='!conference.upcoming'
                         :key='conference.id'
                         :class='conference.available ? "" : "not-available"'
@@ -77,7 +77,11 @@ export default {
         return conferences
       },
       account: result => result.account.account
-    })
+    }),
+    orderedConferences () {
+      return Object.values(this.conferences)
+        .sort((a, b) => new Date(a.upcomingDate) - new Date(b.upcomingDate))
+    }
   },
 
   methods: {
