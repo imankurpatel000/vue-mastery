@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   .list(v-if='featured' v-cloak)
-    nuxt-link.list-card(v-for='course, key in Object.values(featured)'
+    nuxt-link.list-card(v-for='course, key in Object.values(featured).slice(0,3)'
                         v-if='course.lessons'
                         :key='key'
                         :to='link(course)')
