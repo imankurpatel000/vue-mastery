@@ -1,8 +1,5 @@
 <template lang="pug">
 aside.lesson-aside
-  affix(relative-element-selector='#lessonContent'
-        :offset='{ top: 20, bottom: 20 }',
-        :enabled='affixOnLaptopUp')
     .card
       .card-body
         Download( v-if="!locked"
