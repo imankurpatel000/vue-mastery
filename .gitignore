@@ -9,6 +9,7 @@ node_modules
 
 #locks
 yarn.lock
+package-lock.json
 
 # Nuxt build
 .nuxt
@@ -33,3 +34,4 @@ cypress/screenshots/
 static/sitemap.xml
 *code-workspace
 \.vscode/settings\.json
+package-lock.json

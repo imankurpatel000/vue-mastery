@@ -144,6 +144,10 @@ const actions = {
           subFields: [ 'image' ]
         },
         {
+          field: 'banner',
+          subFields: [ 'banner' ]
+        },
+        {
           field: 'facebookImage',
           subFields: [ 'facebookImage' ]
         },

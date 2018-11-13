@@ -73,8 +73,11 @@ export default {
     }
   },
 
-  async fetch ({ store }) {
-    await store.dispatch('getConference', this.conferenceSlug)
+  async fetch ({ store, params }) {
+    await store.dispatch('getConference', params.conference)
   }
+  // async fetch ({ store }) {
+  //   await store.dispatch('getConference', this.conferenceSlug)
+  // }
 }
 </script>

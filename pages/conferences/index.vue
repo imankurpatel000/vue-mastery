@@ -1,21 +1,23 @@
 <template lang="pug">
   .container
-    PageHeader(title='Vue Conferences'
-              background_image='url(/images/conference-background-transparent.png), linear-gradient(to right, #41B782 , #86D169)')
+    PageHeader(title='Vue Conference Videos'
+              background_image='/images/conference-background-transparent.png'
+              background_color='linear-gradient(to right, #41B782 , #86D169)')
 
     .wrapper
       .conference-body
         .list(v-if='conferences' v-cloak)
-          nuxt-link.list-card(v-for='conference, key, index in conferences'
+          nuxt-link.list-card(v-for='conference, key, index in orderedConferences'
                         v-if='!conference.upcoming'
                         :key='conference.id'
                         :class='conference.available ? "" : "not-available"'
                         :to='getConferenceUrl(conference)')
+                        
             Card(:title='conference.title' v-if='conference'
               :image_url='conference.banner[0].url'
               image_placement='top'
               :meta='conference.location'
-              :content='conference.talksCount + " session talks and " + conference.lightningTalksCount + " lightning talks"')
+              :content='getNumbersOfTalks(conference)')
               ConferenceActions(slot='actions' :conference='conference')
 
         .sidebar
@@ -75,7 +77,11 @@ export default {
         return conferences
       },
       account: result => result.account.account
-    })
+    }),
+    orderedConferences () {
+      return Object.values(this.conferences)
+        .sort((a, b) => new Date(a.upcomingDate) - new Date(b.upcomingDate))
+    }
   },
 
   methods: {
@@ -88,6 +94,13 @@ export default {
         url = '/vueconf'
       }
       return url
+    },
+    getNumbersOfTalks (conference) {
+      let text = conference.talksCount + ' session talks'
+      if (conference.lightningTalksCount > 0) {
+        text += ' and ' + conference.lightningTalksCount + ' lightning talks'
+      }
+      return text
     }
   }
 }

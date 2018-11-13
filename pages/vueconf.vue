@@ -1,9 +1,13 @@
 <template lang='pug'>
   .container.vue-conf-page
-    VueConfHero(:conference='conference')
+    PageHeader(:title='conference.title'
+      :title2='conference.location'
+      :background_image='conference.banner[0].url'
+      align='center')
 
     .wrapper
       .body
+        h4.lead {{ conference.titleLine1 }}
         p.lead {{ conference.description }}
 
       ConfList(:account='account' :conference='conference')
@@ -14,7 +18,7 @@ import { mapState } from 'vuex'
 import ConfList from '~/components/courses/ConfList'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import CourseSubscribe from '~/components/account/CourseSubscribe'
-import VueConfHero from '~/components/static/VueConfHero'
+import PageHeader from '~/components/ui/PageHeader'
 
 export default {
   name: 'page-vueconf',
@@ -36,7 +40,7 @@ export default {
     ConfList,
     CheatSheetAlt,
     CourseSubscribe,
-    VueConfHero
+    PageHeader
   },
 
   computed: {

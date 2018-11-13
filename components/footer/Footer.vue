@@ -14,7 +14,7 @@ footer.footer
         li
           nuxt-link(to='/courses' class="-inverted") Courses
         li
-          nuxt-link(to='/conferences' class="-inverted") Conferences
+          nuxt-link(to='/conferences' class="-inverted") Conference Videos
         li
           nuxt-link(to='/pricing' class="-inverted") Pricing
         li

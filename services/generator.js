@@ -87,6 +87,8 @@ const getTalksPage = async function (db) {
       for (const key of Object.keys(conferences)) {
         const conference = conferences[key]
         if (conference.hasOwnProperty('talks')) {
+          result.pages.push(`/conferences/${conference.slug}`)
+          result.sitemap.push(`/conferences/${conference.slug}`)
           for (const id of Object.keys(conference.talks)) {
             const talk = conference.talks[id]
             if (talk.isVideoLive === 'true') {
