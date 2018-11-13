@@ -17,7 +17,7 @@
               :image_url='conference.banner[0].url'
               image_placement='top'
               :meta='conference.location'
-              :content='conference.talksCount + " session talks and " + conference.lightningTalksCount + " lightning talks"')
+              :content='getNumbersOfTalks(conference)')
               ConferenceActions(slot='actions' :conference='conference')
 
         .sidebar
@@ -90,6 +90,13 @@ export default {
         url = '/vueconf'
       }
       return url
+    },
+    getNumbersOfTalks (conference) {
+      let text = conference.talksCount + ' session talks'
+      if (conference.lightningTalksCount > 0) {
+        text += ' and ' + conference.lightningTalksCount + ' lightning talks'
+      }
+      return text
     }
   }
 }
