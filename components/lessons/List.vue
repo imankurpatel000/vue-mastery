@@ -133,16 +133,28 @@ export default {
         completed: this.isCompleted(lessonSlug)
       }
     },
-
-    unloggedAndLock (lesson) {
-      let isLocked = false
-      if (lesson.free) {
-        isLocked = lesson.lock && !this.account
-      } else {
-        isLocked = !this.account ? true : !this.account.subscribed
+    locked () { // Copied over logic from Wrapper
+      if (this.current.free === false) {
+        return this.account ? !this.account.subscribed : true
       }
-      return isLocked ? '-locked' : 'unlock'
+      if (this.current.lock) {
+        return !this.account
+      }
+      return false
     },
+    unloggedAndLock (lesson) {
+      return this.locked() ? '-locked' : 'unlock'
+    },
+
+    // unloggedAndLock (lesson) {
+    //   let isLocked = false
+    //   if (lesson.free) {
+    //     isLocked = lesson.lock && !this.account
+    //   } else {
+    //     isLocked = !this.account ? true : !this.account.subscribed
+    //   }
+    //   return isLocked ? '-locked' : 'unlock'
+    // },
 
     notPublished (lesson) {
       return (lesson.status === 'published' || lesson.isVideoLive === 'true') ? '' : 'draft'
