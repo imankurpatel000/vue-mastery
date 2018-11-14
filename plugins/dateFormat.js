@@ -1,4 +1,6 @@
-export const dateFormatFilter = (date = new Date(), format = 'MMMM D', add) => {
+import Vue from 'vue'
+
+Vue.filter('dateForma', (date = new Date(), format = 'MMMM D', add) => {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   if (add === '1 month') {
     let month = date.getMonth() + 1
@@ -12,12 +14,4 @@ export const dateFormatFilter = (date = new Date(), format = 'MMMM D', add) => {
     .replace('YYYY', `${date.getFullYear()}`)
     .replace('MMMM', `${months[date.getMonth()]}`)
     .replace('D', `${date.getDate()}`)
-}
-
-moment("MMMM D, YYYY")
-moment("MMMM D")
-moment("MMMM D")
-moment("MMMM D")
-moment("MMMM D, YYYY")
-moment('add', '1 years', 'MMMM D, YYYY')"
-moment('add', '1 months', 'MMMM D, YYYY')"
+})

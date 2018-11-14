@@ -1,0 +1,17 @@
+// Subscribe a user to a conference on the mailerLite course list
+  subscribeUserToConference: functions.database.ref('/accounts/{uid}/conferences/{cid}')
+    .onWrite((data, context) => {
+      // If it's not a subscription change then return
+      console.log('LALA', data.after.val())
+      if (!isChanged(data, 'subscribed')) return null
+      // if (!data.child('subscribed').changed()) return null
+
+      // Wait to get account email data and conference title to subscribe the user
+      return Promise.all([db.account(context.params.uid)])
+        .then(results => results.map(result => result.val()))
+        .then(([account]) => {
+          // Get or create email conference list
+          subscription.getMailerList(`Conference: ${context.params.cid}`)
+            .then(listID => subscription.subscribeUser(account, listID, data.val().subscribed))
+        })
+    }),
