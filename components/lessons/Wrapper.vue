@@ -22,7 +22,9 @@ div
          @redirect='redirect'
          @completed='showCongrat')
 
-    Body(:course='current' :locked='locked' :free='current.free')
+    Body(:course='current' 
+        :locked='locked' 
+        :free='current.free')
       Profile(:current='current' v-if='!isLesson' v-cloak)
 
     SideBar(:account='account'
@@ -30,7 +32,8 @@ div
             :course='course'
             :current='current'
             :isLesson='isLesson'
-            :free='current.free')
+            :free='current.free'
+            affixToElement='#lessonContent')
     //- aside.lesson-aside(v-if='!locked' v-cloak)
     //-   .control-group
     //-     Download(:courseLink='current.downloadLink', :account='account')

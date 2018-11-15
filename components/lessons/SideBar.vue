@@ -1,5 +1,9 @@
 <template lang="pug">
 aside.lesson-aside
+  affix(ref='affix'
+    :relative-element-selector='affixToElement'
+    :offset='{ top: 20, bottom: 20 }',
+    :enabled='enableAffix')
     .card
       .card-body
         Download( v-if="!locked"
@@ -67,6 +71,10 @@ export default {
     locked: {
       type: Boolean,
       default: true
+    },
+    affixToElement: {
+      type: String,
+      required: true
     }
   },
 
@@ -82,12 +90,14 @@ export default {
   data () {
     return {
       windowWidth: null,
+      enableAffix: false,
       debounceTimer: setTimeout(() => {})
     }
   },
 
   mounted () {
     this.calculateWindowWidth()
+    this.addAffix()
   },
 
   computed: {
@@ -95,8 +105,10 @@ export default {
       return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
     },
 
-    affixOnLaptopUp () {
-      if (this.windowWidth < 1024) { return false }
+    relativeElement () {
+      if (process.browser) {
+        return document.querySelector(this.affixToElement)
+      }
     }
   },
 
@@ -109,7 +121,23 @@ export default {
       clearTimeout(this.debounceTimer)
       this.debounceTimer = setTimeout(() => {
         this.calculateWindowWidth()
+        this.addAffix()
       }, 100)
+    },
+
+    mediaBreakpointUp (width) {
+      return (this.windowWidth > width)
+    },
+
+    affixTooLarge (element) {
+      const yPadding = 80
+      return (this.$refs.affix.affixHeight + yPadding > element.offsetHeight)
+    },
+
+    addAffix () {
+      if (this.mediaBreakpointUp(1024) && !this.affixTooLarge(this.relativeElement)) {
+        this.enableAffix = true
+      }
     }
   },
 
@@ -117,6 +145,9 @@ export default {
     if (process.browser) {
       window.addEventListener('resize', this.handleResize)
     }
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.handleResize)
   }
 }
 </script>
