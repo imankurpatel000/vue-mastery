@@ -133,17 +133,17 @@ export default {
         completed: this.isCompleted(lessonSlug)
       }
     },
-    locked () { // Copied over logic from Wrapper
-      if (this.lesson.free === false) {
+    locked (lesson) { // Copied over logic from Wrapper
+      if (lesson.free === false) {
         return this.account ? !this.account.subscribed : true
       }
-      if (this.lesson.lock) {
+      if (lesson.lock) {
         return !this.account
       }
       return false
     },
     unloggedAndLock (lesson) {
-      return this.locked() ? '-locked' : 'unlock'
+      return this.locked(lesson) ? '-locked' : 'unlock'
     },
 
     // unloggedAndLock (lesson) {
