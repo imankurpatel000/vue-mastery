@@ -134,10 +134,10 @@ export default {
       }
     },
     locked () { // Copied over logic from Wrapper
-      if (this.current.free === false) {
+      if (this.lesson.free === false) {
         return this.account ? !this.account.subscribed : true
       }
-      if (this.current.lock) {
+      if (this.lesson.lock) {
         return !this.account
       }
       return false
