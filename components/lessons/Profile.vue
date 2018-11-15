@@ -4,7 +4,7 @@
                   :alt='current.title')
     .card-title
       h2.author {{ current.author }}
-      time.date(v-if="current.presentedDate") Presented {{ current.presentedDate | moment("MMMM D, YYYY") }}
+      time.date(v-if="current.presentedDate") Presented {{ current.presentedDate | dateFormat }}
 </template>
 
 <script>

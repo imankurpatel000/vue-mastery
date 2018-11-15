@@ -16,7 +16,7 @@
       .content
         p.releaseDate(v-if="talk.showRelease")
           b To be released on:&nbsp;
-          span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
+          span {{ talk.releaseDate | dateFormat }}
         p {{ talk.description }}
 
   div(v-if="gotLightningTalks()")

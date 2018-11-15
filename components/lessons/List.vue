@@ -19,7 +19,7 @@
             i.far.fa-user
             span {{ lesson.author}}
         .list-item-meta(v-else)
-          | To be released on {{lesson.date | moment("MMMM D")}}
+          | To be released on {{lesson.date | dateFormat}}
 
       .list-item-actions(@click.stop v-if='lesson.status === "published" || lesson.isVideoLive === "true"')
         i.fa.fa-lock

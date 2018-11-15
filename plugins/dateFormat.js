@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
-Vue.filter('dateForma', (date = new Date(), format = 'MMMM D', add) => {
+Vue.filter('dateFormat', (date, format = 'MMMM D', add) => {
+  if (typeof date === 'string') date = new Date(date)
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   if (add === '1 month') {
     let month = date.getMonth() + 1
