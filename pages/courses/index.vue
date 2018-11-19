@@ -5,18 +5,21 @@
               background_color='linear-gradient(to right, #41B782 , #86D169)')
 
     .courses-body.wrapper
-      CourseList(:courses='courses' :account='account')
-      Latest(:courses='courses' :latests='latests' :account='account')
+      LearningPath(:courses='courses'
+        :account='account')
+      //- All(:courses='courses' :account='account')
+      //- Latest(:courses='courses' :latests='latests' :account='account')
 
-    .vue-conf
-      VueConfBanner
+    //- .vue-conf
+    //-   VueConfBanner
     CheatSheetAlt(location='Course page cheat sheet download')
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-import CourseList from '~/components/courses/All'
+import LearningPath from '~/components/courses/LearningPath'
+import All from '~/components/courses/All'
 import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import VueConfBanner from '~/components/static/VueConfBanner'
@@ -39,7 +42,8 @@ export default {
   },
 
   components: {
-    CourseList,
+    All,
+    LearningPath,
     Latest,
     CheatSheetAlt,
     VueConfBanner,
@@ -70,6 +74,6 @@ export default {
   padding-top ($vertical-space/2)
   padding-bottom ($vertical-space/2)
 
-  +laptop-up()
-    grid-template-columns 63% 33%
+  // +laptop-up()
+  //   grid-template-columns 63% 33%
 </style>
