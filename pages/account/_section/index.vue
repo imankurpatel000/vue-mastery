@@ -130,7 +130,7 @@ export default {
           if (startedCourse.hasOwnProperty('completedLessons')) {
             let completedLessons = Object.values(startedCourse.completedLessons).filter(completed => completed).length
             // Check how many lessons are completed
-            if(completedLessons > course.lessonsCount) completedLessons = course.lessonsCount
+            if (completedLessons > course.lessonsCount) completedLessons = course.lessonsCount
             course.progression = `${completedLessons} / ${course.lessonsCount} lesson${completedLessons > 1 ? 's' : ''} completed`
             if (course.completable) {
               category = completedLessons >= course.lessonsCount ? 'completed' : 'uncompleted'
