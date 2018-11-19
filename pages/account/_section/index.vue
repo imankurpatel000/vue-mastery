@@ -128,7 +128,7 @@ export default {
         if (this.account && this.account.hasOwnProperty('courses') && this.account.courses.hasOwnProperty(course.slug)) {
           const startedCourse = this.account.courses[course.slug]
           if (startedCourse.hasOwnProperty('completedLessons')) {
-            const completedLessons = Object.values(startedCourse.completedLessons).filter(completed => completed).length
+            let completedLessons = Object.values(startedCourse.completedLessons).filter(completed => completed).length
             // Check how many lessons are completed
             if(completedLessons > course.lessonsCount) completedLessons = course.lessonsCount
             course.progression = `${completedLessons} / ${course.lessonsCount} lesson${completedLessons > 1 ? 's' : ''} completed`
