@@ -35,4 +35,3 @@ static/sitemap.xml
 *code-workspace
 \.vscode/settings\.json
 package-lock.json
-functions/check.js
