@@ -37,7 +37,7 @@ const actions = {
         },
         {
           field: 'lessons',
-          fields: [ 'slug', 'status', 'date', 'title', 'lessonNumber' ]
+          fields: [ 'slug', 'status', 'date', 'title', 'lessonNumber', 'free' ]
         }
       ]})
       .then(courses => {
