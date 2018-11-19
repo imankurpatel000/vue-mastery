@@ -1,5 +1,4 @@
 import * as types from '../mutation-types'
-import _ from 'lodash'
 
 let db = null
 
@@ -176,7 +175,7 @@ const mutations = {
   [types.RECEIVE_COURSES] (state, { courses }) {
     for (let course in courses) {
       if (courses.hasOwnProperty(course) && courses[course].lessons) {
-        courses[course].lessons = _.orderBy(courses[course].lessons, 'lessonNumber')
+        courses[course].lessons.sort((a, b) => a.lessonNumber - b.lessonNumber)
       }
     }
     state.courses = courses
