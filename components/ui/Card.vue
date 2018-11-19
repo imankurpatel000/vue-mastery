@@ -30,24 +30,24 @@ import Icon from '~/components/ui/Icon.vue'
 export default {
   name: 'ui-card',
   props: {
-    'title': {
+    title: {
       type: String,
       required: true
     },
-    'image_url': {
+    image_url: {
       type: String
     },
-    'image_placement': {
+    image_placement: {
       type: String,
       default: 'left'
     },
-    'meta': {
+    meta: {
       type: String
     },
-    'content': {
+    content: {
       type: String
     },
-    'badge': {
+    badge: {
       type: Boolean
     }
   },
@@ -62,6 +62,7 @@ export default {
 .ui-card
   display flex
   flex-direction column
+  position relative
   background #fff
   box-shadow: 0 1px 4px 0 rgba(0,0,0,0.30)
   border-radius: 12px
