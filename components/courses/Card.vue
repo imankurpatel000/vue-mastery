@@ -127,20 +127,34 @@ export default {
 <style lang='stylus' scoped>
 .course-card
   display grid
+  box-sizing border-box
   position relative
   overflow hidden
-  padding: $size.by-2
+  padding: $size.by-1
   margin-bottom: $size.by-1
+  width 100%
   max-width 1000px
   box-shadow none
   border-radius: $size.by-1
   transform scale(1)
   transition all 0.2s
   grid-template-columns auto auto 1fr
-  grid-template-rows auto auto
-  grid-column-gap: $size.by-2
-  grid-template-areas 'course-badge course-heading course-heading'\
-    'course-badge course-info course-content'
+  // grid-template-rows 1fr auto
+  grid-column-gap: $size.by-0
+  grid-template-areas 'course-heading course-heading'\
+                      'course-info course-badge'\
+                      'course-content course-content'
+  
+  +tablet-up()
+    padding: $size.by-2
+    grid-column-gap: $size.by-2
+    grid-template-areas 'course-badge course-heading'\
+                        'course-badge course-info'\
+                        'course-badge course-content'
+  +laptop-up()
+    // grid-template-rows auto auto auto
+    grid-template-areas 'course-badge course-heading course-heading'\
+                        'course-badge course-info course-content'
 
   &:hover
     text-decoration none
@@ -149,6 +163,7 @@ export default {
 
 .course-heading
   grid-area course-heading
+  align-self end
 
 .free-label
   font-weight 700
@@ -162,17 +177,31 @@ export default {
 
 .course-info
   grid-area course-info
+  display flex
+  flex-direction column
   padding: $size.by-0
   margin: $size.by-0
   color $black
-  font-size 22px
   list-style-type none
+
+  +tablet-up()
+    flex-direction row
+
+  +laptop-up()
+    flex-direction column
+    font-size 22px
 
   .info-item
     display flex
+    margin-right: $size.by-1
     align-items center
-    font-size: $size.by-1
+    font-size 16px
     font-weight 600
+
+
+    +laptop-up()
+      font-size: $size.by-1
+      margin-right: $size.by-0
 
     .icon
       margin-right: 9px
@@ -180,6 +209,9 @@ export default {
 .course-content
   grid-area course-content
   color $black
-  margin: $size.by-0
+  font-size 16px
+
+  +tablet-up()
+    margin: $size.by-0
       
 </style>

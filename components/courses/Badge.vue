@@ -90,10 +90,21 @@ export default {
 .course-badge
   display flex
   align-self center
+  justify-self center
+  align-items center
+  justify-content center
   grid-area course-badge
   position relative
-  width: $size.by-10
-  height: $size.by-10
+  width: $size.by-5
+  height: $size.by-5
+
+  +tablet-up()
+    width: $size.by-8
+    height: $size.by-8
+
+  +laptop-up()
+    width: $size.by-10
+    height: $size.by-10
 
   &.coming-soon::after
   &.coming-soon::before
@@ -105,27 +116,42 @@ export default {
 
   &.coming-soon::before
     content ''
-    line-height: $size.by-2
+    height: 20px
     background: darken($states.warning, 30)
     transform translate(-50%, -32%)
-    border-radius 9px
+    border-radius 6px
     z-index -1
+
+    +tablet-up()
+      height: $size.by-2
+      border-radius 9px
     
   &.coming-soon::after
     content 'Coming soon'
-    height: $size.by-2
+    height: 22px
     text-align center
-    font-weight 700
+    font-weight 600
     text-transform uppercase
     color: darken($states.warning, 40)
-    line-height: $size.by-2
+    line-height: 22px
     background: $states.warning
     transform translate(-50%, -50%)
-    border-top-left-radius 9px
-    border-top-right-radius 9px
+    border-top-left-radius 6px
+    border-top-right-radius 6px
+
+    +tablet-up()
+      height: $size.by-2
+      line-height: $size.by-2
+      font-weight 700
+      border-top-left-radius 9px
+      border-top-right-radius 9px
+
+  img
+    width 99%
 
   canvas
     position absolute
+    width 100%
     top 0
     left 0
 
