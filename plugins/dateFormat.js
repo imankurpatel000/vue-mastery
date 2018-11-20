@@ -13,6 +13,6 @@ Vue.filter('dateFormat', (date, format = 'MMMM D', add) => {
   }
   return format
     .replace('YYYY', `${date.getFullYear()}`)
-    .replace('MMMM', `${months[date.getMonth()]}`)
     .replace('D', `${date.getDate()}`)
+    .replace('MMMM', `${months[date.getMonth()]}`)
 })
