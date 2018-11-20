@@ -34,18 +34,29 @@ export default {
 <style lang="stylus" scoped>
 .announcement-bar
   display flex
+  flex-direction row-reverse
   align-items center
+  padding 0 10px
   justify-content center
-  text-align center
-  font-size 22px
+  text-align left
+  font-size 18px
   color #fff
-  height $vertical-space
+  min-height $vertical-space
   background: $secondary-color
 
+  +tablet-up()
+    flex-direction row
+    text-align center
+    font-size 22px
+
 .anounce-icon
-  width 42px
-  height 42px
+  display flex
+  align-items center
+  width 70px
   margin 0 18px
+
+  +tablet-up()
+    width 50px
 
 
 .push-enter-active
