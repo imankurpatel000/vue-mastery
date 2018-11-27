@@ -129,7 +129,6 @@ module.exports = {
             if (lesson.status === 'published') {
               count++
               duration = db.addTimes(duration, lesson.duration)
-              console.log(`Adding ${lesson.duration} for ${lesson.title}. Total: ${duration}`)
             }
             return true
           })])
