@@ -118,7 +118,9 @@ module.exports = {
     .onWrite(event => {
       const collectionRef = event.data.ref.parent
       const countRef = collectionRef.parent.child('lessonsCount')
+      const durationRef = collectionRef.parent.child('duration')
       let count = 0
+      let duration = 0
       return collectionRef.once('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
           let childData = childSnapshot.val()
@@ -126,11 +128,14 @@ module.exports = {
             const lesson = lessonSnapshot.val()
             if (lesson.status === 'published') {
               count++
+              duration = db.addTimes(duration, lesson.duration)
+              console.log(`Adding ${lesson.duration} for ${lesson.title}. Total: ${duration}`)
             }
             return true
           })])
             .then(() => {
               countRef.set(count)
+              durationRef.set(duration)
             })
         })
       })
