@@ -1,8 +1,7 @@
 <template lang='pug'>
 .actions
   div(v-if='course.lessonsCount && !course.pushToSubscribe || course.completable' v-cloak)
-    span(v-if="course.hasOwnProperty('progression')") {{course.progression}}
-    span(v-else) {{ course.lessonsCount | pluralizeLesson }}
+    span {{ inProgress || course.lessonsCount + ` Lesson${course.lessonsCount > 1 ? 's' : ''}` }}
     div(v-if='checkCourseStarted' v-cloak)
       .button.primary.-full(v-if='isCourseCompleted' v-cloak)
         | Replay
@@ -69,6 +68,21 @@ export default {
         }
       } catch (error) {}
       return false
+    },
+
+    inProgress () {
+      let progression = 0
+      // Check if user started the course
+      if (this.account && this.account.hasOwnProperty('courses') && this.account.courses.hasOwnProperty(this.course.slug)) {
+        const startedCourse = this.account.courses[this.course.slug]
+        if (startedCourse.hasOwnProperty('completedLessons')) {
+          let completedLessons = Object.values(startedCourse.completedLessons).filter(completed => completed).length
+          // Check how many lessons are completed
+          if (completedLessons > this.course.lessonsCount) completedLessons = this.course.lessonsCount
+          progression = `${completedLessons} / ${this.course.lessonsCount} lesson${completedLessons > 1 ? 's' : ''} completed`
+        }
+      }
+      return progression
     }
   },
 
