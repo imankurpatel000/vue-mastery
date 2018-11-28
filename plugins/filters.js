@@ -1,13 +1,21 @@
 import Vue from 'vue'
-import moment from 'moment'
 
 Vue.filter('time', (value) => {
   return value.replace(/^0(?:0:0?)?/, '')
 })
 
 Vue.filter('timeToText', (value) => {
-  let time = moment(value, 'HH:mm:ss').format('H[h] MM[min]')
-  return time.split(' ').filter(unit => parseInt(unit) !== 0).join(' ')
+  let time = value.split(':')
+  time.splice(1, 0, 'h')
+  time.splice(-1, 0, 'min')
+  time.splice(2, 0, ' ')
+  time.pop()
+  let text = time
+    .join('')
+    .split(' ')
+    .map(w => parseInt(w) !== 0 ? w : '')
+    .join(' ')
+  return text
 })
 
 Vue.filter('pluralizeLesson', (value) => {
