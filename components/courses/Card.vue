@@ -3,7 +3,7 @@ nuxt-link.course-card(:to='linkTo()')
   CourseBadge(:imageUrl='course.image[0].url'
     :account='account'
     :unavailable='isComingSoon'
-    :percentProgress='inProgress')
+    :percentProgress='percentProgress')
 
   div.course-heading
     label.free-label(v-if='hasFreeLessons' cloak) Free Lessons Inside
@@ -12,9 +12,8 @@ nuxt-link.course-card(:to='linkTo()')
 
   ul.course-info
     li.info-item(v-if='hasLessons()' cloak) #[Icon(name='book')] 
-      span(v-if="course.hasOwnProperty('progression')" cloak) {{ course.progression | capitalize }}
-      span(v-else v-cloak) {{ course.lessonsCount | pluralizeLesson }}
-    li.info-item #[Icon(name='clock')] {{ course.duration | timeToText }}
+      span {{ inProgress || course.lessonsCount + ` lesson${course.lessonsCount > 1 ? 's' : ''}` | capitalize }}
+    li.info-item(v-if="hasDuration()") #[Icon(name='clock')] {{ course.duration | timeToText}}
     li.info-item #[Difficulty(:level='course.difficulty')] {{ course.difficulty | capitalize }}
   
   p.course-content {{ course.description }}
@@ -50,20 +49,20 @@ export default {
     isComingSoon () {
       return this.course.lessonsCount === 0
     },
-    inProgress () {
+    percentProgress () {
       if (this.userStartedCourse()) {
-        const startedCourse = this.account.courses[this.course.slug]
-
-        if (startedCourse.hasOwnProperty('completedLessons')) {
-          const completedLessons = Object.values(startedCourse.completedLessons)
-            .filter(completed => completed).length
-          // Check how many lessons are completed
-          return parseFloat((completedLessons / this.course.lessonsCount).toFixed(2))
-        } else {
-          return 0
-        }
+        return parseFloat((this.completedLessonslength() / this.course.lessonsCount).toFixed(2))
       }
     },
+    inProgress () {
+      let progression = 0
+      // Check if user started the course
+      if (this.userStartedCourse()) {
+        progression = `${this.completedLessonslength()} / ${this.course.lessonsCount} completed`
+      }
+      return progression
+    },
+
     isFreeCourse () {
       return this.showFreeLabel(this.course.free)
     },
@@ -83,8 +82,28 @@ export default {
         this.account.courses.hasOwnProperty(this.course.slug)
     },
 
+    currentCourse () {
+      return this.account.courses[this.course.slug]
+    },
+
+    completedLessonslength () {
+      let lessonLength = 0
+      if (this.currentCourse().hasOwnProperty('completedLessons')) {
+        lessonLength = Object.values(this.currentCourse().completedLessons)
+          .filter(completed => completed).length
+      }
+      if (lessonLength > this.course.lessonsCount) lessonLength = this.course.lessonsCount
+      return lessonLength
+    },
+
     hasLessons () {
       return (this.course.lessonsCount || this.course.lessons !== undefined)
+    },
+
+    hasDuration () {
+      return this.course.duration
+        .split(':')
+        .reduce((prev, curr) => prev + parseInt(curr), 0)
     },
 
     showFreeLabel (type) {
