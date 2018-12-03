@@ -2,7 +2,7 @@
 form.form(@submit.prevent='submit')
   h3.form-title
     span {{ title }}
-    button(@click="$modal.hide('login-form')") &times;
+    button(@click="close") &times;
   .form-header(v-if="header !== ''" v-html='header')
 
   .form-group
@@ -191,9 +191,15 @@ export default {
           this.formError = error.message
         })
     },
+
     switchVisibility () {
       this.showPassword = !this.showPassword
       this.$refs.password.type = this.showPassword ? 'text' : 'password'
+    },
+
+    close (e) {
+      // Prevent enter event to close the modal
+      if (e.screenX !== 0) this.$modal.hide('login-form')
     }
   }
 }
