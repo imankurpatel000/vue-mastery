@@ -6,8 +6,9 @@ nuxt-link.course-card(:to='linkTo()')
     :percentProgress='percentProgress')
 
   div.course-heading
-    label.free-label(v-if='hasFreeLessons' cloak) Free Lessons Inside
     label.free-label(v-if='isFreeCourse' cloak) Free Course
+    label.free-label(v-else-if='hasUpcomingLessons' cloak) Releasing New Lessons Weekly
+    label.free-label(v-else-if='hasFreeLesson' cloak) Free Lesson Inside
     h2.title {{ course.title }}
 
   ul.course-info
@@ -67,12 +68,25 @@ export default {
       return this.showFreeLabel(this.course.free)
     },
 
-    hasFreeLessons () {
+    hasFreeLesson () {
       if (!this.hasLessons()) return
 
       let freeLessons = this.course.lessons.filter(lesson => lesson.free)
+      if (freeLessons.length === 0) { // For some reason 0 evaluates to true.
+        freeLessons = false
+      }
 
       return (!this.showFreeLabel(this.course.free) && this.showFreeLabel(freeLessons))
+    },
+    hasUpcomingLessons () {
+      if (!this.hasLessons()) return
+
+      let draftLessons = this.course.lessons.filter(lesson => lesson.status === 'draft')
+
+      if (draftLessons.length === 0) {
+        draftLessons = false
+      }
+      return draftLessons
     }
   },
   methods: {
