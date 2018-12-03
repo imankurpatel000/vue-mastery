@@ -1,5 +1,5 @@
 <template lang='pug'>
-div
+aside
   h2.title Latest Lessons
   nuxt-link(v-for='(lesson, index) in latests'
             v-if='index < 3'

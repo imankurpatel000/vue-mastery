@@ -14,14 +14,25 @@ $primary-color = #39B982
 $secondary-color = #0A2B4E
 $black = #222
 $gray = #555
+$white = #FFF
 
 $states = {
   info: #A8D7DD
   success: $primary-color
-  warning: yellow
-  error: #EB4641
+  warning: #F3E43C
+  error: #E04848
 }
 
+$shadow = {
+  'depth-1': s('%s %s %s %s', 0 1px 2px rgba(#000, 0.2)) s(', %s %s %s %s', 0 1px 5px rgba(#000, 0.13))
+  'depth-4': s('%s %s %s %s', 0 25px 55px rgba(#000, 0.2)) s(', %s %s %s %s', 0 16px 28px rgba(#000, 0.24))
+}
 // Spacing
 $vertical-space = 90px
 $header-height = 100px
+
+// Use size.by-[number] 
+// for multiples of 18 [0:0, 1:18, 2:27, 3:45, .. 16:288]
+$size = {}
+for i in (0..16)
+	$size['by-' + i] = i * 18px
