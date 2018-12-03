@@ -80,7 +80,7 @@ export default {
     }),
     orderedConferences () {
       return Object.values(this.conferences)
-        .sort((a, b) => new Date(a.upcomingDate) - new Date(b.upcomingDate))
+        .sort((a, b) => new Date(b.upcomingDate) - new Date(a.upcomingDate))
     }
   },
 
