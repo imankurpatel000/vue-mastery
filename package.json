@@ -28,7 +28,7 @@
     "lodash": "^4.17.11",
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-decorate": "^1.2.2",
-    "markdown-it-highlightjs": "^3.0.0",
+    "markdown-it-highlightjs": "git+https://git@github.com/Code-Pop/markdown-it-highlightjs.git",
     "markdown-it-implicit-figures": "^0.9.0",
     "nuxt": "^1.4.4",
     "nuxt-facebook-pixel-module": "^1.0.1",
