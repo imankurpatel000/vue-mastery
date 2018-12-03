@@ -28,6 +28,12 @@ aside.lesson-aside
         p All the essential syntax at your fingertips
         DownloadButton(button-class='inverted' location='Vueconf download button')
 
+    .card.download(v-if='!isLesson' v-cloak)
+      .card-body
+        h3 Download the Nuxt.js Cheat Sheet
+        p All the Nuxt.js syntax at your fingertips
+        DownloadButtonNuxt(button-class='inverted' location='Vueconf download button')
+
     .card.communication.text-center(v-if='isLesson')
       .card-body
         a.button.primary.border.-full(href='https://www.facebook.com/groups/152305585468331/') Discuss in our Facebook Group
@@ -42,6 +48,7 @@ import Challenges from '~/components/lessons/Challenges'
 import Download from '~/components/lessons/Download'
 import SocialShare from '~/components/lessons/SocialSharing'
 import DownloadButton from '~/components/static/DownloadButton'
+import DownloadButtonNuxt from '~/components/static/DownloadButtonNuxt'
 import Icon from '~/components/ui/Icon'
 
 export default {
@@ -83,6 +90,7 @@ export default {
     Challenges,
     Download,
     DownloadButton,
+    DownloadButtonNuxt,
     SocialShare,
     Icon
   },
