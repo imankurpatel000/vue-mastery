@@ -1,7 +1,7 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
     section.announcement-bar(v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-      p #[b() 35% Off] a year with Vue Mastery. Use code: #[b() BLACKFRIDAY] at checkout.
+      p #[b() 25% Off] a year with Vue Mastery. Use code: #[b() HOLIDAY25] at checkout.
       .anounce-icon
         img(src='/images/ico-vue-master-yay.png')
 </template>
