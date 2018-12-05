@@ -79,6 +79,7 @@ export default {
 
 .grid-card
   display flex
+  position relative
   flex-direction column
   justify-content space-between
   cursor pointer

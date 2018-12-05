@@ -1,5 +1,5 @@
 <template lang='pug'>
-div
+section
   .list(v-if='courses' v-cloak)
     nuxt-link.list-card(v-for='course, index in ordered'
                         :key='index'
