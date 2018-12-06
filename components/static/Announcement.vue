@@ -3,7 +3,7 @@
     section.announcement-bar(v-if="ready && !account || (account && !account.subscribed)" v-cloak)
       p #[b() 25% Off] a year with Vue Mastery. Use code: #[b() HOLIDAY25] at checkout.
       .anounce-icon
-        img(src='/images/ico-vue-master-yay.png')
+        img(src='/images/ico-vue-mastery-holiday.png')
 </template>
 
 <script>
@@ -52,11 +52,12 @@ export default {
 .anounce-icon
   display flex
   align-items center
-  width 70px
-  margin 0 18px
+  width 80px
+  margin 0 10px
 
   +tablet-up()
-    width 50px
+    width 70px
+    margin 0 18px
 
 
 .push-enter-active
