@@ -25,9 +25,16 @@
         li.talk-item(v-for='talk in conference.talks'
                     v-if='talk && talk.lightningTalks'
                     :key='talk.slug')
-          nuxt-link(:to='path(talk)')
+          nuxt-link(v-if='!talk.lock'
+                    :to='path(talk)')
             h4.talk-item-title {{ talk.title }}
             label.underline.lightning-author {{ talk.author }}
+          div(v-else)
+            h4.talk-item-title {{ talk.title }}
+            label.lightning-author {{ talk.author }}
+            p.releaseDate(v-if="talk.showRelease")
+              b To be released on:&nbsp;
+              span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
 </template>
 
 <script>
