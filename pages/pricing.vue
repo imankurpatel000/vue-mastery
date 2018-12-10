@@ -92,6 +92,12 @@
                 p FYI, all team accounts are billed yearly.
 
               button.button.secondary.border(@click='openTeamContact') Contact Us
+  
+  
+  
+      .pricing-structure
+        a(href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift") Offer gift
+  
   Testimonials
 </template>
 
