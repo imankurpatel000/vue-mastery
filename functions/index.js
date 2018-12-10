@@ -222,11 +222,48 @@ module.exports = {
     })
   }),
 
+  // generate_gift_url: functions.https.onRequest((req, res) => {
+  //   res.header('Content-Type', 'application/json')
+  //   res.header('Access-Control-Allow-Origin', '*')
+  //   res.header('Access-Control-Allow-Headers', 'Content-Type')
+
+  //   chargebee.gift.create({
+  //     gifter : {
+  //       customer_id : "J28UHaLRBRVSnh6FE", 
+  //       signature : "Sam"
+  //     }, 
+  //     gift_receiver : {
+  //       customer_id : "",
+  //       'email': req.body.email,
+  //       'last_name': req.body.last_name,
+  //       'first_name': req.body.first_name
+  //     }, 
+  //     subscription : {
+  //       plan_id : "3-months-gift"
+  //     }, 
+  //     addons : [{
+  //       id : "cbdemo_protein", 
+  //       quantity : 2
+  //     }]
+  //   }).request(function(error,result){
+  //     if(error){
+  //       //handle error
+  //       console.log(error);
+  //     }else{
+  //       console.log(result);
+  //       var gift = result.gift;
+  //       var subscription = result.subscription;
+  //       var invoice = result.invoice;
+  //     }
+  //   });
+  // }
+
   subscription_changes: functions.https.onRequest((req, res) => {
     console.log(`CHARGEBEE EVENT: ${req.body.event_type}`)
     const customer = req.body.content.customer
     if (customer) console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
     switch (req.body.event_type) {
+      case 'gift_claimed':
       case 'subscription_resumed':
       case 'subscription_renewed':
       case 'subscription_reactivated':
@@ -235,6 +272,8 @@ module.exports = {
         db.subscribe(customer.email, customer.id, true)
         break
       }
+      case 'gift_cancelled':
+      case 'gift_expired':
       case 'subscription_paused':
       case 'subscription_cancelled': {
         db.subscribe(customer.email, customer.id, false)
@@ -246,5 +285,16 @@ module.exports = {
       }
     }
     res.sendStatus(200)
+  }),
+
+  claim_gift: functions.https.onRequest((req, res) => {
+    chargebee.gift.claim(req.body.gift_id).request(
+      (error, result) => {
+        if (error) {
+          res.status(500).send(error)
+        } else {
+          res.sendStatus(200).send(result)
+        }
+      })
   })
 }
