@@ -12,80 +12,90 @@
           li Most importantly, supporting the Vue.js project itself.
 
       .pricing-structure
-        .page-title.text-center
-          h2 Pricing
+        
+        PanelSwitch
+          Panel(title="Personal" 
+            :selected="true")
+            .free-sub
+              .card
+                .card-body
+                  h3.text-center Free
 
-        .free-sub
-          .card
-            .card-body
-              h3.text-center Free
+                  .money
+                    .symbol $
+                    .decimal 0
 
-              .money
-                .symbol $
-                .decimal 0
+                  .text
+                    p Free Vue.js CheatSheet
+                    p Access to the complete Intro to Vue course
+                    p Free educational content delivered to your inbox
 
-              .text
-                p Free Vue.js CheatSheet
-                p Access to the complete Intro to Vue course
-                p Free educational content delivered to your inbox
-
-              button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
+                  button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
 
 
-        .monthly
-          .card
-            .card-body
-              h3.text-center Monthly
+            .monthly
+              .card
+                .card-body
+                  h3.text-center Monthly
 
-              .money
-                .symbol $
-                .decimal 19
+                  .money
+                    .symbol $
+                    .decimal 19
 
-              .text-center
-                i per month
+                  .text-center
+                    i per month
 
-              .benefit
-                img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $5 of your monthly subscription goes to supporting the Vue.js project itself.
+                  .benefit
+                    img(src="/images/lgo-vue.svg" alt="Vue.js")
+                    span $5 of your monthly subscription goes to supporting the Vue.js project itself.
 
-              .benefit.color-gold
-                i.fas.fa-shield-alt
-                span 14-day money-back guarantee
+                  .benefit.color-gold
+                    i.fas.fa-shield-alt
+                    span 14-day money-back guarantee
 
-              button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
+                  button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
 
-        .annually
-          .card
-            .card-body
-              h3.text-center Annual
+            .annually
+              .card
+                .card-body
+                  h3.text-center Annual
 
-              .money
-                .symbol $
-                .decimal 190
+                  .money
+                    .symbol $
+                    .decimal 190
 
-              .text-center
-                i per year
+                  .text-center
+                    i per year
 
-              .benefit
-                img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $50 of your yearly subscription goes to supporting the Vue.js project itself.
+                  .benefit
+                    img(src="/images/lgo-vue.svg" alt="Vue.js")
+                    span $50 of your yearly subscription goes to supporting the Vue.js project itself.
 
-              .benefit.color-gold
-                i.fas.fa-shield-alt
-                span 14-day money-back guarantee
+                  .benefit.color-gold
+                    i.fas.fa-shield-alt
+                    span 14-day money-back guarantee
 
-              .benefit.color-primary
-                i.fa.fa-piggy-bank
-                b Get 2 months free <br>
-                  small ($38 discount)
+                  .benefit.color-primary
+                    i.fa.fa-piggy-bank
+                    b Get 2 months free <br>
+                      small ($38 discount)
 
-              button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
+                  button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
+          
+          Panel(title="Business")
+            .team
+              .card
+                .card-body
+                  h3.text-center Team Accounts
+                  img(src="/images/img-group-dark.svg" alt="Team accounts VueMastery")
 
-        .team
-          .card
-            .card-body
-              h3.text-center Team Accounts
-              img(src="/images/img-group-dark.svg" alt="Team accounts VueMastery")
+                  div
+                    p Reach out for special pricing for your team.
+                    p FYI, all team accounts are billed yearly.
+
+                  button.button.secondary.border(@click='openTeamContact') Contact Us
+          Panel(title="Gift")
+            h1 Gift Panel
 
               div
                 p Reach out for special pricing for your team.
@@ -106,6 +116,8 @@ import { mapState } from 'vuex'
 import axios from 'axios'
 import ContactTeamModal from '~/components/account/ContactTeamModal.vue'
 import Testimonials from '~/components/static/Testimonials.vue'
+import Panel from '~/components/ui/Panel.vue'
+import PanelSwitch from '~/components/ui/PanelSwitch.vue'
 
 export default {
   name: 'page-pricing',
@@ -120,7 +132,9 @@ export default {
 
   components: {
     ContactTeamModal,
-    Testimonials
+    Testimonials,
+    Panel,
+    PanelSwitch
   },
 
   data () {
@@ -257,30 +271,30 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 .pricing-structure
   display grid
   margin-bottom $vertical-space
-  grid-row-gap 20px
-  grid-template-columns 1fr
-  grid-template-areas 'page-title'\
-                      'free-sub'\
-                      'monthly'\
-                      'annually'\
-                      'team'
+  // grid-row-gap 20px
+  // grid-template-columns 1fr
+  // grid-template-areas 'page-title'\
+  //                     'free-sub'\
+  //                     'monthly'\
+  //                     'annually'\
+  //                     'team'
 
-  +tablet-up()
-    grid-column-gap 20px
-    grid-template-columns 1fr 1fr 1fr
-    grid-template-areas 'page-title page-title page-title'\
-                        'free-sub monthly annually'\
-                        'team team team'
+  // +tablet-up()
+  //   grid-column-gap 20px
+  //   grid-template-columns 1fr 1fr 1fr
+  //   grid-template-areas 'page-title page-title page-title'\
+  //                       'free-sub monthly annually'\
+  //                       'team team team'
 
-  +desktop-up()
-    align-items stretch
-    grid-template-columns 1fr 1fr 1fr 1fr
-    grid-template-areas 'page-title page-title page-title page-title'\
-                        'free-sub monthly annually team'\
+  // +desktop-up()
+  //   align-items stretch
+  //   grid-template-columns 1fr 1fr 1fr 1fr
+  //   grid-template-areas 'page-title page-title page-title page-title'\
+  //                       'free-sub monthly annually team'\
 
-.page-title h2
-  color $secondary-color
-  font-weight 400
+// .page-title h2
+//   color $secondary-color
+//   font-weight 400
 
 .card
   height 100%
