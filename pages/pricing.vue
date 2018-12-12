@@ -96,7 +96,7 @@
   
   
       .pricing-structure
-        a(href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift") Offer gift
+        a(href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift-test") Offer gift
   
   Testimonials
 </template>

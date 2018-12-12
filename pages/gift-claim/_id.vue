@@ -14,6 +14,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import axios from 'axios'
+
 export default {
   name: 'claim',
 
