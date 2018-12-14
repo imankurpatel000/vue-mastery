@@ -4,83 +4,68 @@
   .wrapper
     .pricing-layout
       .pricing-content
-        h2.title Becoming a Vue Mastery Paid Subscriber means
-        ul
-          li Access to all paid content. New Lessons Weekly.
-          li The ability to track your course progress.
-          li Supporting the Vue.js News Podcast.
-          li Most importantly, supporting the Vue.js project itself.
+
+        div(v-if="current === 'Gift'")
+          img.gift-icon(src='images/img-vue-gift.png')
+          img.gift-icon(src='images/img-vue-gift.png')
+          h2.title Giving the gift of code means you are:
+          ul
+            li Encouraging someone to further advance their career
+            li Giving someone access to all of our courses, with new videos weekly
+        
+        div(v-else cloak)
+          h2.title Becoming a Vue Mastery Paid Subscriber means:
+          ul
+            li Access to all paid content. New Lessons Weekly.
+            li The ability to track your course progress.
+            li Supporting the Vue.js News Podcast.
+            li Most importantly, supporting the Vue.js project itself.
 
       .pricing-structure
         
-        PanelSwitch
-          Panel(title="Personal" 
+        PanelSwitch(:current.sync="current")
+          Panel(title="Personal"
             :selected="true")
-            .free-sub
-              .card
-                .card-body
-                  h3.text-center Free
+            PricingCard.w-30(title='Free' price='0')
+              .text-center(slot='benefits')
+                p Free Vue.js CheatSheet
+                p Access to the complete Intro to Vue course
+                p Free educational content delivered to your inbox
 
-                  .money
-                    .symbol $
-                    .decimal 0
+              button.button.-full(slot="action" 
+                @click='openLogin' 
+                :class="[account ? 'secondary border' : 'primary']" 
+                :disabled='this.account') {{ freeText }}
+            
+            PricingCard.w-30(title="Monthly" price="19" per="month")
+              .benefit(slot="benefits")
+                img(src="/images/lgo-vue.svg" alt="Vue.js")
+                span $5 of your monthly subscription goes to supporting the Vue.js project itself.
 
-                  .text
-                    p Free Vue.js CheatSheet
-                    p Access to the complete Intro to Vue course
-                    p Free educational content delivered to your inbox
+              .benefit.color-gold(slot="benefits")
+                i.fas.fa-shield-alt
+                span 14-day money-back guarantee
 
-                  button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
+              button.button.primary.-full(slot="action"
+                @click="subscribe('monthly-subscription')") Select Plan    
 
+            PricingCard.w-30(title="Annual" price="190" per="year")
+              template(slot="benefits")
+                .benefit
+                  img(src="/images/lgo-vue.svg" alt="Vue.js")
+                  span $50 of your yearly subscription goes to supporting the Vue.js project itself.
 
-            .monthly
-              .card
-                .card-body
-                  h3.text-center Monthly
+                .benefit.color-gold
+                  i.fas.fa-shield-alt
+                  span 14-day money-back guarantee
 
-                  .money
-                    .symbol $
-                    .decimal 19
-
-                  .text-center
-                    i per month
-
-                  .benefit
-                    img(src="/images/lgo-vue.svg" alt="Vue.js")
-                    span $5 of your monthly subscription goes to supporting the Vue.js project itself.
-
-                  .benefit.color-gold
-                    i.fas.fa-shield-alt
-                    span 14-day money-back guarantee
-
-                  button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
-
-            .annually
-              .card
-                .card-body
-                  h3.text-center Annual
-
-                  .money
-                    .symbol $
-                    .decimal 190
-
-                  .text-center
-                    i per year
-
-                  .benefit
-                    img(src="/images/lgo-vue.svg" alt="Vue.js")
-                    span $50 of your yearly subscription goes to supporting the Vue.js project itself.
-
-                  .benefit.color-gold
-                    i.fas.fa-shield-alt
-                    span 14-day money-back guarantee
-
-                  .benefit.color-primary
-                    i.fa.fa-piggy-bank
-                    b Get 2 months free <br>
-                      small ($38 discount)
-
-                  button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
+                .benefit.color-primary
+                  i.fa.fa-piggy-bank
+                  b Get 2 months free <br>
+                    small ($38 discount)
+              
+              button.button.primary.-full(slot="action"
+                @click="subscribe('year-subscription')") Select Plan
           
           Panel(title="Business")
             .team
@@ -94,20 +79,69 @@
                     p FYI, all team accounts are billed yearly.
 
                   button.button.secondary.border(@click='openTeamContact') Contact Us
+          
           Panel(title="Gift")
-            h1 Gift Panel
+            PricingCard.w-30(title="3 Months" price="49" align="center")
+              template(slot="benefits")
+                .benefit.color-primary
+                  i.fa.fa-piggy-bank
+                  b 14% off regular price
 
-              div
-                p Reach out for special pricing for your team.
-                p FYI, all team accounts are billed yearly.
+                .benefit
+                  img(src="/images/lgo-vue.svg" alt="Vue.js")
+                  span $12 goes to support Vue.js.
 
-              button.button.secondary.border(@click='openTeamContact') Contact Us
-  
-  
-  
-      .pricing-structure
-        a(href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift-test") Offer gift
-  
+              button.button.primary.-full(
+                slot="action"
+                data-cb-type="checkout" 
+                data-cb-plan-id="3-months-gift-test") Purchase Gift
+
+            PricingCard.w-30(title="6 Months" price="89" align="center")
+              template(slot="benefits")
+                .benefit.color-primary
+                  i.fa.fa-piggy-bank
+                  b 22% off regular price
+
+                .benefit
+                  img(src="/images/lgo-vue.svg" alt="Vue.js")
+                  span $22 goes to support Vue.js.
+
+              button.button.primary.-full(
+                slot="action"
+                data-cb-type="checkout" 
+                data-cb-plan-id="3-months-gift-test") Purchase Gift
+
+            PricingCard.w-30(title="12 Months" price="129" align="center")
+              template(slot="benefits")
+                .benefit.color-primary(style="align-items: center; justify-items: center")
+                  i.fa.fa-piggy-bank
+                  b 32% off regular price
+
+                .benefit
+                  img(src="/images/lgo-vue.svg" alt="Vue.js")
+                  span $32 goes to support Vue.js.
+
+              button.button.primary.-full(
+                slot="action"
+                data-cb-type="checkout" 
+                data-cb-plan-id="3-months-gift-test") Purchase Gift
+
+            .faq-panel
+              h3.text-center Frequently Asked Questions:
+              ul
+                li 
+                  h4 Can I buy a gift for myself?
+                  p Yes, you deserve it.  
+                li 
+                  h4 Can I send this to someone on Christmas (a later date)?  
+                  p Yes, we even will automate this for you and send them the email on the day you want.
+                li
+                  h4 Do I or the recipient need a Vue Mastery account created to purchase this?
+                  p No.
+                li
+                  h4 When does the gift subscription start? 
+                  p The gift subscription will need to be redeemed within 45 days of it being sent.  It will start when it is redeemed, not when you purchase it.  If it's not activated within 45 days after it's sent it will activate automatically.
+
   Testimonials
 </template>
 
@@ -118,6 +152,7 @@ import ContactTeamModal from '~/components/account/ContactTeamModal.vue'
 import Testimonials from '~/components/static/Testimonials.vue'
 import Panel from '~/components/ui/Panel.vue'
 import PanelSwitch from '~/components/ui/PanelSwitch.vue'
+import PricingCard from '~/components/ui/PricingCard.vue'
 
 export default {
   name: 'page-pricing',
@@ -134,13 +169,15 @@ export default {
     ContactTeamModal,
     Testimonials,
     Panel,
-    PanelSwitch
+    PanelSwitch,
+    PricingCard
   },
 
   data () {
     return {
       chargebeeInstance: null,
-      chargbeeLink: ''
+      chargbeeLink: '',
+      current: undefined
     }
   },
 
@@ -239,7 +276,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-build-grid-area(pricing-content pricing-structure page-title monthly annually team)
+build-grid-area(pricing-content pricing-structure)
 
 .pricing-layout
   display grid
@@ -249,10 +286,11 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 
 .pricing-content
   display flex
+  position relative
   justify-self center
   flex-direction column
   align-items center
-  max-width 568px
+  max-width 500px
 
   +laptop-up()
     padding-top $vertical-space
@@ -268,77 +306,35 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
     +laptop-up()
       text-align center
 
+.gift-icon
+  position absolute
+  width 100px
+  top 30px
+  display none
+
+  +tablet-up()
+    display block
+
+  &:first-of-type
+    left -100px
+    transform rotate(-10deg)
+
+  &:last-of-type
+    right -100px
+    transform rotate(10deg)
+
 .pricing-structure
-  display grid
-  margin-bottom $vertical-space
-  // grid-row-gap 20px
-  // grid-template-columns 1fr
-  // grid-template-areas 'page-title'\
-  //                     'free-sub'\
-  //                     'monthly'\
-  //                     'annually'\
-  //                     'team'
+  margin-bottom: $size.by-5
 
-  // +tablet-up()
-  //   grid-column-gap 20px
-  //   grid-template-columns 1fr 1fr 1fr
-  //   grid-template-areas 'page-title page-title page-title'\
-  //                       'free-sub monthly annually'\
-  //                       'team team team'
-
-  // +desktop-up()
-  //   align-items stretch
-  //   grid-template-columns 1fr 1fr 1fr 1fr
-  //   grid-template-areas 'page-title page-title page-title page-title'\
-  //                       'free-sub monthly annually team'\
-
-// .page-title h2
-//   color $secondary-color
-//   font-weight 400
-
-.card
-  height 100%
-  color $secondary-color
-
-  &:hover
-    text-decoration none
-
-  h3
-    padding-top 0
-
-  &.secondary
-    color #FFFFFF
-    background $secondary-color
-    &:hover button
-      color $secondary-color
-
-  .button
-    margin-bottom 0
-
-  .card-body
-    display flex
-    flex-direction column
-
-.benefit
-  display flex
-  align-items start
-  margin-bottom 10px
-  margin-top 10px
-
-  &.color-primary
-    color $primary-color
-
-  &.color-gold
-    color #968E11
-    flex-grow 1
-
-  i
-  img
-    margin-right 10px
-    font-size 30px
-    max-width 30px
+.w-30
+  width 100%
+  +tablet-up()
+    width 30%
 
 .team
+  +tablet-up()
+    width 50%
+
   .card-body
     text-align center
 
@@ -348,39 +344,20 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
       margin 10px auto 0
       max-width 140px
 
-    div
-      flex-grow 1
-
-    +tablet-up()
-      display flex
-      align-items center
-      flex-wrap wrap
-
-    +laptop-up()
-      text-align center
-
-      .button
-        width 100%
-
-.free-sub
-  .card-body .text
-    flex-grow 1
-    text-align center
-
-.money
-  display flex
-  justify-content center
-
-.symbol
-  font-weight 700
-  color $primary-color
-  font-size 35px
-  padding-top 10px
-  margin-left -20px
-
-.decimal
+.faq-panel
+  width 100%
+  margin-top: $size.by-2
+  padding: 0 $size.by-2
   color $secondary-color
-  font-weight 700
-  font-size 100px
-  line-height 1
+
+  ul
+    max-width 650px
+    margin 0 auto
+    list-style-type none
+
+    li > p
+      font-size 1.1em
+      font-style italic
+      padding-left: $size.by-1
+      border-left solid 2px $primary-color
 </style>
