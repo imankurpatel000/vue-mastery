@@ -1,5 +1,6 @@
 <template lang="pug">
-  section(ref="panel" v-show="isActive" v-cloak)
+transition(name='fade' v-if="isActive" mode="out-in") 
+  .panel(ref="panel")
     slot
 </template>
 
@@ -30,3 +31,10 @@ export default {
 }
 </script>
 
+<style lang="stylus" scoped>
+.panel
+  display flex
+  justify-content space-evenly
+  flex-wrap wrap
+  padding: $size.by-2 0
+</style>
