@@ -83,7 +83,7 @@
           Panel(title="Gift")
             PricingCard.w-30(title="3 Months" price="49" align="center")
               template(slot="benefits")
-                .benefit.color-primary
+                .benefit.color-primary(style="pace-items: center")
                   i.fa.fa-piggy-bank
                   b 14% off regular price
 
@@ -98,7 +98,7 @@
 
             PricingCard.w-30(title="6 Months" price="89" align="center")
               template(slot="benefits")
-                .benefit.color-primary
+                .benefit.color-primary(style="pace-items: center")
                   i.fa.fa-piggy-bank
                   b 22% off regular price
 
@@ -113,7 +113,7 @@
 
             PricingCard.w-30(title="12 Months" price="129" align="center")
               template(slot="benefits")
-                .benefit.color-primary(style="align-items: center; justify-items: center")
+                .benefit.color-primary(style="pace-items: center")
                   i.fa.fa-piggy-bank
                   b 32% off regular price
 
