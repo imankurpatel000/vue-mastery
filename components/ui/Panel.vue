@@ -1,6 +1,6 @@
 <template lang="pug">
-transition(name='fade' v-if="isActive" mode="out-in") 
-  .panel(ref="panel")
+transition(name='fade' mode="out-in") 
+  .panel(ref="panel" v-show="isActive")
     slot
 </template>
 
