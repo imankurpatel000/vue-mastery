@@ -126,8 +126,7 @@ module.exports = {
       claimed: true,
       valid: true
     }
-    return admin.database().ref().update(updates);
-
+    return admin.database().ref().update(updates)
   },
 
   checkUnclaimedGift (email) {
@@ -138,10 +137,11 @@ module.exports = {
       .equalTo(email)
       .once('child_added', (snapshot) => {
         const val = snapshot.val()
-        console.log(`Found Gift ${val} with email ${email}, now updating chargebeeId: ${id}`)
+        console.log(`Found Gift ${val} with email ${email}, now updating chargebeeId: ${val.chargebeeId}`)
         if (email === val.email && val.claimed && val.valid) {
           this.subscribe(email, val.chargebeeId, true)
         }
+      })
   },
 
   subscribeTeamMember (email, team, subscribing = true) {
