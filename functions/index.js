@@ -16,6 +16,7 @@ module.exports = {
       const user = event.data
       db.checkUserTeamSubscription(user)
       db.checkIfTeamMember(user.email)
+      db.checkUnclaimedGift(user.email)
       return subscription.getMailerList(mainListId)
         .then(listID => subscription.subscribeUser(user, listID, true))
     }),
@@ -227,7 +228,6 @@ module.exports = {
     const customer = req.body.content.customer
     if (customer) console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
     switch (req.body.event_type) {
-      case 'gift_claimed':
       case 'subscription_resumed':
       case 'subscription_renewed':
       case 'subscription_reactivated':
@@ -241,6 +241,13 @@ module.exports = {
       case 'subscription_paused':
       case 'subscription_cancelled': {
         db.subscribe(customer.email, customer.id, false)
+        break
+      }
+      case 'gift_claimed': {
+        // Check if email exist
+        db.claim(customer.email, customer.id).then(() => {
+          db.subscribe(customer.email, customer.id, true)
+        })
         break
       }
       default: {

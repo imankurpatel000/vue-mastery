@@ -91,7 +91,7 @@ module.exports = {
           console.log('Checking success: user found')
           const val = snapshot.val()
           tryNumber++
-          if (!val || !val.subscribed) this.subscribe(email, id, subscribing, tryNumber)
+          if (!val || !val.subscribed) this.subscribe(email, id, subscribing)
         })
     }, 10000)
   },
@@ -114,6 +114,34 @@ module.exports = {
           })
         }
       })
+  },
+
+  claim (email, chargebeeId) {
+    console.log('Add new gift claim to gift collection')
+    var newPostKey = admin.database().ref().child('/flamelink/environments/production/content/Gift/en-US').push().key
+    var updates = {}
+    updates['/flamelink/environments/production/content/Gift/en-US' + newPostKey] = {
+      chargebeeId: chargebeeId,
+      email: email,
+      claimed: true,
+      valid: true
+    }
+    return admin.database().ref().update(updates);
+
+  },
+
+  checkUnclaimedGift (email) {
+    return admin
+      .database()
+      .ref('/flamelink/environments/production/content/Gift/en-US')
+      .orderByChild('email')
+      .equalTo(email)
+      .once('child_added', (snapshot) => {
+        const val = snapshot.val()
+        console.log(`Found Gift ${val} with email ${email}, now updating chargebeeId: ${id}`)
+        if (email === val.email && val.claimed && val.valid) {
+          this.subscribe(email, val.chargebeeId, true)
+        }
   },
 
   subscribeTeamMember (email, team, subscribing = true) {

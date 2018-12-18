@@ -21,20 +21,14 @@
         .card(v-if="card")
           .card-body
             h4
-              i.fa.fa-piggy-bank &nbsp;
-              | You are supporting Open Source!
-            p Lorem ipsum
-
-            h4
               i.fa.fa-book &nbsp;
               | Our Content
             p We release content weekly.  See our most recent lessons and what is coming up on the #[nuxt-link(to='/courses') courses page]. Your support also helps us produce the weekly #[a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast], where we cover the latest Vue news and tutorials.
 
             h4
-              i.fa.fa-dollar-sign &nbsp;
-              | Your Subscription
-            p Lorem ipsum {{renewal}}.
-            p Lorem ipsum
+              i.fa.fa-book &nbsp;
+              | Conference Videos
+            p We have some of the best Vue conference talks available to watch on our #[nuxt-link(to='/conferences') conferences page]. 
 
             h4
               i.far.fa-thumbs-up &nbsp;

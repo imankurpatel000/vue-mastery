@@ -84,7 +84,8 @@
               template(slot="benefits")
                 .benefit.color-primary(style="pace-items: center")
                   i.fa.fa-piggy-bank
-                  b 14% off regular price
+                  b 14% off regular price <br>
+                    small ($8 discount)
 
                 .benefit
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
@@ -99,7 +100,8 @@
               template(slot="benefits")
                 .benefit.color-primary(style="pace-items: center")
                   i.fa.fa-piggy-bank
-                  b 22% off regular price
+                  b 22% off regular price<br>
+                    small ($25 discount)
 
                 .benefit
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
@@ -110,15 +112,16 @@
                 data-cb-type="checkout" 
                 data-cb-plan-id="3-months-gift-test") Purchase Gift
 
-            PricingCard.w-30(title="12 Months" price="129" align="center")
+            PricingCard.w-30(title="12 Months" price="139" align="center")
               template(slot="benefits")
                 .benefit.color-primary(style="pace-items: center")
                   i.fa.fa-piggy-bank
-                  b 32% off regular price
+                  b 27% off regular price <br>
+                    small ($51 discount)
 
                 .benefit
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
-                  span $32 goes to support Vue.js.
+                  span $35 goes to support Vue.js.
                   a(href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift-test") Offer gift
 
               button.button.primary.-full(
