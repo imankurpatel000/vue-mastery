@@ -6,8 +6,8 @@
       .pricing-content
 
         div(v-if="current === 'Gift'")
-          img.gift-icon(src='images/img-vue-gift.png')
-          img.gift-icon(src='images/img-vue-gift.png')
+          img.gift-icon(src='/images/img-vue-gift.png')
+          img.gift-icon(src='/images/img-vue-gift.png')
           h2.title Giving the gift of code means you are:
           ul
             li Encouraging someone to further advance their career
@@ -22,7 +22,6 @@
             li Most importantly, supporting the Vue.js project itself.
 
       .pricing-structure
-        
         PanelSwitch(:current.sync="current")
           Panel(title="Personal"
             :selected="true")
@@ -120,6 +119,7 @@
                 .benefit
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $32 goes to support Vue.js.
+                  a(href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift-test") Offer gift
 
               button.button.primary.-full(
                 slot="action"
