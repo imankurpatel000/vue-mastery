@@ -91,10 +91,7 @@
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $12 goes to support Vue.js.
 
-              button.button.primary.-full(
-                slot="action"
-                data-cb-type="checkout" 
-                data-cb-plan-id="3-months-gift-test") Purchase Gift
+              a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift-test") Purchase Gift
 
             PricingCard.w-30(title="6 Months" price="89" align="center")
               template(slot="benefits")
@@ -107,10 +104,7 @@
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $22 goes to support Vue.js.
 
-              button.button.primary.-full(
-                slot="action"
-                data-cb-type="checkout" 
-                data-cb-plan-id="3-months-gift-test") Purchase Gift
+              a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift-test") Purchase Gift
 
             PricingCard.w-30(title="12 Months" price="139" align="center")
               template(slot="benefits")
@@ -122,12 +116,8 @@
                 .benefit
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $35 goes to support Vue.js.
-                  a(href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift-test") Offer gift
 
-              button.button.primary.-full(
-                slot="action"
-                data-cb-type="checkout" 
-                data-cb-plan-id="3-months-gift-test") Purchase Gift
+              a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-months-gift-test") Purchase Gift
 
             .faq-panel
               h3.text-center Frequently Asked Questions:
