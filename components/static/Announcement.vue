@@ -1,7 +1,7 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    section.announcement-bar(v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-      p #[b() 25% Off] a year with Vue Mastery. Use code: #[b() HOLIDAY25] at checkout.
+    section.announcement-bar(v-if="ready" v-cloak)
+      nuxt-link(to='/prices/gifts') Need a gift for a coder?  View our discounted gift plans.
       .anounce-icon
         img(src='/images/ico-vue-master-yay.png')
 </template>
@@ -43,6 +43,9 @@ export default {
   color #fff
   min-height $vertical-space
   background: $secondary-color
+
+  a
+    color #fff
 
   +tablet-up()
     flex-direction row
