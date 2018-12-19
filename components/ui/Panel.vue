@@ -1,7 +1,6 @@
 <template lang="pug">
-transition(name='fade' mode="out-in") 
-  .panel(ref="panel" v-show="isActive")
-    slot
+.panel
+  slot
 </template>
 
 <script>

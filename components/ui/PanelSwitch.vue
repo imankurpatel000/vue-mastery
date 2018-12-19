@@ -1,11 +1,12 @@
 <template lang="pug">
   section
     .panel-switch(ref="panelSwitch")
-      .indicator(:style="indicatorPosition")
-      button(v-for="panel in panels"
-        :class="{ 'is-active': panel.isActive }"
-        :key="panel.title"
-        @click.prevent='selectPanel(panel)') {{ panel.title }}
+      router-link.button(v-for="panel in panels"
+        :class="[$route.params.id === undefined && panel.title === 'Personal' ? 'nuxt-link-active' : '']"
+        :key='panel.title'
+        v-if="panel.title"
+        :to="'/prices/'+panel.title.toLowerCase()") {{ panel.title }}
+      .indicator
     
     .panels
       slot
@@ -22,32 +23,12 @@ export default {
 
   data () {
     return {
-      panels: [],
-      indicatorPosition: {
-        top: '0',
-        left: '0',
-        width: '33.333333333%'
-      }
+      panels: []
     }
   },
 
   created () {
     this.panels = this.$children
-  },
-
-  methods: {
-    selectPanel (selectedPanel) {
-      this.$emit('update:current', selectedPanel.title)
-
-      this.indicatorPosition = {
-        top: `${event.target.offsetTop - 18}px`,
-        left: `${event.target.offsetLeft}px`,
-        width: `${event.target.offsetWidth}px`
-      }
-      this.panels.forEach(panel => {
-        panel.isActive = (panel.title === selectedPanel.title)
-      })
-    }
   }
 }
 </script>
@@ -62,11 +43,13 @@ export default {
   border-radius: 60px
   background lighten($gray, 90%)
 
-  button
+  &:hover .button.nuxt-link-active:not(:hover)
+    color $gray
+
+  .button
     position relative
     padding 0
-    margin-top: $size.by-1
-    margin-bottom: $size.by-1
+    margin 0
     text-align center
     border none
     background transparent
@@ -76,18 +59,28 @@ export default {
     text-transform uppercase
     transition-duration 0.6s
 
-    &.is-active
+    &:hover,
+    &.nuxt-link-active
       color $white
       font-weight 600
 
+w = 165px
 .indicator
   position absolute
   left 0
   top 0
   height 100%
   background $primary-gradient
-  z-index 1
+  z-index 0
   border-radius: 60px 
   transition-duration: 0.6s
   transition-timing-function cubic-bezier(0.68, -0.55, 0.265, 1.55)
+  width: w
+
+for i in (1..3)
+  .button:nth-child({i}).nuxt-link-active ~ .indicator
+    left: w*(i - 1)
+
+  .button:nth-child({i}):hover ~ .indicator
+    left: w*(i - 1) !important
 </style>

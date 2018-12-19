@@ -1,11 +1,10 @@
 <template lang="pug">
-.container
+.container.prices
   ContactTeamModal(:account='account')
   .wrapper
     .pricing-layout
       .pricing-content
-
-        div(v-if="current === 'Gift'")
+        div(v-if="section === 'gifts'")
           img.gift-icon(src='/images/img-vue-gift.png')
           img.gift-icon(src='/images/img-vue-gift.png')
           h2.title Giving the gift of code means you are:
@@ -22,9 +21,8 @@
             li Most importantly, supporting the Vue.js project itself.
 
       .pricing-structure
-        PanelSwitch(:current.sync="current")
-          Panel(title="Personal"
-            :selected="true")
+        PanelSwitch
+          Panel(title="Personal" v-show="section === 'personal' || section === undefined")
             PricingCard.w-30(title='Free' price='0')
               .text-center(slot='benefits')
                 p Free Vue.js CheatSheet
@@ -66,7 +64,7 @@
               button.button.primary.-full(slot="action"
                 @click="subscribe('year-subscription')") Select Plan
           
-          Panel(title="Business")
+          Panel(title="Business" v-show="section === 'business'")
             .team
               .card
                 .card-body
@@ -79,7 +77,7 @@
 
                   button.button.secondary.border(@click='openTeamContact') Contact Us
           
-          Panel(title="Gift")
+          Panel(title="Gifts" v-show="section === 'gifts'")
             PricingCard.w-30(title="3 Months" price="49" align="center")
               template(slot="benefits")
                 .benefit.color-primary(style="pace-items: center")
@@ -168,9 +166,9 @@ export default {
 
   data () {
     return {
+      section: undefined,
       chargebeeInstance: null,
-      chargbeeLink: '',
-      current: undefined
+      chargbeeLink: ''
     }
   },
 
@@ -181,6 +179,10 @@ export default {
     freeText () {
       return this.account ? 'Current Plan' : 'Select Plan'
     }
+  },
+
+  created () {
+    this.section = this.$route.params.id
   },
 
   mounted () {
