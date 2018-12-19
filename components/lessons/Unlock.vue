@@ -31,7 +31,7 @@ export default {
           location: 'Lesson page locked video'
         })
       } else {
-        this.$router.push('/prices')
+        this.$router.push('/pricing')
       }
     }
   }

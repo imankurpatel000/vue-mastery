@@ -1,7 +1,7 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
     section.announcement-bar(v-if="ready" v-cloak)
-      nuxt-link(to='/prices/gifts') Need a gift for a coder?  View our discounted gift plans.
+      nuxt-link(to='/pricing/gifts') Need a gift for a coder?  View our discounted gift plans.
       .anounce-icon
         img(src='/images/ico-vue-master-yay.png')
 </template>

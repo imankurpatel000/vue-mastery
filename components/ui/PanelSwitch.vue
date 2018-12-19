@@ -5,7 +5,7 @@
         :class="[$route.params.id === undefined && panel.title === 'Personal' ? 'nuxt-link-active' : '']"
         :key='panel.title'
         v-if="panel.title"
-        :to="'/prices/'+panel.title.toLowerCase()") {{ panel.title }}
+        :to="'/pricing/'+panel.title.toLowerCase()") {{ panel.title }}
       .indicator
     
     .panels
