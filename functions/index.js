@@ -256,16 +256,17 @@ module.exports = {
       }
     }
     res.sendStatus(200)
-  }),
-
-  claim_gift: functions.https.onRequest((req, res) => {
-    chargebee.gift.claim(req.body.gift_id).request(
-      (error, result) => {
-        if (error) {
-          res.status(500).send(error)
-        } else {
-          res.sendStatus(200).send(result)
-        }
-      })
   })
+
+  // Not used atm
+  // claim_gift: functions.https.onRequest((req, res) => {
+  //   chargebee.gift.claim(req.body.gift_id).request(
+  //     (error, result) => {
+  //       if (error) {
+  //         res.status(500).send(error)
+  //       } else {
+  //         res.sendStatus(200).send(result)
+  //       }
+  //     })
+  // })
 }

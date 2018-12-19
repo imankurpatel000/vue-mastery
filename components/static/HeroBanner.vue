@@ -12,7 +12,7 @@
 
       .actions
         nuxt-link.button.inverted(to='/courses') VIEW COURSES
-        nuxt-link.button.secondary(to='/pricing') SUBSCRIBE
+        nuxt-link.button.secondary(to='/prices') SUBSCRIBE
 </template>
 
 <script>
