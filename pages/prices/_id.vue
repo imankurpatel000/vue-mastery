@@ -104,16 +104,16 @@
 
               a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="6-month-gift") Purchase Gift
 
-            PricingCard.w-30(title="12 Months" price="139" align="center")
+            PricingCard.w-30(title="12 Months" price="149" align="center")
               template(slot="benefits")
                 .benefit.color-primary(style="pace-items: center")
                   i.fa.fa-piggy-bank
-                  b 27% off regular price <br>
-                    small ($51 discount)
+                  b 35% off regular price <br>
+                    small ($79 discount)
 
                 .benefit
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
-                  span $35 goes to support Vue.js.
+                  span $37 goes to support Vue.js.
 
               a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="12-month-gift") Purchase Gift
 

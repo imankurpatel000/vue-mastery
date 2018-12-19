@@ -1,11 +1,11 @@
 <template lang="pug">
-ClaimThankYou(:renewal="new Date() | dateFormat('MMMM D, YYYY', '1 year')")
+PurchaseThankYou(:renewal="new Date() | dateFormat('MMMM D, YYYY', '1 year')")
 </template>
 
 <script>
-import ClaimThankYou from '~/components/account/ClaimThankYou'
+import PurchaseThankYou from '~/components/account/PurchaseThankYou'
 export default {
-  name: 'page-claim-thank-you-annual',
+  name: 'gift-purchase-thank-you',
 
   head () {
     return {
@@ -16,7 +16,7 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    ClaimThankYou
+    PurchaseThankYou
   }
 }
 </script>
