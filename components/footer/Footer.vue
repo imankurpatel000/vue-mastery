@@ -16,7 +16,9 @@ footer.footer
         li
           nuxt-link(to='/conferences' class="-inverted") Conference Videos
         li
-          nuxt-link(to='/pricing' class="-inverted") Pricing
+          nuxt-link(to='/prices' class="-inverted") Pricing
+        li
+          nuxt-link(to='/prices/gift' class="-inverted") Gifting
         li
           nuxt-link(to='/vue-cheat-sheet' class="-inverted") Vue Cheat Sheet
         li
