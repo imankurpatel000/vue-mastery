@@ -67,6 +67,10 @@ const getCoursesPage = async function (db) {
       result.pages.push('/account/dashboard')
       result.pages.push('/account/account-settings')
       result.pages.push('/account/my-subscription')
+      result.pages.push('/pricing')
+      result.pages.push('/pricing/gifts')
+      result.pages.push('/pricing/business')
+      result.pages.push('/pricing/personal')
       return result
     })
 }
