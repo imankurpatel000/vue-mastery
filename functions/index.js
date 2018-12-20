@@ -197,8 +197,6 @@ module.exports = {
     })
   }),
 
-
-
   generate_hp_url: functions.https.onRequest((req, res) => {
     res.header('Content-Type', 'application/json')
     res.header('Access-Control-Allow-Origin', '*')
@@ -233,7 +231,11 @@ module.exports = {
     chargebee.hosted_page.checkout_gift({
       subscription: {
         plan_id: req.body.plan_id
-      }
+      },
+      customer: {
+        'email': req.body.email
+      },
+      embed: 'false'
     }).request((error, result) => {
       if (error) {
         console.log(error)
