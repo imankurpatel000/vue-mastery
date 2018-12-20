@@ -61,8 +61,7 @@
                   b Get 2 months free <br>
                     small ($38 discount)
               
-              button.button.primary.-full(slot="action"
-                @click="subscribe('year-subscription')") Select Plan
+              button.button.primary.-full(slot="action" @click="subscribe('year-subscription')") Select Plan
           
           Panel(title="Business" v-show="section === 'business'")
             .team
@@ -89,9 +88,7 @@
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $12 goes to support Vue.js.
 
-              button.button.primary.-full(slot="action"
-                @click="subscribe('3-month-gift')") Purchase Gift
-              //- a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-month-gift") Purchase Gift
+              button.button.primary.-full(slot="action" @click="subscribe('3-months-gift')") Purchase Gift
 
             PricingCard.w-30(title="6 Months" price="89" align="center")
               template(slot="benefits")
@@ -104,9 +101,7 @@
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $22 goes to support Vue.js.
 
-              button.button.primary.-full(slot="action"
-                @click="subscribe('6-month-gift')") Purchase Gift
-              //- a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="6-month-gift") Purchase Gift
+              button.button.primary.-full(slot="action" @click="subscribe('6-months-gift')") Purchase Gift
 
             PricingCard.w-30(title="12 Months" price="149" align="center")
               template(slot="benefits")
@@ -119,9 +114,7 @@
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $37 goes to support Vue.js.
 
-              button.button.primary.-full(slot="action"
-                @click="subscribe('12-month-gift')") Purchase Gift
-              //- a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="12-month-gift") Purchase Gift
+              button.button.primary.-full(slot="action" @click="subscribe('12-months-gift')") Purchase Gift
 
             .faq-panel
               h3.text-center Frequently Asked Questions:
@@ -264,7 +257,7 @@ export default {
 
         success: () => {
           this.chargebeeInstance.closeAll()
-          this.$router.push('gift-purchase-thank-you')
+          this.$router.push('/gift-purchase-thank-you')
         }
       })
     },
