@@ -7,7 +7,8 @@ import { firebaseMutations, firebaseAction } from 'vuexfire'
 const state = {
   user: null,
   account: null,
-  completedUnlogged: {}
+  completedUnlogged: {},
+  tempEmail: null
 }
 
 // getters
@@ -84,6 +85,9 @@ const actions = {
   resetUser ({state}) {
     state.user = null
     state.account = null
+  },
+  giftCustomer ({ state, commit }, email) {
+    state.tempEmail = email
   },
   userCreate ({ state, commit }, account) {
     return firebase.auth()

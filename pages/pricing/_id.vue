@@ -133,6 +133,7 @@
                   p The gift subscription will need to be redeemed within 45 days of it being sent.  It will start when it is redeemed, not when you purchase it.  If it's not activated within 45 days after it's sent it will activate automatically.
 
   Testimonials
+  EmailForm
 </template>
 
 <script>
@@ -143,6 +144,7 @@ import Testimonials from '~/components/static/Testimonials.vue'
 import Panel from '~/components/ui/Panel.vue'
 import PanelSwitch from '~/components/ui/PanelSwitch.vue'
 import PricingCard from '~/components/ui/PricingCard.vue'
+import EmailForm from '~/components/account/Emailmodal.vue'
 
 export default {
   name: 'page-pricing',
@@ -160,7 +162,8 @@ export default {
     Testimonials,
     Panel,
     PanelSwitch,
-    PricingCard
+    PricingCard,
+    EmailForm
   },
 
   data () {
@@ -173,7 +176,8 @@ export default {
 
   computed: {
     ...mapState({
-      account: result => result.account.account
+      account: result => result.account.account,
+      tempEmail: result => result.account.tempEmail
     }),
     freeText () {
       return this.account ? 'Current Plan' : 'Select Plan'
@@ -215,16 +219,26 @@ export default {
           }
         }
       } else {
-        this.$modal.show('login-form', {
-          newAccount: true,
-          headerTitle: 'Please Create an Account',
-          location: 'Pricing page',
-          redirect: {
-            function: this.subscribe,
-            params: plan,
-            newSubscription: true
-          }
-        })
+        if (plan.includes('gift')) {
+          this.$modal.show('email-form', {
+            headerTitle: 'Please Enter you Email',
+            redirect: {
+              function: this.checkoutGift,
+              params: plan
+            }
+          })
+        } else {
+          this.$modal.show('login-form', {
+            newAccount: true,
+            headerTitle: 'Please Create an Account',
+            location: 'Pricing page',
+            redirect: {
+              function: this.subscribe,
+              params: plan,
+              newSubscription: true
+            }
+          })
+        }
       }
     },
 
@@ -238,16 +252,12 @@ export default {
         // If the library that you use for making ajax calls, can return a promise, you can directly return that
         hostedPage: () => {
           let params = new URLSearchParams()
-          const lastName = this.account.displayName.split(' ')[1] || this.account.displayName
-          const firstName = this.account.displayName.split(' ')[0] || ' '
-          params.append('email', this.account.email)
-          params.append('last_name', lastName)
-          params.append('first_name', firstName)
+          const email = this.account ? this.account.email : this.tempEmail
+          params.append('email', email)
           params.append('plan_id', plan)
-          if (this.account.chargebeeId) {
+          if (this.account && this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
-          console.log(params)
           return axios.post(`${process.env.cloudfunctions}/generate_hp_gift_url`, params)
             .then((response) => {
               this.$toast.clear()
