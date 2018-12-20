@@ -197,6 +197,8 @@ module.exports = {
     })
   }),
 
+
+
   generate_hp_url: functions.https.onRequest((req, res) => {
     res.header('Content-Type', 'application/json')
     res.header('Access-Control-Allow-Origin', '*')
@@ -219,6 +221,25 @@ module.exports = {
         res.status(500).send(error)
       } else {
         res.send(result.hosted_page)
+      }
+    })
+  }),
+
+  generate_hp_gift_url: functions.https.onRequest((req, res) => {
+    res.header('Content-Type', 'application/json')
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Content-Type')
+
+    chargebee.hosted_page.checkout_gift({
+      subscription: {
+        plan_id: req.body.plan_id
+      }
+    }).request((error, result) => {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log(result)
+        // var hosted_page = result.hosted_page
       }
     })
   }),

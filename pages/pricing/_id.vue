@@ -89,7 +89,9 @@
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $12 goes to support Vue.js.
 
-              a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-month-gift") Purchase Gift
+              button.button.primary.-full(slot="action"
+                @click="subscribe('3-month-gift')") Purchase Gift
+              //- a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="3-month-gift") Purchase Gift
 
             PricingCard.w-30(title="6 Months" price="89" align="center")
               template(slot="benefits")
@@ -102,7 +104,9 @@
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $22 goes to support Vue.js.
 
-              a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="6-month-gift") Purchase Gift
+              button.button.primary.-full(slot="action"
+                @click="subscribe('6-month-gift')") Purchase Gift
+              //- a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="6-month-gift") Purchase Gift
 
             PricingCard.w-30(title="12 Months" price="149" align="center")
               template(slot="benefits")
@@ -115,7 +119,9 @@
                   img(src="/images/lgo-vue.svg" alt="Vue.js")
                   span $37 goes to support Vue.js.
 
-              a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="12-month-gift") Purchase Gift
+              button.button.primary.-full(slot="action"
+                @click="subscribe('12-month-gift')") Purchase Gift
+              //- a.button.primary.-full(slot="action" href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="12-month-gift") Purchase Gift
 
             .faq-panel
               h3.text-center Frequently Asked Questions:
@@ -206,10 +212,14 @@ export default {
 
     subscribe (plan) {
       if (this.account) {
-        if (this.account.subscribed) {
-          this.$router.push('/account/my-subscription')
+        if (plan.includes('gift')) {
+          this.checkoutGift(plan)
         } else {
-          this.openCheckout(plan)
+          if (this.account.subscribed) {
+            this.$router.push('/account/my-subscription')
+          } else {
+            this.openCheckout(plan)
+          }
         }
       } else {
         this.$modal.show('login-form', {
@@ -229,6 +239,36 @@ export default {
       this.$modal.show('contact-team-form')
     },
 
+    checkoutGift (plan) {
+      this.chargebeeInstance.openCheckout({
+        // This function returns a promise that resolves a hosted page object.
+        // If the library that you use for making ajax calls, can return a promise, you can directly return that
+        hostedPage: () => {
+          let params = new URLSearchParams()
+          const lastName = this.account.displayName.split(' ')[1] || this.account.displayName
+          const firstName = this.account.displayName.split(' ')[0] || ' '
+          params.append('email', this.account.email)
+          params.append('last_name', lastName)
+          params.append('first_name', firstName)
+          params.append('plan_id', plan)
+          if (this.account.chargebeeId) {
+            params.append('customer_id', this.account.chargebeeId)
+          }
+          console.log(params)
+          return axios.post(`${process.env.cloudfunctions}/generate_hp_gift_url`, params)
+            .then((response) => {
+              this.$toast.clear()
+              return response.data
+            })
+        },
+
+        success: () => {
+          this.chargebeeInstance.closeAll()
+          this.$router.push('gift-purchase-thank-you')
+        }
+      })
+    },
+
     openCheckout (plan) {
       this.chargebeeInstance.openCheckout({
         // This function returns a promise that resolves a hosted page object.
@@ -244,6 +284,7 @@ export default {
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
+          console.log(params)
           return axios.post(`${process.env.cloudfunctions}/generate_hp_url`, params)
             .then((response) => {
               this.$toast.clear()
