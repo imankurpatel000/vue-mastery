@@ -232,6 +232,9 @@ module.exports = {
       subscription: {
         plan_id: req.body.plan_id
       },
+      gifter: {
+        'email': req.body.email
+      },
       customer: {
         'email': req.body.email
       },
