@@ -86,8 +86,8 @@ const actions = {
     state.user = null
     state.account = null
   },
-  giftCustomer ({ state, commit }, email) {
-    state.tempEmail = email
+  giftCustomer ({ state, commit }, tempEmail) {
+    state.tempEmail = tempEmail.email
   },
   userCreate ({ state, commit }, account) {
     return firebase.auth()

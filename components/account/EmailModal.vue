@@ -6,6 +6,7 @@
 
 <script>
 import EmailForm from './EmailForm.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'account-modal',
@@ -23,6 +24,20 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      tempEmail: result => result.account.tempEmail
+    })
+  },
+
+  watch: {
+    tempEmail () {
+      if (this.tempEmail && this.isOpen) {
+        this.redirect.function(this.redirect.params)
+      }
+    }
+  },
+
   methods: {
     beforeOpen (event) {
       this.isOpen = true
@@ -33,8 +48,9 @@ export default {
 
     beforeClose (event) {
       this.isOpen = false
-      console.log(this.redirect)
-      this.redirect.function(this.redirect.params)
+      if (this.tempEmail) {
+        this.redirect.function(this.redirect.params)
+      }
     }
   }
 }
