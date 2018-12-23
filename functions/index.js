@@ -251,7 +251,7 @@ module.exports = {
 
   subscription_changes: functions.https.onRequest((req, res) => {
     console.log(`CHARGEBEE EVENT: ${req.body.event_type}`)
-    const customer = req.body.content.customer
+    let customer = req.body.content.customer
     const subscription = req.body.content.subscription
     if (customer) console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
     switch (req.body.event_type) {
@@ -270,6 +270,7 @@ module.exports = {
       case 'gift_expired':
       case 'subscription_paused':
       case 'subscription_cancelled': {
+        customer = req.body.content.gift_receiver
         db.subscribe(customer.email, customer.id, false)
         break
       }
