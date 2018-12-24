@@ -27,6 +27,11 @@
                   ".indexOn": "email"
                 }
               }
+            },
+            "gift": {
+              "en-US": {
+                ".indexOn": "email"
+              }
             }
           }
         },
