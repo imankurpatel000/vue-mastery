@@ -118,9 +118,9 @@ module.exports = {
 
   claim (email, chargebeeId) {
     console.log('Add new gift claim to gift collection')
-    var newPostKey = admin.database().ref().child('/flamelink/environments/production/content/Gift/en-US').push().key
+    var newPostKey = admin.database().ref().child('/flamelink/environments/production/content/gift/en-US').push().key
     var updates = {}
-    updates['/flamelink/environments/production/content/Gift/en-US' + newPostKey] = {
+    updates['/flamelink/environments/production/content/gift/en-US' + newPostKey] = {
       chargebeeId: chargebeeId,
       email: email,
       claimed: true,
@@ -132,7 +132,7 @@ module.exports = {
   checkUnclaimedGift (email) {
     return admin
       .database()
-      .ref('/flamelink/environments/production/content/Gift/en-US')
+      .ref('/flamelink/environments/production/content/gift/en-US')
       .orderByChild('email')
       .equalTo(email)
       .once('child_added', (snapshot) => {
