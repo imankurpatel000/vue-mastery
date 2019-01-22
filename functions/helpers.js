@@ -25,7 +25,7 @@ module.exports = {
             console.log(member)
             console.log('search : ', member.email, user.email)
             if (member.email === user.email) {
-              this.subscribe(user.email, null, true)
+              this.subscribe(user.email, null, 'year-subscription', true)
             }
           }
         }
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   // subscribe (email, id, subscribing = true, tryNumber = 0) {
-  subscribe (email, id, subscribing = true) {
+  subscribe (email, id, planId, subscribing = true) {
     if (subscribing) console.log(`Attempt to subscribe user with email ${email}`)
     // if (tryNumber) {
     //   if (tryNumber > 10) {
@@ -58,7 +58,7 @@ module.exports = {
       .orderByChild('email')
       .equalTo(email)
       .once('child_added', (snapshot) => {
-        const val = snapshot.val()
+        const user = snapshot.val()
         // console.log(`Found ${val} with email ${email}, now updating chargebeeId: ${id}`)
         snapshot.ref
           .update({
@@ -71,12 +71,81 @@ module.exports = {
               console.log(`Success subscribing the user`)
             }
           })
-        console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
-        return subscription.getMailerList('Vue Mastery Subscribers')
-          .then(listID => { return subscription.subscribeUser(val, listID, subscribing) })
+        console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${user.displayName}`)
+
+        let mailingList = ['Vue Mastery Subscribers']
+        switch (planId) {
+          case 'monthly-subscription':
+            mailingList.push('Active Monthly Subscribers')
+            break
+          case 'year-subscription':
+            mailingList.push('Active Annual Subscribers')
+            break
+          case 'team-annual-(10-19)-subscription':
+          case 'team-annual-(4-9)-subsciption':
+            mailingList.push('Vue Mastery Team Subscribers')
+            break
+          case '12-months-gift':
+          case '6-months-gift':
+          case '3-months-gift':
+            mailingList.push('Active Gift Subscription')
+            break
+        }
+
+        return mailingList.forEach((list) => {
+          subscription.getMailerList(list)
+            .then(listID => subscription.subscribeUser(user, listID, subscribing))
+            .catch(function (error) {
+              console.log(error)
+            })
+        })
       }, (error) => {
         console.log(error)
       })
+  },
+
+  updateMailingSubscription (user, id, planId) {
+    let toRemove = ''
+    let toAdd = ''
+
+    switch (planId) {
+      case 'monthly-subscription':
+        toRemove = ['Active Annual Subscribers', 'Active Gift Subscription']
+        toAdd = 'Active Monthly Subscribers'
+        break
+      case 'year-subscription':
+      case 'team-annual-(10-19)-subscription':
+      case 'team-annual-(4-9)-subsciption':
+        toRemove = ['Active Monthly Subscribers', 'Active Gift Subscription']
+        toAdd = 'Active Annual Subscribers'
+        break
+      case '12-months-gift':
+      case '6-months-gift':
+      case '3-months-gift':
+        toRemove = ['Active Annual Subscribers', 'Active Monthly Subscribers']
+        toAdd = 'Active Gift Subscription'
+        break
+    }
+    toRemove.forEach((list) => {
+      subscription.getMailerList(list)
+        .then(listID => {
+          return subscription.deleteSubscriber(listID, user.email).then(() => {
+            console.log('Subscriber deleted')
+          })
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    })
+    return toAdd.forEach((list) => {
+      subscription.getMailerList(list)
+        .then(listID => {
+          subscription.subscribeUser(user, listID, true)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    })
   },
 
   checkIfSubscribed (email, id, subscribing, tryNumber) {

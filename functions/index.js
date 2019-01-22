@@ -3,7 +3,9 @@ const chargebee = require('chargebee')
 const subscription = require('./subscription')
 const db = require('./helpers')
 
-const mainListId = functions.config().mailerlite.mainlistid
+// ! list order mather
+const mailingList = ['mainlistid', 'biweekly', 'discount_and_promotion', 'free_content']
+const userSubscriptions = ['subscribedToMailingList', 'subscribedToBiweekly', 'subscribedToDiscountAndPromotion', 'subscribedToFreeContent']
 chargebee.configure({
   site: functions.config().chargebee.site,
   api_key: functions.config().chargebee.key
@@ -16,19 +18,34 @@ module.exports = {
       const user = event.data
       db.checkUserTeamSubscription(user)
       db.checkIfTeamMember(user.email)
-      return subscription.getMailerList(mainListId)
-        .then(listID => subscription.subscribeUser(user, listID, true))
+      return mailingList.forEach((list) => {
+        const listId = functions.config().mailerlite[list]
+        subscription.getMailerList(listId)
+          .then(listID => subscription.subscribeUser(user, listID, true))
+          .catch(function (error) {
+            console.log(error)
+          })
+      })
     }),
 
   // Subscribe a user to mailerLite according to his settings.
   subscribeUser: functions.database.ref('/accounts/{uid}')
     .onWrite(event => {
       const snapshot = event.data
-      // If it's not a subscription change then return
-      if (!snapshot.child('subscribedToMailingList').changed()) return null
+      let changedList = ''
+
+      // Check if one of the email subscriptions property changed
+      userSubscriptions.forEach((list) => {
+        if (snapshot.child(list).changed()) changedList = list
+      })
+
+      // Exit if not email subscription change
+      if (changedList === '') return null
 
       const val = snapshot.val()
-      return subscription.getMailerList(mainListId)
+      const listIndex = userSubscriptions.indexOf(changedList)
+      const listName = functions.config().mailerlite[mailingList[listIndex]]
+      return subscription.getMailerList(listName)
         .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
     }),
 
@@ -40,14 +57,19 @@ module.exports = {
       if (!snapshot.child('email').changed()) return null
 
       const val = snapshot.val()
-      // TODO Unsubscribe user from all the list
-      // Subscribe user with new email
 
-      return subscription.getMailerList(mainListId).then(listID => {
-        return subscription.deleteSubscriber(listID, val.email).then(() => {
-          console.log('Subscriber deleted')
-          subscription.subscribeUser(val, listID, val.subscribedToMailingList)
-        })
+      // Subscribe user with new email
+      return userSubscriptions.forEach((list) => {
+        if (val[list]) {
+          const listIndex = userSubscriptions.indexOf(list)
+          const listName = functions.config().mailerlite[mailingList[listIndex]]
+          subscription.getMailerList(listName).then(listID => {
+            return subscription.deleteSubscriber(listID, val.email).then(() => {
+              console.log('Subscriber deleted')
+              subscription.subscribeUser(val, listID, true)
+            })
+          })
+        }
       })
     }),
 
@@ -171,10 +193,18 @@ module.exports = {
   deleteCustomer: functions.auth.user()
     .onDelete(event => {
       const user = event.data
-      return subscription.getMailerList(mainListId).then(listID => {
-        return subscription.deleteSubscriber(listID, user.email).then(() => {
-          console.log('Subscriber deleted')
-        })
+
+      return mailingList.forEach((list) => {
+        const listName = functions.config().mailerlite[list]
+        subscription.getMailerList(listName)
+          .then(listID => {
+            return subscription.deleteSubscriber(listID, user.email).then(() => {
+              console.log('Subscriber deleted')
+            })
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
       })
     }),
 
@@ -225,19 +255,26 @@ module.exports = {
   subscription_changes: functions.https.onRequest((req, res) => {
     console.log(`CHARGEBEE EVENT: ${req.body.event_type}`)
     const customer = req.body.content.customer
+    const planId = req.body.plan_id
     if (customer) console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
     switch (req.body.event_type) {
       case 'subscription_resumed':
       case 'subscription_renewed':
       case 'subscription_reactivated':
       case 'subscription_activated':
+      case 'subscription_started':
       case 'subscription_created': {
-        db.subscribe(customer.email, customer.id, true)
+        db.subscribe(customer.email, customer.id, planId, true)
         break
       }
       case 'subscription_paused':
+      case 'subscription_deleted':
       case 'subscription_cancelled': {
-        db.subscribe(customer.email, customer.id, false)
+        db.subscribe(customer.email, customer.id, planId, false)
+        break
+      }
+      case 'subscription_changed': {
+        db.updateMailingSubscription(customer, customer.id, planId, false)
         break
       }
       default: {
