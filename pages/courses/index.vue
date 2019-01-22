@@ -20,7 +20,7 @@ import { mapState } from 'vuex'
 
 import LearningPath from '~/components/courses/LearningPath'
 import All from '~/components/courses/All'
-import Latest from '~/components/courses/Latest'
+// import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import VueConfBanner from '~/components/static/VueConfBanner'
 import PageHeader from '~/components/ui/PageHeader'
@@ -44,7 +44,7 @@ export default {
   components: {
     All,
     LearningPath,
-    Latest,
+    // Latest,
     CheatSheetAlt,
     VueConfBanner,
     PageHeader
@@ -58,8 +58,8 @@ export default {
   computed: {
     ...mapState({
       account: result => result.account.account,
-      courses: result => result.courses.courses,
-      latests: result => result.courses.latests
+      courses: result => result.courses.courses
+      // latests: result => result.courses.latests
     })
   }
 }

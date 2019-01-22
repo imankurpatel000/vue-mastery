@@ -80,7 +80,13 @@ const actions = {
       populate: [ {
         field: 'featured',
         fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image', 'free' ],
-        populate: [ 'image', 'belongsToCourse' ]
+        populate: [{
+          field: 'belongsToCourse',
+          subFields: [ 'slug' ]
+        }, {
+          field: 'image',
+          subFields: [ 'image' ]
+        }]
       }]
     }).then(featured => {
       commit(types.RECEIVE_FEATURED, { featured })
@@ -92,18 +98,13 @@ const actions = {
     return db.get('lessons', {
       limitToLast: 10,
       orderByChild: 'date',
-      // fields: ['title', 'slug', 'free', 'duration', 'published', 'date', 'belongsToCourse', 'image'],
+      fields: ['title', 'slug', 'free', 'duration', 'published', 'date', 'belongsToCourse', 'image', 'status'],
       populate: [{
         field: 'belongsToCourse',
-        subFields: [ 'slug' ]
+        fields: [ 'slug' ]
       }, {
         field: 'image',
         subFields: [ 'image' ]
-      // return db.get('course', {
-      //   populate: [ {
-      //     field: 'latests',
-      //     fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image', 'free' ],
-      //     populate: [ 'image', 'belongsToCourse' ]
       }]
     }).then(latests => {
       let publishedLatest = Object.values(latests)
