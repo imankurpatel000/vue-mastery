@@ -7,7 +7,7 @@
     h3.title Change Password
     ChangePassword
 
-    h3.title Notifications
+    h3.title Email Notifications
 
     SubscribeToMailingList(:account='account' v-if='account')
 
