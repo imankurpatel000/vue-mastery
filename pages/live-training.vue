@@ -3,6 +3,7 @@
     PageHeader(title='We Teach Live'
               title2='Learn Vue in our interactive workshop'
               align='center'
+              background_image='/images/conference-background-transparent.png'
               background_color='linear-gradient(to right, #41B782 , #86D169)')
        
     section.benefit-section
@@ -221,6 +222,10 @@ export default {
   background rgba($secondary-color, 10%)
 
 .benefit-section
+  width 100%
+  padding-top: $size.by-5
+  padding-bottom: $size.by-5
+
 .schedule-section
 .public-section 
   position relative
