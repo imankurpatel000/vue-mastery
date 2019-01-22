@@ -21,6 +21,7 @@ firebase.js
 serviceAccountKey.json
 serviceAccountKeyStaging.json
 functions/.runtimeconfig.json
+updateAllSubscription.js
 
 # hide the compiled service worker
 sw.*
