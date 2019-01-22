@@ -11,15 +11,15 @@
           div
             Icon(name="info" width="60" height="60")
             h3 What's covered?
-            p You’ll learn everything needed to build production-level Vue.js apps, and get a free one-year membership to Vue Mastery bundled in admission price.
+            p You’ll learn everything needed to build production-level Vue.js apps, from Vue Router to Vuex to API calls with Axios.
           div
             Icon(name="award" width="60" height="60")
             h3 Learn by doing
-            p This is an in-person 2-day workshop where we’ll build apps together, step-by-step.
+            p This is an in-person 2-day workshop where we’ll build real-world apps together, step-by-step.
           div
             Icon(name="users" width="60" height="60")
             h3 Who's it for?
-            p Our workshop is available as a public course or a private training. Students need to have a foundational understanding of HTML5 and JavaScript.
+            p Our workshop is available as a public course or a private training. Students need to be comfortable with HTML5 and JavaScript.
         
     section.introduction-section
       .text-wrapper.text-center
@@ -44,10 +44,6 @@
             h4.display-1 Day 1
             ul
               li Essential Syntax
-                ul
-                  li The Vue Instance
-                  li Reactivity 
-                  li Directives
               li Setup & Tooling
                 li Create & Manage your Vue app with Vue CLI
                 li Vue Router & Single Page Applications
@@ -65,9 +61,7 @@
               li Route Guards
               li Error Handling
               li Forms and Validation
-              li Filters 
-              li Mixins
-              li Deploying to production
+              li Filters & Mixins
       
     section.workshops-section
       .wrapper
@@ -108,15 +102,15 @@
 
     section.public-section
       .text-wrapper.text-center
-        h3.display-3 Public Workshops
-        p.lead If your company wants to train your team onsite, we’d love to send two of our teachers to run this workshop with your team.
+        h3.display-3 Private Workshops
+        p.lead If your company wants onsite training, we’d love to send two of our teachers to run this workshop with your team.
 
-        h5 Cost: #[b $12,000]
+        h5 Cost: #[b $9,000] for 1-Day, #[b $12,000] for 2-Days
         p (for 10 or less developers, then $1,000 per extra developer)
       .wrapper
         .flex-columns
           .checklist.-primary
-            h4 The cost includes:
+            h4 The cost also includes:
             ul
               li
                 div
@@ -125,7 +119,7 @@
               li
                 div
                   Icon(name="check")
-                p Our travel & hotel expenses if traveling within the United States / Canada.  If you need us elsewhere around the world we’ll need to adjust the price for additional travel.
+                p Our travel & hotel expenses if traveling within the United States / Canada.
           
           .checklist.-danger
             h4 The cost does not include:
@@ -144,31 +138,31 @@
                 p Live music, sorry to say. ;-p
           
     section.faq-panel
-      h3.text-center Frequently Asked Question
+      h3.text-center Frequently Asked Questions
       ul
-        Faq(question='What is the Vue Mastery 2 day workshop?'
-          answer='This is a 2-day training for web professionals, available as a public workshop or as a corporate on-site training.')
+        Faq(question='What knowledge do my developers need to have before they do the workshop?'
+          answer='Students need to be comfortable with HTML5 and JavaScript, otherwise they might be a little lost.')
 
         Faq(question='Is this covering the same content as seen on Vue Mastery?'
-          answer='Yes, we teach from the material we’ve produced on Vue Mastery, however, between each lesson we present we provide labs where you get hands-on experience and try coding Vue yourself.  We’ll be there in person when you get stuck, and will answer any questions along the way.  This also means that when you leave the workshop, if you want to review the material you’ll be able to watch the lesson online again.  This is why your admission comes with a year membership to Vue Mastery.')
+          answer='Yes, we teach from the material we’ve produced on Vue Mastery, however, between each lesson we provide labs where you get hands-on experience coding Vue yourself.  We’ll be there in person when you get stuck, and will answer any questions along the way.  This also means that when you leave the workshop, if you want to review the material you’ll be able to watch each lesson again.  This is why with private workshops we provide a year membership to Vue Mastery.')
 
         Faq(question='Can I get a discount to a public workshop?'
-          answer='Join our mailing list, follow us on Facebook, or Twitter as we can find promo codes.')
+          answer='Join our mailing list to receive information on occasional promo codes.')
         
-        Faq(question='Will you visit my city?'
-          answer='If you think there’s enough interest to run a workshop in your city, definitely!  Just get in touch.')
+        Faq(question='Will you run a public workshop in my city?'
+          answer='If you think there’s enough interest in your city, just get in touch.')
 
         Faq(question='Which version of Vue are you using?'
-          answer='We are *always* teaching on the latest version of Vue. We constantly update the training material to follow the new Vue versions.')
+          answer='We are *always* teaching the latest version of Vue. We constantly update the training material to follow the new Vue versions.')
 
         Faq(question='Can we customize the content?'
-          answer='Public classes follow our normal outline, but if there’s something specific you want to learn with a private workshop please do ask.')
+          answer='Public classes follow our normal outline, but if there’s something specific you want to learn with a private workshop, please do ask.')
 
-        Faq(question='Is it ok to bring a MAC or a PC?'
-          answer='Both PC and MAC are perfectly fine, you\'ll get the same experience during the workshop.')
+        Faq(question='Do I need to bring my own laptop to your workshop?'
+          answer='Yes. Both PC and MAC are perfectly fine, you\'ll get the same experience during the workshop.')
 
-        Faq(question='What is the setup required?'
-          answer='A detailed setup document is sent to attendees one week prior to the training.   Basically, you’ll need the latest version of npm setup.')
+        Faq(question='What is the setup required on my laptop?'
+          answer='A detailed setup document will be sent to attendees one week prior to the training.')
 
         Faq(question='Will I get any certification on completion of the course?'
           answer='You will receive a Vue Mastery course completion certificate.')
