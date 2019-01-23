@@ -8,17 +8,20 @@ tablet-up()
   @media screen and (min-width: 40em)
     {block}
 laptop-up()
-  @media screen and (min-width: 64em)
+  // Used to be 64em
+  @media screen and (min-width: 78em)
     {block}
 laptop-down()
-  @media screen and (max-width: 63.9375em)
+  // Use to be 63.9375em
+  @media screen and (max-width: 77.938em)
     {block}
 desktop-up()
   @media screen and (min-width: 82em)
     {block}
 // Reconsider; doesn't work well.
 desktop-only()
-  @media screen and (min-width: 64em) and (max-width: 74.9375em)
+  // Used to be 74.9375
+  @media screen and (min-width: 64em) and (max-width: 77.938em)
     {block}
 
 // Grid Area Builder

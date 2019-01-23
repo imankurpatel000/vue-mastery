@@ -6,6 +6,7 @@
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/pricing" v-if="!account || (account && !account.subscribed)" v-cloak) Pricing
       router-link.navbar-item.underline(to="/conferences") Conference Videos
+      router-link.navbar-item.underline(to="/live-training") Live Training
 
     no-ssr
       transition(:name="account ? 'signin' : 'signout'" mode='out-in' appear)

@@ -7,10 +7,6 @@
     h3.title Change Password
     ChangePassword
 
-    h3.title Email Notifications
-
-    SubscribeToMailingList(:account='account' v-if='account')
-
     h3.title Delete Account
     DeleteAccount
 </template>
@@ -19,7 +15,6 @@
 import { mapState } from 'vuex'
 import ChangePassword from '~/components/account/ChangePassword.vue'
 import ChangeEmail from '~/components/account/ChangeEmail.vue'
-import SubscribeToMailingList from '~/components/account/SubscribeToMailingList.vue'
 import DeleteAccount from '~/components/account/DeleteAccount.vue'
 
 export default {
@@ -28,7 +23,6 @@ export default {
   components: {
     ChangeEmail,
     ChangePassword,
-    SubscribeToMailingList,
     DeleteAccount
   },
 
