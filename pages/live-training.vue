@@ -5,7 +5,7 @@
               align='center'
               background_image='/images/conference-background-transparent.png'
               background_color='linear-gradient(to right, #41B782 , #86D169)')
-       
+
     section.benefit-section
       .wrapper
         .flex-columns
@@ -84,7 +84,7 @@
             .workshop-promo 
                 span Use Promo code: #[b() VUEMASTERYWS50]
             div
-              button(class="button secondary") Visit Conference Website
+              a(class="button secondary" target="_blank" href="https://us.vuejs.org/workshops") Visit Conference Website
 
           .workshop
             label.primary-label 1 Day Only
@@ -99,7 +99,7 @@
 
             b Cost for Workshop: €754.98
             div
-              button(class="button secondary") Visit Workshop Registration
+              a(class="button secondary" target="_blank" href="https://www.eventbrite.co.uk/e/vuejs-amsterdam-frontend-love-workshops-tickets-53379423292#tickets") Visit Workshop Registration
 
     section.public-section
       .text-wrapper.text-center
@@ -137,6 +137,8 @@
                 div
                   Icon(name="slash")
                 p Live music, sorry to say. ;-p
+
+        nuxt-link.button.secondary.contact-us(to='/contact') Contact Us
           
     section.faq-panel
       h3.text-center Frequently Asked Questions
@@ -295,7 +297,9 @@ export default {
 .text-wrapper
   max-width 700px
 
-.public-section 
+.public-section
+  background url(/images/bkg-schedule-workshop.svg) no-repeat
+  background-size auto 100%
   display flex
   flex-direction column
   align-items center
@@ -355,5 +359,10 @@ export default {
     max-width 650px
     margin 0 auto
     list-style-type none
+
+.contact-us
+  margin: 60px auto -40px auto
+  min-width: 200px
+
 
 </style>
