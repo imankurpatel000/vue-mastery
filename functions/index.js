@@ -32,25 +32,28 @@ module.exports = {
     }),
 
   // Subscribe a user to mailerLite according to his settings.
-  subscribeUser: functions.database.ref('/accounts/{uid}')
-    .onWrite(event => {
-      const snapshot = event.data
-      let changedList = ''
+  // subscribeUser: functions.database.ref('/accounts/{uid}')
+  //   .onWrite(event => {
+  //     const snapshot = event.data
+  //     let changedList = ''
 
-      // Check if one of the email subscriptions property changed
-      userSubscriptions.forEach((list) => {
-        if (snapshot.child(list).changed()) changedList = list
-      })
+  //     // Check if one of the email subscriptions property changed
+  //     userSubscriptions.forEach((list) => {
+  //       if (snapshot.child(list).changed()) changedList = list
+  //     })
 
-      // Exit if not email subscription change
-      if (changedList === '') return null
+  //     // Exit if not email subscription change
+  //     if (changedList === '') return null
 
-      const val = snapshot.val()
-      const listIndex = userSubscriptions.indexOf(changedList)
-      const listName = functions.config().mailerlite[mailingList[listIndex]]
-      return subscription.getMailerList(listName)
-        .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
-    }),
+  //     const val = snapshot.val()
+  //     const listIndex = userSubscriptions.indexOf(changedList)
+  //     const listName = functions.config().mailerlite[mailingList[listIndex]]
+  //     return subscription.getMailerList(listName)
+  //       .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
+  //       .catch((error)=> {
+  //         console.log(error)
+  //       })
+  //   }),
 
   // Change mailerlite subscriber on email update
   updateEmail: functions.database.ref('/accounts/{uid}')
