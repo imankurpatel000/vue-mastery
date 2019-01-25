@@ -57,7 +57,7 @@ module.exports = {
       .ref('accounts')
       .orderByChild('email')
       .equalTo(email)
-      .once('child_added', async (snapshot) => {
+      .once('child_added',  snapshot => {
         const user = snapshot.val()
         // console.log(`Found ${val} with email ${email}, now updating chargebeeId: ${id}`)
         snapshot.ref
@@ -92,20 +92,22 @@ module.exports = {
             break
         }
 
-        const subscribed = await mailingList.forEach(async (list) => {
-          await subscription.getMailerList(list)
+        const subscribed = []
+        mailingList.forEach((list) => {
+          subscribed.push(subscription.getMailerList(list)
             .then(listID => subscription.subscribeUser(user, listID, subscribing))
             .catch(function (error) {
               console.log(error)
             })
+          )
         })
-        return subscribed
+        return Promise.All(subscribed)
       }, (error) => {
         console.log(error)
       })
   },
 
-  async updateMailingSubscription (user, planId) {
+  updateMailingSubscription (user, planId) {
     let toRemove = ''
     let toAdd = ''
 
@@ -127,8 +129,10 @@ module.exports = {
         toAdd = 'Active Gift Subscription'
         break
     }
-    await toRemove.forEach((list) => {
-      subscription.getMailerList(list)
+
+    const actions = []
+    toRemove.forEach((list) => {
+      actions.push(subscription.getMailerList(list)
         .then(listID => {
           return subscription.deleteSubscriber(listID, user.email).then(() => {
             console.log('Subscriber deleted')
@@ -137,14 +141,18 @@ module.exports = {
         .catch(function (error) {
           console.log(error)
         })
+      )
     })
-    return subscription.getMailerList(toAdd)
+    actions.push(subscription.getMailerList(toAdd)
       .then(listID => {
         subscription.subscribeUser(user, listID, true)
       })
       .catch(function (error) {
         console.log(error)
       })
+    )
+
+    return Promise.All(actions)
   },
 
   checkIfSubscribed (email, id, subscribing, tryNumber) {
