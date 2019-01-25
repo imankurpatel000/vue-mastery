@@ -13,33 +13,21 @@ module.exports = {
   },
 
   checkUserTeamSubscription (user) {
-    console.log(user)
     return admin
       .database()
       .ref('/flamelink/environments/production/content/team/en-US')
-      .once('child_added', (snapshot) => {
+      .once('value', (snapshot) => {
         const teams = snapshot.val()
-        console.log('team: ', teams)
+        console.log(teams)
         for (let team in teams) {
-          for (let member in team.members) {
-            console.log(member)
-            console.log('search : ', member.email, user.email)
+          for (let member in teams[team].members) {
             if (member.email === user.email) {
+              console.log(`Found new team member : ${member.email}`)
               this.subscribe(user.email, null, 'year-subscription', true)
             }
           }
         }
       })
-    // return admin
-    //   .database()
-    //   .ref('/flamelink/environments/production/content/team/en-US')
-    //   .orderByChild('email')
-    //   .equalTo(user.email)
-    //   .once('child_added', (snapshot) => {
-    //     const team = snapshot.parent.child('name').val()
-    //     console.log(`Subscribe new team member ${user.email} to team ${team}`)
-    //     this.subscribe(user.email, null, true)
-    //   })
   },
 
   // subscribe (email, id, subscribing = true, tryNumber = 0) {
@@ -57,7 +45,7 @@ module.exports = {
       .ref('accounts')
       .orderByChild('email')
       .equalTo(email)
-      .once('child_added',  snapshot => {
+      .once('child_added', snapshot => {
         const user = snapshot.val()
         // console.log(`Found ${val} with email ${email}, now updating chargebeeId: ${id}`)
         snapshot.ref
@@ -92,10 +80,16 @@ module.exports = {
             break
         }
 
+        console.log(`List found: ${mailingList}`)
+
         const subscribed = []
         mailingList.forEach((list) => {
+          console.log(`List added: ${list}`)
           subscribed.push(subscription.getMailerList(list)
-            .then(listID => subscription.subscribeUser(user, listID, subscribing))
+            .then(listID => {
+              console.log(`Subscribing user to list: ${user.email}, ${listID}, ${subscribing}`)
+              subscription.subscribeUser(user, listID, subscribing)
+            })
             .catch(function (error) {
               console.log(error)
             })

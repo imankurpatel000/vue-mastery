@@ -73,6 +73,9 @@ module.exports = {
             return subscription.deleteSubscriber(listID, val.email).then(() => {
               console.log('Subscriber deleted')
               subscription.subscribeUser(val, listID, true)
+                .catch(function (error) {
+                  console.log(`Trying to subscribe ${val.email} to list ${listName} but:${error}`)
+                })
             })
           })
         }
@@ -94,6 +97,12 @@ module.exports = {
           // Get or create email course list
           subscription.getMailerList(`Course: ${event.params.cid}`)
             .then(listID => subscription.subscribeUser(account, listID, snapshot.val().subscribed))
+            .catch(function (error) {
+              console.log(error)
+            })
+        })
+        .catch(function (error) {
+          console.log(error)
         })
     }),
 
@@ -261,31 +270,37 @@ module.exports = {
   subscription_changes: functions.https.onRequest((req, res) => {
     console.log(`CHARGEBEE EVENT: ${req.body.event_type}`)
     const customer = req.body.content.customer
-    const planId = req.body.plan_id
+    let planId = false
+    try {
+      planId = req.body.content.subscription.plan_id
+    } catch (error) {}
+
     if (customer) console.log(`CHARGEBEE EVENT USER: ${customer.email}`)
-    switch (req.body.event_type) {
-      case 'subscription_resumed':
-      case 'subscription_renewed':
-      case 'subscription_reactivated':
-      case 'subscription_activated':
-      case 'subscription_started':
-      case 'subscription_created': {
-        db.subscribe(customer.email, customer.id, planId, true)
-        break
-      }
-      case 'subscription_paused':
-      case 'subscription_deleted':
-      case 'subscription_cancelled': {
-        db.subscribe(customer.email, customer.id, planId, false)
-        break
-      }
-      case 'subscription_changed': {
-        db.updateMailingSubscription(customer, planId, false)
-        break
-      }
-      default: {
-        console.log(req.body.event_type)
-        break
+    if (planId) {
+      switch (req.body.event_type) {
+        case 'subscription_resumed':
+        case 'subscription_renewed':
+        case 'subscription_reactivated':
+        case 'subscription_activated':
+        case 'subscription_started':
+        case 'subscription_created': {
+          db.subscribe(customer.email, customer.id, planId, true)
+          break
+        }
+        case 'subscription_paused':
+        case 'subscription_deleted':
+        case 'subscription_cancelled': {
+          db.subscribe(customer.email, customer.id, planId, false)
+          break
+        }
+        case 'subscription_changed': {
+          db.updateMailingSubscription(customer, planId, false)
+          break
+        }
+        default: {
+          console.log(req.body.event_type)
+          break
+        }
       }
     }
     res.sendStatus(200)
