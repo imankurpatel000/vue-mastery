@@ -24,7 +24,7 @@ module.exports = {
         subscribed.push(subscription.getMailerList(listId)
           .then(listID => subscription.subscribeUser(user, listID, true))
           .catch(function (error) {
-            console.log(error)
+            console.log(`Adding ${user.email} to ${list}... but ${error}`)
           })
         )
       })
