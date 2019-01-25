@@ -57,7 +57,7 @@ module.exports = {
       .ref('accounts')
       .orderByChild('email')
       .equalTo(email)
-      .once('child_added', (snapshot) => {
+      .once('child_added', async (snapshot) => {
         const user = snapshot.val()
         // console.log(`Found ${val} with email ${email}, now updating chargebeeId: ${id}`)
         snapshot.ref
@@ -92,19 +92,20 @@ module.exports = {
             break
         }
 
-        return mailingList.forEach((list) => {
-          subscription.getMailerList(list)
+        const subscribed = await mailingList.forEach(async (list) => {
+          await subscription.getMailerList(list)
             .then(listID => subscription.subscribeUser(user, listID, subscribing))
             .catch(function (error) {
               console.log(error)
             })
         })
+        return subscribed
       }, (error) => {
         console.log(error)
       })
   },
 
-  updateMailingSubscription (user, id, planId) {
+  async updateMailingSubscription (user, planId) {
     let toRemove = ''
     let toAdd = ''
 
@@ -126,7 +127,7 @@ module.exports = {
         toAdd = 'Active Gift Subscription'
         break
     }
-    toRemove.forEach((list) => {
+    await toRemove.forEach((list) => {
       subscription.getMailerList(list)
         .then(listID => {
           return subscription.deleteSubscriber(listID, user.email).then(() => {
@@ -137,15 +138,13 @@ module.exports = {
           console.log(error)
         })
     })
-    return toAdd.forEach((list) => {
-      subscription.getMailerList(list)
-        .then(listID => {
-          subscription.subscribeUser(user, listID, true)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
-    })
+    return subscription.getMailerList(toAdd)
+      .then(listID => {
+        subscription.subscribeUser(user, listID, true)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   },
 
   checkIfSubscribed (email, id, subscribing, tryNumber) {

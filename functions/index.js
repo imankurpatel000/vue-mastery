@@ -14,18 +14,19 @@ chargebee.configure({
 module.exports = {
   // On account creation we add the user to mailerlite and create stripe account (phase 2)
   createCustomer: functions.auth.user()
-    .onCreate(event => {
+    .onCreate(async event => {
       const user = event.data
       db.checkUserTeamSubscription(user)
       db.checkIfTeamMember(user.email)
-      return mailingList.forEach((list) => {
+      const subscribed = await mailingList.forEach(async (list) => {
         const listId = functions.config().mailerlite[list]
-        subscription.getMailerList(listId)
+        await subscription.getMailerList(listId)
           .then(listID => subscription.subscribeUser(user, listID, true))
           .catch(function (error) {
             console.log(error)
           })
       })
+      return subscribed
     }),
 
   // Subscribe a user to mailerLite according to his settings.
@@ -274,7 +275,7 @@ module.exports = {
         break
       }
       case 'subscription_changed': {
-        db.updateMailingSubscription(customer, customer.id, planId, false)
+        db.updateMailingSubscription(customer, planId, false)
         break
       }
       default: {
