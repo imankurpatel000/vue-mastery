@@ -101,7 +101,7 @@ module.exports = {
             })
           )
         })
-        return Promise.All(subscribed)
+        return Promise.all(subscribed)
       }, (error) => {
         console.log(error)
       })
@@ -152,7 +152,7 @@ module.exports = {
       })
     )
 
-    return Promise.All(actions)
+    return Promise.all(actions)
   },
 
   checkIfSubscribed (email, id, subscribing, tryNumber) {
