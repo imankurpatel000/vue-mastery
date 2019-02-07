@@ -1,7 +1,7 @@
 <template lang='pug'>
   no-ssr
     a.button(v-if='account' v-cloak
-             href='/enroll-free-weekend'
+             href='/thank-you-free-weekend'
              :class='buttonClass'
              download) Enroll Free Now
 
@@ -37,7 +37,7 @@ export default {
       this.$modal.show('login-form', {
         newAccount: true,
         headerTitle: 'Please sign up to enroll free',
-        redirect: '/enroll-free-weekend',
+        redirect: '/thank-you-free-weekend',
         location: this.location
       })
     }
