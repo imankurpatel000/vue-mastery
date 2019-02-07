@@ -6,8 +6,9 @@
 
       .body
         h2.title Enroll in Free Weekend
-        p.lead Reserve your spot to get access to allour Vue.js courses free.
-        p Friday through Sunday <br /> Feb 22 at 12 PM ET until Sunday Feb 24, 11:59 PM ET
+        p.lead Reserve your spot to get access to all Vue.js courses free.
+        p.normal We will email you when the courses are unlocked.
+        p.lead Friday through Sunday <br /> Feb 22 at 12 PM ET until Feb 24, 11:59 PM ET
 
         FreeEnrollButton(button-class='inverted' location='Free Weekend')
 </template>
@@ -69,6 +70,15 @@ export default {
     font-size 56px
 
 .lead
+  max-width 690px
+  font-size 16px
+  color $secondary-color
+  font-weight: bold
+
+  +laptop-up()
+    font-size 24px
+
+.normal
   max-width 690px
   font-size 16px
   color $secondary-color
