@@ -28,7 +28,23 @@
               i.fa.fa-share-square &nbsp;
               | Don't Let your Friends Miss Out
             p Have any friends that'd appreciate free learning?  Share #[a(href='https://www.vuemastery.com/free-weekend') this link] or hit the tweet button below to make sure they don't miss out.
-            p #[a(class='twitter-share-button' href='https://twitter.com/intent/tweet' data-size='large' data-text="I'll be sharpening my Vue skills during Vue Mastery's free weekend.  Don't miss out on this free @vuejs learning" data-url="https://www.vuemastery.com/free-weekend" data-via='vuemastery' data-related='vuemastery,greggpollack,adamjahr') Tweet]
+              social-sharing(inline-template url='https://www.vuemastery.com/free-weekend'
+                  title="I'll be sharpening my Vue skills during Vue Mastery's free weekend.  Don't miss out on these free Vue.js courses."
+                  quote="I'll be sharpening my Vue skills during Vue Mastery's free weekend.  Don't miss out on these free Vue.js courses."
+                  twitter-user='vuemastery')
+                .social-wrapper
+                  network.button.primary.border.-has-icon(network='facebook')
+                    i.fab.fa-facebook
+                    span Facebook
+                  network.button.primary.border.-has-icon(network='linkedin')
+                    i.fab.fa-linkedin
+                    span LinkedIn
+                  network.button.primary.border.-has-icon(network='reddit')
+                    i.fab.fa-reddit
+                    span Reddit
+                  network.button.primary.border.-has-icon(network='twitter')
+                    i.fab.fa-twitter
+                    span Twitter
 
             h4
               i.fa.fa-play-circle &nbsp;
