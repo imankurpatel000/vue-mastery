@@ -6,7 +6,7 @@ aside.lesson-aside
     :enabled='enableAffix')
     .card
       .card-body
-        Download( v-if="!locked"
+        Download( v-if="!locked" // v-if="account.subscribed"
                 :courseLink='current.downloadLink'
                 :account='account')
 
