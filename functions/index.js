@@ -55,6 +55,21 @@ module.exports = {
   //       })
   //   }),
 
+  // Subscribe a user to free weekend
+  subscribeToFreeWeekend: functions.database.ref('/accounts/{uid}')
+    .onWrite(event => {
+      const snapshot = event.data
+
+      if (!snapshot.child('enrolledFreeWeekend').changed()) return null
+
+      const val = snapshot.val()
+      return subscription.getMailerList('Free Weekend 2019')
+        .then(listID => subscription.subscribeUser(val, listID, val.enrolledFreeWeekend))
+        .catch((error) => {
+          console.log(error)
+        })
+    }),
+
   // Change mailerlite subscriber on email update
   updateEmail: functions.database.ref('/accounts/{uid}')
     .onUpdate(event => {
