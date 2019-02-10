@@ -2,13 +2,18 @@
   .banner
     .wrapper
       .media
-        img(src='/images/unlocked-courses.png' style='max-height: 500px; width: auto;')
+        img(src='/images/unlocked-courses.png')
 
       .body
         h2.title Enroll in Free Weekend
-        p.lead Reserve your spot to get access to all Vue.js courses free.
-        p.normal We will email you when the courses are unlocked.
-        p.lead Friday through Sunday <br /> Feb 22 at 12 PM ET until Feb 24, 11:59 PM ET
+        p.lead
+          | Reserve your spot to get access to all Vue.js courses free.
+          br
+          span.normal We will email you when the courses are unlocked.
+        p.lead.date
+          | Friday through Sunday
+          br
+          | Feb 22 at 12 PM ET until Feb 24, 11:59 PM ET
 
         FreeEnrollButton(button-class='inverted' location='Free Weekend')
 </template>
@@ -47,11 +52,11 @@ export default {
   img
     align-self end
     justify-self center
-    width 70%
+    max-height 500px
+    width auto
 
     +laptop-up()
       justify-self center
-      width 100%
 
 .body
   display grid
@@ -63,31 +68,36 @@ export default {
     padding-bottom $vertical-space
 
 .title
-  color $secondary-color
   margin 0
   padding-top 0
+  color #fff
+
   +tablet-up()
     font-size 56px
 
 .lead
-  max-width 690px
   font-size 16px
   color $secondary-color
   font-weight: bold
 
   +laptop-up()
+    max-width 690px
     font-size 24px
 
 .normal
-  max-width 690px
   font-size 16px
   color $secondary-color
+  font-weight normal
 
   +laptop-up()
+    max-width 690px
     font-size 24px
 
 .button
   justify-self center
   text-transform uppercase
+
+.date
+  color #fff
 
 </style>

@@ -27,10 +27,12 @@
             h4
               i.fa.fa-share-square &nbsp;
               | Don't Let your Friends Miss Out
-            p Have any friends that'd appreciate free learning?  Share #[a(href='https://www.vuemastery.com/free-weekend') this link] or hit the tweet button below to make sure they don't miss out.
-              social-sharing(inline-template url='https://www.vuemastery.com/free-weekend'
-                  title="I'll be sharpening my Vue skills during Vue Mastery's free weekend.  Don't miss out on these free Vue.js courses."
-                  quote="I'll be sharpening my Vue skills during Vue Mastery's free weekend.  Don't miss out on these free Vue.js courses."
+            p Have any friends that'd appreciate free learning?  Share #[a(:href="link") this link] or hit the tweet button below to make sure they don't miss out.
+              social-sharing(inline-template 
+                  :url='link'
+                  :title="description"
+                  :description="description"
+                  :quote="description"
                   twitter-user='vuemastery')
                 .social-wrapper
                   network.button.primary.border.-has-icon(network='facebook')
@@ -68,7 +70,9 @@ export default {
     return {
       ready: false,
       show: false,
-      card: false
+      card: false,
+      link: 'https://www.vuemastery.com/free-weekend',
+      description: 'I\'ll be sharpening my Vue skills during Vue Mastery\'s free weekend.  Don\'t miss out on these free Vue.js courses.'
     }
   },
 
@@ -124,6 +128,10 @@ export default {
 
 .button
   margin-bottom 0
+
+>>>.social-wrapper .button
+  margin 15px 21px 0px 0
+  min-width 162px
 
 img[class*="range"]
 img[class*="cloud"]
