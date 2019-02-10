@@ -206,6 +206,11 @@ const actions = {
       subscribedToMailingList: subscribedToMailingList
     })
   },
+  userEnrollFreeWeekend ({ state }) {
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+      enrolledFreeWeekend: true
+    })
+  },
   userUpdate ({ state }, newData) {
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
       displayName: newData.displayName

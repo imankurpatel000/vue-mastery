@@ -1,9 +1,8 @@
 <template lang='pug'>
   no-ssr
-    a.button(v-if='account' v-cloak
-             href='/thank-you-free-weekend'
-             :class='buttonClass'
-             download) Enroll Free Now
+    button.button(v-if='account' v-cloak
+      @click='enroll'
+      :class='buttonClass') Enroll Free Now
 
     button.button(v-else :class='buttonClass' v-cloak 
                   @click='openLogin') Enroll Free Now
@@ -40,6 +39,12 @@ export default {
         redirect: '/thank-you-free-weekend',
         location: this.location
       })
+    },
+    enroll () {
+      this.$store.dispatch('userEnrollFreeWeekend')
+        .then(() => {
+          this.$router.push('/thank-you-free-weekend')
+        })
     }
   }
 }
