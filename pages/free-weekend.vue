@@ -39,12 +39,12 @@ export default {
       {
         hid: `og:image`,
         property: 'og:image',
-        content: 'https://www.vuemastery.com/images/unlocked-courses.png'
+        content: 'https://www.vuemastery.com/images/free-weekend-banner.jpg'
       },
       {
         hid: `twitter:image`,
         property: 'twitter:image',
-        content: 'https://www.vuemastery.com/images/unlocked-courses.png'
+        content: 'https://www.vuemastery.com/images/free-weekend-banner.jpg'
       },
       {
         hid: `twitter:title`,
