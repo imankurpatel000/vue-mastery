@@ -27,7 +27,7 @@
             h4
               i.fa.fa-share-square &nbsp;
               | Don't Let your Friends Miss Out
-            p Have any friends that'd appreciate free learning?  Share #[a(:href="link") this link] or hit the tweet button below to make sure they don't miss out.
+            p Have any friends that'd appreciate free learning?  Share #[a(:href="link") this link] or hit a share button below to make sure they don't miss out.
               social-sharing(inline-template 
                   :url='link'
                   :title="description"
@@ -35,6 +35,9 @@
                   :quote="description"
                   twitter-user='vuemastery')
                 .social-wrapper
+                  network.button.primary.border.-has-icon(network='twitter')
+                    i.fab.fa-twitter
+                    span Twitter
                   network.button.primary.border.-has-icon(network='facebook')
                     i.fab.fa-facebook
                     span Facebook
@@ -44,9 +47,6 @@
                   network.button.primary.border.-has-icon(network='reddit')
                     i.fab.fa-reddit
                     span Reddit
-                  network.button.primary.border.-has-icon(network='twitter')
-                    i.fab.fa-twitter
-                    span Twitter
 
             h4
               i.fa.fa-play-circle &nbsp;
