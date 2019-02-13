@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'page-thank-you-free-weekend',
 
@@ -76,9 +77,19 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
+  },
+
   mounted () {
     setTimeout(() => {
       this.ready = true
+      if (this.account && !this.account.enrolledFreeWeekend) {
+        // This is to ensure people that are just login are subscribed
+        this.$store.dispatch('userEnrollFreeWeekend')
+      }
     }, 500)
   },
 
