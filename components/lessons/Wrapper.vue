@@ -163,7 +163,7 @@ export default {
   computed: {
     locked () {
       if (this.current.free === false) {
-        // Switch commented line on free weekend
+        // FREEWEEKEND
         // return !this.account
         return this.account ? !this.account.subscribed : true
       }

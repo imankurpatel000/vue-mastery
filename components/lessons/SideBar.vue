@@ -6,7 +6,12 @@ aside.lesson-aside
     :enabled='enableAffix')
     .card
       .card-body
-        Download( v-if="!locked" // v-if="account.subscribed"
+        //-  FREEWEEKEND
+        //- Download( v-if="!locked || (account && account.subscribed)"
+        //-         :courseLink='current.downloadLink'
+        //-         :account='account')
+
+        Download( v-if="!locked"
                 :courseLink='current.downloadLink'
                 :account='account')
 
