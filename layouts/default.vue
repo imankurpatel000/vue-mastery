@@ -1,6 +1,6 @@
 <template lang='pug'>
   .container(:class="openNav ? 'open-nav': ''")
-    Announcement
+    // Announcement
     PageHeader(:class='$route.name')
     nuxt
     VuePodcast(v-if="$route.name !== 'thank-you-annual' && $route.name !== 'thank-you-monthly' && $route.name !== 'pricing'" v-cloak)
@@ -10,7 +10,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Announcement from '~/components/static/Announcement.vue'
+// import Announcement from '~/components/static/Announcement.vue'
 import PageHeader from '~/components/header/Header.vue'
 import VuePodcast from '~/components/static/VuePodcast.vue'
 import PageFooter from '~/components/footer/Footer.vue'
@@ -20,7 +20,7 @@ export default {
   name: 'default-layout',
 
   components: {
-    Announcement,
+    // Announcement,
     PageHeader,
     VuePodcast,
     PageFooter,
