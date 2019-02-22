@@ -7,7 +7,7 @@ aside.lesson-aside
     .card
       .card-body
         //-  FREEWEEKEND
-        Download( v-if="!locked || (account && account.subscribed)"
+        Download( v-if="(account && account.subscribed)"
                 :courseLink='current.downloadLink'
                 :account='account')
 
