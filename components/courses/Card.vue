@@ -6,11 +6,14 @@ nuxt-link.course-card(:to='linkTo()')
     :percentProgress='percentProgress')
 
   div.course-heading
-    label.free-label(v-if='isFreeCourse' cloak) Free Course
-    label.free-label(v-else-if='isComingSoon' cloak) Lessons coming in March
-    label.free-label(v-else-if='hasUpcomingLessons' cloak) Releasing New Lessons Weekly
-    label.free-label(v-else-if='hasFreeLesson' cloak) Free Lesson Inside
+    label.free-label(v-if='isComingSoon' cloak) Lessons coming in March
     h2.title {{ course.title }}
+    //- FREEWEEKEND .. just commented this stuff out.
+    //- label.free-label(v-if='isFreeCourse' cloak) Free Course
+    //- label.free-label(v-else-if='isComingSoon' cloak) Lessons coming in March
+    //- label.free-label(v-else-if='hasUpcomingLessons' cloak) Releasing New Lessons Weekly
+    //- label.free-label(v-else-if='hasFreeLesson' cloak) Free Lesson Inside
+    //- h2.title {{ course.title }}
 
   ul.course-info
     li.info-item(v-if='hasLessons()' cloak) #[Icon(name='book')] 
