@@ -5,15 +5,19 @@
         img(src='/images/unlocked-courses.png')
 
       .body
-        h2.title Enroll in Free Weekend
+        h2.title Free Weekend is Now Over
         p.lead
-          | Get access to all Vue.js courses free right now.
-        p.lead.date
-          | Friday through Sunday
-          br
-          | Feb 22 at 12 PM ET until Feb 24, 11:59 PM ET
+          | However, almost all of our courses start with a free lesson.
 
-        FreeEnrollButton(button-class='inverted' location='Free Weekend')
+        p
+          nuxt-link.button.primary(to='/courses') View Courses
+        
+        //- p.lead.date
+        //-   | Friday through Sunday
+        //-   br
+        //-   | Feb 22 at 12 PM ET until Feb 24, 11:59 PM ET
+
+        //- FreeEnrollButton(button-class='inverted' location='Free Weekend')
 </template>
 
 <script>
