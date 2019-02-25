@@ -164,8 +164,9 @@ export default {
     locked () {
       if (this.current.free === false) {
         // FREEWEEKEND
-        return !this.account
-        // return this.account ? !this.account.subscribed : true
+        // return !this.account
+        // NOT FREEWEEKEND
+        return this.account ? !this.account.subscribed : true
       }
       if (this.current.lock) {
         return !this.account

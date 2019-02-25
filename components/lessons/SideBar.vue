@@ -7,13 +7,13 @@ aside.lesson-aside
     .card
       .card-body
         //-  FREEWEEKEND
-        Download( v-if="(account && account.subscribed)"
-                :courseLink='current.downloadLink'
-                :account='account')
-
-        //- Download( v-if="!locked"
+        //- Download( v-if="(account && account.subscribed)"
         //-         :courseLink='current.downloadLink'
         //-         :account='account')
+        //- NOT FREEWEEKEND
+        Download( v-if="!locked"
+                :courseLink='current.downloadLink'
+                :account='account')
 
         SocialShare(:lesson='current'
                   :baseUrl='baseUrl')
