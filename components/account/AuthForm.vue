@@ -48,8 +48,8 @@ form.form(@submit.prevent='submit')
 
     .control-group.-spaced(v-if='rememberPassword' v-cloak)
       .label {{ label }} with:
-      GoogleButton.button.secondary.border.-has-icon.-small(label='Google' :disabled='actionDisabled')
-      GithubButton.button.secondary.border.-has-icon.-small(label='Github' :disabled='actionDisabled')
+      GoogleButton.button.secondary.border.-has-icon.-small(label='Google' :disabled='actionDisabled' v-on:error="updateError($event)")
+      GithubButton.button.secondary.border.-has-icon.-small(label='Github' :disabled='actionDisabled' v-on:error="updateError($event)")
 
   .form-footer
     .control-group(v-if='isNew' v-cloak)
@@ -187,7 +187,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error)
+          console.log('YOLO', error)
           this.formError = error.message
         })
     },
@@ -200,6 +200,10 @@ export default {
     close (e) {
       // Prevent enter event to close the modal
       if (e.screenX !== 0) this.$modal.hide('login-form')
+    },
+
+    updateError (e) {
+      this.formError = e.message
     }
   }
 }

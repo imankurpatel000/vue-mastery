@@ -32,6 +32,9 @@ export default {
         .then(() => {
           if (this.redirect !== '') this.$router.push(this.redirect)
         })
+        .catch((error) => {
+          this.$emit('error', error)
+        })
     }
   }
 }

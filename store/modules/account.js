@@ -109,7 +109,7 @@ const actions = {
         }, commit, state)
         return commit(types.SET_USER, result.user)
       }).catch((error) => {
-        console.log(error)
+        throw new Error(error)
       })
   },
   userGithubLogin ({ commit, state }) {
@@ -126,7 +126,7 @@ const actions = {
         }, commit, state)
         return commit(types.SET_USER, result.user)
       }).catch((error) => {
-        console.log(error)
+        throw new Error(error)
       })
   },
   userLogin ({ state }, account) {
@@ -134,6 +134,9 @@ const actions = {
       .signInWithEmailAndPassword(account.email, account.password)
       .then((user) => {
         return this.commit(types.SET_USER, user)
+      })
+      .catch((error) => {
+        throw new Error(error)
       })
   },
   userLogout ({ state }) {
