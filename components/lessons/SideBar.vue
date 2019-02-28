@@ -148,8 +148,13 @@ export default {
     },
 
     addAffix () {
-      if (this.mediaBreakpointUp(1024) && !this.affixTooLarge(this.relativeElement)) {
-        this.enableAffix = true
+      if (this.mediaBreakpointUp(1247) && !this.affixTooLarge(this.relativeElement)) {
+        if (!this.enableAffix) {
+          this.enableAffix = true
+        }
+      } else if (this.enableAffix) {
+        this.enableAffix = false
+        this.$refs.affix.$el.style = ''
       }
     }
   },
