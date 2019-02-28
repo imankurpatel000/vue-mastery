@@ -233,6 +233,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   flex-direction column
   align-items center
   max-width 568px
+  margin 0 auto
 
   +laptop-up()
     padding-top $vertical-space
