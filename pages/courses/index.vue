@@ -32,7 +32,7 @@ export default {
 
   head () {
     return {
-      title: 'Course Listing | Vue Mastery',
+      title: 'Learn Vue with our Courses | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
