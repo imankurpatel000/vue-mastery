@@ -90,9 +90,6 @@ export default {
     },
     getConferenceUrl (conference) {
       let url = conference.available ? '/conferences/' + conference.slug : ''
-      if (conference.slug === 'vueconf-us-2018') {
-        url = '/vueconf'
-      }
       return url
     },
     getNumbersOfTalks (conference) {

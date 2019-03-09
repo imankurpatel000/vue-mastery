@@ -39,9 +39,6 @@ export default {
 
   data () {
     let confSlug = this.$route.params.conference
-    if (confSlug === 'vueconf') {
-      confSlug = 'vueconf-us-2018'
-    }
     return {
       conferenceSlug: confSlug,
       page: this.$route.params.talk,
