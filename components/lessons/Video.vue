@@ -1,30 +1,44 @@
 <template lang='pug'>
-.lesson-video(v-if='video && ready' v-cloak
-              itemprop='video' itemscope itemtype='http://schema.org/VideoObject')
-  meta(itemprop='name' :content='video.title')
-  meta(itemprop='duration' :content='video.duration')
-  meta(itemprop='thumbnailUrl' :content='video.image[0].url')
-  //- meta(itemprop='contentURL' :content='url')
-  meta(itemprop='embedURL' :content="'https://player.vimeo.com/video/'+video.videoEmbedId")
-  meta(itemprop='uploadDate' :content='video.date')
-  meta(itemprop='description' :content='video.description')
-  vimeo-player.video-wrapper(ref='player'
-                             player-width='860'
-                             autoplay='true'
-                             :video-id = 'video.videoEmbedId'
-                             @progress='videoProgress'
-                             @ready='onReady'
-                             @ended='videoEnded()')
+.lesson-video-wrapper(:style='lockedStyle')
+  Unlock(:free='current.free' v-if='restricted' v-cloak )
+  
+  .lesson-video(v-else)
+    div(v-if='video' v-cloak
+      itemprop='video' itemscope itemtype='http://schema.org/VideoObject')
+      meta(itemprop='name' :content='current.title')
+      meta(itemprop='duration' :content='current.duration')
+      meta(itemprop='thumbnailUrl' :content='current.image[0].url')
+      meta(itemprop='embedURL' :content="'https://player.vimeo.com/video/'+video.videoEmbedId")
+      meta(itemprop='uploadDate' :content='current.date')
+      meta(itemprop='description' :content='current.description')
+      vimeo-player.video-wrapper(ref='player'
+        player-width='860'
+        autoplay='true'
+        :video-id = 'video.videoEmbedId'
+        @progress='videoProgress'
+        @ready='onReady'
+        @ended='videoEnded()')
+
 </template>
 
 <script>
+import Unlock from '~/components/lessons/Unlock'
+
 export default {
   name: 'lesson-video',
 
+  components: {
+    Unlock
+  },
+
   props: {
+    current: {
+      type: Object,
+      required: false
+    },
     video: {
       type: Object,
-      required: true
+      required: false
     },
     account: {
       type: Object,
@@ -33,23 +47,31 @@ export default {
     url: {
       type: String,
       required: true
+    },
+    restricted: {
+      type: Boolean,
+      default: true
     }
   },
 
   data () {
     return {
-      completed: false,
-      ready: false
+      completed: false
     }
-  },
-
-  mounted () {
-    this.ready = true
   },
 
   watch: {
     account () {
       this.updatePlaybackRate()
+    }
+  },
+
+  computed: {
+    lockedStyle () {
+      const imageUrl = this.current.image ? `url(${this.current.image[0].url})` : ''
+      return {
+        backgroundImage: imageUrl
+      }
     }
   },
 
@@ -102,3 +124,20 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.lesson-video-wrapper
+  grid-area video
+  position relative
+  background $black
+  width 100%
+  padding-bottom 56.25%
+  background-size auto 100%
+  background-position center
+
+.lesson-video
+  position absolute
+  top 0
+  width 100%
+
+</style>

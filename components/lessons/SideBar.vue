@@ -6,25 +6,19 @@ aside.lesson-aside
     :enabled='enableAffix')
     .card
       .card-body
-        //-  FREEWEEKEND
-        //- Download( v-if="(account && account.subscribed)"
-        //-         :courseLink='current.downloadLink'
-        //-         :account='account')
-        //- NOT FREEWEEKEND
-        Download( v-if="!locked"
-                :courseLink='current.downloadLink'
+        Download(v-if="lesson" v-cloak
+                :courseLink='lesson.downloadLink'
                 :account='account')
 
         SocialShare(:lesson='current'
                   :baseUrl='baseUrl')
 
-      .card-space
-        Resources(v-if='current.resources'
-                  :resources='current.resources'
-                  v-cloak)
+      .card-space(v-if='lesson' v-cloak)
+        Resources(v-if='lesson.resources'
+                  :resources='lesson.resources')
 
-        Challenges(v-if='current.codingChallenge'
-                  :challenges='current.codingChallenge')
+        Challenges(v-if='lesson.codingChallenge'
+                  :challenges='lesson.codingChallenge')
 
 
     .card.download(v-if='!isLesson' v-cloak)
@@ -80,9 +74,9 @@ export default {
       type: Boolean,
       default: false
     },
-    locked: {
-      type: Boolean,
-      default: true
+    lesson: {
+      type: Object,
+      required: false
     },
     affixToElement: {
       type: String,

@@ -187,7 +187,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log('YOLO', error)
           this.formError = error.message
         })
     },

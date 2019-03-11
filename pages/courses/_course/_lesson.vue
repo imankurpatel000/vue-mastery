@@ -1,13 +1,15 @@
 <template lang="pug">
-  LessonWrapper(:category = 'category'
-                :page = 'page'
-                :course = 'course'
-                :account = 'account'
-                :completedUnlogged = 'completedUnlogged'
-                :current = 'current'
-                :selected = 'selected')
+  LessonWrapper(
+    :category = 'category'
+    :page = 'page'
+    :course = 'course'
+    :account = 'account'
+    :completedUnlogged = 'completedUnlogged'
+    :current = 'current'
+    :selected = 'selected'
+    :lesson = 'lesson',
+    :restricted = 'restricted')
 </template>
-
 
 <script>
 import { mapState } from 'vuex'
@@ -52,38 +54,79 @@ export default {
 
   data () {
     return {
-      category: this.$route.params.lesson,
-      page: this.$route.params.slug,
-      selected: -1
+      category: this.$route.params.course,
+      page: this.$route.params.lesson,
+      selected: -1,
+      restricted: true,
+      current: {}
     }
+  },
+
+  watch: {
+    account () {
+      console.log('ACCOUNT')
+      this.getContent()
+    }
+  },
+
+  created () {
+    if (this.course) this.getContent()
   },
 
   computed: {
     ...mapState({
       course: result => result.courses.course,
+      lesson: result => result.courses.lesson,
       account: result => result.account.account,
       completedUnlogged: result => result.account.completedUnlogged
-    }),
+    })
+  },
 
-    current () {
-      let currentPage = null
+  methods: {
+    getContent () {
+      console.log('GET LESSON', this.page)
       // If no lesson selected, get the first one of the course
       if (this.page === null) this.page = this.course.lessons[0].slug
       this.course.lessons.map((lesson, index) => {
         // Find the selected lesson in the list
         if (this.page === lesson.slug) {
           // Load the current lesson
-          currentPage = lesson
+          this.current = lesson
           // Keep track of lesson index for the carousel
           this.selected = index
         }
       })
-      return currentPage
+
+      this.loadContent()
+    },
+
+    loadContent () {
+      this.checkRestriction()
+      console.log('FUNCTION LOAD CONTENT  ', this.page)
+      this.$store.dispatch('getContent', {
+        category: 'lessons',
+        slug: this.page,
+        restricted: this.restricted
+      })
+    },
+
+    checkRestriction () {
+      let restriction = !this.current.free
+      if (restriction) {
+        restriction = this.account ? !this.account.subscribed : true
+      } else if (this.current.lock) {
+        restriction = !this.account
+      }
+      this.restricted = restriction
+      console.log(this.restricted)
     }
   },
 
   async fetch ({ store, params }) {
-    await store.dispatch('getCourse', params.lesson)
+    await store.dispatch('getCategory', {
+      category: 'course',
+      slug: params.course
+    })
   }
 }
 </script>

@@ -1,28 +1,68 @@
 import * as types from '../mutation-types'
 import _ from 'lodash'
 
+// Course free and locked content
+const lessonContent = [
+  'title',
+  'slug',
+  'image',
+  'description',
+  'duration',
+  'author',
+  'date',
+  'status',
+  'free',
+  'lock',
+  'twitterImage',
+  'facebookImage',
+  'socialSharingDescription'
+]
+
+const confContent = [
+  ...lessonContent,
+  'presentedDate'
+]
+
+const lockedContent = [
+  'videoEmbedId',
+  'markdown',
+  'resources',
+  'codingChallenge',
+  'downloadLink'
+]
+
+const relatedContent = [{
+  field: 'belongsToCourse',
+  fields: [ 'slug' ]
+}, {
+  field: 'image',
+  subFields: [ 'image' ]
+}]
+
 let db = null
 
 // initial state
 const state = {
   courses: null,
-  conferences: null,
   course: null,
-  lessons: null,
+  lesson: null,
+  conferences: null,
+  conference: null,
+  talk: null,
   latests: null,
-  featured: null,
-  conference: null
+  featured: null
 }
 
 // getters
 const getters = {
   courses: state => state.courses,
   course: state => state.course,
-  lessons: state => state.lessons,
-  latests: state => state.latests,
-  featured: state => state.featured,
+  lesson: state => state.lesson,
   conferences: state => state.conferences,
-  conference: state => state.conference
+  conference: state => state.conference,
+  talk: state => state.talk,
+  latests: state => state.latests,
+  featured: state => state.featured
 }
 
 // actions
@@ -45,9 +85,31 @@ const actions = {
       })
   },
 
-  getCourse ({ commit, state, rootState }, slug) {
-    return db.get('courses', {
+  getContent ({ commit, state, rootState }, {restricted, category, slug}) {
+    let action = category === 'lessons' ? 'LESSON' : 'CONFERENCE'
+    if (restricted) {
+      commit(types['PROTECTED_' + action])
+    } else {
+      db.get(category, {
+        orderByChild: 'slug',
+        limitToLast: 1,
+        equalTo: slug,
+        fields: lockedContent
+      })
+        .then(content => {
+          content = content[Object.keys(content)[0]]
+          commit(types['RECEIVE_' + action], { content })
+        })
+    }
+  },
+
+  getCategory ({ commit, state }, { category, slug }) {
+    if (state[category] && state[category].slug === slug) return true
+    let field = category === 'course' ? 'lessons' : 'talks'
+    let fields = category === 'course' ? lessonContent : confContent
+    return db.get(`${category}s`, {
       orderByChild: 'slug',
+      limitToLast: 1,
       equalTo: slug,
       populate: [
         {
@@ -63,8 +125,8 @@ const actions = {
           subFields: [ 'twitterImage' ]
         },
         {
-          field: 'lessons',
-          subFields: [ 'lessons', 'image' ],
+          field: field,
+          fields: fields,
           populate: [ 'image', 'facebookImage', 'twitterImage' ]
         }
       ]})
@@ -79,14 +141,8 @@ const actions = {
     return db.get('home', {
       populate: [ {
         field: 'featured',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image', 'free' ],
-        populate: [{
-          field: 'belongsToCourse',
-          subFields: [ 'slug' ]
-        }, {
-          field: 'image',
-          subFields: [ 'image' ]
-        }]
+        fields: lessonContent,
+        populate: relatedContent
       }]
     }).then(featured => {
       commit(types.RECEIVE_FEATURED, { featured })
@@ -98,14 +154,8 @@ const actions = {
     return db.get('lessons', {
       limitToLast: 10,
       orderByChild: 'date',
-      fields: ['title', 'slug', 'free', 'duration', 'published', 'date', 'belongsToCourse', 'image', 'status'],
-      populate: [{
-        field: 'belongsToCourse',
-        fields: [ 'slug' ]
-      }, {
-        field: 'image',
-        subFields: [ 'image' ]
-      }]
+      fields: lessonContent,
+      populate: relatedContent
     }).then(latests => {
       let publishedLatest = Object.values(latests)
       publishedLatest = publishedLatest.filter(key => {
@@ -128,7 +178,6 @@ const actions = {
         },
         {
           field: 'talks',
-          // fields: [ 'slug', 'image', 'location', 'title', 'talksNumber', 'lightningTalksNumber', 'available' ],
           populate: [ 'image' ]
         }
       ]})
@@ -136,7 +185,7 @@ const actions = {
         commit(types.RECEIVE_CONFERENCES, { conferences })
       })
   },
-
+  // TODO replace by get category in conferences/conf
   getConference ({ commit, state, rootState }, slug) {
     return db.getByField('conference', 'slug', slug, {
       populate: [
@@ -185,18 +234,29 @@ const mutations = {
   [types.RECEIVE_COURSE] (state, { course }) {
     state.course = course
   },
+  [types.RECEIVE_LESSON] (state, { content }) {
+    state.lesson = content
+  },
+  [types.PROTECTED_LESSON] (state) {
+    state.lesson = null
+  },
   [types.RECEIVE_FEATURED] (state, { featured }) {
     state.featured = featured.featured
   },
   [types.RECEIVE_LATEST] (state, { publishedLatest }) {
     state.latests = publishedLatest
-    // state.latests = latests.latests
   },
   [types.RECEIVE_CONFERENCES] (state, { conferences }) {
     state.conferences = conferences
   },
   [types.RECEIVE_CONFERENCE] (state, { conference }) {
     state.conference = conference
+  },
+  [types.RECEIVE_TALK] (state, { content }) {
+    state.talk = content
+  },
+  [types.PROTECTED_TALK] (state) {
+    state.talk = null
   }
 }
 
