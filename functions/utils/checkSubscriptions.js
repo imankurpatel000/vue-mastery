@@ -1,8 +1,8 @@
 const chargebee = require('chargebee')
 const admin = require('firebase-admin')
-const serviceAccount = require('../serviceAccountKey.json')
-const chargebeeAccount = require('../chargebeeAccountKey.json')
-let checkNum = process.argv[2] || 20
+const serviceAccount = require('../../serviceAccountKey.json')
+const chargebeeAccount = require('../../chargebeeAccountKey.json')
+const checkNum = process.argv[2] || 20
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -10,35 +10,43 @@ admin.initializeApp({
 })
 
 chargebee.configure({
-  site: chargebeeAccount.chargebee.site,
-  api_key: chargebeeAccount.chargebee.key
+  site: chargebeeAccount.site,
+  api_key: chargebeeAccount.api_key
 })
+
+let checkSubscription = (list) => {
+  let promises = []
+  for (let i = 0; i < list.length; i++) {
+    const entry = list[i]
+    const email = entry.customer.email
+    promises.push(admin
+      .database()
+      .ref('accounts')
+      .orderByChild('email')
+      .equalTo(email)
+      .once('child_added', (snapshot) => {
+        console.log(`${i + 1}: ${email} = ${snapshot.val().subscribed ? 'ok' : 'not ok !!!!!!!'}`)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    )
+  }
+  return promises
+}
 
 chargebee.subscription.list({
   limit: checkNum,
   'plan_id[in]': ['monthly-subscription', 'year-subscription'],
   'status[is]': 'active',
   'sort_by[desc]': 'created_at'
-}).request((error, result) => {
+}).request(async (error, result) => {
   if (error) {
     console.log(error)
   } else {
-    for (let i = 0; i < result.list.length; i++) {
-      const entry = result.list[i]
-      const email = entry.customer.email
-      admin
-        .database()
-        .ref('accounts')
-        .orderByChild('email')
-        .equalTo(email)
-        .once('child_added', (snapshot) => {
-          const val = snapshot.val()
-          if (val.subscribed !== true) {
-            console.log(`${i + 1}: ${email} = not ok !!!!!!!`)
-          } else {
-            console.log(`${i + 1}: ${email} = ok`)
-          }
-        })
-    }
+    Promise.all(checkSubscription(result.list))
+      .then(() => {
+        process.exit()
+      })
   }
 })

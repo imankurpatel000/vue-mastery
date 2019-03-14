@@ -22,8 +22,6 @@ serviceAccountKey.json
 serviceAccountKeyStaging.json
 chargebeeAccountKey.json
 functions/.runtimeconfig.json
-updateAllSubscription.js
-functions/check.js
 
 # hide the compiled service worker
 sw.*
