@@ -63,6 +63,15 @@ module.exports = {
       if (!snapshot.child('enrolledFreeWeekend').changed()) return null
 
       const val = snapshot.val()
+      chargebee.customer.update(val.chargebeeId, {
+        email: val.email
+      }).request((error, result) => {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log(`Update customer with chargebeeId: ${val.chargebeeId} with email ${val.email}`)
+        }
+      })
       return subscription.getMailerList('Free Weekend 2019')
         .then(listID => subscription.subscribeUser(val, listID, val.enrolledFreeWeekend))
         .catch((error) => {
