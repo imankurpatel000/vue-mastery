@@ -26,11 +26,16 @@ export default {
 
   head () {
     return {
-      title: 'Learn Vue with our Courses | Vue Mastery',
+      title: 'Learn Vue.js with our Courses | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
         content: `${process.env.url}/courses`
+      },
+      {
+        hid: `description`,
+        name: 'description',
+        content: 'The best tutorials to learn Vue.js programming. Try a free video lesson in one of our courses.'
       }]
     }
   },

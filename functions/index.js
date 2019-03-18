@@ -78,7 +78,15 @@ module.exports = {
       if (!snapshot.child('email').changed()) return null
 
       const val = snapshot.val()
-
+      chargebee.customer.update(val.chargebeeId, {
+        email: val.email
+      }).request((error, result) => {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log(`Update customer with chargebeeId: ${val.chargebeeId} with email ${val.email}`)
+        }
+      })
       // Subscribe user with new email
       return userSubscriptions.forEach((list) => {
         if (val[list]) {
