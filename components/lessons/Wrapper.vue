@@ -24,7 +24,7 @@ div
 
     Body(
       :restricted='restricted'
-      :course='current' 
+      :course='current'
       :lesson='lesson'
       :isLesson='isLesson')
 

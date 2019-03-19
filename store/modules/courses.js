@@ -86,7 +86,7 @@ const actions = {
   },
 
   getContent ({ commit, state, rootState }, {restricted, category, slug}) {
-    let action = category === 'lessons' ? 'LESSON' : 'CONFERENCE'
+    let action = category === 'lessons' ? 'LESSON' : 'TALK'
     if (restricted) {
       commit(types['PROTECTED_' + action])
     } else {

@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .card-header
+  .card-header(v-if='current.image')
     img.card-img(:src='current.image[0].url'
                   :alt='current.title')
     .card-title
@@ -14,7 +14,7 @@ export default {
   props: {
     current: {
       type: Object,
-      required: true
+      required: false
     }
   }
 }

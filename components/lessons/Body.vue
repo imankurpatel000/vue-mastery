@@ -3,7 +3,7 @@
     div
       h1.title {{ course.title }}
 
-      Profile(:current='current' v-if='!isLesson' v-cloak)
+      Profile(:current='course' v-if='!isLesson' v-cloak)
 
       .lesson-body(v-html = 'body')
 

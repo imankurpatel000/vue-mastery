@@ -7,7 +7,7 @@
     :completedUnlogged = 'completedUnlogged'
     :current = 'current'
     :selected = 'selected'
-    :lesson = 'lesson',
+    :lesson = 'talk',
     :restricted = 'restricted',
     :isLesson = 'false')
 </template>
@@ -79,7 +79,6 @@ export default {
     ...mapState({
       conference: result => {
         // TODO fix hack
-        console.log(result.courses.conference)
         result.courses.conference.lessons = result.courses.conference.talks
         return result.courses.conference
       },
@@ -91,10 +90,9 @@ export default {
 
   methods: {
     getContent () {
-      console.log('GET LESSON', this.page)
-      // If no talk selected, get the first one of the course
-      if (this.page === null) this.page = this.course.talks[0].slug
-      this.course.talks.map((talk, index) => {
+      // If no talk selected, get the first one of the conference
+      if (this.page === null) this.page = this.conference.talks[0].slug
+      this.conference.talks.map((talk, index) => {
         // Find the selected talk in the list
         if (this.page === talk.slug) {
           // Load the current talk
@@ -109,7 +107,6 @@ export default {
 
     loadContent () {
       this.checkRestriction()
-      console.log('FUNCTION LOAD CONTENT  ', this.page)
       this.$store.dispatch('getContent', {
         category: 'talks',
         slug: this.page,
@@ -118,22 +115,21 @@ export default {
     },
 
     checkRestriction () {
-      let restriction = !this.current.free
+      let restriction = false
+      if (this.current.free !== undefined) {
+        restriction = !this.current.free || this.current.free === undefined
+      }
       if (restriction) {
         restriction = this.account ? !this.account.subscribed : true
       } else if (this.current.lock) {
         restriction = !this.account
       }
       this.restricted = restriction
-      console.log(this.restricted)
     }
   },
 
   async fetch ({ store, params }) {
-    await store.dispatch('getCategory', {
-      category: 'conference',
-      slug: params.conference
-    })
+    await store.dispatch('getConference', params.conference)
   }
 }
 </script>
