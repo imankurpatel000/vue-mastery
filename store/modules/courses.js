@@ -141,8 +141,14 @@ const actions = {
     return db.get('home', {
       populate: [ {
         field: 'featured',
-        fields: lessonContent,
-        populate: relatedContent
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image', 'free' ],
+        populate: [{
+          field: 'belongsToCourse',
+          subFields: [ 'slug' ]
+        }, {
+          field: 'image',
+          subFields: [ 'image' ]
+        }]
       }]
     }).then(featured => {
       commit(types.RECEIVE_FEATURED, { featured })
