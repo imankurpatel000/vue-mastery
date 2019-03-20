@@ -15,7 +15,8 @@ const lessonContent = [
   'lock',
   'twitterImage',
   'facebookImage',
-  'socialSharingDescription'
+  'socialSharingDescription',
+  'belongsToCourse'
 ]
 
 const confContent = [
@@ -141,14 +142,8 @@ const actions = {
     return db.get('home', {
       populate: [ {
         field: 'featured',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image', 'free' ],
-        populate: [{
-          field: 'belongsToCourse',
-          subFields: [ 'slug' ]
-        }, {
-          field: 'image',
-          subFields: [ 'image' ]
-        }]
+        fields: lessonContent,
+        populate: relatedContent
       }]
     }).then(featured => {
       commit(types.RECEIVE_FEATURED, { featured })

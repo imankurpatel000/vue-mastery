@@ -1,5 +1,5 @@
 <template lang="pug">
-  TalkWrapper(
+  wrapper(
     :category = 'category'
     :page = 'page'
     :course = 'conference'
@@ -9,13 +9,13 @@
     :selected = 'selected'
     :lesson = 'talk',
     :restricted = 'restricted',
-    :isLesson = 'false')
+    :isLesson = 'isLesson')
 </template>
 
 
 <script>
 import { mapState } from 'vuex'
-import TalkWrapper from '~/components/lessons/Wrapper'
+import wrapper from '~/components/lessons/Wrapper'
 import meta from '~/mixins/meta'
 
 export default {
@@ -24,7 +24,7 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    TalkWrapper
+    wrapper
   },
 
   transition (from, to) {
@@ -60,7 +60,8 @@ export default {
       page: this.$route.params.talk,
       selected: -1,
       restricted: true,
-      current: {}
+      current: {},
+      isLesson: false
     }
   },
 
@@ -72,14 +73,15 @@ export default {
   },
 
   created () {
-    if (this.course) this.getContent()
+    if (this.conference) this.getContent()
   },
 
   computed: {
     ...mapState({
       conference: result => {
-        // TODO fix hack
-        result.courses.conference.lessons = result.courses.conference.talks
+        if (!this.isLesson) {
+          result.courses.conference.lessons = result.courses.conference.talks
+        }
         return result.courses.conference
       },
       talk: result => result.courses.talk,
@@ -106,6 +108,7 @@ export default {
     },
 
     loadContent () {
+      console.log('LOAD CONTENT')
       this.checkRestriction()
       this.$store.dispatch('getContent', {
         category: 'talks',
@@ -115,16 +118,16 @@ export default {
     },
 
     checkRestriction () {
-      let restriction = false
-      if (this.current.free !== undefined) {
-        restriction = !this.current.free || this.current.free === undefined
-      }
+      // Talk don't have the free option
+      let restriction = this.current.free !== undefined ? !this.current.free : false
+      // Check lessons restrictions
       if (restriction) {
         restriction = this.account ? !this.account.subscribed : true
       } else if (this.current.lock) {
         restriction = !this.account
       }
       this.restricted = restriction
+      console.log('CHECK RESTRICTION', this.restricted)
     }
   },
 

@@ -1,5 +1,5 @@
 <template lang="pug">
-  LessonWrapper(
+  wrapper(
     :category = 'category'
     :page = 'page'
     :course = 'course'
@@ -8,12 +8,13 @@
     :current = 'current'
     :selected = 'selected'
     :lesson = 'lesson',
-    :restricted = 'restricted')
+    :restricted = 'restricted',
+    :isLesson = 'isLesson')
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import LessonWrapper from '~/components/lessons/Wrapper'
+import wrapper from '~/components/lessons/Wrapper'
 import meta from '~/mixins/meta'
 
 export default {
@@ -22,7 +23,7 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    LessonWrapper
+    wrapper
   },
 
   transition (from, to) {
@@ -58,7 +59,8 @@ export default {
       page: this.$route.params.lesson,
       selected: -1,
       restricted: true,
-      current: {}
+      current: {},
+      isLesson: true
     }
   },
 
@@ -111,14 +113,16 @@ export default {
     },
 
     checkRestriction () {
-      let restriction = !this.current.free
+      // Talk don't have the free option
+      let restriction = this.current.free !== undefined ? !this.current.free : false
+      // Check lessons restrictions
       if (restriction) {
         restriction = this.account ? !this.account.subscribed : true
       } else if (this.current.lock) {
         restriction = !this.account
       }
       this.restricted = restriction
-      console.log(this.restricted)
+      console.log('CHECK RESTRICTION', this.restricted)
     }
   },
 
