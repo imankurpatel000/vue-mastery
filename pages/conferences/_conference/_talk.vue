@@ -67,7 +67,6 @@ export default {
 
   watch: {
     account () {
-      console.log('ACCOUNT')
       this.getContent()
     }
   },
@@ -108,7 +107,6 @@ export default {
     },
 
     loadContent () {
-      console.log('LOAD CONTENT')
       this.checkRestriction()
       this.$store.dispatch('getContent', {
         category: 'talks',
@@ -127,7 +125,6 @@ export default {
         restriction = !this.account
       }
       this.restricted = restriction
-      console.log('CHECK RESTRICTION', this.restricted)
     }
   },
 

@@ -176,9 +176,7 @@ const actions = {
     firebase.database().ref(`accounts/${state.user.uid}`).update({
       email: newEmail
     })
-    return user.updateEmail(newEmail).then(() => {
-      console.log(`Update email for the account ${user.email}`)
-    }).catch((error) => {
+    return user.updateEmail(newEmail).catch((error) => {
       console.log(`Can't update the email. Error:  ${error}`)
       throw error
     })
@@ -198,7 +196,6 @@ const actions = {
             }
           }
         })
-        console.log(`Retreive password for the account ${account.email}`)
       }).catch((error) => {
         // An error happened.
         console.log(`Can't send retrieve password email. Error:  ${error}`)

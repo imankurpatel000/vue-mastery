@@ -66,7 +66,6 @@ export default {
 
   watch: {
     account () {
-      console.log('ACCOUNT')
       this.getContent()
     }
   },
@@ -86,7 +85,6 @@ export default {
 
   methods: {
     getContent () {
-      console.log('GET LESSON', this.page)
       // If no lesson selected, get the first one of the course
       if (this.page === null) this.page = this.course.lessons[0].slug
       this.course.lessons.map((lesson, index) => {
@@ -104,7 +102,6 @@ export default {
 
     loadContent () {
       this.checkRestriction()
-      console.log('FUNCTION LOAD CONTENT  ', this.page)
       this.$store.dispatch('getContent', {
         category: 'lessons',
         slug: this.page,
@@ -122,7 +119,6 @@ export default {
         restriction = !this.account
       }
       this.restricted = restriction
-      console.log('CHECK RESTRICTION', this.restricted)
     }
   },
 
