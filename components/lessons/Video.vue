@@ -61,8 +61,10 @@ export default {
   },
 
   watch: {
-    account () {
-      this.updatePlaybackRate()
+    video () {
+      this.$nextTick(() => {
+        this.updatePlaybackRate()
+      })
     }
   },
 
