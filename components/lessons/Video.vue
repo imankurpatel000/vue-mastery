@@ -136,6 +136,7 @@ export default {
   padding-bottom 56.25%
   background-size auto 100%
   background-position center
+  background-repeat no-repeat
 
 .lesson-video
   position absolute
