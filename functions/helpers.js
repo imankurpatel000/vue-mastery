@@ -33,13 +33,6 @@ module.exports = {
   // subscribe (email, id, subscribing = true, tryNumber = 0) {
   subscribe (email, id, planId, subscribing = true) {
     if (subscribing) console.log(`Attempt to subscribe user with email ${email}`)
-    // if (tryNumber) {
-    //   if (tryNumber > 10) {
-    //     subscription.emailAdminFailedSubscription(email)
-    //   } else {
-    //     this.checkIfSubscribed(email, id, subscribing, tryNumber)
-    //   }
-    // }
     return admin
       .database()
       .ref('accounts')
@@ -47,8 +40,9 @@ module.exports = {
       .equalTo(email)
       .once('child_added', snapshot => {
         const user = snapshot.val()
-        // console.log(`Found ${val} with email ${email}, now updating chargebeeId: ${id}`)
-        snapshot.ref
+        const promises = []
+        console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${user.displayName}`)
+        promises.push(snapshot.ref
           .update({
             subscribed: subscribing,
             chargebeeId: id
@@ -59,7 +53,7 @@ module.exports = {
               console.log(`Success subscribing the user`)
             }
           })
-        console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${user.displayName}`)
+        )
 
         let mailingList = ['Vue Mastery Subscribers']
         switch (planId) {
@@ -82,10 +76,9 @@ module.exports = {
 
         console.log(`List found: ${mailingList}`)
 
-        const subscribed = []
         mailingList.forEach((list) => {
           console.log(`List added: ${list}`)
-          subscribed.push(subscription.getMailerList(list)
+          promises.push(subscription.getMailerList(list)
             .then(listID => {
               console.log(`Subscribing user to list: ${user.email}, ${listID}, ${subscribing}`)
               subscription.subscribeUser(user, listID, subscribing)
@@ -95,7 +88,8 @@ module.exports = {
             })
           )
         })
-        return Promise.all(subscribed)
+
+        return Promise.all(promises)
       }, (error) => {
         console.log(error)
       })
@@ -137,6 +131,7 @@ module.exports = {
         })
       )
     })
+
     actions.push(subscription.getMailerList(toAdd)
       .then(listID => {
         subscription.subscribeUser(user, listID, true)
