@@ -1,9 +1,7 @@
 const admin = require('firebase-admin')
 const subscription = require('./subscription')
-
-const functions = require('firebase-functions')
 if (admin.apps.length === 0) {
-  admin.initializeApp(functions.config().firebase)
+  admin.initializeApp()
 }
 
 module.exports = {

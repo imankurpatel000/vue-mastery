@@ -7,8 +7,6 @@ import { analyticsMiddleware } from 'vue-analytics'
 import conf from '~/firebase'
 const flamelink = (process.server ? require('flamelink') : null)
 const firebaseAdmin = (process.server ? require('firebase-admin') : null)
-const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
-const serviceAccount = require(`../serviceAccountKey${key}.json`)
 const createStore = () => {
   return new Vuex.Store({
     modules: {
@@ -24,12 +22,7 @@ const createStore = () => {
     actions: {
       nuxtServerInit ({ commit }, { req }) {
         if (!firebaseAdmin.apps.length) {
-          const firebaseConfig = {
-            credential: firebaseAdmin.credential.cert(serviceAccount), // required
-            databaseURL: conf.databaseURL,
-            storageBucket: conf.storageBucket
-          }
-          const firebaseApp = firebaseAdmin.initializeApp(firebaseConfig)
+          const firebaseApp = firebaseAdmin.initializeApp()
           this.commit(types.APP_READY, flamelink({ firebaseApp, isAdminApp: true, env: conf.env }))
         } else {
           this.commit(types.APP_READY, flamelink({ firebaseApp: firebaseAdmin.app(), isAdminApp: true, env: conf.env }))

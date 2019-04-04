@@ -1,14 +1,10 @@
 const chargebee = require('chargebee')
 const admin = require('firebase-admin')
-const serviceAccount = require('../../serviceAccountKey.json')
 const chargebeeAccount = require('../../chargebeeAccountKey.json')
 let total = 0
 const limit = 100
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://vue-mastery.firebaseio.com'
-})
+admin.initializeApp()
 
 chargebee.configure({
   site: chargebeeAccount.site,

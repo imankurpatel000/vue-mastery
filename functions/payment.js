@@ -1,9 +1,9 @@
-const functions = require('firebase-functions')
+const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG)
 const admin = require('firebase-admin')
-const stripe = require('stripe')(functions.config().stripe.token)
+const stripe = require('stripe')(firebaseConfig.stripe.token)
 
 // Configure stripe
-stripe.currency = functions.config().stripe.currency || 'USD'
+stripe.currency = firebaseConfig.stripe.currency || 'USD'
 
 module.exports = {
   // register Stripe user

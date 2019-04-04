@@ -107,16 +107,9 @@ const getTalksPage = async function (db) {
 
 module.exports = async function (nuxt, generateOptions) {
   console.log('Get dynamic routes')
-  const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
-  const serviceAccount = require(`../serviceAccountKey${key}.json`)
-  const firebaseConfig = {
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: conf.databaseURL,
-    storageBucket: conf.storageBucket
-  }
   let firebaseApp = {}
   if (admin.apps.length === 0) {
-    firebaseApp = admin.initializeApp(firebaseConfig)
+    firebaseApp = admin.initializeApp()
   } else {
     firebaseApp = admin.apps[0]
   }

@@ -1,12 +1,12 @@
-const functions = require('firebase-functions')
+const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG)
 const Mailerlite = require('mailerlite')
-const mailerlite = new Mailerlite(functions.config().mailerlite.key)
+const mailerlite = new Mailerlite(firebaseConfig.mailerlite.key)
 const mailerliteSubscribers = mailerlite.Subscribers
 const mailerliteList = mailerlite.Lists
 
 var mailgun = require('mailgun-js')({
-  apiKey: functions.config().mailgun.apikey,
-  domain: functions.config().mailgun.domain
+  apiKey: firebaseConfig.mailgun.apikey,
+  domain: firebaseConfig.mailgun.domain
 })
 
 module.exports = {
