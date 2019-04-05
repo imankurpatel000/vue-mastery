@@ -55,6 +55,7 @@ import SocialShare from '~/components/lessons/SocialSharing'
 import DownloadButton from '~/components/static/DownloadButton'
 import DownloadButtonNuxt from '~/components/static/DownloadButtonNuxt'
 import Icon from '~/components/ui/Icon'
+import { setTimeout } from 'timers'
 
 export default {
   name: 'lesson-sidebar',
@@ -109,8 +110,11 @@ export default {
   },
 
   mounted () {
-    this.calculateWindowWidth()
-    this.addAffix()
+    // Temp solution until we update with new version
+    setTimeout(() => {
+      this.calculateWindowWidth()
+      this.addAffix()
+    }, 1000)
   },
 
   computed: {
@@ -144,6 +148,7 @@ export default {
 
     affixTooLarge (element) {
       const yPadding = 80
+      // Position of
       return (this.$refs.affix.affixHeight + yPadding > element.offsetHeight)
     },
 
