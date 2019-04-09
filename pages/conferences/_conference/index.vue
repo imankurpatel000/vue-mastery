@@ -26,12 +26,44 @@ export default {
   middleware: 'anonymous',
 
   head () {
+    const d = this.conference
+    const title = `${d.title} | Vue Mastery`
+    const image = d.facebookImage[0].url || d.banner[0].url || `${process.env.url}/images/facbeook_image.png`
+    const description = `Watch ${d.talks.length} videos from ${d.title}, which took place in ${d.location} on ${d.titleLine1}`
     return {
-      title: `${this.conference.title} | Vue Mastery`,
+      title: title,
       meta: [{
+        hid: `description`,
+        name: 'description',
+        content: description
+      }, {
+        hid: `og:description`,
+        name: 'og:description',
+        content: description
+      }, {
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/conferences/${this.conference.slug}`
+        content: `${process.env.url}/conferences/${d.slug}`
+      }, {
+        hid: `og:title`,
+        property: 'og:title',
+        content: title
+      }, {
+        hid: `og:image`,
+        property: 'og:image',
+        content: image
+      }, {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: title
+      }, {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content: description
+      }, {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content: d.twitterImage[0].url || image
       }]
     }
   },

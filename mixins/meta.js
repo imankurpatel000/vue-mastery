@@ -1,7 +1,8 @@
 export default {
   get (d) {
+    let title = `${d.pageTitle} - ${d.categoryTitle} | Vue Mastery`
     return {
-      title: `${d.pageTitle} - ${d.categoryTitle} | Vue Mastery`,
+      title: title,
       meta: [{
         hid: `description`,
         name: 'description',
@@ -17,7 +18,7 @@ export default {
       }, {
         hid: `og:title`,
         property: 'og:title',
-        content: `${d.categoryTitle}: ${d.pageTitle}`
+        content: title
       }, {
         hid: `og:image`,
         property: 'og:image',
