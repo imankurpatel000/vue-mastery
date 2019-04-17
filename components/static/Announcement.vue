@@ -1,9 +1,9 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
     section.announcement-bar(v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-      p Don’t stop your Vue learning. Get #[b() 30% Off] an annual subscription this weekend only by using code #[b() WEEKEND30]. 
+      p Get #[b() 20% Off] an annual subscription with our spring discount. Use #[b() SPRING20] at checkout. 
       .anounce-icon
-        img(src='/images/ico-vue-mountain.png')
+        img(src='/images/ico-vue-spring.png')
 </template>
 
 <script>
