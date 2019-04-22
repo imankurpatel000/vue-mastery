@@ -44,11 +44,16 @@ export default {
 
   head () {
     return {
-      title: 'Conferences | Vue Mastery',
+      title: 'Vue.js Conference Videos | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
         content: `${process.env.url}/vue-conf`
+      },
+      {
+        hid: `description`,
+        name: 'description',
+        content: 'Watch the latest Vue conference talks free, covering a variety of topics.  With videos from VueConf US, Vue Amsterdam, Vue London, and VueConf Toronto.'
       }]
     }
   },
