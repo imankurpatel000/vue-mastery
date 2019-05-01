@@ -28,7 +28,7 @@ We need to install firebase tools to deploy.
 $ npm install -g firebase-tools
 ```
 
-Tell firebase to use the default enviroment
+Tell firebase to use the default environment
 ``` bash
 firebase use default
 ```
@@ -55,7 +55,7 @@ module.exports = {
 
 #### Configuration keys
 
-To use MailerLite, SparkPost, and stripe we need to configure enviroment keys using this command:
+To use MailerLite, SparkPost, and stripe we need to configure environment keys using this command:
 
 ``` bash
 $ firebase functions:config:set mailerlite.key="THE KEY"
@@ -110,7 +110,7 @@ Go to [http://localhost:3000](http://localhost:3000)
 
 ### Production
 
-This is just in case we want to deploy on differrent server then firebase hosting
+This is just in case we want to deploy on different server then firebase hosting
 
 ``` bash
 # build for production and launch the server
@@ -127,8 +127,8 @@ $ npm run generate
 
 ## Deployment
 
-You should probably generate the static porject before you deploy as the deployment take every static output from nuxt to the dist folder, which is then copy over to firebase host folder.
-The functions folder is also copy over and help us to repsond to specific backend tasks.
+You should probably generate the static project before you deploy as the deployment take every static output from nuxt to the dist folder, which is then copy over to firebase host folder.
+The functions folder is also copy over and help us to respond to specific backend tasks.
 
 ``` bash
 # deploy the complete solution:
