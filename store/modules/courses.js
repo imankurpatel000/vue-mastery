@@ -11,7 +11,8 @@ const state = {
   lessons: null,
   latests: null,
   featured: null,
-  conference: null
+  conference: null,
+  contentReady: false
 }
 
 // getters
@@ -22,7 +23,8 @@ const getters = {
   latests: state => state.latests,
   featured: state => state.featured,
   conferences: state => state.conferences,
-  conference: state => state.conference
+  conference: state => state.conference,
+  contentReady: state => state.contentReady
 }
 
 // actions
@@ -166,6 +168,9 @@ const actions = {
         conference = conference[Object.keys(conference)[0]]
         commit(types.RECEIVE_CONFERENCE, { conference })
       })
+  },
+  contentReady ({ commit }, isReady) {
+    commit(types.CONTENT_READY, isReady)
   }
 }
 
@@ -197,6 +202,9 @@ const mutations = {
   },
   [types.RECEIVE_CONFERENCE] (state, { conference }) {
     state.conference = conference
+  },
+  [types.CONTENT_READY] (state, { isReady }) {
+    state.contentReady = isReady
   }
 }
 

@@ -1,39 +1,58 @@
 <template lang='pug'>
 div
-  .lesson-wrapper(v-if='course' v-cloak)
+  .lesson-wrapper(
+    v-if='course'
+    v-cloak
+  )
     Header(:course='course')
 
-    Video(v-if='current && !locked'
-          :video = 'current'
-          :url = 'baseUrl + current.slug'
-          @videoEnded='finished'
-          @completed='completed'
-          :account='account' v-cloak)
+    Video(
+      v-if='current && !locked'
+      :video='current'
+      :url='baseUrl + current.slug'
+      @videoEnded='finished'
+      @completed='completed'
+      :account='account'
+      v-cloak
+    )
 
-    .lesson-video.-locked(v-else :style='lockedStyle')
+    .lesson-video.-locked(
+      v-else
+      :style='lockedStyle'
+    )
       Unlock(:free='current.free')
 
-    List(:course='course'
-         :current='page'
-         :account='account'
-         :completed-unlogged='completedUnlogged'
-         :isLesson='isLesson'
-         :is-course-completed='isCompleted'
-         @redirect='redirect'
-         @completed='showCongrat')
+    List(
+      :course='course'
+      :current='page'
+      :account='account'
+      :completed-unlogged='completedUnlogged'
+      :isLesson='isLesson'
+      :is-course-completed='isCompleted'
+      @redirect='redirect'
+      @completed='showCongrat'
+    )
 
-    Body(:course='current' 
-        :locked='locked' 
-        :free='current.free')
-      Profile(:current='current' v-if='!isLesson' v-cloak)
+    Body(
+      :course='current' 
+      :locked='locked' 
+      :free='current.free'
+    )
+      Profile(
+        v-if='!isLesson'
+        :current='current'
+        v-cloak
+      )
 
-    SideBar(:account='account'
-            :locked='locked'
-            :course='course'
-            :current='current'
-            :isLesson='isLesson'
-            :free='current.free'
-            affixToElement='#lessonContent')
+    SideBar(
+      :account='account'
+      :locked='locked'
+      :course='course'
+      :current='current'
+      :isLesson='isLesson'
+      :free='current.free'
+      affixToElement='#lessonContent'
+    )
     //- aside.lesson-aside(v-if='!locked' v-cloak)
     //-   .control-group
     //-     Download(:courseLink='current.downloadLink', :account='account')
@@ -54,12 +73,14 @@ div
     //-     a.button.primary.border(href='https://www.facebook.com/groups/152305585468331/') Discuss in our Facebook Group
     //-     router-link.button.inverted.-small(to='/contact') Send us Feedback
 
-    Nav(v-if='current'
-        :lessons='course.lessons'
-        :selected='selected'
-        :account='account'
-        :type="isLesson ? 'lesson': 'talk'"
-        @redirect='redirect')
+    Nav(
+      v-if='current'
+      :lessons='course.lessons'
+      :selected='selected'
+      :account='account'
+      :type="isLesson ? 'lesson': 'talk'"
+      @redirect='redirect'
+    )
 
     Popup(@redirect='redirect')
     Congrats(:course='course')
@@ -77,6 +98,7 @@ div
             .media-block.fake
               .media.-small.fake
               .body.fake
+
     .content.fake
     .lesson-aside.fake
 </template>
@@ -158,6 +180,10 @@ export default {
     return {
       isCompleted: false
     }
+  },
+
+  created () {
+    this.$store.dispatch('contentReady', { isReady: false })
   },
 
   computed: {

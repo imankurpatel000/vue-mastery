@@ -4,17 +4,18 @@
   meta(itemprop='name' :content='video.title')
   meta(itemprop='duration' :content='video.duration')
   meta(itemprop='thumbnailUrl' :content='video.image[0].url')
-  //- meta(itemprop='contentURL' :content='url')
   meta(itemprop='embedURL' :content="'https://player.vimeo.com/video/'+video.videoEmbedId")
   meta(itemprop='uploadDate' :content='video.date')
   meta(itemprop='description' :content='video.description')
-  vimeo-player.video-wrapper(ref='player'
-                             player-width='860'
-                             autoplay='true'
-                             :video-id = 'video.videoEmbedId'
-                             @progress='videoProgress'
-                             @ready='onReady'
-                             @ended='videoEnded()')
+  vimeo-player.video-wrapper(
+    ref='player'
+    player-width='860'
+    autoplay='true'
+    :video-id = 'video.videoEmbedId'
+    @progress='videoProgress'
+    @ready='onReady'
+    @ended='videoEnded()'
+  )
 </template>
 
 <script>
@@ -58,6 +59,7 @@ export default {
       const player = this.$refs.player
       player.player.on('playbackratechange', this.playbackratechange)
       this.updatePlaybackRate()
+      this.$store.dispatch('contentReady', { isReady: true })
       // player.play()
     },
 

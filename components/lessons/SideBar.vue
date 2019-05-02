@@ -1,6 +1,7 @@
 <template lang="pug">
 aside.lesson-aside
-  affix(ref='affix'
+  affix(
+    ref='affix'
     :relative-element-selector='affixToElement'
     :offset='{ top: 20, bottom: 20 }',
     :enabled='enableAffix')
@@ -110,11 +111,12 @@ export default {
   },
 
   mounted () {
-    // Temp solution until we update with new version
-    setTimeout(() => {
-      this.calculateWindowWidth()
-      this.addAffix()
-    }, 1000)
+    this.$store.watch((state) => {
+      if (this.$refs.affix && state.courses.contentReady) {
+        this.calculateWindowWidth()
+        this.addAffix()
+      }
+    })
   },
 
   computed: {
