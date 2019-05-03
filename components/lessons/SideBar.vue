@@ -121,7 +121,8 @@ export default {
 
   computed: {
     baseUrl () {
-      return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
+      // return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
+      return `/${this.isLesson ? 'courses' : 'conferences'}/${this.course.slug}/`
     },
 
     relativeElement () {

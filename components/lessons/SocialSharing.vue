@@ -9,8 +9,7 @@ div
       h3.form-title Share this lesson
       social-sharing(inline-template :url="base+baseUrl+lesson.slug"
                     :title='lesson.socialSharingDescription || lesson.title'
-                    :description='lesson.description'
-                    twitter-user='vuemastery')
+                    :description='lesson.description')
 
         .social-wrapper
           network.button.primary.border.-has-icon(network='facebook')
