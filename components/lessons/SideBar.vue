@@ -1,10 +1,6 @@
 <template lang="pug">
 aside.lesson-aside
-  affix(
-    ref='affix'
-    :relative-element-selector='affixToElement'
-    :offset='{ top: 20, bottom: 20 }',
-    :enabled='enableAffix')
+  .sticky
     .card
       .card-body
         //-  FREEWEEKEND
@@ -56,7 +52,6 @@ import SocialShare from '~/components/lessons/SocialSharing'
 import DownloadButton from '~/components/static/DownloadButton'
 import DownloadButtonNuxt from '~/components/static/DownloadButtonNuxt'
 import Icon from '~/components/ui/Icon'
-import { setTimeout } from 'timers'
 
 export default {
   name: 'lesson-sidebar',
@@ -85,10 +80,6 @@ export default {
     locked: {
       type: Boolean,
       default: true
-    },
-    affixToElement: {
-      type: String,
-      required: true
     }
   },
 
@@ -102,78 +93,10 @@ export default {
     Icon
   },
 
-  data () {
-    return {
-      windowWidth: null,
-      enableAffix: false,
-      debounceTimer: setTimeout(() => {})
-    }
-  },
-
-  mounted () {
-    this.$store.watch((state) => {
-      if (this.$refs.affix && state.courses.contentReady) {
-        this.calculateWindowWidth()
-        this.addAffix()
-      }
-    })
-  },
-
   computed: {
     baseUrl () {
-      // return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
       return `/${this.isLesson ? 'courses' : 'conferences'}/${this.course.slug}/`
-    },
-
-    relativeElement () {
-      if (process.browser) {
-        return document.querySelector(this.affixToElement)
-      }
     }
-  },
-
-  methods: {
-    calculateWindowWidth () {
-      this.windowWidth = window.innerWidth
-    },
-
-    handleResize () {
-      clearTimeout(this.debounceTimer)
-      this.debounceTimer = setTimeout(() => {
-        this.calculateWindowWidth()
-        this.addAffix()
-      }, 100)
-    },
-
-    mediaBreakpointUp (width) {
-      return (this.windowWidth > width)
-    },
-
-    affixTooLarge (element) {
-      const yPadding = 80
-      // Position of
-      return (this.$refs.affix.affixHeight + yPadding > element.offsetHeight)
-    },
-
-    addAffix () {
-      if (this.mediaBreakpointUp(1247) && !this.affixTooLarge(this.relativeElement)) {
-        if (!this.enableAffix) {
-          this.enableAffix = true
-        }
-      } else if (this.enableAffix) {
-        this.enableAffix = false
-        this.$refs.affix.$el.style = ''
-      }
-    }
-  },
-
-  created () {
-    if (process.browser) {
-      window.addEventListener('resize', this.handleResize)
-    }
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.handleResize)
   }
 }
 </script>
@@ -187,9 +110,6 @@ export default {
   +laptop-up()
     margin $vertical-space 0
 
-  .vue-affix.affix
-    margin-right 1.2%
-
   .control-group
     justify-content center
 
@@ -201,6 +121,13 @@ export default {
 
       +laptop-up()
         margin-right 0
+
+.sticky
+  position sticky
+  top 20px
+
+  +laptop-up()
+    margin-right 1.2%
 
 .card
   flex-flow column

@@ -51,7 +51,6 @@ div
       :current='current'
       :isLesson='isLesson'
       :free='current.free'
-      affixToElement='#lessonContent'
     )
     //- aside.lesson-aside(v-if='!locked' v-cloak)
     //-   .control-group

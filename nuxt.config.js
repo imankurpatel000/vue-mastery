@@ -350,10 +350,6 @@ module.exports = {
       ssr: false
     },
     {
-      src: '~/plugins/affix',
-      ssr: false
-    },
-    {
       src: '~plugins/ga.js',
       ssr: false
     }
