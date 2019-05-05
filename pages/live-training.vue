@@ -64,42 +64,42 @@
               li Forms and Validation
               li Filters & Mixins
       
-    section.workshops-section
-      .wrapper
-        h3.display-3.text-center Upcoming Workshops
+    //- section.workshops-section
+    //-   .wrapper
+    //-     h3.display-3.text-center Upcoming Workshops
 
-        .flex-columns.-half
-          .workshop
-            label.primary-label 1 Day Only
-            h4 Intro to Vue @ VueConf US
-            .workshop-meta.-light
-              Icon(name="calendar")
-              span March 25, 2019 - 9:00 AM to 6:00 PM
-            .workshop-meta
-              Icon(name="map")
-              b Tampa, FL
-            p This one day intensive in Tampa, Florida is for developers who haven’t started learning Vue, or just got started.  We teach you the fundamentals of Vue so you can start being productive and building apps immediately.  This is the day before VueConf US, so our workshop will be a great primer for those new to Vue.js.
+    //-     .flex-columns.-half
+    //-       .workshop
+    //-         label.primary-label 1 Day Only
+    //-         h4 Intro to Vue @ VueConf US
+    //-         .workshop-meta.-light
+    //-           Icon(name="calendar")
+    //-           span March 25, 2019 - 9:00 AM to 6:00 PM
+    //-         .workshop-meta
+    //-           Icon(name="map")
+    //-           b Tampa, FL
+    //-         p This one day intensive in Tampa, Florida is for developers who haven’t started learning Vue, or just got started.  We teach you the fundamentals of Vue so you can start being productive and building apps immediately.  This is the day before VueConf US, so our workshop will be a great primer for those new to Vue.js.
 
-            b Cost for Workshop + Conference: $1295
-            .workshop-promo 
-                span Use Promo code: #[b() VUEMASTERYWS50]
-            div
-              a(class="button secondary" target="_blank" href="https://us.vuejs.org/workshops") Visit Conference Website
+    //-         b Cost for Workshop + Conference: $1295
+    //-         .workshop-promo 
+    //-             span Use Promo code: #[b() VUEMASTERYWS50]
+    //-         div
+    //-           a(class="button secondary" target="_blank" href="https://us.vuejs.org/workshops") Visit Conference Website
 
-          .workshop
-            label.primary-label 1 Day Only
-            h4 Intro to Vue @ VueJS Amsterdam
-            .workshop-meta.-light
-              Icon(name="calendar")
-              span February 12, 2019 - 9:00 AM to 5:00 PM
-            .workshop-meta
-              Icon(name="map")
-              b Amsterdam, Netherlands
-            p This one day intensive in Amsterdam, Netherlands is for developers who haven’t started learning Vue, or just got started.  We teach you the fundamentals of Vue so you can start being productive and building apps immediately.  This is the day before the FrontEnd Love & VueJS Amsterdam conferences, so our workshop will be a great primer for those new to Vue.js.
+    //-       .workshop
+    //-         label.primary-label 1 Day Only
+    //-         h4 Intro to Vue @ VueJS Amsterdam
+    //-         .workshop-meta.-light
+    //-           Icon(name="calendar")
+    //-           span February 12, 2019 - 9:00 AM to 5:00 PM
+    //-         .workshop-meta
+    //-           Icon(name="map")
+    //-           b Amsterdam, Netherlands
+    //-         p This one day intensive in Amsterdam, Netherlands is for developers who haven’t started learning Vue, or just got started.  We teach you the fundamentals of Vue so you can start being productive and building apps immediately.  This is the day before the FrontEnd Love & VueJS Amsterdam conferences, so our workshop will be a great primer for those new to Vue.js.
 
-            b Cost for Workshop: €754.98
-            div
-              a(class="button secondary" target="_blank" href="https://www.eventbrite.co.uk/e/vuejs-amsterdam-frontend-love-workshops-tickets-53379423292#tickets") Visit Workshop Registration
+    //-         b Cost for Workshop: €754.98
+    //-         div
+    //-           a(class="button secondary" target="_blank" href="https://www.eventbrite.co.uk/e/vuejs-amsterdam-frontend-love-workshops-tickets-53379423292#tickets") Visit Workshop Registration
 
     section.public-section
       .text-wrapper.text-center

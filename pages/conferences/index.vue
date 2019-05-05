@@ -14,7 +14,7 @@
                         :to='getConferenceUrl(conference)')
                         
             Card(:title='conference.title' v-if='conference'
-              :image_url='conference.banner[0].url'
+              :image_url='conference.banner ? conference.banner[0].url : ""'
               image_placement='top'
               :meta='conference.location'
               :content='getNumbersOfTalks(conference)')
