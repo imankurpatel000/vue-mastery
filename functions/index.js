@@ -290,10 +290,11 @@ module.exports = {
     })
   }),
 
-  subscription_changes: functions.https.onRequest((req, res) => {
+  subscription_changes: functions.https.onRequest(async (req, res) => {
     console.log(`CHARGEBEE EVENT: ${req.body.event_type}`)
     const customer = req.body.content.customer
     let planId = false
+
     try {
       planId = req.body.content.subscription.plan_id
     } catch (error) {}
@@ -307,25 +308,46 @@ module.exports = {
         case 'subscription_activated':
         case 'subscription_started':
         case 'subscription_created': {
-          db.subscribe(customer.email, customer.id, planId, true)
+          await db.subscribe(customer.email, customer.id, planId, true)
+            .then(values => {
+              res.sendStatus(200)
+            }).catch(err => {
+              console.log(err)
+              res.sendStatus(500)
+            })
           break
         }
         case 'subscription_paused':
         case 'subscription_deleted':
         case 'subscription_cancelled': {
-          db.subscribe(customer.email, customer.id, planId, false)
+          await db.subscribe(customer.email, customer.id, planId, false)
+            .then(values => {
+              res.sendStatus(200)
+            }).catch(err => {
+              console.log(err)
+              res.sendStatus(500)
+            })
           break
         }
         case 'subscription_changed': {
-          db.updateMailingSubscription(customer, planId, false)
+          await db.updateMailingSubscription(customer, planId, false)
+            .then(values => {
+              res.sendStatus(200)
+            }).catch(err => {
+              console.log(err)
+              res.sendStatus(500)
+            })
           break
         }
         default: {
+          res.sendStatus(200)
           console.log(req.body.event_type)
           break
         }
       }
+    } else {
+      console.log('The subscription as no plan ID')
+      res.sendStatus(200)
     }
-    res.sendStatus(200)
   })
 }
