@@ -40,63 +40,64 @@ module.exports = {
         .orderByChild('email')
         .equalTo(email)
         .once('value', snapshot => {
-          let user = snapshot.val()
-          if (user) {
-            user = Object.values(user)[0]
-            const promises = []
-            console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${user.displayName}`)
-            promises.push(snapshot.ref
-              .update({
-                subscribed: subscribing,
-                chargebeeId: id
-              }, (error) => {
-                if (error) {
-                  console.log(`Error subscribing the user: ${error}`)
-                } else {
-                  console.log(`Success subscribing the user`)
-                }
-              })
-            )
-
-            let mailingList = ['Vue Mastery Subscribers']
-            switch (planId) {
-              case 'monthly-subscription':
-                mailingList.push('Active Monthly Subscribers')
-                break
-              case 'year-subscription':
-                mailingList.push('Active Annual Subscribers')
-                break
-              case 'team-annual-(10-19)-subscription':
-              case 'team-annual-(4-9)-subsciption':
-                mailingList.push('Vue Mastery Team Subscribers')
-                break
-              case '12-months-gift':
-              case '6-months-gift':
-              case '3-months-gift':
-                mailingList.push('Active Gift Subscription')
-                break
-            }
-
-            console.log(`List found: ${mailingList}`)
-
-            mailingList.forEach((list) => {
-              console.log(`List added: ${list}`)
-              promises.push(subscription.getMailerList(list)
-                .then(listID => {
-                  console.log(`Subscribing user to list: ${user.email}, ${listID}, ${subscribing}`)
-                  subscription.subscribeUser(user, listID, subscribing)
-                })
-                .catch(function (error) {
-                  console.log(error)
+          snapshot.forEach(function(child) {
+            let user = child.val()
+            if (user) {
+              const promises = []
+              console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${user.displayName}`)
+              promises.push(child.ref
+                .update({
+                  subscribed: subscribing,
+                  chargebeeId: id
+                }, (error) => {
+                  if (error) {
+                    console.log(`Error subscribing the user: ${error}`)
+                  } else {
+                    console.log(`Success subscribing the user`)
+                  }
                 })
               )
-            })
-            Promise.all(promises).then((result) => {
-              return resolve(result)
-            })
-          } else {
-            return reject(new Error('User not found in firebase'))
-          }
+
+              let mailingList = ['Vue Mastery Subscribers']
+              switch (planId) {
+                case 'monthly-subscription':
+                  mailingList.push('Active Monthly Subscribers')
+                  break
+                case 'year-subscription':
+                  mailingList.push('Active Annual Subscribers')
+                  break
+                case 'team-annual-(10-19)-subscription':
+                case 'team-annual-(4-9)-subsciption':
+                  mailingList.push('Vue Mastery Team Subscribers')
+                  break
+                case '12-months-gift':
+                case '6-months-gift':
+                case '3-months-gift':
+                  mailingList.push('Active Gift Subscription')
+                  break
+              }
+
+              console.log(`List found: ${mailingList}`)
+
+              mailingList.forEach((list) => {
+                console.log(`List added: ${list}`)
+                promises.push(subscription.getMailerList(list)
+                  .then(listID => {
+                    console.log(`Subscribing user to list: ${user.email}, ${listID}, ${subscribing}`)
+                    subscription.subscribeUser(user, listID, subscribing)
+                  })
+                  .catch(function (error) {
+                    console.log(error)
+                  })
+                )
+              })
+              Promise.all(promises).then((result) => {
+                return resolve(result)
+              })
+            } else {
+              return reject(new Error('User not found in firebase'))
+            }
+          })
         }, (error) => {
           return reject(error)
         })
