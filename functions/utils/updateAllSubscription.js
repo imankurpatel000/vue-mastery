@@ -1,10 +1,7 @@
 const admin = require('firebase-admin')
 const serviceAccount = require('../../serviceAccountKey.json')
 const chargebeeAccount = require('../../chargebeeAccountKey.json')
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://vue-mastery.firebaseio.com'
-})
+admin.initializeApp()
 
 const chargebee = require('chargebee')
 chargebee.configure({
@@ -172,7 +169,7 @@ const checkSubscription = (user) => {
   })
 }
 
-const getMailerList = (mailerliteListName) => {
+const getMailerListId = (mailerliteListName) => {
   return mailerliteList.getAll().then((res) => {
     const list = res.Results.filter(list => list.name === mailerliteListName)
     if (list.length) {
@@ -208,7 +205,7 @@ const updateMailingSubscription = async (user, planId) => {
       break
   }
   await toRemove.forEach((list) => {
-    getMailerList(list)
+    getMailerListId(list)
       .then(listID => {
         return mailerliteSubscribers.deleteSubscriber(listID, user.email).then(() => {
           console.log('Subscriber deleted')
@@ -219,7 +216,7 @@ const updateMailingSubscription = async (user, planId) => {
       })
   })
 
-  await getMailerList(toAdd)
+  await getMailerListId(toAdd)
     .then(listID => {
       mailerliteSubscribers.addSubscriber(listID, user.email, user.displayName, {}, 1)
     })

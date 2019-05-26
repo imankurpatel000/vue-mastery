@@ -2,124 +2,135 @@ const functions = require('firebase-functions')
 const chargebee = require('chargebee')
 const subscription = require('./subscription')
 const db = require('./helpers')
+const firebaseConfig = functions.config() //JSON.parse(process.env.FIREBASE_CONFIG)
 
-// ! list order mather
-const mailingList = ['mainlistid', 'biweekly', 'discount_and_promotion', 'free_content']
-const userSubscriptions = ['subscribedToMailingList', 'subscribedToBiweekly', 'subscribedToDiscountAndPromotion', 'subscribedToFreeContent']
+const mailingList = [
+  { name: 'VueMastery.com New Users', id: 9028842 },
+  { name: 'Biweekly Newsletter', id: 11088064 },
+  { name: 'Subscription Discounts and Promotions', id: 11088062 },
+  { name: 'New Free Content Announcements', id: 11088060 }
+]
+
 chargebee.configure({
-  site: functions.config().chargebee.site,
-  api_key: functions.config().chargebee.key
+  site: firebaseConfig.chargebee.site,
+  api_key: firebaseConfig.chargebee.key
 })
+
+const hasChanged = (prop, change) => {
+  // Only edit data when it is first created.
+  if (!change.before.exists()) {
+    console.log(`Update ${prop} at creation`)
+  }
+  // Exit when the data is deleted.
+  if (!change.after.exists()) {
+    return null;
+  }
+  // Compare before and after to see if that property changed
+  return change.before.val()[prop] === change.after.val()[prop]
+}
 
 module.exports = {
   // On account creation we add the user to mailerlite and create stripe account (phase 2)
   createCustomer: functions.auth.user()
-    .onCreate(event => {
-      const user = event.data
-      db.checkUserTeamSubscription(user)
+    .onCreate(user => {
+      console.log(`Adding new customer ${user.email}`)
+
+      // Check if user is part of a team
       db.checkIfTeamMember(user.email)
+
       const subscribed = []
+      // Subscribe customer to the mailerLite groups 
+      // ('mainlistid', 'biweekly', 'discount_and_promotion', 'free_content')
       mailingList.forEach(list => {
-        const listId = functions.config().mailerlite[list]
-        subscribed.push(subscription.getMailerList(listId)
-          .then(listID => subscription.subscribeUser(user, listID, true))
-          .catch(function (error) {
-            console.log(`Adding ${user.email} to ${list}... but ${error}`)
-          })
-        )
+        // Add customer on the mailerlite list
+        subscribed.push(subscription.subscribeUser(user, list.id, true))
       })
+
+      // Wait for all the subscription to be done before stoping the execution
       return Promise.all(subscribed)
     }),
 
-  // Subscribe a user to mailerLite according to his settings.
-  // subscribeUser: functions.database.ref('/accounts/{uid}')
-  //   .onWrite(event => {
-  //     const snapshot = event.data
-  //     let changedList = ''
-
-  //     // Check if one of the email subscriptions property changed
-  //     userSubscriptions.forEach((list) => {
-  //       if (snapshot.child(list).changed()) changedList = list
-  //     })
-
-  //     // Exit if not email subscription change
-  //     if (changedList === '') return null
-
-  //     const val = snapshot.val()
-  //     const listIndex = userSubscriptions.indexOf(changedList)
-  //     const listName = functions.config().mailerlite[mailingList[listIndex]]
-  //     return subscription.getMailerList(listName)
-  //       .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
-  //       .catch((error)=> {
-  //         console.log(error)
-  //       })
-  //   }),
-
   // Subscribe a user to free weekend
   subscribeToFreeWeekend: functions.database.ref('/accounts/{uid}')
-    .onWrite(event => {
-      const snapshot = event.data
+    .onUpdate((change, context) => {      
+      // Exit if property changed is not 'enrolledFreeWeekend'
+      if(!hasChanged('enrolledFreeWeekend', change)) return null
 
-      if (!snapshot.child('enrolledFreeWeekend').changed()) return null
+      // Get user data after changes
+      const user = change.after.val()
 
-      const val = snapshot.val()
-      return subscription.getMailerList('Free Weekend 2019')
-        .then(listID => subscription.subscribeUser(val, listID, val.enrolledFreeWeekend))
-        .catch((error) => {
-          console.log(error)
-        })
+      // Subscribe user to the free weekend mailing list (11150428: 'Free Weekend 2019')
+      return subscription.subscribeUser(user, '11150428', user.enrolledFreeWeekend)
     }),
 
-  // Change mailerlite subscriber on email update
+  // Change mailerlite subscriber and chargebee on email update
   updateEmail: functions.database.ref('/accounts/{uid}')
-    .onUpdate(event => {
-      const snapshot = event.data
-      // If it's not a email change then return
-      if (!snapshot.child('email').changed()) return null
+    .onUpdate((change, context) => {
+      // Exit if property changed is not 'email'
+      if(!hasChanged('email', change)) return null
 
-      const val = snapshot.val()
-      chargebee.customer.update(val.chargebeeId, {
-        email: val.email
-      }).request((error, result) => {
-        if (error) {
-          console.log(error)
-        } else {
-          console.log(`Update customer with chargebeeId: ${val.chargebeeId} with email ${val.email}`)
-        }
-      })
-      // Subscribe user with new email
-      return userSubscriptions.forEach((list) => {
-        if (val[list]) {
-          const listIndex = userSubscriptions.indexOf(list)
-          const listName = functions.config().mailerlite[mailingList[listIndex]]
-          subscription.getMailerList(listName).then(listID => {
-            return subscription.deleteSubscriber(listID, val.email).then(() => {
-              console.log('Subscriber deleted')
-              subscription.subscribeUser(val, listID, true)
-                .catch(function (error) {
-                  console.log(`Trying to subscribe ${val.email} to list ${listName} but:${error}`)
-                })
+      const user = change.after.val()
+      const oldEmail = change.before.val().email
+      const promises = []
+
+      // Update Chargebee email
+      if (user.chargebeeId) {
+        promises.push(
+          chargebee.customer
+            .update(user.chargebeeId, { email: user.email })
+            .request((error) => {
+              console.log(error ? error : `Update email ${oldEmail} to ${user.email} on chargebee customer (${user.chargebeeId})`)
             })
-          })
-        }
+        )
+      }
+      // Subscribe user to all the groups with new email
+      subscription.getUserLists(user.email).then(lists => {
+        // For mailerLite group where the user subscribed
+        lists.forEach((listId) => {
+          promises.push(
+            // Subscribe with new email address
+            subscription
+              .subscribeUser(user, listId, true)
+              .catch(function (error) {
+                console.log(`Trying to subscribe ${email} to list ${listId} but:${error}`)
+              })
+          )
+          promises.push(
+            // Unsubscribe old email address
+            subscription
+              .deleteSubscriber(listId, oldEmail)
+              .catch(function (error) {
+                console.log(`Trying to unsubscribe ${email} from list ${listId} but:${error}`)
+              })
+          )
+        })
       })
+
+      // Unsubscribe user
+      promises.push(subscription
+        .unsubscribeSubscriber(oldEmail)
+        .catch(function (error) {
+          console.log(`Could not remove ${oldEmail} from mailerlite: ${error}`)
+        })
+      )
+
+      return Promise.all(promises)
     }),
 
   // Subscribe a user to a course on the mailerLite course list
   subscribeUserToCourse: functions.database.ref('/accounts/{uid}/courses/{cid}')
-    .onWrite(event => {
-      const snapshot = event.data
+    .onWrite((change, context) => {
+      const uid = context.params.uid
+      const cid = context.params.cid
 
-      // If it's not a subscription change then return
-      if (!snapshot.child('subscribed').changed()) return null
+      // Exit when the data is deleted.
+      const subscribed = change.after.exists() ? change.after.val().subscribed : false
 
-      // Wait to get account email data and course title to subscribe the user
-      return Promise.all([db.account(event.params.uid)])
-        .then(results => results.map(result => result.val()))
-        .then(([account]) => {
+      return db.account(uid)
+        .then((snapshot) => {
           // Get or create email course list
-          subscription.getMailerList(`Course: ${event.params.cid}`)
-            .then(listID => subscription.subscribeUser(account, listID, snapshot.val().subscribed))
+          return subscription.getMailerListId(`Course: ${cid}`)
+            .then(listID => subscription.subscribeUser(snapshot.val(), listID, subscribed))
             .catch(function (error) {
               console.log(error)
             })
@@ -131,27 +142,31 @@ module.exports = {
 
   // Subscribe a user to a conference on the mailerLite course list
   subscribeUserToConference: functions.database.ref('/accounts/{uid}/conferences/{cid}')
-    .onWrite(event => {
-      const snapshot = event.data
+    .onWrite((change, context) => {
+      const uid = context.params.uid
+      const cid = context.params.cid
 
-      // If it's not a subscription change then return
-      if (!snapshot.child('subscribed').changed()) return null
+      // Exit when the data is deleted.
+      const subscribed = change.after.exists() ? change.after.val().subscribed : false
 
-      // Wait to get account email data and conference title to subscribe the user
-      return Promise.all([db.account(event.params.uid)])
-        .then(results => results.map(result => result.val()))
-        .then(([account]) => {
-          // Get or create email course list
-          subscription.getMailerList(`Conference: ${event.params.cid}`)
-            .then(listID => subscription.subscribeUser(account, listID, snapshot.val().subscribed))
+      return db.account(uid)
+        .then((snapshot) => {
+          // Get or create email conference list
+          return subscription.getMailerListId(`Conference: ${cid}`)
+            .then(listID => subscription.subscribeUser(snapshot.val(), listID, subscribed))
+            .catch(function (error) {
+              console.log(error)
+            })
         })
-    }),
+        .catch(function (error) {
+          console.log(error)
+        })
+  }),
 
   // Subscribe a user to a course on the mailerLite course list
   sendContactForm: functions.database.ref('/inquiries/{cid}')
-    .onCreate(event => {
-      const snapshot = event.data
-      let form = snapshot.val()
+    .onCreate((snap, context) => {
+      const form = snap.val()
       return subscription.sendContactEmail({
         name: form.name,
         message: form.message,
@@ -161,9 +176,8 @@ module.exports = {
 
   // Send request for a team subscription
   sendTeamSubscriptionRequest: functions.database.ref('/team-request/{cid}')
-    .onCreate(event => {
-      const snapshot = event.data
-      let form = snapshot.val()
+    .onCreate((snap, context) => {
+      const form = snap.val()
       return subscription.sendTeamSubscriptionRequest({
         name: form.name,
         email: form.email,
@@ -175,8 +189,8 @@ module.exports = {
 
   // Update lesson count in a course
   countLessonsInCourse: functions.database.ref('/flamelink/environments/production/content/courses/en-US/{cid}/lessons/{lid}')
-    .onWrite(event => {
-      const collectionRef = event.data.ref.parent
+    .onWrite(change => {
+      const collectionRef = change.after.ref.parent
       const countRef = collectionRef.parent.child('lessonsCount')
       const durationRef = collectionRef.parent.child('duration')
       let count = 0
@@ -201,11 +215,10 @@ module.exports = {
     }),
 
   subscribeTeamMember: functions.database.ref('/flamelink/environments/production/content/team/en-US/{cid}')
-    .onWrite(event => {
-      const snapshot = event.data
-      const newTeam = snapshot.val()
-      if (event.data.previous.exists()) {
-        const previous = event.data.previous.val()
+    .onWrite(change => {
+      const newTeam = change.after.val()
+      if (change.before.exists()) {
+        const previous = change.before.val()
         if (previous.members !== undefined) {
           previous.members.forEach((member) => {
             let existingEmail = newTeam.members.some((newMember) => {
@@ -229,21 +242,8 @@ module.exports = {
     }),
 
   deleteCustomer: functions.auth.user()
-    .onDelete(event => {
-      const user = event.data
-
-      return mailingList.forEach((list) => {
-        const listName = functions.config().mailerlite[list]
-        subscription.getMailerList(listName)
-          .then(listID => {
-            return subscription.deleteSubscriber(listID, user.email).then(() => {
-              console.log('Subscriber deleted')
-            })
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-      })
+    .onDelete(user => {
+      return subscription.unsubscribeSubscriber(user.email)
     }),
 
   create_portal_session: functions.https.onRequest((req, res) => {
@@ -308,6 +308,7 @@ module.exports = {
         case 'subscription_activated':
         case 'subscription_started':
         case 'subscription_created': {
+          console.log('Attempt to subscribe customer: ', customer.email, customer.id, planId, true)
           await db.subscribe(customer.email, customer.id, planId, true)
             .then(values => {
               res.sendStatus(200)

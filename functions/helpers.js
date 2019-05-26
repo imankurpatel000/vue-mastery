@@ -3,31 +3,13 @@ const subscription = require('./subscription')
 
 const functions = require('firebase-functions')
 if (admin.apps.length === 0) {
-  admin.initializeApp(functions.config().firebase)
+  admin.initializeApp()
 }
 
 module.exports = {
   account (id) {
     const accountPath = `accounts/${id}`
     return admin.database().ref(accountPath).once('value')
-  },
-
-  checkUserTeamSubscription (user) {
-    return admin
-      .database()
-      .ref('/flamelink/environments/production/content/team/en-US')
-      .once('value', (snapshot) => {
-        const teams = snapshot.val()
-        console.log(teams)
-        for (let team in teams) {
-          for (let member in teams[team].members) {
-            if (member.email === user.email) {
-              console.log(`Found new team member : ${member.email}`)
-              this.subscribe(user.email, null, 'year-subscription', true)
-            }
-          }
-        }
-      })
   },
 
   // subscribe (email, id, subscribing = true, tryNumber = 0) {
@@ -81,7 +63,7 @@ module.exports = {
 
               mailingList.forEach((list) => {
                 console.log(`List added: ${list}`)
-                promises.push(subscription.getMailerList(list)
+                promises.push(subscription.getMailerListId(list)
                   .then(listID => {
                     console.log(`Subscribing user to list: ${user.email}, ${listID}, ${subscribing}`)
                     subscription.subscribeUser(user, listID, subscribing)
@@ -130,7 +112,7 @@ module.exports = {
 
       const actions = []
       toRemove.forEach((list) => {
-        actions.push(subscription.getMailerList(list)
+        actions.push(subscription.getMailerListId(list)
           .then(listID => {
             return subscription.deleteSubscriber(listID, user.email).then(() => {
               console.log('Subscriber deleted')
@@ -142,7 +124,7 @@ module.exports = {
         )
       })
 
-      actions.push(subscription.getMailerList(toAdd)
+      actions.push(subscription.getMailerListId(toAdd)
         .then(listID => {
           subscription.subscribeUser(user, listID, true)
         })
@@ -220,7 +202,7 @@ module.exports = {
         snapshot.ref
           .update(teamData)
         console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
-        return subscription.getMailerList('Vue Mastery Team Subscribers')
+        return subscription.getMailerListId('Vue Mastery Team Subscribers')
           .then(listID => { return subscription.subscribeUser(val, listID, subscribing) })
       })
   },

@@ -1,11 +1,5 @@
 const admin = require('firebase-admin')
-const serviceAccount = require('../../serviceAccountKey.json')
-// const subscription = require('../subscription')
-// const chargebeeAccount = require('../../chargebeeAccountKey.json')
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://vue-mastery.firebaseio.com'
-})
+admin.initializeApp()
 
 let subscribe = (email, id, planId, subscribing = true) => {
   return new Promise(function (resolve, reject) {
@@ -59,7 +53,7 @@ let subscribe = (email, id, planId, subscribing = true) => {
 
             // mailingList.forEach((list) => {
             //   console.log(`List added: ${list}`)
-            //   promises.push(subscription.getMailerList(list)
+            //   promises.push(subscription.getMailerListId(list)
             //     .then(listID => {
             //       console.log(`Subscribing user to list: ${user.email}, ${listID}, ${subscribing}`)
             //       subscription.subscribeUser(user, listID, subscribing)
