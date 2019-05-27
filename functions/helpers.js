@@ -124,14 +124,16 @@ module.exports = {
         )
       })
 
-      actions.push(subscription.getMailerListId(toAdd)
-        .then(listID => {
-          subscription.subscribeUser(user, listID, true)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
-      )
+      toAdd.forEach((list) => {
+        actions.push(subscription.getMailerListId(list)
+          .then(listID => {
+            return subscription.subscribeUser(user, listID, true)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+        )
+      })
 
       Promise.all(actions)
         .then((result) => {

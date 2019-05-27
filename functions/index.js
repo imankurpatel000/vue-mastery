@@ -26,7 +26,7 @@ const hasChanged = (prop, change) => {
     return null;
   }
   // Compare before and after to see if that property changed
-  return change.before.val()[prop] === change.after.val()[prop]
+  return change.before.val()[prop] !== change.after.val()[prop]
 }
 
 module.exports = {
@@ -68,7 +68,6 @@ module.exports = {
     .onUpdate((change, context) => {
       // Exit if property changed is not 'email'
       if(!hasChanged('email', change)) return null
-
       const user = change.after.val()
       const oldEmail = change.before.val().email
       const promises = []
@@ -95,25 +94,8 @@ module.exports = {
                 console.log(`Trying to subscribe ${email} to list ${listId} but:${error}`)
               })
           )
-          promises.push(
-            // Unsubscribe old email address
-            subscription
-              .deleteSubscriber(listId, oldEmail)
-              .catch(function (error) {
-                console.log(`Trying to unsubscribe ${email} from list ${listId} but:${error}`)
-              })
-          )
         })
       })
-
-      // Unsubscribe user
-      promises.push(subscription
-        .unsubscribeSubscriber(oldEmail)
-        .catch(function (error) {
-          console.log(`Could not remove ${oldEmail} from mailerlite: ${error}`)
-        })
-      )
-
       return Promise.all(promises)
     }),
 

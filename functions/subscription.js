@@ -101,9 +101,9 @@ module.exports = {
     return mailerliteSubscribers.unsubscribeSubscriber(email)
   },
 
-  getUserLists (user) {
+  getUserLists (email) {
     return mailerliteSubscribers
-      .getDetails(user.email)
+      .getDetails(email)
       .then(details => {
         let list = []
         const group = details.groups
@@ -112,7 +112,7 @@ module.exports = {
             return group[item].id
           })
         } else {
-          console.log(`No group for the user ${user.email}`)
+          console.log(`No group for the user ${email}`)
         }
         return list
       })
