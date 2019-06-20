@@ -57,6 +57,9 @@ module.exports = {
                 case '3-months-gift':
                   mailingList.push('Active Gift Subscription')
                   break
+                case '3-month-subscription':
+                  mailingList.push('3 Month Subscription')
+                  break
               }
 
               console.log(`List found: ${mailingList}`)
