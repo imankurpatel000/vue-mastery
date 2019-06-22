@@ -9,7 +9,7 @@
           | Watch all our premium content for 3 months at a discounted price this Summer.
           br
           br
-          | This offer gives you access to all our courses, along with every new video tutorial we release each week.
+          | This recurring offer gives you access to all our courses, along with every new video tutorial we release each week.
 
       .summer-card
         .card
@@ -125,7 +125,7 @@ export default {
           this.chargebeeInstance.closeAll()
           if (this.$track3Months) this.$track3Months()
           this.$store.dispatch('fakeSubscribe')
-          this.$router.push('/thank-you-3-month-subscription')
+          this.$router.push('/thank-you-summer')
         }
       })
     }
