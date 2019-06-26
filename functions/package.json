@@ -18,7 +18,7 @@
     "chargebee": "^2.3.5",
     "cors": "^2.8.4",
     "firebase-admin": "^8.0.0",
-    "firebase-functions": "^2.3.1",
+    "firebase-functions": "^3.0.1",
     "mailerlite": "git+https://github.com/pieer/mailerlite-sdk-nodejs.git",
     "mailgun-js": "^0.16.0",
     "mocha": "^3.2.0",
