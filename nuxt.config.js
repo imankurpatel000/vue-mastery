@@ -306,7 +306,7 @@ module.exports = {
     typographer: true,
     injected: true,
     use: [
-      'markdown-it-anchor',
+      // 'markdown-it-anchor',
       'markdown-it-decorate',
       'markdown-it-highlightjs'
     ]
