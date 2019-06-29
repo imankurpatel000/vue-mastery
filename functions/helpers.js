@@ -11,7 +11,7 @@ module.exports = {
     return admin.database().ref(accountPath).once('value')
   },
 
-  accountFromEmail (email) {
+  accountsFromEmail (email) {
     return admin
       .database()
       .ref('accounts')
@@ -20,9 +20,22 @@ module.exports = {
       .once('value')
   },
 
-  course (id) {
-    const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}`
-    return admin.database().ref(pathToCourse).once('value')
+  // getAllAccounts () {
+  //   return admin
+  //     .database()
+  //     .ref('accounts')
+  //     .orderByChild('email')
+  //     .once('value')
+  // },
+
+  // course (id) {
+  //   const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}`
+  //   return admin.database().ref(pathToCourse).once('value')
+  // },
+
+  teams () {
+    const pathToTeam = '/flamelink/environments/production/content/team/en-US'
+    return admin.database().ref(pathToTeam).once('value')
   },
 
   lesson (id) {
@@ -30,15 +43,10 @@ module.exports = {
     return admin.database().ref(pathToCourse).once('value')
   },
 
-  teams () {
-    const pathToTeam = '/flamelink/environments/production/content/team/en-US'
-    return admin.database().ref(pathToTeam).on('value')
-  },
-
-  subscribe (user, planId, subscribing = true) {
+  subscribe (customer, planId, subscribing = true) {
+    if (subscribing) console.log(`Attempt to subscribe user with email ${customer.email}`)
     return new Promise((resolve, reject) => {
-      if (subscribing) console.log(`Attempt to subscribe user with email ${user.email}`)
-      this.accountFromEmail(user.email).then(snapshot => {
+      this.accountsFromEmail(customer.email).then(snapshot => {
         snapshot.forEach((child) => {
           let user = child.val()
           if (user) {
@@ -47,7 +55,7 @@ module.exports = {
             promises.push(child.ref
               .update({
                 subscribed: subscribing,
-                chargebeeId: user.id
+                chargebeeId: customer.id
               }, (error) => {
                 if (error) {
                   console.log(`Error subscribing the user: ${error}`)
@@ -57,7 +65,7 @@ module.exports = {
               })
             )
 
-            // TODO remove mailerlite subscription and add promise to main function
+            // TODO remove mailerlite subscription and add promise to main function?
             promises.push(subscription.subscribeUserToPlan(user, planId, subscribing))
 
             Promise.all(promises).then((result) => {
@@ -93,7 +101,7 @@ module.exports = {
   },
 
   subscribeTeamMember (email, team, subscribing = true) {
-    return this.accountFromEmail(email).then(snapshot => {
+    return this.accountsFromEmail(email).then(snapshot => {
       const promises = []
       snapshot.forEach((child) => {
         team = team ? {
@@ -102,9 +110,11 @@ module.exports = {
           adminEmail: team.adminEmail
         } : null
 
+        console.log(subscribing, team)
+
         // Add or remove team data from user in Firebase
         promises.push(
-          snapshot.ref.update({
+          child.ref.update({
             subscribed: subscribing,
             team: team
           })

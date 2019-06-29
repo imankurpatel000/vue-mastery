@@ -74,7 +74,7 @@ module.exports = {
         return this.subscribeUser(user, listSearch, isSubcribing)
       })
     ).then(() => {
-      console.log('Successfully added new client to mailerlite groups')
+      console.log(`Successfully ${isSubcribing ? 'added' : 'removed'} new client ${isSubcribing ? 'to' : 'from'} mailerlite groups`)
     })
   },
 
@@ -144,7 +144,7 @@ module.exports = {
 
     // It will create the list if it doesn't exist
     if (list.length) {
-      console.log(`Found list: ${list[0].name} (${list[0].id}`)
+      console.log(`Found list: ${list[0].name} ${list[0].id}`)
       result = list[0]
     } else {
       console.log(`List ${search} not found. Creating new list...`)

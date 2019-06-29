@@ -12,11 +12,11 @@ const hasChanged = (change, prop) => {
 module.exports = {
   // On account creation we add the user to mailerlite and create stripe account (phase 2)
   createCustomer: functions.auth.user()
-    .onCreate(user => {
+    .onCreate(async user => {
       console.log(`Adding new customer ${user.email}`)
 
       // Check if user is part of a team
-      db.checkIfTeamMember(user.email)
+      await db.checkIfTeamMember(user.email)
 
       // Subscribe customer to the mailerLite groups
       return subscription.subscribeNewMember(user)
@@ -131,40 +131,45 @@ module.exports = {
       return collectionRef.once('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
           let childData = childSnapshot.val()
-          Promise.all([db.lesson(childData).then((lessonSnapshot) => {
-            const lesson = lessonSnapshot.val()
-            if (lesson.status === 'published') {
-              count++
-              duration = db.addTimes(duration, lesson.duration)
-            }
-            return true
-          })])
-            .then(() => {
-              countRef.set(count)
-              durationRef.set(duration)
+          Promise.all([
+            db.lesson(childData).then((lessonSnapshot) => {
+              const lesson = lessonSnapshot.val()
+              if (lesson.status === 'published') {
+                count++
+                duration = db.addTimes(duration, lesson.duration)
+              }
+              return true
             })
+          ]).then(() => {
+            countRef.set(count)
+            durationRef.set(duration)
+          })
         })
       })
     }),
 
-  // Triggers when a team member is added, updated, or deleted from a team
+  // Triggers when a team is added, updated, or deleted
   subscribeTeamMember: functions.database.ref('/flamelink/environments/production/content/team/en-US/{cid}')
     .onWrite((change, context) => {
       const newTeam = change.after.val()
+      // If the team is updated remove old team member
       if (change.before.exists()) {
         const previous = change.before.val()
+        // Check if the previous team had members
         if (previous.members !== undefined) {
+          // List all the previous member
           previous.members.forEach((member) => {
-            let existingEmail = newTeam.members.some((newMember) => {
-              return newMember.email === member.email
-            })
+            // And check that member is still part of the team
+            let existingEmail = newTeam.members.some((newMember) => newMember.email === member.email)
+            // Remove the member from the team
             if (!existingEmail) {
               console.log(`Unsubscribe ${member.email}`)
-              db.subscribeTeamMember(member.email, null, false)
+              return db.subscribeTeamMember(member.email, null, false)
             }
           })
         }
       }
+      // If the team is not removed, subscribe team members
       if (newTeam.members !== undefined) {
         newTeam.members.forEach((member) => {
           db.subscribeTeamMember(member.email, newTeam, true)
@@ -199,13 +204,13 @@ module.exports = {
         case 'subscription_started':
         case 'subscription_created':
         case 'subscription_changed': {
-          await db.subscribe(customer.email, customer.id, planId, true)
+          await db.subscribe(customer, planId, true)
           break
         }
         case 'subscription_paused':
         case 'subscription_deleted':
         case 'subscription_cancelled': {
-          await db.subscribe(customer.email, customer.id, planId, false)
+          await db.subscribe(customer, planId, false)
           break
         }
       }
