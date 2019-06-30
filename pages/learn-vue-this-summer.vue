@@ -29,13 +29,13 @@
 
             button.button.primary.-full( @click="subscribe('3-month-subscription')") Select Plan
 
-  Testimonials
+  ClientTestimonials
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
-import Testimonials from '~/components/static/Testimonials.vue'
+import ClientTestimonials from '~/components/static/ClientTestimonials.vue'
 
 export default {
   name: 'page-pricing',
@@ -49,7 +49,7 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    Testimonials
+    ClientTestimonials
   },
 
   data () {
