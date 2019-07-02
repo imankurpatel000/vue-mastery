@@ -28,10 +28,10 @@ module.exports = {
   //     .once('value')
   // },
 
-  // course (id) {
-  //   const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}`
-  //   return admin.database().ref(pathToCourse).once('value')
-  // },
+  course (id) {
+    const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}`
+    return admin.database().ref(pathToCourse).once('value')
+  },
 
   teams () {
     const pathToTeam = '/flamelink/environments/production/content/team/en-US'
@@ -109,8 +109,6 @@ module.exports = {
           adminName: team.adminName,
           adminEmail: team.adminEmail
         } : null
-
-        console.log(subscribing, team)
 
         // Add or remove team data from user in Firebase
         promises.push(

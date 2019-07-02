@@ -40,15 +40,15 @@ module.exports = {
 
       // Change mailerlite subscriber and chargebee on email update
       if (hasChanged(change, 'email')) {
-        const oldEmail = change.before.val().email
+        const oldUser = change.before.val()
         const promises = []
 
         // Update Chargebee email
         if (user.chargebeeId) {
-          promises.push(chargebee.updateEmailCustomer(user.chargebeeId, oldEmail, user.email))
+          promises.push(chargebee.updateEmailCustomer(user.chargebeeId, oldUser.email, user.email))
         }
         // Subscribe user to all the groups with new email
-        promises.push(subscription.subscribeUserToNewEmail(oldEmail, user.email))
+        promises.push(subscription.subscribeUserToNewEmail(oldUser, user))
         return Promise.all(promises)
       }
     }),
@@ -62,7 +62,6 @@ module.exports = {
 
       // Exit when the data is deleted.
       const subscribed = change.after.exists() ? change.after.val().subscribed : false
-
       // Could be replace by change
       return db.account(uid)
         .then((snapshot) => {
@@ -122,30 +121,28 @@ module.exports = {
   // Update lesson count in a course
   // Triggers when a lesson is created, updated, or deleted
   countLessonsInCourse: functions.database.ref('/flamelink/environments/production/content/courses/en-US/{cid}/lessons/{lid}')
-    .onWrite((change, context) => {
-      const collectionRef = change.after.ref.parent
-      const countRef = collectionRef.parent.child('lessonsCount')
-      const durationRef = collectionRef.parent.child('duration')
+    .onWrite(async (change, context) => {
+      let course = await db.course(context.params.cid)
+      course = course.val()
       let count = 0
       let duration = 0
-      return collectionRef.once('value', (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-          let childData = childSnapshot.val()
-          Promise.all([
-            db.lesson(childData).then((lessonSnapshot) => {
-              const lesson = lessonSnapshot.val()
-              if (lesson.status === 'published') {
-                count++
-                duration = db.addTimes(duration, lesson.duration)
-              }
-              return true
-            })
-          ]).then(() => {
-            countRef.set(count)
-            durationRef.set(duration)
-          })
-        })
-      })
+      await Promise.all(course.lessons.map(async (lessonsId) => {
+        let lesson = await db.lesson(lessonsId)
+        lesson = lesson.val()
+        if (lesson.status === 'published') {
+          count++
+          duration = db.addTimes(duration, lesson.duration)
+        }
+      }))
+
+      const collectionRef = change.after.ref.parent.parent
+      const countRef = collectionRef.child('lessonsCount')
+      const durationRef = collectionRef.child('duration')
+
+      return Promise.all([
+        countRef.set(count),
+        durationRef.set(duration)
+      ])
     }),
 
   // Triggers when a team is added, updated, or deleted

@@ -111,3 +111,8 @@ it('It should subscribe team member if part of firebase team member', async () =
   expect(user.team.companyName).toEqual(account.team)
   expect(user.subscribed).toBeTruthy()
 })
+
+it('It should return time addition', async () => {
+  const time = db.addTimes('00:05:42', '01:02:23')
+  expect(time).toEqual('01:08:05')
+})

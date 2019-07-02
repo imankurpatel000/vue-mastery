@@ -162,17 +162,17 @@ module.exports = {
     return result
   },
 
-  async subscribeUserToNewEmail (oldEmail, newEmail) {
+  async subscribeUserToNewEmail (oldAccount, newAccount) {
     // Get the list that the user is currently subscribing
-    let groups = await this.getSubscriberGroups(oldEmail.email)
+    let groups = await this.getSubscriberGroups(oldAccount.email)
     if (groups) {
       return Promise.all([
-        this.subscribeUserToLists(newEmail, groups),
-        this.subscribeUserToLists(oldEmail, groups, false),
-        this.unsubscribeSubscriber(oldEmail.email)
+        this.subscribeUserToLists(newAccount, groups),
+        this.subscribeUserToLists(oldAccount, groups, false),
+        this.unsubscribeSubscriber(oldAccount.email)
       ])
     } else {
-      console.log(`The user ${oldEmail}, with the new email ${oldEmail} had no email subscriptions`)
+      console.log(`The user ${oldAccount.displayName}, with the new email ${oldAccount.email} had no email subscriptions`)
     }
   }
 }
