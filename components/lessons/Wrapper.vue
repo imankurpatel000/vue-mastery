@@ -182,7 +182,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('contentReady', { isReady: false })
+    this.$store.dispatch('courses/contentReady', { isReady: false })
   },
 
   computed: {
@@ -241,7 +241,7 @@ export default {
     },
 
     completed () {
-      this.$store.dispatch('userUpdateCompleted', {
+      this.$store.dispatch('account/userUpdateCompleted', {
         courseSlug: this.category,
         lessonSlug: this.current.slug,
         isCompleted: true

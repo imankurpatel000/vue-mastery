@@ -71,7 +71,7 @@ export default {
       clearTimeout(this.debounceTimer)
       this.debounceTimer = setTimeout(() => {
         console.info('update field', key)
-        this.$store.dispatch('userUpdate', this.newData)
+        this.$store.dispatch('account/userUpdate', this.newData)
           .then(() => {
             this.formSuccess = 'Successfully updated your account details'
           })
@@ -87,7 +87,7 @@ export default {
       const file = this.$refs.fileInput.files[0]
       const ref = firebase.storage().ref(`accounts/profile/${this.account['.key']}`)
       ref.put(file).then((snapshot) => {
-        return this.$store.dispatch('userUpdateImage', snapshot.downloadURL)
+        return this.$store.dispatch('account/userUpdateImage', snapshot.downloadURL)
       })
         .then(() => {
           this.formSuccess = 'Successfully uploaded a new profile image'

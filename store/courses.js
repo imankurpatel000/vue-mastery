@@ -1,10 +1,8 @@
-import * as types from '../mutation-types'
 import _ from 'lodash'
 
 let db = null
 
-// initial state
-const state = {
+export const state = () => ({
   courses: null,
   conferences: null,
   course: null,
@@ -13,22 +11,9 @@ const state = {
   featured: null,
   conference: null,
   contentReady: false
-}
+})
 
-// getters
-const getters = {
-  courses: state => state.courses,
-  course: state => state.course,
-  lessons: state => state.lessons,
-  latests: state => state.latests,
-  featured: state => state.featured,
-  conferences: state => state.conferences,
-  conference: state => state.conference,
-  contentReady: state => state.contentReady
-}
-
-// actions
-const actions = {
+export const actions = {
   getAllCourses ({ commit, state }) {
     if (state.courses) return true
     return db.get('courses', {
@@ -43,7 +28,7 @@ const actions = {
         }
       ]})
       .then(courses => {
-        commit(types.RECEIVE_COURSES, { courses })
+        commit('RECEIVE_COURSES', { courses })
       })
   },
 
@@ -72,7 +57,7 @@ const actions = {
       ]})
       .then(course => {
         course = course[Object.keys(course)[0]]
-        commit(types.RECEIVE_COURSE, { course })
+        commit('RECEIVE_COURSE', { course })
       })
   },
 
@@ -91,7 +76,7 @@ const actions = {
         }]
       }]
     }).then(featured => {
-      commit(types.RECEIVE_FEATURED, { featured })
+      commit('RECEIVE_FEATURED', { featured })
     })
   },
 
@@ -116,7 +101,7 @@ const actions = {
         return new Date(b.date) - new Date(a.date)
       })
 
-      commit(types.RECEIVE_LATEST, { publishedLatest })
+      commit('RECEIVE_LATEST', { publishedLatest })
     })
   },
 
@@ -135,7 +120,7 @@ const actions = {
         }
       ]})
       .then(conferences => {
-        commit(types.RECEIVE_CONFERENCES, { conferences })
+        commit('RECEIVE_CONFERENCES', { conferences })
       })
   },
 
@@ -166,20 +151,19 @@ const actions = {
       ]})
       .then(conference => {
         conference = conference[Object.keys(conference)[0]]
-        commit(types.RECEIVE_CONFERENCE, { conference })
+        commit('RECEIVE_CONFERENCE', { conference })
       })
   },
   contentReady ({ commit }, isReady) {
-    commit(types.CONTENT_READY, isReady)
+    commit('CONTENT_READY', isReady)
   }
 }
 
-// mutations
-const mutations = {
-  [types.APP_READY] (state, app) {
+export const mutations = {
+  'APP_READY' (state, app) {
     db = app.content
   },
-  [types.RECEIVE_COURSES] (state, { courses }) {
+  'RECEIVE_COURSES' (state, { courses }) {
     for (let course in courses) {
       if (courses.hasOwnProperty(course) && courses[course].lessons) {
         courses[course].lessons = _.orderBy(courses[course].lessons, 'lessonNumber')
@@ -187,30 +171,22 @@ const mutations = {
     }
     state.courses = courses
   },
-  [types.RECEIVE_COURSE] (state, { course }) {
+  'RECEIVE_COURSE' (state, { course }) {
     state.course = course
   },
-  [types.RECEIVE_FEATURED] (state, { featured }) {
+  'RECEIVE_FEATURED' (state, { featured }) {
     state.featured = featured.featured
   },
-  [types.RECEIVE_LATEST] (state, { publishedLatest }) {
+  'RECEIVE_LATEST' (state, { publishedLatest }) {
     state.latests = publishedLatest
-    // state.latests = latests.latests
   },
-  [types.RECEIVE_CONFERENCES] (state, { conferences }) {
+  'RECEIVE_CONFERENCES' (state, { conferences }) {
     state.conferences = conferences
   },
-  [types.RECEIVE_CONFERENCE] (state, { conference }) {
+  'RECEIVE_CONFERENCE' (state, { conference }) {
     state.conference = conference
   },
-  [types.CONTENT_READY] (state, { isReady }) {
+  'CONTENT_READY' (state, { isReady }) {
     state.contentReady = isReady
   }
-}
-
-export default {
-  state,
-  getters,
-  actions,
-  mutations
 }

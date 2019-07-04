@@ -56,8 +56,8 @@ export default {
   },
 
   async fetch ({ store }) {
-    await store.dispatch('latests')
-    await store.dispatch('getAllCourses')
+    await store.dispatch('courses/latests')
+    await store.dispatch('courses/getAllCourses')
   },
 
   computed: {

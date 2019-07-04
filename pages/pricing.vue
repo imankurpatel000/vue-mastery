@@ -209,7 +209,7 @@ export default {
             redirect = '/thank-you-annual'
             if (this.$trackAnnual) this.$trackAnnual()
           }
-          this.$store.dispatch('fakeSubscribe')
+          this.$store.dispatch('account/fakeSubscribe')
           this.$router.push(redirect)
         }
       })
@@ -302,7 +302,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 
 .benefit
   display flex
-  align-items start
+  align-items flex-start
   margin-bottom 10px
   margin-top 10px
 

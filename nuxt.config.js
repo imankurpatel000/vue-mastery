@@ -292,11 +292,14 @@ module.exports = {
       track: 'PageView',
       pixelId: 'nzno2'
     }],
-    ['nuxt-stylus-resources-loader', [
+    ['@nuxtjs/style-resources']
+  ],
+  styleResources: {
+    stylus: [
       'assets/css/_mixins.styl',
       'assets/css/_variables.styl'
-    ]]
-  ],
+    ]
+  },
   /*
   ** Render Markdown
   */
@@ -306,7 +309,7 @@ module.exports = {
     typographer: true,
     injected: true,
     use: [
-      'markdown-it-anchor',
+      // 'markdown-it-anchor',
       'markdown-it-decorate',
       'markdown-it-highlightjs'
     ]

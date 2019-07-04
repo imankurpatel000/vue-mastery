@@ -83,7 +83,7 @@ export default {
   },
 
   async fetch ({ store, params }) {
-    await store.dispatch('getCourse', params.lesson)
+    await store.dispatch('courses/getCourse', params.lesson)
   }
 }
 </script>
