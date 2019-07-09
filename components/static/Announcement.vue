@@ -1,6 +1,6 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    a(href="/learn-vue-this-summer").announcement-bar(v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+    a.announcement-bar(href="/learn-vue-this-summer" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
       p Watch all of our premium content for #[b() 3 months] at a discounted price starting this #[b() summer]
       .anounce-icon
         img(src='/images/ico-vue-spring.png')
@@ -30,6 +30,15 @@ export default {
   }
 }
 </script>
+
+
+<style lang="stylus">
+.open-nav
+  .announcement-bar
+    +laptop-down()
+      position absolute
+      opacity 0
+</style>
 
 <style lang="stylus" scoped>
 .announcement-bar

@@ -105,6 +105,7 @@ export default {
     position: relative
     height: $header-height
     flex-direction: row
+    flex-wrap: initial
 
     *
       pointer-events initial

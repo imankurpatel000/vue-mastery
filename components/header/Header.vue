@@ -41,6 +41,7 @@ export default {
 <style lang="stylus" scoped>
 .header
   position relative
+  top 0
   z-index 2
   .wrapper
     height $header-height
