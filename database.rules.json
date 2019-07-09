@@ -16,6 +16,11 @@
                 ".indexOn": "slug"
               }
             },
+            "lessons": {
+              "en-US": {
+                ".indexOn": ["status", "slug"]
+              }
+            },
             "conferences": {
               "en-US": {
                 ".indexOn": "slug"
@@ -26,9 +31,9 @@
                 ".indexOn": "slug"
               }
             },
-            "lessons": {
+            "talks": {
               "en-US": {
-                ".indexOn": ["status", "slug"]
+                ".indexOn": ["slug"]
               }
             },
             "team": {
