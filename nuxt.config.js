@@ -412,7 +412,9 @@ module.exports = {
   ** Generate Static pages
   */
   generate: {
-    minify: false,
+    html: {
+      minify: true
+    },
     workers: 4,
     workerConcurrency: 500,
     concurrency: 1,
