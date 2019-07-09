@@ -1,15 +1,55 @@
 import _ from 'lodash'
 
+// Course free and locked content
+const lessonContent = [
+  'title',
+  'slug',
+  'image',
+  'description',
+  'duration',
+  'author',
+  'date',
+  'status',
+  'free',
+  'lock',
+  'twitterImage',
+  'facebookImage',
+  'socialSharingDescription',
+  'belongsToCourse'
+]
+
+const confContent = [
+  ...lessonContent,
+  'presentedDate'
+]
+
+const lockedContent = [
+  'videoEmbedId',
+  'markdown',
+  'resources',
+  'codingChallenge',
+  'downloadLink'
+]
+
+const relatedContent = [{
+  field: 'belongsToCourse',
+  fields: [ 'slug' ]
+}, {
+  field: 'image',
+  subFields: [ 'image' ]
+}]
+
 let db = null
 
 export const state = () => ({
   courses: null,
-  conferences: null,
   course: null,
-  lessons: null,
+  lesson: null,
+  conferences: null,
+  conference: null,
+  talk: null,
   latests: null,
   featured: null,
-  conference: null,
   contentReady: false
 })
 
@@ -32,9 +72,31 @@ export const actions = {
       })
   },
 
-  getCourse ({ commit, state, rootState }, slug) {
-    return db.get('courses', {
+  getContent ({ commit, state, rootState }, {restricted, category, slug}) {
+    let action = category === 'lessons' ? 'LESSON' : 'TALK'
+    if (restricted) {
+      commit('PROTECTED_' + action)
+    } else {
+      db.get(category, {
+        orderByChild: 'slug',
+        limitToLast: 1,
+        equalTo: slug,
+        fields: lockedContent
+      })
+        .then(content => {
+          content = content[Object.keys(content)[0]]
+          commit('RECEIVE_' + action, { content })
+        })
+    }
+  },
+
+  getCategory ({ commit, state }, { category, slug }) {
+    if (state[category] && state[category].slug === slug) return true
+    let field = category === 'course' ? 'lessons' : 'talks'
+    let fields = category === 'course' ? lessonContent : confContent
+    return db.get(`${category}s`, {
       orderByChild: 'slug',
+      limitToLast: 1,
       equalTo: slug,
       populate: [
         {
@@ -50,8 +112,8 @@ export const actions = {
           subFields: [ 'twitterImage' ]
         },
         {
-          field: 'lessons',
-          subFields: [ 'lessons', 'image' ],
+          field: field,
+          fields: fields,
           populate: [ 'image', 'facebookImage', 'twitterImage' ]
         }
       ]})
@@ -66,14 +128,8 @@ export const actions = {
     return db.get('home', {
       populate: [ {
         field: 'featured',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image', 'free' ],
-        populate: [{
-          field: 'belongsToCourse',
-          subFields: [ 'slug' ]
-        }, {
-          field: 'image',
-          subFields: [ 'image' ]
-        }]
+        fields: lessonContent,
+        populate: relatedContent
       }]
     }).then(featured => {
       commit('RECEIVE_FEATURED', { featured })
@@ -85,14 +141,8 @@ export const actions = {
     return db.get('lessons', {
       limitToLast: 10,
       orderByChild: 'date',
-      fields: ['title', 'slug', 'free', 'duration', 'published', 'date', 'belongsToCourse', 'image', 'status'],
-      populate: [{
-        field: 'belongsToCourse',
-        fields: [ 'slug' ]
-      }, {
-        field: 'image',
-        subFields: [ 'image' ]
-      }]
+      fields: lessonContent,
+      populate: relatedContent
     }).then(latests => {
       let publishedLatest = Object.values(latests)
       publishedLatest = publishedLatest.filter(key => {
@@ -115,7 +165,6 @@ export const actions = {
         },
         {
           field: 'talks',
-          // fields: [ 'slug', 'image', 'location', 'title', 'talksNumber', 'lightningTalksNumber', 'available' ],
           populate: [ 'image' ]
         }
       ]})
@@ -123,7 +172,7 @@ export const actions = {
         commit('RECEIVE_CONFERENCES', { conferences })
       })
   },
-
+  // TODO replace by get category in conferences/conf
   getConference ({ commit, state, rootState }, slug) {
     return db.getByField('conference', 'slug', slug, {
       populate: [
@@ -174,6 +223,12 @@ export const mutations = {
   'RECEIVE_COURSE' (state, { course }) {
     state.course = course
   },
+  'RECEIVE_LESSON' (state, { content }) {
+    state.lesson = content
+  },
+  'PROTECTED_LESSON' (state) {
+    state.lesson = null
+  },
   'RECEIVE_FEATURED' (state, { featured }) {
     state.featured = featured.featured
   },
@@ -188,5 +243,11 @@ export const mutations = {
   },
   'CONTENT_READY' (state, { isReady }) {
     state.contentReady = isReady
+  },
+  'RECEIVE_TALK' (state, { content }) {
+    state.talk = content
+  },
+  'PROTECTED_TALK' (state) {
+    state.talk = null
   }
 }

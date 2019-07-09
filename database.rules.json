@@ -11,14 +11,24 @@
                 ".indexOn": "slug"
               }
             },
+            "course": {
+              "en-US": {
+                ".indexOn": "slug"
+              }
+            },
             "conferences": {
+              "en-US": {
+                ".indexOn": "slug"
+              }
+            },
+            "conference": {
               "en-US": {
                 ".indexOn": "slug"
               }
             },
             "lessons": {
               "en-US": {
-                ".indexOn": "status"
+                ".indexOn": ["status", "slug"]
               }
             },
             "team": {

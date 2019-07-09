@@ -366,7 +366,7 @@ module.exports = {
   /*
   ** Page transition
   */
-  transition: {
+  pageTransition: {
     name: 'page',
     mode: 'out-in'
   },

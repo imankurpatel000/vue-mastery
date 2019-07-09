@@ -17,7 +17,6 @@
 import { mapState } from 'vuex'
 import ConfList from '~/components/courses/ConfList'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
-import CourseSubscribe from '~/components/account/CourseSubscribe'
 import PageHeader from '~/components/ui/PageHeader'
 
 export default {
@@ -71,7 +70,6 @@ export default {
   components: {
     ConfList,
     CheatSheetAlt,
-    CourseSubscribe,
     PageHeader
   },
 

@@ -70,7 +70,6 @@ export default {
       this.resetFormMessages()
       clearTimeout(this.debounceTimer)
       this.debounceTimer = setTimeout(() => {
-        console.info('update field', key)
         this.$store.dispatch('account/userUpdate', this.newData)
           .then(() => {
             this.formSuccess = 'Successfully updated your account details'
