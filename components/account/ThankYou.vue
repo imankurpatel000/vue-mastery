@@ -33,7 +33,7 @@
             h4
               i.fa.fa-dollar-sign &nbsp;
               | Your Subscription
-            p Your subscription will automatically renew on {{renewal}}.
+            p(v-if="renewal") Your subscription will automatically renew on {{renewal}}.
             p If you ever want to modify or cancel your subscription, just head over to your Dashboard and click the “My Subscription” button you’ll find there.
 
             h4
