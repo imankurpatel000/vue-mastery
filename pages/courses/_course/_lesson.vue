@@ -9,7 +9,7 @@
     :selected = 'selected'
     :lesson = 'lesson',
     :restricted = 'restricted',
-    :isLesson = 'isLesson')
+    :isLesson = 'true')
 </template>
 
 <script>
@@ -59,8 +59,7 @@ export default {
       page: this.$route.params.lesson,
       selected: -1,
       restricted: true,
-      current: {},
-      isLesson: true
+      current: {}
     }
   },
 

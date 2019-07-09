@@ -9,7 +9,7 @@
     :selected = 'selected'
     :lesson = 'talk',
     :restricted = 'restricted',
-    :isLesson = 'isLesson')
+    :isLesson = 'false')
 </template>
 
 
@@ -60,8 +60,7 @@ export default {
       page: this.$route.params.talk,
       selected: -1,
       restricted: true,
-      current: {},
-      isLesson: false
+      current: {}
     }
   },
 
@@ -78,9 +77,7 @@ export default {
   computed: {
     ...mapState({
       conference: result => {
-        if (!this.isLesson) {
-          result.courses.conference.lessons = result.courses.conference.talks
-        }
+        result.courses.conference.lessons = result.courses.conference.talks
         return result.courses.conference
       },
       talk: result => result.courses.talk,
@@ -93,6 +90,7 @@ export default {
     getContent () {
       // If no talk selected, get the first one of the conference
       if (this.page === null) this.page = this.conference.talks[0].slug
+
       this.conference.talks.map((talk, index) => {
         // Find the selected talk in the list
         if (this.page === talk.slug) {
