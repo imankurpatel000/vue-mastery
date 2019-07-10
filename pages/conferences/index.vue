@@ -25,7 +25,7 @@
           .list-card(v-for='conference, key, index in upcomings'
                     :key='conference.id')
             Card(:title='conference.title'
-              :meta='conference.upcomingDate | moment("MMMM YYYY")')
+              :meta='conference.upcomingDate | dateFormat("MMMM YYYY")')
               ConferenceActions(slot='actions' :conference='conference')
 
 </template>
