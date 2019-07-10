@@ -1,8 +1,8 @@
-import firebase from 'firebase'
+import { database } from 'firebase'
 import { analyticsMiddleware } from 'vue-analytics'
 import conf from '~/firebase'
-import { firebaseMutations } from 'vuexfire'
-const flamelink = (process.server ? require('flamelink') : null)
+import { vuexfireMutations } from 'vuexfire'
+const flamelink = (process.server ? require('flamelink/dist/flamelink.js') : null)
 const firebaseAdmin = (process.server ? require('firebase-admin') : null)
 const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
 const serviceAccount = require(`../serviceAccountKey${key}.json`)
@@ -36,15 +36,15 @@ export const actions = {
   },
   sendContactRequest ({ commit }, newData) {
     // Get a key for a new contact.
-    return firebase.database().ref('/inquiries/').push(newData)
+    return database().ref('/inquiries/').push(newData)
   },
   sendTeamSubscriptionRequest ({ commit }, newData) {
-    return firebase.database().ref('/team-request/').push(newData)
+    return database().ref('/team-request/').push(newData)
   }
 }
 
 export const mutations = {
-  ...firebaseMutations,
+  ...vuexfireMutations,
   toggleNav (state, forceClose) {
     if (forceClose) state.openNav = false
     else state.openNav = !state.openNav

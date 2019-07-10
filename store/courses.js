@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 // Course free and locked content
 const lessonContent = [
   'title',
@@ -66,13 +64,13 @@ export const actions = {
           field: 'lessons',
           fields: [ 'slug', 'status', 'date', 'title', 'lessonNumber', 'free' ]
         }
-      ]})
+      ] })
       .then(courses => {
         commit('RECEIVE_COURSES', { courses })
       })
   },
 
-  getContent ({ commit, state, rootState }, {restricted, category, slug}) {
+  getContent ({ commit, state, rootState }, { restricted, category, slug }) {
     let action = category === 'lessons' ? 'LESSON' : 'TALK'
     if (restricted) {
       commit('PROTECTED_' + action)
@@ -116,7 +114,7 @@ export const actions = {
           fields: fields,
           populate: [ 'image', 'facebookImage', 'twitterImage' ]
         }
-      ]})
+      ] })
       .then(course => {
         course = course[Object.keys(course)[0]]
         commit('RECEIVE_COURSE', { course })
@@ -167,7 +165,7 @@ export const actions = {
           field: 'talks',
           populate: [ 'image' ]
         }
-      ]})
+      ] })
       .then(conferences => {
         commit('RECEIVE_CONFERENCES', { conferences })
       })
@@ -197,7 +195,7 @@ export const actions = {
           subFields: [ 'talks', 'image' ],
           populate: [ 'image', 'facebookImage', 'twitterImage' ]
         }
-      ]})
+      ] })
       .then(conference => {
         conference = conference[Object.keys(conference)[0]]
         commit('RECEIVE_CONFERENCE', { conference })
@@ -215,7 +213,7 @@ export const mutations = {
   'RECEIVE_COURSES' (state, { courses }) {
     for (let course in courses) {
       if (courses.hasOwnProperty(course) && courses[course].lessons) {
-        courses[course].lessons = _.orderBy(courses[course].lessons, 'lessonNumber')
+        courses[course].lessons.sort((a, b) => a.lessonNumber - b.lessonNumber)
       }
     }
     state.courses = courses

@@ -26,7 +26,7 @@ form.form.card
 </template>
 
 <script>
-import firebase from 'firebase'
+import { storage } from 'firebase'
 
 export default {
   name: 'account-edit',
@@ -84,7 +84,7 @@ export default {
     updateProfileImage () {
       this.resetFormMessages()
       const file = this.$refs.fileInput.files[0]
-      const ref = firebase.storage().ref(`accounts/profile/${this.account['.key']}`)
+      const ref = storage().ref(`accounts/profile/${this.account['.key']}`)
       ref.put(file).then((snapshot) => {
         return this.$store.dispatch('account/userUpdateImage', snapshot.downloadURL)
       })
