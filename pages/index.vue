@@ -66,8 +66,8 @@ export default {
   },
 
   async fetch ({ store }) {
-    await store.dispatch('courses/featured')
-    await store.dispatch('courses/getAllCourses')
+    await store.dispatch('featured')
+    await store.dispatch('getAllCourses')
   }
 }
 </script>

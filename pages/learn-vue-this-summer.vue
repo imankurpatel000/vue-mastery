@@ -212,7 +212,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 
 .benefit
   display flex
-  align-items flex-start
+  align-items start
   margin-bottom 10px
   margin-top 10px
 

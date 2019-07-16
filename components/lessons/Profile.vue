@@ -1,10 +1,10 @@
 <template lang='pug'>
-  .card-header(v-if='current.image')
+  .card-header
     img.card-img(:src='current.image[0].url'
                   :alt='current.title')
     .card-title
       h2.author {{ current.author }}
-      time.date(v-if="current.presentedDate") Presented {{ current.presentedDate | dateFormat }}
+      time.date(v-if="current.presentedDate") Presented {{ current.presentedDate | moment("MMMM D, YYYY") }}
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
   props: {
     current: {
       type: Object,
-      required: false
+      required: true
     }
   }
 }

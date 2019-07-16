@@ -73,7 +73,7 @@ export default {
 
     subscribedToMailingList () {
       if (this.account) {
-        this.$store.dispatch('account/userUpdateSubscribe', this.course.slug)
+        this.$store.dispatch('userUpdateSubscribe', this.course.slug)
       } else {
         this.openLogin()
       }

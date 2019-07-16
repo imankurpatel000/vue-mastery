@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .container(:class="$store.state.openNav ? 'open-nav': ''")
+  .container(:class="openNav ? 'open-nav': ''")
     Announcement
     PageHeader(:class='$route.name')
     nuxt
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Announcement from '~/components/static/Announcement.vue'
 import PageHeader from '~/components/header/Header.vue'
 import VuePodcast from '~/components/static/VuePodcast.vue'
@@ -24,6 +25,12 @@ export default {
     VuePodcast,
     PageFooter,
     AuthForm
+  },
+
+  computed: {
+    ...mapGetters([
+      'openNav'
+    ])
   }
 }
 </script>

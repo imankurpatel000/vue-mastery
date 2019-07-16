@@ -11,29 +11,14 @@
                 ".indexOn": "slug"
               }
             },
-            "course": {
+            "conferences": {
               "en-US": {
                 ".indexOn": "slug"
               }
             },
             "lessons": {
               "en-US": {
-                ".indexOn": ["status", "slug"]
-              }
-            },
-            "conferences": {
-              "en-US": {
-                ".indexOn": "slug"
-              }
-            },
-            "conference": {
-              "en-US": {
-                ".indexOn": "slug"
-              }
-            },
-            "talks": {
-              "en-US": {
-                ".indexOn": ["slug"]
+                ".indexOn": "status"
               }
             },
             "team": {

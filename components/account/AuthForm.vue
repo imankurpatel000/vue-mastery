@@ -177,7 +177,7 @@ export default {
       }
 
       // Dispach information to the store
-      this.$store.dispatch(`account/${action}`, {
+      this.$store.dispatch(action, {
         email: this.email,
         password: this.password
       })
@@ -187,6 +187,7 @@ export default {
           }
         })
         .catch((error) => {
+          console.log('YOLO', error)
           this.formError = error.message
         })
     },

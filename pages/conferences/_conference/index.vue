@@ -17,6 +17,7 @@
 import { mapState } from 'vuex'
 import ConfList from '~/components/courses/ConfList'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
+import CourseSubscribe from '~/components/account/CourseSubscribe'
 import PageHeader from '~/components/ui/PageHeader'
 
 export default {
@@ -70,6 +71,7 @@ export default {
   components: {
     ConfList,
     CheatSheetAlt,
+    CourseSubscribe,
     PageHeader
   },
 
@@ -81,7 +83,7 @@ export default {
   },
 
   async fetch ({ store, params }) {
-    await store.dispatch('courses/getConference', params.conference)
+    await store.dispatch('getConference', params.conference)
   }
 }
 </script>

@@ -267,20 +267,23 @@ module.exports = {
     ]
   },
   /*
-  ** Customize the progress bar color
-  */
-  loading: { color: '#39B982' },
+   ** Global CSS
+   */
+  css: [
+    '~/assets/css/style.styl',
+    'highlight.js/styles/vs2015.css'
+  ],
   /*
    ** Site Modules
    */
   modules: [
+    ['@nuxtjs/pwa', { icon: false }],
+    '@nuxtjs/markdownit',
     ['@nuxtjs/google-tag-manager', {
       id: 'GTM-5DMGGN2'
     }],
-    ['@nuxtjs/pwa', { icon: false }],
-    '@nuxtjs/markdownit',
-    '@nuxtjs/sitemap',
     '@nuxtjs/toast',
+    '@nuxtjs/sitemap',
     ['nuxt-facebook-pixel-module', {
       track: 'PageView',
       pixelId: '790526371136735'
@@ -289,24 +292,11 @@ module.exports = {
       track: 'PageView',
       pixelId: 'nzno2'
     }],
-    ['@nuxtjs/style-resources']
-  ],
-  /*
-   ** Global CSS
-   */
-  css: [
-    '~/assets/css/style.styl',
-    'highlight.js/styles/vs2015.css'
-  ],
-  /*
-   ** Global style Ressource
-   */
-  styleResources: {
-    stylus: [
+    ['nuxt-stylus-resources-loader', [
       'assets/css/_mixins.styl',
       'assets/css/_variables.styl'
-    ]
-  },
+    ]]
+  ],
   /*
   ** Render Markdown
   */
@@ -321,37 +311,47 @@ module.exports = {
       'markdown-it-highlightjs'
     ]
   },
+  /*
+  ** Customize the progress bar color
+  */
+  loading: { color: '#39B982' },
+  /*
+   ** Router config
+   */
+  router: {
+    // middleware: 'authenticated'
+  },
   plugins: [
     {
-      src: '~/plugins/dateFormat',
-      mode: 'server'
-    },
-    {
       src: '~/plugins/auth',
-      mode: 'client'
+      ssr: false
     },
     {
-      src: '~/plugins/confetti',
-      mode: 'client'
+      src: '~/plugins/vimeo-player',
+      ssr: false
     },
     {
       src: '~/plugins/filters'
     },
     {
-      src: '~plugins/ga.js',
-      mode: 'client'
-    },
-    {
       src: '~/plugins/modals',
-      mode: 'client'
-    },
-    {
-      src: '~/plugins/vimeo-player',
-      mode: 'client'
+      ssr: false
     },
     {
       src: '~/plugins/social',
-      mode: 'client'
+      ssr: false
+    },
+    {
+      src: '~/plugins/moment',
+      ssr: true
+    },
+    {
+      src: '~/plugins/confetti',
+      ssr: false
+    },
+    {
+      src: '~plugins/ga.js',
+      ssr: false
     }
   ],
   /*
@@ -363,7 +363,7 @@ module.exports = {
   /*
   ** Page transition
   */
-  pageTransition: {
+  transition: {
     name: 'page',
     mode: 'out-in'
   },
@@ -371,28 +371,36 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    analyze: true
-    // /*
-    // ** Run ESLint on save
-    // */
-    // extend (config, ctx) {
-    //   if (ctx.isDev && ctx.isClient) {
-    //     config.module.rules.push({
-    //       enforce: 'pre',
-    //       test: /\.(js|vue)$/,
-    //       loader: 'eslint-loader',
-    //       exclude: /(node_modules)/
-    //     })
-    //   }
-    // }
+    vendor: [
+      'firebase',
+      'firebase-auth',
+      'vuexfire',
+      'vue-vimeo-player'
+    ],
+    // put CSS in files instead of JS bundles
+    extractCSS: true,
+    /*
+    ** Run ESLint on save
+    */
+    extend (config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   },
   /*
   ** Generate Sitemap
   */
   sitemap: {
+    generate: true,
     hostname: baseUrl,
-    routes () {
-      return generator.then(result => {
+    routes: function () {
+      return generator.then(function (result) {
         return result.sitemap
       })
     }
@@ -401,11 +409,12 @@ module.exports = {
   ** Generate Static pages
   */
   generate: {
+    minify: false,
     workers: 4,
     workerConcurrency: 500,
     concurrency: 1,
-    routes () {
-      return generator.then(result => {
+    routes: function () {
+      return generator.then(function (result) {
         return result.pages
       })
     }

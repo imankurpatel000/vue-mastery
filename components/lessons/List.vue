@@ -19,7 +19,7 @@
             i.far.fa-user
             span {{ lesson.author}}
         .list-item-meta(v-else)
-          | To be released on {{ (lesson.date || lesson.releaseDate)  | dateFormat}}
+          | To be released on {{ (lesson.date || lesson.releaseDate)  | moment("MMMM D")}}
 
       .list-item-actions(@click.stop v-if='lesson.status === "published" || lesson.isVideoLive === "true"')
         i.fa.fa-lock
@@ -89,7 +89,7 @@ export default {
 
     toggleCompleted (lessonSlug) {
       const isLessonCompleted = !this.isCompleted(lessonSlug)
-      this.$store.dispatch('account/userUpdateCompleted', {
+      this.$store.dispatch('userUpdateCompleted', {
         lessonSlug: lessonSlug,
         courseSlug: this.course.slug,
         isCompleted: isLessonCompleted

@@ -28,7 +28,7 @@ export default {
 
   methods: {
     GithubButton () {
-      this.$store.dispatch('account/userGithubLogin')
+      this.$store.dispatch('userGithubLogin')
         .then(() => {
           if (this.redirect !== '') this.$router.push(this.redirect)
         })
