@@ -52,7 +52,29 @@
                 i.fas.fa-shield-alt
                 span 14-day money-back guarantee
 
-              button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
+              button.button.primary.-full(@click="subscribe('monthly-subscription')") Select Plan
+
+        .summer-card
+          .card
+            .card-body
+              h3.text-center 3 Months
+
+              .money
+                .symbol $
+                .decimal 49
+
+              .text-center
+                i Access to all premium content
+
+              .benefit
+                img(src="/images/lgo-vue.svg" alt="Vue.js")
+                span $12 of your subscription goes to supporting the Vue.js project itself.
+
+              .benefit.color-gold
+                i.fas.fa-shield-alt
+                span 14-day money-back guarantee
+
+              button.button.primary.-full(@click="subscribe('3-month-subscription')") Select Plan
 
         .annually
           .card
@@ -79,7 +101,7 @@
                 b Get 2 months free <br>
                   small ($38 discount)
 
-              button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
+              button.button.primary.-full(@click="subscribe('year-subscription')") Select Plan
 
         .team
           .card
@@ -183,8 +205,12 @@ export default {
         // If the library that you use for making ajax calls, can return a promise, you can directly return that
         hostedPage: () => {
           let params = new URLSearchParams()
-          const lastName = this.account.displayName.split(' ')[1] || this.account.displayName
-          const firstName = this.account.displayName.split(' ')[0] || ' '
+          let lastName = ''
+          let firstName = ''
+          if(this.account.displayName) {
+            lastName = this.account.displayName.split(' ')[1] || this.account.displayName
+            firstName = this.account.displayName.split(' ')[0] || ' '
+          }
           params.append('email', this.account.email)
           params.append('last_name', lastName)
           params.append('first_name', firstName)
@@ -202,12 +228,24 @@ export default {
         success: () => {
           this.chargebeeInstance.closeAll()
           let redirect
-          if (plan === 'monthly-subscription') {
-            redirect = '/thank-you-monthly'
-            if (this.$trackMonthly) this.$trackMonthly()
-          } else {
-            redirect = '/thank-you-annual'
-            if (this.$trackAnnual) this.$trackAnnual()
+          switch (plan) {
+            case 'monthly-subscription':
+              redirect = '/thank-you-monthly'
+              if (this.$trackMonthly) this.$trackMonthly()
+              break;
+
+            case '3-month-subscription':
+              redirect = '/thank-you-summer'
+              if (this.$track3Months) this.$track3Months()
+              break;
+
+            case 'monthly-subscription':
+              redirect = '/thank-you-annual'
+              if (this.$trackAnnual) this.$trackAnnual()
+              break;
+          
+            default:
+              break;
           }
           this.$store.dispatch('fakeSubscribe')
           this.$router.push(redirect)
@@ -219,7 +257,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-build-grid-area(pricing-content pricing-structure page-title monthly annually team)
+build-grid-area(pricing-content pricing-structure page-title summer-card monthly annually team)
 
 .pricing-layout
   display grid
@@ -257,6 +295,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   grid-template-areas 'page-title'\
                       'free-sub'\
                       'monthly'\
+                      'summer-card'\
                       'annually'\
                       'team'
 
@@ -264,14 +303,14 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
     grid-column-gap 20px
     grid-template-columns 1fr 1fr 1fr
     grid-template-areas 'page-title page-title page-title'\
-                        'free-sub monthly annually'\
-                        'team team team'
+                        'free-sub monthly summer-card'\
+                        'annually team nothing'
 
-  +desktop-up()
-    align-items stretch
-    grid-template-columns 1fr 1fr 1fr 1fr
-    grid-template-areas 'page-title page-title page-title page-title'\
-                        'free-sub monthly annually team'\
+  // +desktop-up()
+  //   align-items stretch
+  //   grid-template-columns 1fr 1fr 1fr 1fr 1fr
+  //   grid-template-areas 'page-title page-title page-title page-title page-title'\
+  //                       'free-sub monthly summer-card annually team'\
 
 .page-title h2
   color $secondary-color
