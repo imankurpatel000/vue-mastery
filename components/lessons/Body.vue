@@ -1,16 +1,19 @@
 <template lang='pug'>
-  .lesson-content#lessonContent(:class="locked ? '-locked': 'unlock'")
+  #lessonContent.lesson-content(:class="restricted ? '-locked' : 'unlock'")
     div
-      h1.title {{ course.title}}
-      slot
-      .lesson-body(v-html='body')
+      h1.title {{ course.title }}
 
-    .lesson-locked(v-if='locked' v-cloak)
-      Unlock(:free='free')
+      Profile(:current='course' v-if='!isLesson' v-cloak)
+
+      .lesson-body(v-html = 'body')
+
+    .lesson-locked(v-if = 'restricted' v-cloak)
+      Unlock(:free='course.free')
 </template>
 
 <script>
 import Unlock from '~/components/lessons/Unlock'
+import Profile from '~/components/lessons/Profile'
 
 export default {
   name: 'lesson-content',
@@ -20,27 +23,34 @@ export default {
       type: Object,
       required: true
     },
-    locked: {
-      type: Boolean,
-      default: false
+    lesson: {
+      type: Object,
+      required: false
     },
-    free: {
+    isLesson: {
       type: Boolean,
-      default: false
+      default: true
+    },
+    restricted: {
+      type: Boolean,
+      default: true
     }
   },
 
   components: {
+    Profile,
     Unlock
   },
 
   computed: {
     body () {
-      let text = this.course.markdown
-      if (this.locked) {
-        text = text.slice(0, 400) + '...'
+      if (this.course.hasOwnProperty('description')) {
+        return this.$md.render(
+          this.lesson ? this.lesson.markdown : this.course.description
+        )
+      } else {
+        return 'Loading'
       }
-      return this.$md.render(text)
     }
   }
 }
@@ -48,10 +58,12 @@ export default {
 
 <style lang='stylus' scoped>
 .lesson-content
+  position relative
   display flex
   flex-direction column
-  align-items center
+  align-items left
   padding 0 4%
+  min-height 500px
   margin ($vertical-space/3) 0
 
   +tablet-up()
@@ -61,8 +73,6 @@ export default {
     padding-top 0
 
   &.-locked
-    position relative
-
     .lesson-locked
       display flex
 

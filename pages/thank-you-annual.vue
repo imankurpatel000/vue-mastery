@@ -1,5 +1,5 @@
 <template lang="pug">
-ThankYou(monthlyPayment='50' paySchedule='yearly' :renewal="new Date() | moment('add', '1 years', 'MMMM D, YYYY')")
+ThankYou(monthlyPayment='50' paySchedule='yearly' :renewal="new Date() | dateFormat('MMMM D, YYYY', '1 year')")
 </template>
 
 <script>

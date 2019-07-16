@@ -84,7 +84,7 @@ export default {
           return false
         }
 
-        this.$store.dispatch('sendTeamSubscriptionRequest', {
+        this.$store.dispatch('account/sendTeamSubscriptionRequest', {
           name: this.name,
           email: this.email,
           companyWebsite: this.companyWebsite,

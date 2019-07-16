@@ -1,4 +1,4 @@
-const flamelink = require('flamelink')
+const flamelink = require('flamelink/dist/flamelink.js')
 const admin = require('firebase-admin')
 const conf = require('../firebase')
 
@@ -33,6 +33,7 @@ const createVideoTags = function (url, lesson) {
       thumbnail_loc: image.url.replace(/&/g, '&amp;'),
       title: lesson.title,
       description: lesson.description,
+      // YO: check that
       player_loc: `https://player.vimeo.com/video/${lesson.videoEmbedId}`,
       duration: timeConvert(lesson.duration)
     }

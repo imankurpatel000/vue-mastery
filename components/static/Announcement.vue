@@ -1,7 +1,7 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    a.announcement-bar(href="/learn-vue-this-summer" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-      p Watch all of our premium content for #[b() 3 months] at a discounted price starting this #[b() summer]
+    a.announcement-bar(href="/pricing" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+      p Get 25% off a year of Vue Mastery. Use #[b() SUMMER25] at checkout.
       .anounce-icon
         img(src='/images/ico-vue-spring.png')
 </template>

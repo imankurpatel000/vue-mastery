@@ -40,7 +40,7 @@ export default {
       clearTimeout(this.debounceTimer)
       this.debounceTimer = setTimeout(() => {
         if (this.email !== '' && this.validateEmail()) {
-          this.$store.dispatch('userUpdateEmail', this.email)
+          this.$store.dispatch('account/userUpdateEmail', this.email)
             .then(() => {
               this.formSuccess = 'Successfully updated your account email'
             })

@@ -28,7 +28,7 @@ export default {
 
   methods: {
     GoogleButton () {
-      this.$store.dispatch('userGoogleLogin')
+      this.$store.dispatch('account/userGoogleLogin')
         .then(() => {
           if (this.redirect !== '') this.$router.push(this.redirect)
         })

@@ -85,7 +85,7 @@ export default {
       this.ready = true
       if (this.account && !this.account.enrolledFreeWeekend) {
         // This is to ensure people that are just login are subscribed
-        this.$store.dispatch('userEnrollFreeWeekend')
+        this.$store.dispatch('account/userEnrollFreeWeekend')
       }
     }, 500)
   },
