@@ -7,13 +7,20 @@ div
     Header(:course='course')
 
     Video(
-      :restricted='restricted'
-      :current='current'
-      :video ='lesson'
-      :account='account'
-      :url = 'baseUrl + current.slug'
+      v-if='current && !locked'
+      :video='current'
+      :url='baseUrl + current.slug'
       @videoEnded='finished'
-      @completed='completed')
+      @completed='completed'
+      :account='account'
+      v-cloak
+    )
+
+    .lesson-video.-locked(
+      v-else
+      :style='lockedStyle'
+    )
+      Unlock(:free='current.free')
 
     List(
       :course='course'
@@ -23,13 +30,14 @@ div
       :isLesson='isLesson'
       :is-course-completed='isCompleted'
       @redirect='redirect'
-      @completed='showCongrat')
+      @completed='showCongrat'
+    )
 
     Body(
-      :restricted='restricted'
-      :course='current'
-      :lesson='lesson'
-      :isLesson='isLesson')
+      :course='current' 
+      :locked='locked' 
+      :free='current.free'
+    )
       Profile(
         v-if='!isLesson'
         :current='current'
@@ -38,14 +46,34 @@ div
 
     SideBar(
       :account='account'
-      :lesson='lesson'
+      :locked='locked'
       :course='course'
       :current='current'
       :isLesson='isLesson'
       :free='current.free'
-      affixToElement='#lessonContent')
+    )
+    //- aside.lesson-aside(v-if='!locked' v-cloak)
+    //-   .control-group
+    //-     Download(:courseLink='current.downloadLink', :account='account')
+    //-     SocialShare(:lesson='current' :baseUrl='baseUrl')
+    //-
+    //-   .card.download(v-if='!isLesson' v-cloak)
+    //-     .card-body
+    //-       h3 Download the Vue Cheat Sheet
+    //-       p All the essential syntax at your fingertips
+    //-       DownloadButton(button-class='inverted' location='Vueconf download button')
+    //-
+    //-   Resources(v-if='current.resources' v-cloak
+    //-             :resources='current.resources')
+    //-
+    //-   Challenges(v-if='current.codingChallenge' :challenges='current.codingChallenge')
+    //-
+    //-   .text-center(v-if='isLesson')
+    //-     a.button.primary.border(href='https://www.facebook.com/groups/152305585468331/') Discuss in our Facebook Group
+    //-     router-link.button.inverted.-small(to='/contact') Send us Feedback
 
-    Nav(v-if='current'
+    Nav(
+      v-if='current'
       :lessons='course.lessons'
       :selected='selected'
       :account='account'
@@ -85,7 +113,9 @@ import Nav from '~/components/lessons/Navigation'
 import Popup from '~/components/lessons/Popup'
 import Resources from '~/components/lessons/Resources'
 import SocialShare from '~/components/lessons/SocialSharing'
+import Unlock from '~/components/lessons/Unlock'
 import Video from '~/components/lessons/Video'
+import Profile from '~/components/lessons/Profile'
 import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
 import DownloadButton from '~/components/static/DownloadButton'
 import Congrats from '~/components/courses/Congrats'
@@ -123,13 +153,6 @@ export default {
     isLesson: {
       type: Boolean,
       default: true
-    },
-    lesson: {
-      type: Object
-    },
-    restricted: {
-      type: Boolean,
-      default: true
     }
   },
 
@@ -145,7 +168,9 @@ export default {
     Popup,
     SocialShare,
     Download,
+    Unlock,
     PlayerPlaceholder,
+    Profile,
     DownloadButton,
     Congrats
   },
@@ -157,10 +182,30 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('courses/contentReady', { isReady: false })
+    this.$store.dispatch('contentReady', { isReady: false })
   },
 
   computed: {
+    locked () {
+      if (this.current.free === false) {
+        // FREEWEEKEND
+        // return !this.account
+        // NOT FREEWEEKEND
+        return this.account ? !this.account.subscribed : true
+      }
+      if (this.current.lock) {
+        return !this.account
+      }
+      return false
+    },
+
+    lockedStyle () {
+      const imageUrl = this.current.image ? `url(${this.current.image[0].url})` : ''
+      return {
+        backgroundImage: imageUrl
+      }
+    },
+
     baseUrl () {
       return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
     }
@@ -196,7 +241,7 @@ export default {
     },
 
     completed () {
-      this.$store.dispatch('account/userUpdateCompleted', {
+      this.$store.dispatch('userUpdateCompleted', {
         courseSlug: this.category,
         lessonSlug: this.current.slug,
         isCompleted: true
@@ -244,6 +289,17 @@ export default {
                         'footer  footer  footer'
 .lesson-header
   grid-area header
+
+.lesson-video
+  grid-area video
+  &.-locked
+    position relative
+    background $black
+    width 100%
+    height 300px
+    background-size cover
+    +tablet-up()
+      height 500px
 
 .lesson-content
   grid-area content

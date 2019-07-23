@@ -22,10 +22,11 @@
 
         .sidebar
           h2.title Upcoming Conferences
-          .list-card(v-for='conference, key, index in upcomings'
-                    :key='conference.id')
+          .list-card(v-for='conference, key, index in conferences'
+                        v-if='conference.upcoming'
+                        :key='conference.id')
             Card(:title='conference.title'
-              :meta='conference.upcomingDate | dateFormat("MMMM YYYY")')
+              :meta='conference.upcomingDate | moment("MMMM YYYY")')
               ConferenceActions(slot='actions' :conference='conference')
 
 </template>
@@ -64,17 +65,24 @@ export default {
   },
 
   async fetch ({ store }) {
-    await store.dispatch('courses/getAllConferences')
+    await store.dispatch('getAllConferences')
+  },
+
+  data () {
+    return {
+      upcomings: null
+    }
   },
 
   computed: {
     ...mapState({
-      conferences: result => result.courses.conferences,
+      conferences: result => {
+        const conferences = result.courses.conferences
+        this.upcomings = Object.values(conferences).filter(conference => conference.upcoming)
+        return conferences
+      },
       account: result => result.account.account
     }),
-    upcomings () {
-      return Object.values(this.conferences).filter(conference => conference.upcoming)
-    },
     orderedConferences () {
       return Object.values(this.conferences)
         .sort((a, b) => new Date(b.upcomingDate) - new Date(a.upcomingDate))

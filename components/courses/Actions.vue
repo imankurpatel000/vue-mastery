@@ -105,7 +105,7 @@ export default {
     },
 
     subscribedToMailingList () {
-      this.$store.dispatch('account/userUpdateSubscribe', this.course.slug)
+      this.$store.dispatch('userUpdateSubscribe', this.course.slug)
     },
 
     openLogin () {

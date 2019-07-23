@@ -41,7 +41,7 @@ export default {
 
     subscribedToMailingList () {
       if (this.account) {
-        this.$store.dispatch('account/userUpdateSubscribe', this.slug)
+        this.$store.dispatch('userUpdateSubscribe', this.slug)
       } else {
         this.$modal.show('login-form', {
           newAccount: true,

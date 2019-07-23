@@ -1,20 +1,17 @@
 <template lang="pug">
-  wrapper(
-    :category = 'category'
-    :page = 'page'
-    :course = 'course'
-    :account = 'account'
-    :completedUnlogged = 'completedUnlogged'
-    :current = 'current'
-    :selected = 'selected'
-    :lesson = 'lesson',
-    :restricted = 'restricted',
-    :isLesson = 'true')
+  LessonWrapper(:category = 'category'
+                :page = 'page'
+                :course = 'course'
+                :account = 'account'
+                :completedUnlogged = 'completedUnlogged'
+                :current = 'current'
+                :selected = 'selected')
 </template>
+
 
 <script>
 import { mapState } from 'vuex'
-import wrapper from '~/components/lessons/Wrapper'
+import LessonWrapper from '~/components/lessons/Wrapper'
 import meta from '~/mixins/meta'
 
 export default {
@@ -23,7 +20,7 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    wrapper
+    LessonWrapper
   },
 
   transition (from, to) {
@@ -55,77 +52,38 @@ export default {
 
   data () {
     return {
-      category: this.$route.params.course,
-      page: this.$route.params.lesson,
-      selected: -1,
-      restricted: true,
-      current: {}
+      category: this.$route.params.lesson,
+      page: this.$route.params.slug,
+      selected: -1
     }
-  },
-
-  watch: {
-    account () {
-      this.getContent()
-    }
-  },
-
-  created () {
-    if (this.course) this.getContent()
   },
 
   computed: {
     ...mapState({
       course: result => result.courses.course,
-      lesson: result => result.courses.lesson,
       account: result => result.account.account,
       completedUnlogged: result => result.account.completedUnlogged
-    })
-  },
+    }),
 
-  methods: {
-    getContent () {
+    current () {
+      let currentPage = null
       // If no lesson selected, get the first one of the course
       if (this.page === null) this.page = this.course.lessons[0].slug
       this.course.lessons.map((lesson, index) => {
         // Find the selected lesson in the list
         if (this.page === lesson.slug) {
           // Load the current lesson
-          this.current = lesson
+          currentPage = lesson
           // Keep track of lesson index for the carousel
           this.selected = index
         }
       })
-
-      this.loadContent()
-    },
-
-    loadContent () {
-      this.checkRestriction()
-      this.$store.dispatch('courses/getContent', {
-        category: 'lessons',
-        slug: this.page,
-        restricted: this.restricted
-      })
-    },
-
-    checkRestriction () {
-      // Talk don't have the free option
-      let restriction = this.current.free !== undefined ? !this.current.free : false
-      // Check lessons restrictions
-      if (restriction) {
-        restriction = this.account ? !this.account.subscribed : true
-      } else if (this.current.lock) {
-        restriction = !this.account
-      }
-      this.restricted = restriction
+      return currentPage
     }
   },
 
   async fetch ({ store, params }) {
-    await store.dispatch('courses/getCategory', {
-      category: 'course',
-      slug: params.course
-    })
+    await store.dispatch('getCourse', params.lesson)
   }
 }
 </script>

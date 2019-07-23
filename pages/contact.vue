@@ -83,7 +83,7 @@ export default {
           this.formError = 'Please enter a message'
           return false
         }
-        this.$store.dispatch('account/sendContactRequest', {
+        this.$store.dispatch('sendContactRequest', {
           name: this.name,
           email: this.email,
           message: this.message

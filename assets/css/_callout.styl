@@ -4,4 +4,6 @@
 
   for name, state in $states
     &.-{name}
-      color state
+      background lighten(state, 85%)
+      border: solid 1px state
+      color darken(state, 70%)

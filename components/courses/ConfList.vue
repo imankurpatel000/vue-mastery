@@ -16,7 +16,7 @@
       .content
         p.releaseDate(v-if="talk.showRelease")
           b To be released on:&nbsp;
-          span {{ talk.releaseDate | dateFormat }}
+          span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
         p {{ talk.description }}
 
   div(v-if="gotLightningTalks()")
@@ -34,7 +34,7 @@
             label.lightning-author {{ talk.author }}
             p.releaseDate(v-if="talk.showRelease")
               b To be released on:&nbsp;
-              span {{ talk.releaseDate | dateFormat }}
+              span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
 </template>
 
 <script>
