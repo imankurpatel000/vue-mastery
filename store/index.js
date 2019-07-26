@@ -5,7 +5,7 @@ import firebase from 'firebase'
 import * as types from './mutation-types'
 import { analyticsMiddleware } from 'vue-analytics'
 import conf from '~/firebase'
-const flamelink = (process.server ? require('flamelink') : null)
+const flamelink = (process.server ? require('flamelink/app') : null)
 const firebaseAdmin = (process.server ? require('firebase-admin') : null)
 const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
 const serviceAccount = require(`../serviceAccountKey${key}.json`)

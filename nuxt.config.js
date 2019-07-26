@@ -284,6 +284,7 @@ module.exports = {
     }],
     '@nuxtjs/toast',
     '@nuxtjs/sitemap',
+    '@nuxtjs/style-resources',
     ['nuxt-facebook-pixel-module', {
       track: 'PageView',
       pixelId: '790526371136735'
@@ -291,12 +292,15 @@ module.exports = {
     ['nuxt-twitter-pixel-module', {
       track: 'PageView',
       pixelId: 'nzno2'
-    }],
-    ['nuxt-stylus-resources-loader', [
+    }]
+  ],
+
+  styleResources: {
+    stylus: [
       'assets/css/_mixins.styl',
       'assets/css/_variables.styl'
-    ]]
-  ],
+    ]
+  },
   /*
   ** Render Markdown
   */
@@ -363,7 +367,7 @@ module.exports = {
   /*
   ** Page transition
   */
-  transition: {
+  pageTransition: {
     name: 'page',
     mode: 'out-in'
   },
@@ -371,12 +375,12 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: [
-      'firebase',
-      'firebase-auth',
-      'vuexfire',
-      'vue-vimeo-player'
-    ],
+    // vendor: [
+    //   'firebase',
+    //   'firebase-auth',
+    //   'vuexfire',
+    //   'vue-vimeo-player'
+    // ],
     // put CSS in files instead of JS bundles
     extractCSS: true,
     /*
@@ -397,7 +401,6 @@ module.exports = {
   ** Generate Sitemap
   */
   sitemap: {
-    generate: true,
     hostname: baseUrl,
     routes: function () {
       return generator.then(function (result) {
