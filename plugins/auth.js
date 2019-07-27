@@ -13,7 +13,7 @@ export default function ({ store }) {
     }))
   }
 
-  return firebase.auth().onAuthStateChanged((user) => {
+  return auth().onAuthStateChanged((user) => {
     if (user) {
       store.commit('account/SET_USER', user)
     }

@@ -7,11 +7,7 @@
     .courses-body.wrapper
       LearningPath(:courses='courses'
         :account='account')
-      //- All(:courses='courses' :account='account')
-      //- Latest(:courses='courses' :latests='latests' :account='account')
 
-    //- .vue-conf
-    //-   VueConfBanner
     CheatSheetAlt(location='Course page cheat sheet download')
 </template>
 
@@ -19,8 +15,6 @@
 import { mapState } from 'vuex'
 
 import LearningPath from '~/components/courses/LearningPath'
-import All from '~/components/courses/All'
-// import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import VueConfBanner from '~/components/static/VueConfBanner'
 import PageHeader from '~/components/ui/PageHeader'
@@ -47,16 +41,13 @@ export default {
   },
 
   components: {
-    All,
     LearningPath,
-    // Latest,
     CheatSheetAlt,
     VueConfBanner,
     PageHeader
   },
 
   async fetch ({ store }) {
-    await store.dispatch('courses/latests')
     await store.dispatch('courses/getAllCourses')
   },
 
@@ -64,7 +55,6 @@ export default {
     ...mapState({
       account: result => result.account.account,
       courses: result => result.courses.courses
-      // latests: result => result.courses.latests
     })
   }
 }

@@ -38,13 +38,17 @@ export const actions = {
   },
   sendContactRequest ({ commit }, newData) {
     // Get a key for a new contact.
-    return firebase.database().ref('/inquiries/').push(newData)
+    return database().ref('/inquiries/').push(newData)
   },
   sendTeamSubscriptionRequest ({ commit }, newData) {
-    return firebase.database().ref('/team-request/').push(newData)
+    return database().ref('/team-request/').push(newData)
   }
 }
 
 export const mutations = {
-  ...vuexfireMutations
+  ...vuexfireMutations,
+  toggleNav (state, forceClose) {
+    if (forceClose) state.openNav = false
+    else state.openNav = !state.openNav
+  }
 }

@@ -59,7 +59,6 @@ export default {
     },
 
     subscribe (e) {
-      console.log(e)
       // this.resetFormMessages()
       // clearTimeout(this.debounceTimer)
       // this.debounceTimer = setTimeout(() => {

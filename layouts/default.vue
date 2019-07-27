@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .container(:class="$store.openNav ? 'open-nav': ''")
+  .container(:class="$store.state.openNav ? 'open-nav': ''")
     Announcement
     PageHeader(:class='$route.name')
     nuxt
