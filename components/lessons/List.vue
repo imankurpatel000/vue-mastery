@@ -89,7 +89,7 @@ export default {
 
     toggleCompleted (lessonSlug) {
       const isLessonCompleted = !this.isCompleted(lessonSlug)
-      this.$store.dispatch('userUpdateCompleted', {
+      this.$store.dispatch('account/userUpdateCompleted', {
         lessonSlug: lessonSlug,
         courseSlug: this.course.slug,
         isCompleted: isLessonCompleted

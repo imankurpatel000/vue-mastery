@@ -63,7 +63,7 @@ export default {
     },
 
     subscribedToMailingList () {
-      this.$store.dispatch('userUpdateSubscribeConference', this.conference.slug)
+      this.$store.dispatch('account/userUpdateSubscribeConference', this.conference.slug)
     },
 
     openLogin () {

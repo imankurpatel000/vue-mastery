@@ -59,7 +59,7 @@ export default {
       const player = this.$refs.player
       player.player.on('playbackratechange', this.playbackratechange)
       this.updatePlaybackRate()
-      this.$store.dispatch('contentReady', { isReady: true })
+      this.$store.dispatch('courses/contentReady', { isReady: true })
       // player.play()
     },
 
@@ -79,7 +79,7 @@ export default {
         .getPlaybackRate()
         .then((playbackRate) => {
           if (this.account) {
-            this.$store.dispatch('userUpdatePlaybackRate', playbackRate)
+            this.$store.dispatch('account/userUpdatePlaybackRate', playbackRate)
           } else {
             window.localStorage.setItem('playbackRate', playbackRate)
           }

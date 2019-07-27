@@ -41,7 +41,7 @@ export default {
       })
     },
     enroll () {
-      this.$store.dispatch('userEnrollFreeWeekend')
+      this.$store.dispatch('account/userEnrollFreeWeekend')
         .then(() => {
           this.$router.push('/thank-you-free-weekend')
         })

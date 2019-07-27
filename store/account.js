@@ -1,24 +1,21 @@
 import * as firebase from 'firebase'
-import * as types from '../mutation-types'
-import { mergeDeep } from '../helpers'
-import { firebaseMutations, firebaseAction } from 'vuexfire'
+import { mergeDeep } from './helpers'
+import { firebaseAction } from 'vuexfire'
 
-// initial state
-const state = {
+export const state = () => ({
   user: null,
   account: null,
   completedUnlogged: {}
-}
+})
 
-// getters
-const getters = {
+export const getters = {
   isAuthenticated (state) {
     return !!state.user
   }
 }
 
 function createNewAccount (user, commit, state) {
-  commit(types.NEW_USER, {
+  commit('NEW_USER', {
     meta: {
       analytics: [['set', 'userId', user.uid]]
     }
@@ -107,7 +104,7 @@ const actions = {
           newImage: result.additionalUserInfo.profile.picture,
           ...result.user
         }, commit, state)
-        return commit(types.SET_USER, result.user)
+        return commit('SET_USER', result.user)
       }).catch((error) => {
         throw new Error(error)
       })
@@ -124,7 +121,7 @@ const actions = {
           newImage: result.additionalUserInfo.profile.avatar_url,
           ...result.user
         }, commit, state)
-        return commit(types.SET_USER, result.user)
+        return commit('SET_USER', result.user)
       }).catch((error) => {
         throw new Error(error)
       })
@@ -133,7 +130,7 @@ const actions = {
     return firebase.auth()
       .signInWithEmailAndPassword(account.email, account.password)
       .then((user) => {
-        return this.commit(types.SET_USER, user)
+        return this.commit('SET_USER', user)
       })
       .catch((error) => {
         throw new Error(error)
@@ -266,12 +263,11 @@ const actions = {
 
 // mutations
 const mutations = {
-  ...firebaseMutations,
-  [types.SET_USER] (state, user) {
+  'SET_USER' (state, user) {
     state.user = user
     return this.dispatch('setAccountRef', `accounts/${state.user.uid}`)
   },
-  [types.NEW_USER] (state) {},
+  'NEW_USER' (state) {},
   fakeSubscribe (state) {
     if (state.account) {
       const subs = {

@@ -63,7 +63,7 @@ export default {
       // this.resetFormMessages()
       // clearTimeout(this.debounceTimer)
       // this.debounceTimer = setTimeout(() => {
-      //   this.$store.dispatch('userUpdateSubscription', this.subscribedToMailingList)
+      //   this.$store.dispatch('account/userUpdateSubscription', this.subscribedToMailingList)
       //     .then(() => {
       //       this.formSuccess = 'Successfully updated your account details'
       //     })

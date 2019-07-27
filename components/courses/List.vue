@@ -67,7 +67,7 @@ export default {
 
 <style lang='stylus' scoped>
 .media
-  align-self start
+  align-self flex-start
 
   img
     +tablet-up()

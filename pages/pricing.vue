@@ -247,7 +247,7 @@ export default {
             default:
               break
           }
-          this.$store.dispatch('fakeSubscribe')
+          this.$store.dispatch('account/fakeSubscribe')
           this.$router.push(redirect)
         }
       })
@@ -341,7 +341,7 @@ build-grid-area(pricing-content pricing-structure page-title summer-card monthly
 
 .benefit
   display flex
-  align-items start
+  align-items flex-start
   margin-bottom 10px
   margin-top 10px
 
