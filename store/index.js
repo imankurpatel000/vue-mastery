@@ -1,7 +1,7 @@
 import { analyticsMiddleware } from 'vue-analytics'
 import { vuexfireMutations } from 'vuexfire'
 import conf from '~/firebase'
-import flamelink from 'flamelink/app'
+import flamelink from 'flamelink'
 const firebase = (process.server ? require('firebase-admin') : 'firebase')
 const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
 const serviceAccount = require(`../serviceAccountKey${key}.json`)
@@ -38,10 +38,10 @@ export const actions = {
   },
   sendContactRequest ({ commit }, newData) {
     // Get a key for a new contact.
-    return database().ref('/inquiries/').push(newData)
+    return firebase.database().ref('/inquiries/').push(newData)
   },
   sendTeamSubscriptionRequest ({ commit }, newData) {
-    return database().ref('/team-request/').push(newData)
+    return firebase.database().ref('/team-request/').push(newData)
   }
 }
 

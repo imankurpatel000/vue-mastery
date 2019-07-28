@@ -207,7 +207,7 @@ export default {
           let params = new URLSearchParams()
           let lastName = ''
           let firstName = ''
-          if(this.account.displayName) {
+          if (this.account.displayName) {
             lastName = this.account.displayName.split(' ')[1] || this.account.displayName
             firstName = this.account.displayName.split(' ')[0] || ' '
           }
@@ -232,20 +232,19 @@ export default {
             case 'monthly-subscription':
               redirect = '/thank-you-monthly'
               if (this.$trackMonthly) this.$trackMonthly()
-              break;
+              break
 
             case '3-month-subscription':
               redirect = '/thank-you-summer'
               if (this.$track3Months) this.$track3Months()
-              break;
+              break
 
-            case 'monthly-subscription':
+            case 'annual-subscription':
               redirect = '/thank-you-annual'
               if (this.$trackAnnual) this.$trackAnnual()
-              break;
-          
+              break
             default:
-              break;
+              break
           }
           this.$store.dispatch('account/fakeSubscribe')
           this.$router.push(redirect)

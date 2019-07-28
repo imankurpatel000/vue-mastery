@@ -1,4 +1,4 @@
-const flamelink = require('flamelink/dist/flamelink.js')
+const flamelink = require('flamelink')
 const admin = require('firebase-admin')
 const conf = require('../firebase')
 

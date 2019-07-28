@@ -213,8 +213,8 @@ export const actions = {
 }
 
 export const mutations = {
-  'APP_READY' (state, app) {
-    db = app.content
+  'APP_READY' (state, { content }) {
+    db = content
   },
   'RECEIVE_COURSES' (state, { courses }) {
     for (let course in courses) {

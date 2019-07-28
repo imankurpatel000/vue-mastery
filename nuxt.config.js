@@ -325,7 +325,7 @@ module.exports = {
   plugins: [
     {
       src: '~/plugins/dateFormat',
-      mode: 'server'
+      mode: 'client'
     },
     {
       src: '~/plugins/auth',
