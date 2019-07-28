@@ -1,6 +1,8 @@
 import conf from '~/firebase'
 import firebase from 'firebase'
-import flamelink from 'flamelink'
+import flamelink from 'flamelink/app'
+import 'flamelink/content'
+import 'flamelink/storage'
 
 export default function ({
   store,

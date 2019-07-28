@@ -1,4 +1,7 @@
-const flamelink = require('flamelink')
+import flamelink from 'flamelink/app'
+import 'flamelink/content'
+import 'flamelink/storage'
+
 const admin = require('firebase-admin')
 const conf = require('../firebase')
 
