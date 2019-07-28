@@ -1,25 +1,17 @@
-// import conf from '~/firebase'
-import { initializeApp, auth } from 'firebase'
 import conf from '~/firebase'
-import flamelink from 'flamelink/app'
-const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
-const serviceAccount = require(`../serviceAccountKey${key}.json`)
+import firebase from 'firebase'
+import flamelink from 'flamelink'
 
-export default function ({ store }) {
-  const firebaseApp = initializeApp({
-    apiKey: serviceAccount.client_id,
-    authDomain: serviceAccount.auth_uri,
-    databaseURL: conf.databaseURL,
-    projectId: serviceAccount.project_id,
-    storageBucket: conf.storageBucket
-  })
+export default function ({
+  store,
+  redirect
+}) {
+  if (!firebase.apps.length) {
+    const firebaseApp = firebase.initializeApp(conf)
+    store.commit('courses/APP_READY', flamelink({ firebaseApp, env: conf.env }))
+  }
 
-  store.commit('courses/APP_READY', flamelink({
-    firebaseApp,
-    env: conf.env
-  }))
-
-  return auth().onAuthStateChanged((user) => {
+  return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       store.commit('account/SET_USER', user)
     }

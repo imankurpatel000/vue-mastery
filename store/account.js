@@ -84,7 +84,7 @@ export const actions = {
   userCreate ({ state, commit }, account) {
     return auth()
       .createUserWithEmailAndPassword(account.email, account.password)
-      .then((user) => {
+      .then(({user}) => {
         return createNewAccount(user, commit, state)
       })
   },
@@ -97,13 +97,13 @@ export const actions = {
     })
     return auth()
       .signInWithPopup(provider)
-      .then((result) => {
+      .then(({user, additionalUserInfo}) => {
         checkForFirstTime({
           // just use their existing user image to start
-          newImage: result.additionalUserInfo.profile.picture,
-          ...result.user
+          newImage: additionalUserInfo.profile.picture,
+          ...user
         }, commit, state)
-        return commit('SET_USER', result.user)
+        return commit('SET_USER', user)
       }).catch((error) => {
         throw new Error(error)
       })
@@ -114,13 +114,13 @@ export const actions = {
     provider.addScope('user:email')
     return auth()
       .signInWithPopup(provider)
-      .then((result) => {
+      .then(({user, additionalUserInfo}) => {
         checkForFirstTime({
           // just use their existing user image to start
-          newImage: result.additionalUserInfo.profile.avatar_url,
-          ...result.user
+          newImage: additionalUserInfo.profile.avatar_url,
+          ...user
         }, commit, state)
-        return commit('SET_USER', result.user)
+        return commit('SET_USER', user)
       }).catch((error) => {
         throw new Error(error)
       })
