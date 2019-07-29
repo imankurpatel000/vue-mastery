@@ -325,7 +325,7 @@ module.exports = {
   plugins: [
     {
       src: '~/plugins/dateFormat',
-      mode: 'server'
+      mode: 'client'
     },
     {
       src: '~/plugins/auth',
@@ -372,7 +372,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    analyze: true,
+    // analyze: true,
     // /*
     // ** Run ESLint on save
     // */

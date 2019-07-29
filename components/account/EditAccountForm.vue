@@ -26,7 +26,7 @@ form.form.card
 </template>
 
 <script>
-import { storage } from 'firebase'
+import * as storage from 'firebase/storage'
 
 export default {
   name: 'account-edit',

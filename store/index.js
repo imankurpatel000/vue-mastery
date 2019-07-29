@@ -4,6 +4,9 @@ import conf from '~/firebase'
 import flamelink from 'flamelink/app'
 import 'flamelink/content'
 import 'flamelink/storage'
+import 'flamelink/navigation'
+import 'flamelink/settings'
+import 'flamelink/users'
 const firebase = (process.server ? require('firebase-admin') : 'firebase')
 const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
 const serviceAccount = require(`../serviceAccountKey${key}.json`)

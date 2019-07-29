@@ -178,7 +178,10 @@ export const actions = {
   },
 
   getConference ({ commit }, slug) {
-    return db.getByField('conference', 'slug', slug, {
+    return db.getByField({
+      schemaKey: 'conference',
+      field: 'slug',
+      value: slug,
       populate: [
         {
           field: 'image',

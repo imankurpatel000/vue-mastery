@@ -1,4 +1,6 @@
-import { database, auth } from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
 import { mergeDeep } from './helpers'
 import { vuexfireMutations, firebaseAction } from 'vuexfire'
 
@@ -20,7 +22,7 @@ const createNewAccount = (user, commit, state) => {
       analytics: [['set', 'userId', user.uid]]
     }
   })
-  return database().ref(`accounts/${user.uid}`).set({
+  return firebase.database().ref(`accounts/${user.uid}`).set({
     displayName: user.displayName || user.email.split('@')[0], // use part of the email as a username
     email: user.email,
     image: user.newImage || '/images/default-profile.png', // supply a default profile image for all users
@@ -56,7 +58,7 @@ const getConferenceHistory = (currentHistory, conferenceSlug) => {
 }
 
 const checkForFirstTime = (user, commit, state) => {
-  database().ref('accounts').child(user.uid).once('value', (snapshot) => {
+  firebase.database().ref('accounts').child(user.uid).once('value', (snapshot) => {
     const userData = snapshot.val()
     if (userData === null) createNewAccount(user, commit, state)
     else {
@@ -64,7 +66,7 @@ const checkForFirstTime = (user, commit, state) => {
       if (state.completedUnlogged !== {}) {
         const courses = mergeDeep(userData.courses, state.completedUnlogged)
         if (courses) {
-          database()
+          firebase.database()
             .ref(`accounts/${state.user.uid}`)
             .update({ courses })
         }
@@ -74,28 +76,28 @@ const checkForFirstTime = (user, commit, state) => {
 }
 
 const updateUser = (state, update) => {
-  return database().ref(`accounts/${state.user.uid}`).update(update)
+  return firebase.database().ref(`accounts/${state.user.uid}`).update(update)
 }
 
 export const actions = {
   setAccountRef: firebaseAction(({ bindFirebaseRef }, path) => {
-    return bindFirebaseRef('account', database().ref(path))
+    return bindFirebaseRef('account', firebase.database().ref(path))
   }),
   userCreate ({ state, commit }, account) {
-    return auth()
+    return firebase.auth()
       .createUserWithEmailAndPassword(account.email, account.password)
       .then(({user}) => {
         return createNewAccount(user, commit, state)
       })
   },
   userGoogleLogin ({ commit, state }) {
-    auth().useDeviceLanguage()
-    const provider = new auth.GoogleAuthProvider()
+    firebase.auth().useDeviceLanguage()
+    const provider = new firebase.auth.GoogleAuthProvider()
     provider.addScope('https://www.googleapis.com/auth/plus.login')
     provider.setCustomParameters({
       'login_hint': 'youareawesome@example.com'
     })
-    return auth()
+    return firebase.auth()
       .signInWithPopup(provider)
       .then(({user, additionalUserInfo}) => {
         checkForFirstTime({
@@ -109,10 +111,10 @@ export const actions = {
       })
   },
   userGithubLogin ({ commit, state }) {
-    auth().useDeviceLanguage()
-    const provider = new auth.GithubAuthProvider()
+    firebase.auth().useDeviceLanguage()
+    const provider = new firebase.auth.GithubAuthProvider()
     provider.addScope('user:email')
-    return auth()
+    return firebase.auth()
       .signInWithPopup(provider)
       .then(({user, additionalUserInfo}) => {
         checkForFirstTime({
@@ -126,7 +128,7 @@ export const actions = {
       })
   },
   userLogin ({ commit }, account) {
-    return auth()
+    return firebase.auth()
       .signInWithEmailAndPassword(account.email, account.password)
       .then((user) => {
         return commit('SET_USER', user)
@@ -136,19 +138,19 @@ export const actions = {
       })
   },
   userLogout ({ commit }) {
-    return auth()
+    return firebase.auth()
       .signOut()
       .then(() => {
         commit('RESET_USER')
       })
   },
   deleteUser ({ commit }) {
-    const user = auth().currentUser
+    const user = firebase.auth().currentUser
 
-    database().ref(`accounts/${user.uid}`).remove()
+    firebase.database().ref(`accounts/${user.uid}`).remove()
 
     return user.delete().then(() => {
-      auth()
+      firebase.auth()
         .signOut()
         .then(() => {
           commit('RESET_USER')
@@ -158,7 +160,7 @@ export const actions = {
     })
   },
   userUpdatePassword (newPassword) {
-    const user = auth().currentUser
+    const user = firebase.auth().currentUser
 
     return user.updatePassword(newPassword).catch((error) => {
       console.log(`Can't update the password. Error:  ${error}`)
@@ -166,8 +168,8 @@ export const actions = {
     })
   },
   userUpdateEmail ({ state }, newEmail) {
-    const user = auth().currentUser
-    database().ref(`accounts/${state.user.uid}`).update({
+    const user = firebase.auth().currentUser
+    firebase.database().ref(`accounts/${state.user.uid}`).update({
       email: newEmail
     })
     return user.updateEmail(newEmail).catch((error) => {
@@ -176,7 +178,7 @@ export const actions = {
     })
   },
   userRetrievePassword (account) {
-    return auth()
+    return firebase.auth()
       .sendPasswordResetEmail(account.email)
       .then(() => {
         // Email sent.
@@ -226,7 +228,7 @@ export const actions = {
     }
     courses[lesson.courseSlug].completedLessons[lesson.lessonSlug] = lesson.isCompleted
     if (state.account) {
-      return database()
+      return firebase.database()
         .ref(`accounts/${state.user.uid}`)
         .update({ courses })
     } else {
@@ -234,7 +236,7 @@ export const actions = {
     }
   },
   userUpdatePlaybackRate ({ state, commit }, newRate) {
-    return database().ref(`accounts/${state.user.uid}`).update({
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
       playbackRate: newRate
     })
   },

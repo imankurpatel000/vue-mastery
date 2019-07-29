@@ -1,6 +1,9 @@
 import conf from '~/firebase'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import flamelink from 'flamelink/app'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/storage'
 import 'flamelink/content'
 import 'flamelink/storage'
 
