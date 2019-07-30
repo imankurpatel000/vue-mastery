@@ -1,6 +1,8 @@
 const conf = require('./firebase')
-const generator = require('./services/generator.js')()
+const generator = require('./services/generator.js')
 const baseUrl = conf.baseUrl
+
+let generatorData
 
 module.exports = {
   /*
@@ -392,10 +394,11 @@ module.exports = {
   */
   sitemap: {
     hostname: baseUrl,
-    routes () {
-      return generator.then(result => {
-        return result.sitemap
-      })
+    routes: async () => {
+      if (!generatorData) {
+        generatorData = await generator()
+      }
+      return generatorData.sitemap
     }
   },
   /*
@@ -405,10 +408,11 @@ module.exports = {
     workers: 4,
     workerConcurrency: 500,
     concurrency: 1,
-    routes () {
-      return generator.then(result => {
-        return result.pages
-      })
+    routes: async () => {
+      if (!generatorData) {
+        generatorData = await generator()
+      }
+      return generatorData.pages
     }
   }
 }
