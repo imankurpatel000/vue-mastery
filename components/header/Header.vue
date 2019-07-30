@@ -1,9 +1,9 @@
 <template lang="pug">
   header.header
-    .wrapper(@click='toggleNav(true)')
+    .wrapper(@click='toggleNav(true)' role="banner")
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
-        img(src="/images/lgo-vuemastery.svg" role="logo" alt="Vue Mastery logo")
+        img(src="/images/lgo-vuemastery.svg" alt="Vue Mastery logo")
 
       Navigation(:account='account' @closeNav='toggleNav(true)')
     Hambuger(@toggleNav='toggleNav()')

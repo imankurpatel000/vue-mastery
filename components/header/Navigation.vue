@@ -51,7 +51,7 @@ export default {
   methods: {
     signOut () {
       this.$store
-        .dispatch('userLogout')
+        .dispatch('account/userLogout')
         .then(() => {
           this.$router.push('/')
         })

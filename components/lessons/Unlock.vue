@@ -4,8 +4,6 @@ no-ssr
     h3 This Lesson Is Locked.
     h5(v-if='free') Create a free account to unlock it.
     h5(v-else) Subscribe to a plan to unlock it.
-    // -  FREEWEEKEND
-    // h5 Create a free account to unlock it.
 
     button.button.primary.-small.-has-icon(@click='openLogin')
       i.fa.fa-unlock-alt

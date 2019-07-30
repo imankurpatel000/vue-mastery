@@ -124,7 +124,7 @@ export default {
         success: () => {
           this.chargebeeInstance.closeAll()
           if (this.$track3Months) this.$track3Months()
-          this.$store.dispatch('fakeSubscribe')
+          this.$store.dispatch('account/fakeSubscribe')
           this.$router.push('/thank-you-summer')
         }
       })
@@ -212,7 +212,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 
 .benefit
   display flex
-  align-items start
+  align-items flex-start
   margin-bottom 10px
   margin-top 10px
 

@@ -1,4 +1,7 @@
-const flamelink = require('flamelink')
+import flamelink from 'flamelink/app'
+import 'flamelink/content'
+import 'flamelink/storage'
+
 const admin = require('firebase-admin')
 const conf = require('../firebase')
 
@@ -33,6 +36,7 @@ const createVideoTags = function (url, lesson) {
       thumbnail_loc: image.url.replace(/&/g, '&amp;'),
       title: lesson.title,
       description: lesson.description,
+      // YO: check that
       player_loc: `https://player.vimeo.com/video/${lesson.videoEmbedId}`,
       duration: timeConvert(lesson.duration)
     }
@@ -40,7 +44,8 @@ const createVideoTags = function (url, lesson) {
 }
 
 const getCoursesPage = async function (db) {
-  return db.get('courses', {
+  return db.get({
+    schemaKey: 'courses',
     populate: [{
       field: 'lessons',
       subFields: [ 'lessons', 'image', 'status' ],
@@ -74,7 +79,8 @@ const getCoursesPage = async function (db) {
 // TODO: refactor the identical functions once conference table is renamed conferences
 // and vue/conf v1 is not in prod
 const getTalksPage = async function (db) {
-  return db.get('conference', {
+  return db.get({
+    schemaKey: 'conference',
     populate: [{
       field: 'talks',
       subFields: [ 'lessons', 'image' ],

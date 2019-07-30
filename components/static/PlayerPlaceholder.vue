@@ -1,7 +1,6 @@
 <template lang='pug'>
 .player
-  slot
-    .play-button
+  .play-button
 </template>
 
 
