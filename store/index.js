@@ -7,7 +7,10 @@ import 'flamelink/storage'
 import 'flamelink/navigation'
 import 'flamelink/settings'
 import 'flamelink/users'
-const firebase = (process.server ? require('firebase-admin') : 'firebase')
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+const baseApp = (process.server ? require('firebase-admin') : firebase)
 const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
 const serviceAccount = require(`../serviceAccountKey${key}.json`)
 
@@ -30,7 +33,7 @@ export const actions = {
       projectId: serviceAccount.project_id,
       storageBucket: conf.storageBucket
     }
-    const firebaseApp = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
+    const firebaseApp = !baseApp.apps.length ? baseApp.initializeApp(firebaseConfig) : baseApp.app()
 
     commit('courses/APP_READY', flamelink({
       firebaseApp,
