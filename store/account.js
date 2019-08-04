@@ -177,7 +177,7 @@ export const actions = {
       throw error
     })
   },
-  userRetrievePassword (account) {
+  userRetrievePassword ({ state }, account) {
     return firebase.auth()
       .sendPasswordResetEmail(account.email)
       .then(() => {
