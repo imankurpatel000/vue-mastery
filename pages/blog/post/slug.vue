@@ -1,17 +1,13 @@
 <template lang="pug">
 .lesson-wrapper
-  Header(:course='course')
+  Header(:course='post')
 
   Body(
-    :course='current' 
-    :locked='locked' 
-    :free='current.free'
+    :restricted='false'
+    :course='post' 
+    :locked='false' 
+    :free='true'
   )
-    Profile(
-      v-if='!isLesson'
-      :current='current'
-      v-cloak
-    )
 </template>
 
 <script>
@@ -33,11 +29,9 @@ export default {
 
   head () {
     return meta.get({
-      categoryTitle: this.conference.title,
-      categorySlug: this.conferenceSlug,
       pageSlug: this.current.slug,
       pageTitle: this.current.title,
-      category: 'conferences',
+      category: 'blog',
       description: this.current.description,
       image: this.current.image[0].url,
       facebookImage: this.current.facebookImage[0].url || this.current.image[0].url,
@@ -47,46 +41,20 @@ export default {
   },
 
   data () {
-    let postSlug = this.$route.params.post
     return {
-      postSlug: postSlug,
-      page: this.$route.params.talk
+      postSlug: this.$route.params.post
     }
   },
 
   computed: {
     ...mapState({
-      conference: result => {
-        // TODO fix hack
-        result.courses.conference.lessons = result.courses.conference.talks
-        return result.courses.conference
-      },
-      account: result => result.account.account,
-      completedUnlogged: result => result.account.completedUnlogged
-    }),
-
-    current () {
-      let currentPage = null
-      // If no talk selected, get the first one of the course
-      if (this.page === null) this.page = this.conference.talk[0].slug
-      this.conference.talks.map((talk, index) => {
-        // Find the selected talk in the list
-        if (talk && this.page === talk.slug) {
-          // Load the current talk
-          currentPage = talk
-          // Keep track of talk index for the carousel
-          this.selected = index
-        }
-      })
-      return currentPage
-    }
+      post: result => result.courses.post,
+      account: result => result.account.account
+    })
   },
 
   async fetch ({ store, params }) {
-    await store.dispatch('getConference', params.conference)
+    await store.dispatch('getPost', params.post)
   }
-  // async fetch ({ store }) {
-  //   await store.dispatch('getConference', this.conferenceSlug)
-  // }
 }
 </script>
