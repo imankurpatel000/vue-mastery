@@ -132,7 +132,7 @@ export default {
   margin-bottom 20px
 
   +tablet-up()
-    align-self start
+    align-self flex-start
     margin-right 4%
     margin-bottom 0
 

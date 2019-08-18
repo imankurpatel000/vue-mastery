@@ -160,7 +160,7 @@ export default {
   },
 
   mounted () {
-    this.$store.dispatch('getAllCourses')
+    this.$store.dispatch('courses/getAllCourses')
 
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
@@ -202,7 +202,7 @@ export default {
     },
 
     signOut () {
-      this.$store.dispatch('userLogout')
+      this.$store.dispatch('account/userLogout')
         .then(() => {
           this.$router.push('/')
         })
@@ -318,7 +318,7 @@ export default {
   justify-items flex-start
   margin-bottom: ($vertical-space/2)
   box-shadow: inset 0 -2px 0 0 $secondary-color
-  overflow-x scroll
+  overflow-x auto
 
 .download
   color #FFFFFF

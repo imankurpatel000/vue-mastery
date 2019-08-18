@@ -1,6 +1,8 @@
 const conf = require('./firebase')
-const generator = require('./services/generator.js')()
+const generator = require('./services/generator.js')
 const baseUrl = conf.baseUrl
+
+let generatorData
 
 module.exports = {
   /*
@@ -267,23 +269,21 @@ module.exports = {
     ]
   },
   /*
-   ** Global CSS
-   */
-  css: [
-    '~/assets/css/style.styl',
-    'highlight.js/styles/vs2015.css'
-  ],
+  ** Customize the progress bar color
+  */
+  loading: { color: '#39B982' },
   /*
    ** Site Modules
    */
   modules: [
-    ['@nuxtjs/pwa', { icon: false }],
-    '@nuxtjs/markdownit',
     ['@nuxtjs/google-tag-manager', {
       id: 'GTM-5DMGGN2'
     }],
-    '@nuxtjs/toast',
+    ['@nuxtjs/pwa', { icon: false }],
+    '@nuxtjs/markdownit',
     '@nuxtjs/sitemap',
+    '@nuxtjs/style-resources',
+    '@nuxtjs/toast',
     ['nuxt-facebook-pixel-module', {
       track: 'PageView',
       pixelId: '790526371136735'
@@ -292,11 +292,24 @@ module.exports = {
       track: 'PageView',
       pixelId: 'nzno2'
     }],
-    ['nuxt-stylus-resources-loader', [
+    ['@nuxtjs/style-resources']
+  ],
+  /*
+   ** Global CSS
+   */
+  css: [
+    '~/assets/css/style.styl',
+    'highlight.js/styles/vs2015.css'
+  ],
+  /*
+   ** Global style Ressource
+   */
+  styleResources: {
+    stylus: [
       'assets/css/_mixins.styl',
       'assets/css/_variables.styl'
-    ]]
-  ],
+    ]
+  },
   /*
   ** Render Markdown
   */
@@ -311,47 +324,37 @@ module.exports = {
       'markdown-it-highlightjs'
     ]
   },
-  /*
-  ** Customize the progress bar color
-  */
-  loading: { color: '#39B982' },
-  /*
-   ** Router config
-   */
-  router: {
-    // middleware: 'authenticated'
-  },
   plugins: [
     {
-      src: '~/plugins/auth',
-      ssr: false
+      src: '~/plugins/dateFormat',
+      mode: 'client'
     },
     {
-      src: '~/plugins/vimeo-player',
-      ssr: false
+      src: '~/plugins/auth',
+      mode: 'client'
+    },
+    {
+      src: '~/plugins/confetti',
+      mode: 'client'
     },
     {
       src: '~/plugins/filters'
     },
     {
+      src: '~plugins/ga.js',
+      mode: 'client'
+    },
+    {
       src: '~/plugins/modals',
-      ssr: false
+      mode: 'client'
+    },
+    {
+      src: '~/plugins/vimeo-player',
+      mode: 'client'
     },
     {
       src: '~/plugins/social',
-      ssr: false
-    },
-    {
-      src: '~/plugins/moment',
-      ssr: true
-    },
-    {
-      src: '~/plugins/confetti',
-      ssr: false
-    },
-    {
-      src: '~plugins/ga.js',
-      ssr: false
+      mode: 'client'
     }
   ],
   /*
@@ -363,7 +366,7 @@ module.exports = {
   /*
   ** Page transition
   */
-  transition: {
+  pageTransition: {
     name: 'page',
     mode: 'out-in'
   },
@@ -371,17 +374,10 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: [
-      'firebase',
-      'firebase-auth',
-      'vuexfire',
-      'vue-vimeo-player'
-    ],
-    // put CSS in files instead of JS bundles
-    extractCSS: true,
-    /*
-    ** Run ESLint on save
-    */
+    // analyze: true,
+    // /*
+    // ** Run ESLint on save
+    // */
     extend (config, ctx) {
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
@@ -397,26 +393,26 @@ module.exports = {
   ** Generate Sitemap
   */
   sitemap: {
-    generate: true,
     hostname: baseUrl,
-    routes: function () {
-      return generator.then(function (result) {
-        return result.sitemap
-      })
+    routes: async () => {
+      if (!generatorData) {
+        generatorData = await generator()
+      }
+      return generatorData.sitemap
     }
   },
   /*
   ** Generate Static pages
   */
   generate: {
-    minify: false,
     workers: 4,
     workerConcurrency: 500,
     concurrency: 1,
-    routes: function () {
-      return generator.then(function (result) {
-        return result.pages
-      })
+    routes: async () => {
+      if (!generatorData) {
+        generatorData = await generator()
+      }
+      return generatorData.pages
     }
   }
 }

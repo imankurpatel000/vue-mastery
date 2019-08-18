@@ -47,7 +47,7 @@ export default {
   justify-content: space-evenly
 
   +laptop-up()
-    justify-content: start
+    justify-content: flex-start
 
 .media
   display grid

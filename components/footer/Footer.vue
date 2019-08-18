@@ -1,10 +1,10 @@
 <template lang="pug">
 footer.footer
   .wrapper
-    .brand
+    .brand(role="banner")
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
-        img(src="/images/lgo-vue-mastery-green.png" role="logo" alt="Vue Mastery logo")
+        img(src="/images/lgo-vue-mastery-green.png" alt="Vue Mastery logo")
       p As the ultimate resource for Vue.js developers, Vue Mastery produces weekly lessons so you can learn what you need to succeed as a Vue.js Developer.
       SocialMediaLinks
 

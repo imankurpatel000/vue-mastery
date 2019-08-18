@@ -58,7 +58,7 @@ export default {
           return false
         }
         if (this.validatePassword()) {
-          this.$store.dispatch('userUpdatePassword', this.newPassword)
+          this.$store.dispatch('account/userUpdatePassword', this.newPassword)
             .then(() => {
               this.formSuccess = 'Successfully updated your account password'
             })

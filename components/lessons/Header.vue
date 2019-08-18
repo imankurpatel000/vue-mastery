@@ -2,7 +2,7 @@
 .lesson-header
   .wrapper
     .media
-      img(:src='course.image[0].url')
+      img(:src='course.image[0].url' width='90' height='90')
 
     .body
       h2.title {{ course.title }}
