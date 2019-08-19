@@ -42,6 +42,11 @@
                   ".indexOn": "email"
                 }
               }
+            },
+            "posts": {
+              "en-US": {
+                ".indexOn": ["slug"]
+              }
             }
           }
         },
