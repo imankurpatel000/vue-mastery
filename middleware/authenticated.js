@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import { firebase } from '~/services/database.js'
 
 export default function ({
   isServer,

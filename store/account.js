@@ -1,6 +1,4 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
+import { firebase } from '~/services/database.js'
 import { mergeDeep } from './helpers'
 import { vuexfireMutations, firebaseAction } from 'vuexfire'
 

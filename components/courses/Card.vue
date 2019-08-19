@@ -16,7 +16,7 @@ nuxt-link.course-card(:to='linkTo()')
     li.info-item(v-if='hasLessons()' cloak) #[Icon(name='book')] 
       span {{ inProgress || course.lessonsCount + ` lesson${course.lessonsCount > 1 ? 's' : ''}` | capitalize }}
     li.info-item(v-if="hasDuration()") #[Icon(name='clock')] {{ course.duration | timeToText}}
-    li.info-item #[Difficulty(:level='course.difficulty')] {{ course.difficulty | capitalize }}
+    li.info-item(v-if="course.difficulty") #[Difficulty(:level='course.difficulty')] {{ course.difficulty | capitalize }}
   
   p.course-content {{ course.description }}
 

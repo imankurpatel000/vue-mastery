@@ -1,6 +1,6 @@
 export default {
   get (d) {
-    let title = `${d.pageTitle} - ${d.categoryTitle} | Vue Mastery`
+    let title = `${d.pageTitle}${d.categoryTitle ? ' - ' + d.categoryTitle : ''} | Vue Mastery`
     return {
       title: title,
       meta: [{
@@ -14,7 +14,7 @@ export default {
       }, {
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/${d.category}/${d.categorySlug}/${d.pageSlug}`
+        content: `${process.env.url}/${d.category}${d.categorySlug ? '/' + d.categorySlug : ''}/${d.pageSlug}`
       }, {
         hid: `og:title`,
         property: 'og:title',

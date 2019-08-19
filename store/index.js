@@ -1,18 +1,6 @@
 import { analyticsMiddleware } from 'vue-analytics'
 import { vuexfireMutations } from 'vuexfire'
-import conf from '~/firebase'
-import flamelink from 'flamelink/app'
-import 'flamelink/content'
-import 'flamelink/storage'
-import 'flamelink/navigation'
-import 'flamelink/settings'
-import 'flamelink/users'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
-const baseApp = (process.server ? require('firebase-admin') : firebase)
-const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
-const serviceAccount = require(`../serviceAccountKey${key}.json`)
+import { flamelink, firebase } from '~/services/database.js'
 
 export const strict = false
 
@@ -26,20 +14,7 @@ export const plugins = [
 
 export const actions = {
   nuxtServerInit ({ commit }, { req }) {
-    const firebaseConfig = {
-      apiKey: serviceAccount.client_id,
-      authDomain: serviceAccount.auth_uri,
-      databaseURL: conf.databaseURL,
-      projectId: serviceAccount.project_id,
-      storageBucket: conf.storageBucket
-    }
-    const firebaseApp = !baseApp.apps.length ? baseApp.initializeApp(firebaseConfig) : baseApp.app()
-
-    commit('courses/APP_READY', flamelink({
-      firebaseApp,
-      isAdminApp: true,
-      env: conf.env
-    }))
+    commit('courses/APP_READY', flamelink)
   },
   toggleNav ({ commit }, forceClose) {
     commit('toggleNav', forceClose)
