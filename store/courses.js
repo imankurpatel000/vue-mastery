@@ -48,7 +48,9 @@ export const state = () => ({
   talk: null,
   latests: null,
   featured: null,
-  contentReady: false
+  contentReady: false,
+  posts: null,
+  post: null
 })
 
 export const actions = {
@@ -212,6 +214,48 @@ export const actions = {
   },
   contentReady ({ commit }, isReady) {
     commit('CONTENT_READY', isReady)
+  },
+  getAllPosts ({ commit, state }) {
+    if (state.posts) return true
+    return db.get({
+      schemaKey: 'posts',
+      orderByChild: 'date',
+      fields: [ 'slug', 'date', 'title', 'image' ],
+      populate: [
+        {
+          field: 'image',
+          subFields: [ 'image' ]
+        }
+      ] })
+      .then(posts => {
+        console.log(posts)
+        commit('RECEIVE_POSTS', { posts })
+      })
+  },
+  getPost ({ commit, state, rootState }, { slug }) {
+    db.get({
+      schemaKey: 'posts',
+      orderByChild: 'slug',
+      limitToLast: 1,
+      equalTo: slug,
+      fields: [
+        'title',
+        'slug',
+        'image',
+        'description',
+        'body',
+        'author',
+        'date',
+        'status',
+        'twitterImage',
+        'facebookImage',
+        'socialSharingDescription'
+      ]
+    })
+      .then(content => {
+        content = content[Object.keys(content)[0]]
+        commit('RECEIVE_POST', { content })
+      })
   }
 }
 
@@ -256,5 +300,11 @@ export const mutations = {
   },
   'PROTECTED_TALK' (state) {
     state.talk = null
+  },
+  'RECEIVE_POST' (state, { content }) {
+    state.post = content
+  },
+  'RECEIVE_POSTS' (state, { posts }) {
+    state.posts = posts
   }
 }
