@@ -13,8 +13,8 @@ if (process.server) {
     const serviceAccount = require(`../serviceAccountKey.json`)
     firebaseApp = admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      databaseURL: 'https://vue-mastery.firebaseio.com',
-      storageBucket: 'vue-mastery.appspot.com'
+      databaseURL: process.env.databaseURL,
+      storageBucket: process.env.storageBucket
     })
   } else {
     firebaseApp = admin.app()
@@ -27,12 +27,12 @@ if (process.server) {
 
   if (!firebase.apps.length) {
     firebaseApp = firebase.initializeApp({
-      apiKey: 'AIzaSyD2F3LBYo_hSISWmSYdQuACxSSvSAZVYGc',
-      authDomain: 'www.vuemastery.com',
-      databaseURL: 'https://vue-mastery.firebaseio.com',
-      projectId: 'vue-mastery',
-      storageBucket: 'vue-mastery.appspot.com',
-      messagingSenderId: '905786889431'
+      apiKey: process.env.apiKey,
+      authDomain: process.env.authDomain,
+      databaseURL: process.env.databaseURL,
+      projectId: process.env.projectId,
+      storageBucket: process.env.storageBucket,
+      messagingSenderId: process.env.messagingSenderId
     })
   } else {
     firebaseApp = firebase.app()

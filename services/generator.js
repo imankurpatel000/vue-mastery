@@ -111,7 +111,7 @@ const getTalksPage = async function (db) {
     })
 }
 
-module.exports = async function (nuxt, generateOptions) {
+module.exports = async function () {
   console.log('Get dynamic routes')
   const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
   const serviceAccount = require(`../serviceAccountKey${key}.json`)
