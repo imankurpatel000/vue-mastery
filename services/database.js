@@ -6,6 +6,7 @@ import 'flamelink/settings'
 import 'flamelink/users'
 
 let firebaseApp
+let fb
 if (process.server) {
   const admin = require('firebase-admin')
 
@@ -19,6 +20,7 @@ if (process.server) {
   } else {
     firebaseApp = admin.app()
   }
+  fb = admin
 } else {
   const firebase = require('firebase/app')
   require('firebase/auth')
@@ -37,8 +39,9 @@ if (process.server) {
   } else {
     firebaseApp = firebase.app()
   }
+  fb = firebase
 }
 
-export const firebase = firebaseApp
+export const firebase = fb
 
 export const flamelink = fl({ firebaseApp, dbType: 'rtdb' })
