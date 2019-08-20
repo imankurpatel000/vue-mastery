@@ -19,12 +19,12 @@
       nuxt-link.button.secondary.border(to='/courses') View Our Courses
 
     .team-media
-      img(src='/images/vue-mastery-team.jpg' alt='Vue Mastery Team')
+      img(src='/images/vue-mastery-team2.jpg' alt='Vue Mastery Team')
 
     .team
       h1.title About The Team
-      p The Vue Mastery team is based in Orlando, Florida where Gregg Pollack (Teacher), Adam Jahr (Teacher), Chase Gregory (Marketing), and Melissa Koch (Legal &amp; Business) reside.
-      p Dustin Delatore (Design/Development) and Pierre Schweiger (Development) are the digital nomads on our team.  Your guess is as good as ours as to where they are or if they even have Internet at the moment.
+      p The Vue Mastery team is Gregg Pollack (Teacher), Adam Jahr (Teacher), Ben Hong (Teacher), Lauren Ramirez (Marketing), Pierre Schweiger (Development), and Melissa Koch (Legal &amp; Business).
+      p  Gregg, Adam, Lauren, and Melissa are in Orlando, Ben is in Washington DC, and Pierre is in France.
 
       nuxt-link.button.secondary.border(to='/contact') Contact Us
 
