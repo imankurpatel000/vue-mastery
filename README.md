@@ -2,24 +2,35 @@
 
 > The ultimate learning resource for Vue developers
 
-## Getting Started
-
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-You need a node version > v9
+## Getting Started
 
-```bash
-npm -v # need to be > v9
+### Prerequisites
 
-# if not:
-npm install -g n # install node version manager
-n latest # get latest node version
-```
+- [Node.js v9.0+](https://nodejs.org/en/)
+- [yarn](https://yarnpkg.com) - Optional, but recommended
+- `firebase.js` - Request from active developer
+- `serviceAccountKey.json` - Request from active developer
+
+### Instructions
+
+1. Clone repo
+1. Place `firebase.js` in project root directory
+1. Place `serviceAccountKey.json` in project root directory
+1. Open project in terminal
+1. Run the following commands
 
 ```bash
 # install dependencies
-$ npm install # Or yarn install
+$ yarn # or npm install
+# start local dev server
+$ yarn dev # or npm run dev
 ```
+
+You should now have a local server running with hot reloading at http://localhost:3000! 🎉
+
+## Deployment
 
 ### Prerequisites
 
@@ -102,15 +113,6 @@ $(npm bin)/cypress open
 ```
 
 ## Usage
-
-### Development
-
-```bash
-# serve with hot reloading at localhost:3000
-$ npm run dev
-```
-
-Go to [http://localhost:3000](http://localhost:3000)
 
 ### Production
 
