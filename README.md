@@ -2,39 +2,53 @@
 
 > The ultimate learning resource for Vue developers
 
-## Getting Started
-
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-You need a node version > v9
-``` bash
-npm -v # need to be > v9
+## Getting Started
 
-# if not:
-npm install -g n # install node version manager
-n latest # get latest node version
-```
+### Prerequisites
 
-``` bash
+- [Node.js v9.0+](https://nodejs.org/en/)
+- [yarn](https://yarnpkg.com) - Optional, but recommended
+- `firebase.js` - Request from active developer
+- `serviceAccountKey.json` - Request from active developer
+
+### Instructions
+
+1. Clone repo
+1. Place `firebase.js` in project root directory
+1. Place `serviceAccountKey.json` in project root directory
+1. Open project in terminal
+1. Run the following commands
+
+```bash
 # install dependencies
-$ npm install # Or yarn install
+$ yarn # or npm install
+# start local dev server
+$ yarn dev # or npm run dev
 ```
+
+You should now have a local server running with hot reloading at http://localhost:3000! 🎉
+
+## Deployment
 
 ### Prerequisites
 
 We need to install firebase tools to deploy.
 
-``` bash
+```bash
 $ npm install -g firebase-tools
 ```
 
 Tell firebase to use the default environment
-``` bash
+
+```bash
 firebase use default
 ```
 
 Initiate a connection to firebase:
-``` bash
+
+```bash
 firebase login
 ```
 
@@ -44,12 +58,12 @@ Because we don't want to share Firebase credential we need to create a `firebase
 
 ```js
 module.exports = {
-  'apiKey': 'info-from-firebase-web-instructions',
-  'authDomain': 'info-from-firebase-web-instructions',
-  'databaseURL': 'info-from-firebase-web-instructions',
-  'projectId': 'info-from-firebase-web-instructions',
-  'storageBucket': 'info-from-firebase-web-instructions',
-  'messagingSenderId': 'info-from-firebase-web-instructions'
+  apiKey: 'info-from-firebase-web-instructions',
+  authDomain: 'info-from-firebase-web-instructions',
+  databaseURL: 'info-from-firebase-web-instructions',
+  projectId: 'info-from-firebase-web-instructions',
+  storageBucket: 'info-from-firebase-web-instructions',
+  messagingSenderId: 'info-from-firebase-web-instructions'
 }
 ```
 
@@ -57,14 +71,15 @@ module.exports = {
 
 To use MailerLite, SparkPost, and stripe we need to configure environment keys using this command:
 
-``` bash
+```bash
 $ firebase functions:config:set mailerlite.key="THE KEY"
 $ firebase functions:config:set sparkpost.key="THE KEY"
 $ firebase functions:config:set stripe.token="THE KEY"
 ```
+
 To list the current config:
 
-``` bash
+```bash
 $ firebase functions:config:get
 ```
 
@@ -91,28 +106,19 @@ We will setup social login for Google and Github. We will need to login to your 
 
 ## Test
 
-We use Cypress to test 
+We use Cypress to test
 
-``` bash
+```bash
 $(npm bin)/cypress open
 ```
 
 ## Usage
 
-### Development
-
-``` bash
-# serve with hot reloading at localhost:3000
-$ npm run dev
-```
-
-Go to [http://localhost:3000](http://localhost:3000)
-
 ### Production
 
 This is just in case we want to deploy on different server then firebase hosting
 
-``` bash
+```bash
 # build for production and launch the server
 $ npm run build
 $ npm start
@@ -120,7 +126,7 @@ $ npm start
 
 ### Generate
 
-``` bash
+```bash
 # generate a static project
 $ npm run generate
 ```
@@ -130,7 +136,7 @@ $ npm run generate
 You should probably generate the static project before you deploy as the deployment take every static output from nuxt to the dist folder, which is then copy over to firebase host folder.
 The functions folder is also copy over and help us to respond to specific backend tasks.
 
-``` bash
+```bash
 # deploy the complete solution:
 $ firebase deploy
 # deploy only the functions:
@@ -145,7 +151,7 @@ $ npm run generate; firebase deploy
 
 You can deploy on staging or in production with this command:
 
-``` bash
+```bash
 # deploy solution in production
 $ firebase use default
 # deploy solution on staging
