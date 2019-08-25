@@ -1,14 +1,23 @@
 <template lang="pug">
-.lesson-wrapper
-  h1 test
-  //- Header(:course='post')
+.post-wrapper(
+  v-if='post'
+  v-cloak
+)
+  img.post-image(:src='post.image[0].url')
 
-  //- Body(
-  //-   :restricted='false'
-  //-   :course='post' 
-  //-   :locked='false' 
-  //-   :free='true'
-  //- )
+  h1.post-title {{ post.title }}
+
+  .post-info
+    img.author-image(
+      v-if='post.authorImage'
+      :src='post.authorImage[0].url'
+      :alt='post.author'
+    )
+    .post-info-text
+      h4.post-author {{ post.author }}
+      p.post-date {{ post.date | dateFormat }}
+
+  .post-body(v-html='body')
 </template>
 
 <script>
@@ -29,12 +38,13 @@ export default {
   },
 
   head () {
+    const imageUrl = this.post.image ? this.post.image[0].url : ''
     return meta.get({
       pageSlug: this.post.slug,
       pageTitle: this.post.title,
       category: 'blog',
       description: this.post.description,
-      image: this.post.image[0].url,
+      image: imageUrl,
       facebookImage: this.post.facebookImage[0].url || this.post.image[0].url,
       twitterImage: this.post.twitterImage[0].url || this.post.image[0].url,
       author: this.post.author || 'Adam Jahr'
@@ -44,7 +54,14 @@ export default {
   computed: {
     ...mapState({
       post: result => result.courses.post
-    })
+    }),
+    body () {
+      if (this.post.hasOwnProperty('markdown')) {
+        return this.$md.render(this.post.markdown)
+      } else {
+        return 'Loading'
+      }
+    }
   },
 
   async fetch ({ store, params }) {
@@ -52,3 +69,37 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.post-wrapper
+  max-width: 1000px
+  padding: 0 4%
+  margin: 50px auto
+
+.post-title
+  margin-top: 30px
+  margin-bottom: 50px
+
+.post-info
+  display: flex
+  align-items: center
+
+.post-author
+  margin: 0
+  padding: 0
+
+.post-date
+  margin: 0
+  font-size: 16px
+  color: #999
+
+.author-image
+  width: 70px
+  height: 70px
+  margin-right: 20px
+  border-radius: 50%
+  object-fit: contain
+
+.post-body
+  margin-top: 50px
+</style>

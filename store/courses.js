@@ -73,7 +73,7 @@ export const actions = {
       })
   },
 
-  getContent ({ commit, state, rootState }, { restricted, category, slug }) {
+  getContent ({ commit }, { restricted, category, slug }) {
     let action = category === 'lessons' ? 'LESSON' : 'TALK'
     if (restricted) {
       commit('PROTECTED_' + action)
@@ -220,36 +220,40 @@ export const actions = {
     return db.get({
       schemaKey: 'posts',
       orderByChild: 'date',
-      fields: [ 'slug', 'date', 'title', 'image' ],
+      fields: [ 'slug', 'date', 'title', 'image', 'author', 'authorImage', 'description' ],
       populate: [
         {
-          field: 'image',
-          subFields: [ 'image' ]
+          field: 'image'
+        },
+        {
+          field: 'authorImage'
         }
       ] })
       .then(posts => {
-        console.log(posts)
         commit('RECEIVE_POSTS', { posts })
       })
   },
-  getPost ({ commit, state, rootState }, { slug }) {
-    db.get({
+  getPost ({ commit }, slug) {
+    return db.get({
       schemaKey: 'posts',
       orderByChild: 'slug',
       limitToLast: 1,
       equalTo: slug,
-      fields: [
-        'title',
-        'slug',
-        'image',
-        'description',
-        'body',
-        'author',
-        'date',
-        'status',
-        'twitterImage',
-        'facebookImage',
-        'socialSharingDescription'
+      populate: [
+        {
+          field: 'image'
+        },
+        {
+          field: 'authorImage'
+        },
+        {
+          field: 'facebookImage',
+          subFields: [ 'facebookImage' ]
+        },
+        {
+          field: 'twitterImage',
+          subFields: [ 'twitterImage' ]
+        }
       ]
     })
       .then(content => {

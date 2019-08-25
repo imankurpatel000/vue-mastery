@@ -111,6 +111,22 @@ const getTalksPage = async function (db) {
     })
 }
 
+const getPostsPage = async function (db) {
+  return db.get({
+    schemaKey: 'posts',
+    populate: [{
+      field: 'image',
+      subFields: [ 'image' ]
+    }]})
+    .then(async posts => {
+      for (const key of Object.keys(posts)) {
+        const post = posts[key]
+        result.pages.push(`/blog/${post.slug}`)
+      }
+      return result
+    })
+}
+
 module.exports = async function () {
   console.log('Get dynamic routes')
   const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
@@ -130,5 +146,6 @@ module.exports = async function () {
 
   await getCoursesPage(db, result)
   await getTalksPage(db, result)
+  // await getPostsPage(db, result)
   return result
 }
