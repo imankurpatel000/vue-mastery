@@ -1,23 +1,30 @@
 <template lang="pug">
-.post-wrapper(
-  v-if='post'
-  v-cloak
-)
-  img.post-image(:src='post.image[0].url')
+div
+  .post-wrapper(
+    v-if='post'
+    v-cloak
+  )
+    img.post-image(:src='post.image[0].url')
 
-  h1.post-title {{ post.title }}
+    h1.post-title {{ post.title }}
 
-  .post-info
-    img.author-image(
-      v-if='post.authorImage'
-      :src='post.authorImage[0].url'
-      :alt='post.author'
-    )
-    .post-info-text
-      h4.post-author {{ post.author }}
-      p.post-date {{ post.date | dateFormat }}
+    .post-info
+      img.author-image(
+        v-if='post.authorImage'
+        :src='post.authorImage[0].url'
+        :alt='post.author'
+      )
+      .post-info-text
+        h4.post-author {{ post.author }}
+        p.post-date {{ post.date | dateFormat }}
 
-  .post-body(v-html='body')
+    .post-body(v-html='body')
+
+    .post-related(v-if='related')
+      h2 If you like this blog post, you may want to watch:
+      LearningPath(:courses='related' :account='account')
+
+  CheatSheetMain
 </template>
 
 <script>
@@ -25,6 +32,8 @@ import { mapState } from 'vuex'
 import Header from '~/components/lessons/Header'
 import Body from '~/components/lessons/Body'
 import Profile from '~/components/lessons/Profile'
+import LearningPath from '~/components/courses/LearningPath'
+import CheatSheetMain from '~/components/static/CheatSheetMain'
 import meta from '~/mixins/meta'
 
 export default {
@@ -34,7 +43,9 @@ export default {
   components: {
     Header,
     Body,
-    Profile
+    Profile,
+    LearningPath,
+    CheatSheetMain
   },
 
   head () {
@@ -53,8 +64,21 @@ export default {
 
   computed: {
     ...mapState({
-      post: result => result.courses.post
+      account: result => result.account.account,
+      post: result => result.courses.post,
+      courses: result => result.courses.courses
     }),
+
+    related () {
+      const r = this.post.relatedCourses
+      return Object.keys(this.courses)
+        .filter(key => r.includes(parseInt(key)))
+        .reduce((obj, key) => {
+          obj[key] = this.courses[key]
+          return obj
+        }, {})
+    },
+
     body () {
       if (this.post.hasOwnProperty('markdown')) {
         return this.$md.render(this.post.markdown)
@@ -65,6 +89,7 @@ export default {
   },
 
   async fetch ({ store, params }) {
+    await store.dispatch('courses/getAllCourses')
     await store.dispatch('courses/getPost', params.slug)
   }
 }
@@ -102,4 +127,7 @@ export default {
 
 .post-body
   margin-top: 50px
+
+.post-related
+  margin 120px 0 50px 0
 </style>

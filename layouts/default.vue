@@ -3,7 +3,7 @@
     Announcement
     PageHeader(:class='$route.name')
     nuxt
-    VuePodcast(v-if="$route.name !== 'thank-you-annual' && $route.name !== 'thank-you-monthly' && $route.name !== 'pricing'" v-cloak)
+    VuePodcast(v-if="showPodcast" v-cloak)
     PageFooter
     AuthForm
 </template>
@@ -24,6 +24,13 @@ export default {
     VuePodcast,
     PageFooter,
     AuthForm
+  },
+
+  computed: {
+    showPodcast () {
+      const exceptions = ['thank-you-annual', 'thank-you-monthly', 'thank-you-summer', 'pricing', 'blog-slug']
+      return exceptions.indexOf(this.$route.name) < 0
+    }
   }
 }
 </script>
