@@ -137,6 +137,14 @@ export default {
   width 100%
   padding 20px
 
+  @media screen and (max-width: 30em)
+    padding-top 35px
+    flex-flow column
+    text-align center
+
+    .post-meta
+      margin-left: 0
+
 .post-meta
   font-size 16px
   display flex
