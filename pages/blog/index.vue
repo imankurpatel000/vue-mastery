@@ -26,7 +26,7 @@
                   )
                   .post-info-text
                     h4.post-author {{ post.author }}
-                    p.post-date {{ post.date | dateFormat }}
+                    p.post-date {{ post.date | dateFormat("D MMMM YYYY") }}
                 .button.secondary.border.-full Read Article
 
 </template>
