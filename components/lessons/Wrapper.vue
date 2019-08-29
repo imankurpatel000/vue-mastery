@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   .lesson-wrapper(
-    v-if='course'
+    v-if='course && ready'
     v-cloak
   )
     Header(:course='course')
@@ -152,7 +152,18 @@ export default {
 
   data () {
     return {
-      isCompleted: false
+      isCompleted: false,
+      ready: false
+    }
+  },
+
+  mounted () {
+    if (this.account) {
+      this.ready = true
+    } else {
+      setTimeout(() => {
+        this.ready = true
+      }, 2000)
     }
   },
 
