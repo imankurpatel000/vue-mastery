@@ -16,7 +16,7 @@ div
       )
       .post-info-text
         h4.post-author {{ post.author }}
-        p.post-date {{ post.date | dateFormat }}
+        p.post-date {{ post.date | dateFormat("D MMMM YYYY") }}
 
     .post-body(v-html='body')
 
@@ -126,7 +126,10 @@ export default {
   object-fit: contain
 
 .post-body
-  margin-top: 50px
+  font-size 16px
+
+  +tablet-up()
+    font-size 22px
 
 .post-related
   margin 120px 0 50px 0
