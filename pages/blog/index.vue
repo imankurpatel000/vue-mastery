@@ -160,7 +160,7 @@ export default {
 
   position absolute
   top 244px
-  z-index 122
+  z-index 1
   right 0px
   background #fff
   padding 4px 20px 5px 0px
