@@ -8,16 +8,16 @@ nuxt-link.course-card(:to='linkTo()')
   div.course-heading
     label.free-label(v-if='isFreeCourse' cloak) Free Course
     label.free-label(v-else-if='isComingSoon' cloak) Lessons coming soon
-    label.free-label(v-else-if='hasUpcomingLessons' cloak) Releasing New Lessons Weekly
+    label.free-label(v-else-if='hasUpcomingLessons' cloak) Releasing New Lessons
     label.free-label(v-else-if='hasFreeLesson' cloak) Free Lesson Inside
     h2.title {{ course.title }}
 
   ul.course-info
-    li.info-item(v-if='hasLessons()' cloak) #[Icon(name='book')] 
+    li.info-item(v-if='hasLessons()' cloak) #[Icon(name='book')]
       span {{ inProgress || course.lessonsCount + ` lesson${course.lessonsCount > 1 ? 's' : ''}` | capitalize }}
     li.info-item(v-if="hasDuration()") #[Icon(name='clock')] {{ course.duration | timeToText}}
     li.info-item(v-if="course.difficulty") #[Difficulty(:level='course.difficulty')] {{ course.difficulty | capitalize }}
-  
+
   p.course-content {{ course.description }}
 
   CoursePathActions(:course='course'
@@ -178,7 +178,7 @@ export default {
   grid-template-areas 'course-heading course-heading'\
                       'course-info course-badge'\
                       'course-content course-content'
-  
+
   +tablet-up()
     padding: $size.by-2
     grid-column-gap: $size.by-2
@@ -201,7 +201,7 @@ export default {
 
 .free-label
   font-weight 700
-  
+
 .title
   padding-top: $size.by-0
   color $black
@@ -247,5 +247,5 @@ export default {
 
   +tablet-up()
     margin: $size.by-0
-      
+
 </style>
