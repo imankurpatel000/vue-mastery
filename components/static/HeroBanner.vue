@@ -1,82 +1,80 @@
 <template lang='pug'>
   .banner
-    .wrapper
-      .body
-        h1.title The ultimate learning resource for Vue developers
-        p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
-
-      .video
-        .video-wrapper
-          iframe(src='https://player.vimeo.com/video/266753814' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
-        //- vimeo-player(ref='player' video-id='266753814' player-width='800')
+    HeroImage
+    .text
+      h1.title The ultimate learning resource for Vue developers
+      p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
 
       .actions
-        nuxt-link.button.inverted(to='/courses') VIEW COURSES
-        nuxt-link.button.secondary(to='/pricing') SUBSCRIBE
+        nuxt-link.button.inverted(to='/courses') Explore courses
 </template>
 
 <script>
-import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
+import HeroImage from '~/components/static/HeroImage'
 
 export default {
   name: 'hero-banner',
 
   components: {
-    PlayerPlaceholder
+    HeroImage
   }
 }
 </script>
 
 <style lang='stylus' scoped>
-.wrapper
-  grid-row-gap 20px
-  margin-top -($header-height)
-  padding-top ($header-height + $vertical-space/2.5)
-  padding-bottom ($vertical-space/2.5)
-
-  +desktop-up()
-    padding-top ($header-height + $vertical-space/1.5)
-    padding-bottom ($vertical-space/1.5)
+.text
+  position absolute
+  color white
+  top: 20%
+  text-align: center
+  padding: 0 15px;
+  width: 100%
+  height: 100%
+  +tablet-up()
+    top: 14%
+  +laptop-up()
+    top: 20%
 
 .banner
-  background-image url(/images/hero-1.svg)
-  background-position center top
-  background-size cover
-
-  +laptop-up()
-    background-position 75% top
-    background-size 225%
-
-  +desktop-up()
-    background-size cover
-
-.body
-  display grid
-  justify-content center
-  align-items center
-  text-align center
+  position: relative;
+  overflow: hidden;
+  max-height: 92vh;
 
 .title
+  max-width: 300px;
   padding-top 0
-  max-width 800px
-  margin 0
-  color $secondary-color
+  margin 0 auto
+  font-size: 24px;
+  font-weight: 600;
 
   +tablet-up()
-    font-size 56px
-
-.lead
-  font-size 18px
-  color $gray
+    font-size: 29px;
+    max-width: 400px;
 
   +laptop-up()
-    font-size: 24px
+    font-size: 40px;
+    max-width 550px
+
+.lead
+  font-size: 16px;
+  font-weight: 400;
 
 .actions
-  display flex
-  justify-content center
+  +mobile-only()
+    position: absolute
+    top: 64%
+    left: 0
+    width: 100%
   .button
-    margin-right 10px
+    background: rgb(92,86,182);
+    background: linear-gradient(180deg, rgba(92,86,182,1) 0%, rgba(116,110,202,1) 100%);
+    line-height: 35px;
+    color: #fff;
+    padding: 14px;
+    border-radius: 4px;
+    height: 36px;
+    font-size: 14px;
+    font-weight: 600;
 
 .video
   +tablet-up()

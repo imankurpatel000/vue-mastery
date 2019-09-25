@@ -1,11 +1,12 @@
 <template lang='pug'>
   .container(:class="$store.state.openNav ? 'open-nav': ''")
-    Announcement
-    PageHeader(:class='$route.name')
-    nuxt
-    VuePodcast(v-if="showPodcast" v-cloak)
-    PageFooter
-    AuthForm
+    //- Announcement
+    .main
+      PageHeader(:class='$route.name')
+      nuxt
+      VuePodcast(v-if="showPodcast" v-cloak)
+      PageFooter
+      AuthForm
 </template>
 
 <script>
@@ -34,3 +35,8 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.main
+  position: relative
+</style>
