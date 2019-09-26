@@ -2,6 +2,7 @@
   .container(:class="$store.state.openNav ? 'open-nav': ''")
     //- Announcement
     .main
+      HeroImage(:class='$route.name')
       PageHeader(:class='$route.name')
       nuxt
       VuePodcast(v-if="showPodcast" v-cloak)
@@ -15,12 +16,14 @@ import PageHeader from '~/components/header/Header.vue'
 import VuePodcast from '~/components/static/VuePodcast.vue'
 import PageFooter from '~/components/footer/Footer.vue'
 import AuthForm from '~/components/account/Accountmodal.vue'
+import HeroImage from '~/components/static/HeroImage'
 
 export default {
   name: 'default-layout',
 
   components: {
     Announcement,
+    HeroImage,
     PageHeader,
     VuePodcast,
     PageFooter,
