@@ -31,7 +31,6 @@
 import { mapState } from 'vuex'
 import FeaturedCourses from '~/components/courses/FeaturedCourses'
 import FeaturedLessons from '~/components/courses/FeaturedLessons'
-import Hero from '~/components/static/HeroBanner'
 import MeetTeachers from '~/components/static/MeetTeachers'
 import CommunitySupport from '~/components/static/CommunitySupport'
 import CheatSheetMain from '~/components/static/CheatSheetMain'
@@ -54,7 +53,6 @@ export default {
   },
 
   components: {
-    Hero,
     FeaturedLessons,
     FeaturedCourses,
     MeetTeachers,
