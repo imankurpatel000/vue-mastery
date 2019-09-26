@@ -1,23 +1,16 @@
 <template lang='pug'>
   .banner
-    HeroImage
     .text
       h1.title The ultimate learning resource for Vue developers
       p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
 
-      .actions
-        nuxt-link.button.inverted(to='/courses') Explore courses
+      //- .actions
+      //-   nuxt-link.button.inverted(to='/courses') Explore courses
 </template>
 
 <script>
-import HeroImage from '~/components/static/HeroImage'
-
 export default {
-  name: 'hero-banner',
-
-  components: {
-    HeroImage
-  }
+  name: 'hero-banner'
 }
 </script>
 
@@ -38,7 +31,8 @@ export default {
 .banner
   position: relative;
   overflow: hidden;
-  max-height: 92vh;
+  min-height: 600px
+  height: 92vh;
 
 .title
   max-width: 300px;

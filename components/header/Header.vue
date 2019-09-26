@@ -121,7 +121,8 @@ export default {
 .header
   position relative
   top 0
-  z-index 2
+  z-index 4
+
   .wrapper
     height $header-height
     display flex
