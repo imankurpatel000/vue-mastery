@@ -109,6 +109,12 @@ export default {
   .logo
     transform: translateX(-50%)
     margin-left: 50%
+  .index
+    .st0
+      fill: #36495E !important
+
+  .hamburger:before, .hamburger:after
+    background-color: #222 !important
 </style>
 
 <style lang="stylus" scoped>
@@ -140,26 +146,21 @@ export default {
     min-width 200px
     margin: -10px 70px 0 0
 
-.index {
+.index
   position: absolute;
   width: 100%;
 
-  ::v-deep .navbar-item {
-    color: #fff;
-  }
+  +laptop-up()
+    ::v-deep .navbar-item
+      color: #fff
 
-  .hamburger:before, .hamburger:after {
-    background-color: #fff;
-  }
+  .hamburger:before, .hamburger:after
+    background-color: #fff
 
-  .st0 {
-    fill: white !important;
-  }
-}
+  .st0
+    fill: white
 
-svg {
-  width: 282px;
-  height: 49.34px;
-  max-width: 100%;
-}
+svg
+  width: 282px
+  height: 49.34px
 </style>
