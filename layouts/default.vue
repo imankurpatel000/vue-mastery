@@ -1,6 +1,6 @@
 <template lang='pug'>
   .container(:class="$store.state.openNav ? 'open-nav': ''")
-    Announcement
+    //- Announcement
     PageHeader(:class='$route.name')
     nuxt
     VuePodcast(v-if="showPodcast" v-cloak)
