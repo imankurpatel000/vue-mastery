@@ -101,15 +101,18 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
   width: 100%
   height: 100%
   +tablet-up()
-    top: 14%
-  +laptop-up()
     top: 20%
+  // +laptop-up()
+  //   top: 20%
+  @media screen and (orientation: landscape) and (max-width: 40em)
+    top: 90px
 
 .hero-wrapper
   grid-area: hero
   max-height: 92vh
-  min-height: 600px
   position: relative
+  @media (orientation: portrait)
+    min-height: 600px
 
 .hero
   height: 0;
