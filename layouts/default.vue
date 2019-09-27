@@ -2,7 +2,7 @@
   .container(:class="$store.state.openNav ? 'open-nav': ''")
     //- Announcement
     .main
-      HeroImage(:class='$route.name')
+      HeroImage(:class='$route.name' :isIndex='$route.name === "index"')
       PageHeader(:class='$route.name')
       nuxt
       VuePodcast(v-if="showPodcast" v-cloak)
