@@ -146,6 +146,6 @@ module.exports = async function () {
 
   await getCoursesPage(db, result)
   await getTalksPage(db, result)
-  // await getPostsPage(db, result)
+  await getPostsPage(db, result)
   return result
 }
