@@ -104,7 +104,7 @@
     section.public-section
       .text-wrapper.text-center
         h3.display-3 Private Workshops
-        p.lead If your company wants onsite training, we’d love to send two of our teachers to run this workshop with your team.
+        p.lead If your company wants onsite training, we’d love to run this workshop with your team.
 
         h5 Cost: #[b $9,000] for 1-Day, #[b $12,000] for 2-Days
         p (for 10 or less developers, then $1,000 per extra developer)

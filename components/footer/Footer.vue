@@ -16,6 +16,8 @@ footer.footer
         li
           nuxt-link(to='/conferences' class="-inverted") Conference Videos
         li
+          nuxt-link(to='/blog' class="-inverted") Blog
+        li
           nuxt-link(to='/live-training' class="-inverted") Live Training
         li
           nuxt-link(to='/pricing' class="-inverted") Pricing

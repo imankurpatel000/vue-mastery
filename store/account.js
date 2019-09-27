@@ -157,7 +157,7 @@ export const actions = {
       console.log(error)
     })
   },
-  userUpdatePassword (newPassword) {
+  userUpdatePassword ({ state }, newPassword) {
     const user = firebase.auth().currentUser
 
     return user.updatePassword(newPassword).catch((error) => {

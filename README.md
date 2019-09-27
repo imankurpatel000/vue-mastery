@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- [Node.js v9.0+](https://nodejs.org/en/)
+- [Node.js v12.0+](https://nodejs.org/en/)
 - [yarn](https://yarnpkg.com) - Optional, but recommended
 - `firebase.js` - Request from active developer
 - `serviceAccountKey.json` - Request from active developer

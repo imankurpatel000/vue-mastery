@@ -5,6 +5,7 @@
         router-link.navbar-item.underline(to="/account/dashboard" v-if="account") Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/pricing" v-if="!account || (account && !account.subscribed)" v-cloak) Pricing
+      router-link.navbar-item.underline(to="/blog") Blog
       router-link.navbar-item.underline(to="/conferences") Conference Videos
       router-link.navbar-item.underline(to="/live-training") Live Training
 
