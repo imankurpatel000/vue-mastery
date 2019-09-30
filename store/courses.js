@@ -217,10 +217,11 @@ export const actions = {
   },
   getAllPosts ({ commit, state }) {
     if (state.posts) return true
+
     return db.get({
       schemaKey: 'posts',
       orderByChild: 'date',
-      fields: [ 'slug', 'date', 'title', 'image', 'author', 'authorImage', 'description' ],
+      fields: [ 'slug', 'date', 'title', 'image', 'author', 'authorImage', 'description', 'status' ],
       populate: [
         {
           field: 'image'
@@ -230,7 +231,14 @@ export const actions = {
         }
       ] })
       .then(posts => {
-        commit('RECEIVE_POSTS', { posts })
+        let publishedPost = Object.values(posts)
+        publishedPost = publishedPost.filter(key => {
+          return key.status === 'published'
+        }).sort((a, b) => {
+          return new Date(b.date) - new Date(a.date)
+        })
+
+        commit('RECEIVE_POSTS', publishedPost)
       })
   },
   getPost ({ commit }, slug) {
@@ -308,7 +316,7 @@ export const mutations = {
   'RECEIVE_POST' (state, { content }) {
     state.post = content
   },
-  'RECEIVE_POSTS' (state, { posts }) {
+  'RECEIVE_POSTS' (state, posts) {
     state.posts = posts
   }
 }

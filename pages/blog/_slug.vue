@@ -71,12 +71,16 @@ export default {
 
     related () {
       const r = this.post.relatedCourses
-      return Object.keys(this.courses)
-        .filter(key => r.includes(parseInt(key)))
-        .reduce((obj, key) => {
-          obj[key] = this.courses[key]
-          return obj
-        }, {})
+      if (r) {
+        return Object.keys(this.courses)
+          .filter(key => r.includes(parseInt(key)))
+          .reduce((obj, key) => {
+            obj[key] = this.courses[key]
+            return obj
+          }, {})
+      } else {
+        return false
+      }
     },
 
     body () {
@@ -127,6 +131,7 @@ export default {
 
 .post-body
   font-size 16px
+  margin-bottom: 120px
 
   +tablet-up()
     font-size 22px

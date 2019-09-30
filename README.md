@@ -34,22 +34,27 @@ You should now have a local server running with hot reloading at http://localhos
 
 ### Prerequisites
 
-We need to install firebase tools to deploy.
+- Install [Firebase CLI](https://github.com/firebase/firebase-tools) globally
+- Access to Firebase project with a Google account
 
-```bash
-$ npm install -g firebase-tools
-```
+### Instructions
 
-Tell firebase to use the default environment
+1. Tell firebase to use the default environment
 
 ```bash
 firebase use default
 ```
 
-Initiate a connection to firebase:
+2. Initiate a connection to firebase
 
 ```bash
 firebase login
+```
+
+3. Deploy application
+
+```bash
+npm run deploy
 ```
 
 ### Firebase Setup
@@ -131,9 +136,8 @@ $ npm start
 $ npm run generate
 ```
 
-## Deployment
-
 You should probably generate the static project before you deploy as the deployment take every static output from nuxt to the dist folder, which is then copy over to firebase host folder.
+
 The functions folder is also copy over and help us to respond to specific backend tasks.
 
 ```bash
@@ -143,8 +147,8 @@ $ firebase deploy
 $ firebase deploy --only functions
 # deploy only the generated static pages:
 $ firebase deploy --only hosting
-# Shortcut that you should probably use all the time for deployment:
-$ npm run generate; firebase deploy
+# Shortcut that you should use all of the time for deployment:
+$ npm run deploy
 ```
 
 ### Staging vs production

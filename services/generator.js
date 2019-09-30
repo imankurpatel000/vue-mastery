@@ -121,7 +121,9 @@ const getPostsPage = async function (db) {
     .then(async posts => {
       for (const key of Object.keys(posts)) {
         const post = posts[key]
-        result.pages.push(`/blog/${post.slug}`)
+        if (post.status === 'published') {
+          result.pages.push(`/blog/${post.slug}`)
+        }
       }
       return result
     })
@@ -144,8 +146,8 @@ module.exports = async function () {
   }
   const db = flamelink({ firebaseApp, isAdminApp: true, env: conf.env }).content
 
-  await getCoursesPage(db, result)
-  await getTalksPage(db, result)
-  // await getPostsPage(db, result)
+  await getCoursesPage(db)
+  await getTalksPage(db)
+  await getPostsPage(db)
   return result
 }
