@@ -1,33 +1,43 @@
 <template lang='pug'>
-  g(:style='style')
+  g(ref='g')
     slot
 </template>
 
 <script>
+import { TimelineMax } from 'gsap'
+
 export default {
   name: 'difficulty-level',
   props: {
     speed: {
       type: Number
     },
-    scrollY: {
-      type: Number
-    },
     isMobile: {
       type: Boolean,
       default: false
+    },
+    progress: {
+      type: Number
     }
   },
   data () {
     return {
-      x: 0,
-      y: 0
+      timeline: null
     }
   },
-  computed: {
-    style () {
-      const y = this.scrollY * this.speed / 100
-      return `transform: translate3d(${this.isMobile ? '10%' : '0'},${y}px,0)`
+  mounted () {
+    const { g } = this.$refs
+    this.timeline = new TimelineMax({ paused: true })
+      .to(g, 1, { y: window.innerHeight * this.speed / 100 })
+  },
+  watch: {
+    progress (newVal) {
+      if (this.timeline) {
+        let progress = this.timeline.progress()
+        // ease can be anything from 0.5 to 0.01
+        progress += (newVal - progress) * 0.5
+        this.timeline.progress(progress)
+      }
     }
   }
 }
