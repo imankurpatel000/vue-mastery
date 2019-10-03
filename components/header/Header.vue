@@ -162,6 +162,9 @@ export default {
     fill: white
 
 svg
-  width: 282px
+  width: 200px
   height: 49.34px
+
+  +laptop-up()
+    width: 282px
 </style>

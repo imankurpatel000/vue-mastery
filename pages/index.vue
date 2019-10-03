@@ -8,8 +8,8 @@
 
           //- .actions
           //-   nuxt-link.button.inverted(to='/courses') Explore courses
-    .free-videos
-      FeaturedLessons(:featured='featured' :account='account')
+    //- .free-videos
+    //-   FeaturedLessons(:featured='featured' :account='account')
     .course-list
       .section
         h2.title Courses
@@ -110,6 +110,7 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
 .hero-wrapper
   grid-area: hero
   max-height: 92vh
+  min-height: 600px
   position: relative
   @media (orientation: portrait)
     min-height: 600px
@@ -178,13 +179,13 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
   .button
     width max-content
 
-+desktop-up()
-  .homepage
-    grid-template-areas 'hero hero'\
-      'free-videos course-list'\
-      'vue-conf vue-conf'\
-      'meet-teachers meet-teachers'\
-      'cheatsheet cheatsheet'\
-      'community community'\
-      'podcast podcast'
+// +desktop-up()
+//   .homepage
+//     grid-template-areas 'hero hero'\
+//       'free-videos course-list'\
+//       'vue-conf vue-conf'\
+//       'meet-teachers meet-teachers'\
+//       'cheatsheet cheatsheet'\
+//       'community community'\
+//       'podcast podcast'
 </style>
