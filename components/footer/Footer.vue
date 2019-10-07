@@ -25,6 +25,8 @@ footer.footer
           nuxt-link(to='/vue-cheat-sheet' class="-inverted") Vue Cheat Sheet
         li
           nuxt-link(to='/nuxt-cheat-sheet' class="-inverted") Nuxt Cheat Sheet
+        li
+          nuxt-link(to='/vue-3-cheat-sheet' class="-inverted") Vue 3 Cheat Sheet
     .nav-2
       h4 About Us
       ul.list-unstyled

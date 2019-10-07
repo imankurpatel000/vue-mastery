@@ -11,7 +11,7 @@ form.form(@submit.prevent='submit')
       ul
         li The ability to track your progress as you complete lessons
         li Early access to lessons before we officially release them
-        li Access to download our ultimate Vue.js Cheat Sheet
+        li Access to download our Vue.js Cheat Sheets
 
   .form-group
     label.label(for='email') Email
