@@ -1,15 +1,16 @@
 <template lang='pug'>
-  .homepage
+  .homepage(:class='{ready: ready}')
     .hero-wrapper
       .hero
         .text
           h1.title The ultimate learning resource for Vue developers
           p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
 
-          //- .actions
-          //-   nuxt-link.button.inverted(to='/courses') Explore courses
-    //- .free-videos
-    //-   FeaturedLessons(:featured='featured' :account='account')
+      .actions
+        nuxt-link.button.inverted(to='/courses') Explore courses
+
+    .free-videos
+      FeaturedLessons(:featured='featured' :account='account')
     .course-list
       .section
         h2.title Courses
@@ -52,6 +53,16 @@ export default {
     }
   },
 
+  data () {
+    return {
+      ready: false
+    }
+  },
+
+  mounted () {
+    this.ready = true
+  },
+
   components: {
     FeaturedLessons,
     FeaturedCourses,
@@ -92,6 +103,15 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
   z-index: 2;
   position: relative;
 
+  &.ready
+    ::v-deep .title,
+    .hero-wrapper
+      opacity: 1
+      transition: ease-in .3s 1.3s
+
+::v-deep .title
+  opacity: 0
+
 .text
   position absolute
   color white
@@ -102,8 +122,7 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
   height: 100%
   +tablet-up()
     top: 20%
-  // +laptop-up()
-  //   top: 20%
+
   @media screen and (orientation: landscape) and (max-width: 40em)
     top: 90px
 
@@ -112,6 +131,8 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
   max-height: 92vh
   min-height: 600px
   position: relative
+  opacity: 0
+
   @media (orientation: portrait)
     min-height: 600px
 
@@ -139,21 +160,17 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
   font-weight: 400;
 
 .actions
-  +mobile-only()
-    position: absolute
-    top: 64%
-    left: 0
-    width: 100%
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 50px;
+  text-align: center;
+
   .button
-    background: rgb(92,86,182);
-    background: linear-gradient(180deg, rgba(92,86,182,1) 0%, rgba(116,110,202,1) 100%);
-    line-height: 35px;
-    color: #fff;
-    padding: 14px;
-    border-radius: 4px;
-    height: 36px;
-    font-size: 14px;
-    font-weight: 600;
+    width: max-content
+
+  +mobile-only()
+    top: 58%;
 
 .section
   .title
@@ -179,13 +196,13 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
   .button
     width max-content
 
-// +desktop-up()
-//   .homepage
-//     grid-template-areas 'hero hero'\
-//       'free-videos course-list'\
-//       'vue-conf vue-conf'\
-//       'meet-teachers meet-teachers'\
-//       'cheatsheet cheatsheet'\
-//       'community community'\
-//       'podcast podcast'
++desktop-up()
+  .homepage
+    grid-template-areas 'hero hero'\
+      'free-videos course-list'\
+      'vue-conf vue-conf'\
+      'meet-teachers meet-teachers'\
+      'cheatsheet cheatsheet'\
+      'community community'\
+      'podcast podcast'
 </style>
