@@ -361,6 +361,10 @@ module.exports = {
     {
       src: '~/plugins/social',
       mode: 'client'
+    },
+    {
+      src: '~/plugins/skrollr',
+      mode: 'client'
     }
   ],
   /*
