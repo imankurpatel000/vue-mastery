@@ -30,6 +30,12 @@ aside.lesson-aside
         p All the Nuxt.js syntax at your fingertips
         DownloadButtonNuxt(button-class='inverted' location='Vueconf download button')
 
+    .card.download(v-if='!isLesson' v-cloak)
+      .card-body
+        h3 Download the Vue 3 Cheat Sheet
+        p Get a head start on the Composition API
+        DownloadButtonVue3(button-class='inverted' location='Vueconf download button')
+
     .card.communication.text-center(v-if='isLesson')
       .card-body
         a.button.primary.border.-full(href='https://www.facebook.com/groups/152305585468331/') Discuss in our Facebook Group
