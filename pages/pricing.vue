@@ -6,31 +6,15 @@
       .pricing-content
         h2.title Becoming a Vue Mastery Paid Subscriber means
         ul
-          li Access to all paid content. New Lessons Weekly.
-          li The ability to track your course progress.
-          li Supporting the Vue.js News Podcast.
-          li Most importantly, supporting the Vue.js project itself.
+          li Accessing all paid content. New Lessons Weekly.
+          li Unlocking 3 Vue Cheat Sheets.
+          li Track your course progress and earning badges.
+          li Supporting our Blog & Podcast.
+          li Most importantly, funding the Vue.js project itself.
 
       .pricing-structure
         .page-title.text-center
           h2 Pricing
-
-        .free-sub
-          .card
-            .card-body
-              h3.text-center Free
-
-              .money
-                .symbol $
-                .decimal 0
-
-              .text
-                p Free Vue.js CheatSheet
-                p Access to the complete Intro to Vue course
-                p Free educational content delivered to your inbox
-
-              button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
-
 
         .monthly
           .card
@@ -53,28 +37,6 @@
                 span 14-day money-back guarantee
 
               button.button.primary.-full(@click="subscribe('monthly-subscription')") Select Plan
-
-        .summer-card
-          .card
-            .card-body
-              h3.text-center 3 Months
-
-              .money
-                .symbol $
-                .decimal 49
-
-              .text-center
-                i Access to all premium content
-
-              .benefit
-                img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $12 of your subscription goes to supporting the Vue.js project itself.
-
-              .benefit.color-gold
-                i.fas.fa-shield-alt
-                span 14-day money-back guarantee
-
-              button.button.primary.-full(@click="subscribe('3-month-subscription')") Select Plan
 
         .annually
           .card
@@ -102,6 +64,22 @@
                   small ($38 discount)
 
               button.button.primary.-full(@click="subscribe('year-subscription')") Select Plan
+
+        .free-sub
+          .card
+            .card-body
+              h3.text-center Free
+
+              .money
+                .symbol $
+                .decimal 0
+
+              .text
+                p Free Vue.js CheatSheet
+                p Access to the complete Intro to Vue course
+                p Free educational content delivered to your inbox
+
+              button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
 
         .team
           .card
@@ -256,7 +234,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-build-grid-area(pricing-content pricing-structure page-title summer-card monthly annually team)
+build-grid-area(pricing-content pricing-structure page-title monthly annually team)
 
 .pricing-layout
   display grid
@@ -292,24 +270,23 @@ build-grid-area(pricing-content pricing-structure page-title summer-card monthly
   grid-row-gap 20px
   grid-template-columns 1fr
   grid-template-areas 'page-title'\
-                      'free-sub'\
                       'monthly'\
-                      'summer-card'\
                       'annually'\
+                      'free-sub'\
                       'team'
 
   +tablet-up()
     grid-column-gap 20px
     grid-template-columns 1fr 1fr 1fr
     grid-template-areas 'page-title page-title page-title'\
-                        'free-sub monthly summer-card'\
-                        'annually team nothing'
+                        'monthly annually free-sub'\
+                        'team nothing nothing'
 
   // +desktop-up()
   //   align-items stretch
   //   grid-template-columns 1fr 1fr 1fr 1fr 1fr
   //   grid-template-areas 'page-title page-title page-title page-title page-title'\
-  //                       'free-sub monthly summer-card annually team'\
+  //                       'free-sub monthly annually team'\
 
 .page-title h2
   color $secondary-color
