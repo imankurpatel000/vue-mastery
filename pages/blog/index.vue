@@ -86,7 +86,7 @@ export default {
   margin-top 40px
   margin-bottom 40px
 
-  +laptop-up()
+  @media screen and (min-width: 70em)
     grid-column-gap 4%
     grid-template-columns 1fr 1fr
 
@@ -111,12 +111,14 @@ export default {
   position relative
   height 100%
   display grid
-  grid-template-rows 300px 1fr
   background #fff
   box-shadow 0 1px 4px 0 rgba(0,0,0,0.30)
   overflow hidden
   border-radius 12px
   transition box-shadow .5s cubic-bezier(0.19, 1, 0.22, 1)
+
+  +tablet-up()
+    grid-template-rows 300px 1fr
 
   &:hover
     box-shadow 0 2px 7px 0 rgba(0, 0, 0, .3)
@@ -126,8 +128,9 @@ export default {
 
 .post-image
   object-fit cover
-  height 100%
   min-height 150px
+  +tablet-up()
+    height 100%
 
 .post-body
   display flex
@@ -157,28 +160,33 @@ export default {
   display flex
   align-items center
   margin-top 10px
-
-  position absolute
-  top 244px
+  position relative
+  padding 0 0 20px 0
   z-index 1
   right 0px
   background #fff
-  padding 4px 20px 5px 0px
+  text-align: left
 
-  &:before
+  +tablet-up()
     position absolute
-    top 0px
-    left -100px
-    content ""
-    display block
-    width 200px
-    height 84px
-    background-position right top
-    background-repeat no-repeat
-    background-size 200px auto
-    background-image url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NiAzMSI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmZmY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5iZ19zb3VyY2VfYmFkZ2VfMTwvdGl0bGU+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik01Ny42NywxMS45NEM1Mi4zNiw2LjcxLDQ4LjQyLDAsMzguMywwSDM3LjdDMjcuNTgsMCwyMy42NCw2LjcxLDE4LjMzLDExLjk0LDE0LjQ3LDE2Ljc2LDYuNjEsMTcuODEsMCwxOFYzMUg3NlYxOEM2OS4zOSwxNy44MSw2MS41MywxNi43Niw1Ny42NywxMS45NFoiLz48L2c+PC9nPjwvc3ZnPg==")
-    clip rect(0px, 200px, 46px, 10px)
-    z-index -1
+    padding 4px 20px 5px 0px
+    top 244px
+    text-align center
+
+    &:before
+      position absolute
+      top 0px
+      left -100px
+      content ""
+      display block
+      width 200px
+      height 84px
+      background-position right top
+      background-repeat no-repeat
+      background-size 200px auto
+      background-image url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NiAzMSI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmZmY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5iZ19zb3VyY2VfYmFkZ2VfMTwvdGl0bGU+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik01Ny42NywxMS45NEM1Mi4zNiw2LjcxLDQ4LjQyLDAsMzguMywwSDM3LjdDMjcuNTgsMCwyMy42NCw2LjcxLDE4LjMzLDExLjk0LDE0LjQ3LDE2Ljc2LDYuNjEsMTcuODEsMCwxOFYzMUg3NlYxOEM2OS4zOSwxNy44MSw2MS41MywxNi43Niw1Ny42NywxMS45NFoiLz48L2c+PC9nPjwvc3ZnPg==")
+      clip rect(0px, 200px, 46px, 10px)
+      z-index -1
 
 .post-author
   color $primary-color
@@ -195,10 +203,11 @@ export default {
 
   width 64px
   height 64px
-  margin-left -36px
   padding 4px
   background-color #fff
 
+  +tablet-up()
+    margin-left -36px
 .post-date
   margin 0
 
