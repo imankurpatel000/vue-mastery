@@ -3,14 +3,14 @@
   .wrapper
     .vue-conf-info
       h2.title Learn from the experts. <br/> Watch the Vue Conference talks.
-      p.lead We host 55 Vue talks from 3 different conferences free.
+      p.lead We host 100 Vue talks from 5 different conferences free.
       div
         nuxt-link.button.secondary(to='/conferences') View All Talks
     .vue-conf-feature.text-center
       img.img-circle.img-200(src='/images/img-evan-you.jpg' alt="Founder of Vue.js, Evan You")
       p Watch the founder of Vue.js<br/> Evan You’s Keynote
       div
-        nuxt-link.button.secondary.border.-has-icon(to='/conferences/vueconf-toronto-2018/vue-3-0-updates')
+        nuxt-link.button.secondary.border.-has-icon(to='/vueconf-us-2019/state-of-vuenation')
           Icon(name='play-circle')
           span Watch now
 
