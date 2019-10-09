@@ -83,7 +83,7 @@ module.exports = {
       'VueMastery.com New Users',
       'Biweekly Newsletter',
       'Subscription Discounts and Promotions',
-      'New Free Content Announcemen'
+      'New Free Content Announcements'
     ]
 
     // Wait for all the subscription to be done before stoping the execution
