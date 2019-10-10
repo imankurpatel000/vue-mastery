@@ -51,6 +51,7 @@ import Download from '~/components/lessons/Download'
 import SocialShare from '~/components/lessons/SocialSharing'
 import DownloadButton from '~/components/static/DownloadButton'
 import DownloadButtonNuxt from '~/components/static/DownloadButtonNuxt'
+import DownloadButtonVue3 from '~/components/static/DownloadButtonVue3'
 import Icon from '~/components/ui/Icon'
 
 export default {
@@ -93,6 +94,7 @@ export default {
     Download,
     DownloadButton,
     DownloadButtonNuxt,
+    DownloadButtonVue3,
     SocialShare,
     Icon
   },
