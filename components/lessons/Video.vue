@@ -9,7 +9,7 @@
       meta(itemprop='duration' :content='current.duration')
       meta(itemprop='thumbnailUrl' :content='current.image[0].url')
       meta(itemprop='embedURL' :content="'https://player.vimeo.com/video/'+video.videoEmbedId")
-      meta(itemprop='uploadDate' :content='current.date')
+      meta(itemprop='uploadDate' :content='current.date || current.uploadDate')
       meta(itemprop='description' :content='current.description')
       vimeo-player.video-wrapper(ref='player'
         player-width='860'
