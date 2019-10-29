@@ -1,8 +1,7 @@
 <template lang='pug'>
   .container
     PageHeader(title='Our Courses'
-              background_image='/images/bkg-courses.svg'
-              background_color='linear-gradient(to right, #41B782 , #86D169)')
+              background_image='/images/courses.svg')
 
     .courses-body.wrapper
       LearningPath(:courses='courses'
@@ -61,6 +60,22 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+.page-header
+    background-size auto 200%
+    height 466px
+    background-position center
+    align-items: flex-end
+    background-size auto 200%
+    padding-bottom 50px
+
+    ::v-deep .title
+      +mobile-only()
+        text-align center
+
+    @media screen and (min-width: 1800px)
+      background-size cover
+
+
 .courses-body
   display grid
   width 100%
