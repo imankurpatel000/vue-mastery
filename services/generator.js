@@ -123,6 +123,7 @@ const getPostsPage = async function (db) {
         const post = posts[key]
         if (post.status === 'published') {
           result.pages.push(`/blog/${post.slug}`)
+          result.sitemap.push(`/blog/${post.slug}`)
         }
       }
       return result
