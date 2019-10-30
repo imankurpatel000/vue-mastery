@@ -1,8 +1,7 @@
 <template lang="pug">
   .container
     PageHeader(title='Our Articles'
-              background_image='/images/conference-background-transparent.png'
-              background_color='linear-gradient(to right, #41B782 , #86D169)')
+              background_image='/images/banner-blog.png')
 
     .wrapper
       .post-list(v-if='posts' v-cloak)

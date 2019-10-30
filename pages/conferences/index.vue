@@ -1,8 +1,7 @@
 <template lang="pug">
   .container
     PageHeader(title='Vue Conference Videos'
-              background_image='/images/conference-background-transparent.png'
-              background_color='linear-gradient(to right, #41B782 , #86D169)')
+              background_image='/images/banner-conference.png')
 
     .wrapper
       .conference-body

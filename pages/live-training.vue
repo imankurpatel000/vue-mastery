@@ -3,8 +3,7 @@
     PageHeader(title='We Teach Live'
               title2='Learn Vue in our interactive workshop'
               align='center'
-              background_image='/images/conference-background-transparent.png'
-              background_color='linear-gradient(to right, #41B782 , #86D169)')
+              background_image='/images/banner-live-training.png')
 
     section.benefit-section
       .wrapper
