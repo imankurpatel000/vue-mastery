@@ -10,7 +10,7 @@
       img.img-circle.img-200(src='/images/img-evan-you.jpg' alt="Founder of Vue.js, Evan You")
       p Watch the founder of Vue.js<br/> Evan You’s Keynote
       div
-        nuxt-link.button.secondary.border.-has-icon(to='/vueconf-us-2019/state-of-vuenation')
+        nuxt-link.button.secondary.border.-has-icon(to='/conferences/vueconf-us-2019/state-of-vuenation')
           Icon(name='play-circle')
           span Watch now
 
