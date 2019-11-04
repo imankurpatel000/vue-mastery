@@ -118,7 +118,11 @@ module.exports = {
         break
     }
     if (isSubcribing) {
-      toAdd.push('Vue Mastery Subscribers')
+      if (planId === 'team-annual-(10-19)-subscription' || planId === 'team-annual-(4-9)-subsciption') {
+        toAdd.push('Vue Mastery Team Subscribers')
+      } else {
+        toAdd.push('Vue Mastery Subscribers')
+      }
       return Promise.all([
         this.subscribeUserToLists(user, toAdd),
         this.subscribeUserToLists(user, toRemove, false)
