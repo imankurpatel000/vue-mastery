@@ -37,3 +37,4 @@ static/sitemap.xml
 \.vscode/settings\.json
 package-lock.json
 .monitor/
+local-test
