@@ -96,39 +96,59 @@ module.exports = {
   },
 
   subscribeUserToPlan (user, planId, isSubcribing = true) {
+    let planGroup = -1
     let toRemove = []
-    let toAdd = []
+    const toAdd = []
+    const isTeamPlan = /^team-annual/.test(planId)
+    const planIds = [
+      'Active Monthly Subscribers',
+      'Active Annual Subscribers',
+      'Active Gift Subscription',
+      '3 Month Subscription'
+    ]
 
     switch (planId) {
       case 'monthly-subscription':
-        toRemove = ['Active Annual Subscribers', 'Active Gift Subscription']
-        toAdd.push('Active Monthly Subscribers')
+      case 'team-monthly-subscription':
+        planGroup = 0
         break
       case 'year-subscription':
       case 'team-annual-(10-19)-subscription':
       case 'team-annual-(4-9)-subsciption':
-        toRemove = ['Active Monthly Subscribers', 'Active Gift Subscription']
-        toAdd.push('Active Annual Subscribers')
+      case 'team-custom-subscription':
+        planGroup = 1
         break
       case '12-months-gift':
       case '6-months-gift':
       case '3-months-gift':
-        toRemove = ['Active Annual Subscribers', 'Active Monthly Subscribers']
-        toAdd.push('Active Gift Subscription')
+        planGroup = 2
+        break
+      case '3-month-subscription':
+        planGroup = 3
         break
     }
-    if (isSubcribing) {
-      if (planId === 'team-annual-(10-19)-subscription' || planId === 'team-annual-(4-9)-subsciption') {
-        toAdd.push('Vue Mastery Team Subscribers')
+
+    if (planGroup >= 0) {
+      if (isSubcribing) {
+        toAdd.push(planIds.splice(planGroup, 1)) // Get plan name to add
+        toRemove = planIds // Remove all other plan that the user potentially subscribed
       } else {
-        toAdd.push('Vue Mastery Subscribers')
+        toRemove.push(planIds.splice(planGroup, 1)) // Get plan name to remove
       }
-      return Promise.all([
-        this.subscribeUserToLists(user, toAdd),
-        this.subscribeUserToLists(user, toRemove, false)
-      ])
+
+      const isAddingToTeamList = (isSubcribing && isTeamPlan) || (!isSubcribing && !isTeamPlan)
+      const teamList = 'Vue Mastery Team Subscribers'
+      const subscribersList = 'Vue Mastery Subscribers'
+
+      toAdd.push(isAddingToTeamList ? teamList : subscribersList)
+      toRemove.push(isAddingToTeamList ? subscribersList : teamList)
+
+      const promises = [this.subscribeUserToLists(user, toRemove, false)]
+      if (isSubcribing) promises.push(this.subscribeUserToLists(user, toAdd))
+
+      return Promise.all(promises)
     } else {
-      return this.subscribeUserToLists(user, toAdd, false)
+      console.log('The plan Id is not handle', planId)
     }
   },
 
