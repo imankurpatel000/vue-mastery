@@ -75,6 +75,8 @@ module.exports = {
       })
     ).then(() => {
       console.log(`Successfully ${isSubcribing ? 'added' : 'removed'} new client ${isSubcribing ? 'to' : 'from'} mailerlite groups`)
+    }).catch((error) => {
+      console.log('error', error.message)
     })
   },
 

@@ -212,7 +212,7 @@ module.exports = {
         }
       }
     } else {
-      console.log('The subscription as no plan ID')
+      console.log('The event as no plan ID:', req.body.event_type)
     }
     res.sendStatus(200)
   })
