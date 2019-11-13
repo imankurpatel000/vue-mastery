@@ -10,6 +10,7 @@ const findEmail = (email) => {
   return admin
     .database()
     .ref('accounts')
+    // .orderByChild('displayName')
     // .orderByChild('email')
     // .orderByChild('chargebeeId')
     .equalTo(email)
