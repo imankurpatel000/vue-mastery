@@ -36,7 +36,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: --prefix functions yarn install
+      - run: yarn --cwd "functions" install
 
       - save_cache:
           paths:
