@@ -15,7 +15,6 @@ admin
     // Loop through users with sequence
     for (const childSnapshot in users) {
       if (!users[childSnapshot].hasOwnProperty('email')) {
-        console.log()
 
         const user = await admin.auth().getUser(childSnapshot)
           .then((userRecord) => {
