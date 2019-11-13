@@ -3,6 +3,8 @@ const test = require('firebase-functions-test')({
   projectId: 'vue-mastery'
 }, '../serviceAccountKey.json')
 
+jest.setTimeout(100000)
+
 const subscription = require('../subscription')
 const db = require('../helpers')
 const myFunctions = require('../index.js')
