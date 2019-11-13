@@ -85,16 +85,24 @@ module.exports = {
     return this.teams().then(snapshot => {
       if (snapshot !== undefined) {
         // For each team in database
-        snapshot.forEach((teamSnapshot) => {
-          let team = teamSnapshot.val()
-          if (team !== undefined) {
-            // Check if user is part of a team
-            team.members.forEach((member) => {
-              if (email === member.email) {
-                this.subscribeTeamMember(email, team, true)
-              }
-            })
-          }
+        return new Promise((resolve, reject) => {
+          const promises = []
+          snapshot.forEach((teamSnapshot) => {
+            let team = teamSnapshot.val()
+            if (team !== undefined) {
+              // Check if user is part of a team
+              team.members.forEach((member) => {
+                if (email === member.email) {
+                  promises.push(this.subscribeTeamMember(email, team, true))
+                }
+              })
+            }
+          })
+          Promise.all(promises).then((result) => {
+            return resolve(result)
+          }, (error) => {
+            return reject(error)
+          })
         })
       }
     })
