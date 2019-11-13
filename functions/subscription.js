@@ -32,14 +32,15 @@ module.exports = {
     return mailerlist
   },
 
-  async getSubscriberGroups (email) {
-    const account = await mailerliteSubscribers.getDetails(email, false)
-    return account.groups
-  },
-
   async getUserDetail (email) {
+    // getDetails(list_id, callback)
     const account = await mailerliteSubscribers.getDetails(email, false)
     return account
+  },
+
+  async getSubscriberGroups (email) {
+    const account = await this.getUserDetail(email)
+    return account.groups
   },
 
   /**
@@ -132,10 +133,10 @@ module.exports = {
 
     if (planGroup >= 0) {
       if (isSubcribing) {
-        toAdd.push(planIds.splice(planGroup, 1)) // Get plan name to add
+        toAdd.push(planIds.splice(planGroup, 1)[0]) // Get plan name to add
         toRemove = planIds // Remove all other plan that the user potentially subscribed
       } else {
-        toRemove.push(planIds.splice(planGroup, 1)) // Get plan name to remove
+        toRemove.push(planIds.splice(planGroup, 1)[0]) // Get plan name to remove
       }
 
       const isAddingToTeamList = (isSubcribing && isTeamPlan) || (!isSubcribing && !isTeamPlan)
