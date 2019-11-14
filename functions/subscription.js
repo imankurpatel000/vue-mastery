@@ -1,6 +1,7 @@
 const functions = require('firebase-functions')
 const Mailerlite = require('mailerlite')
 const firebaseConfig = functions.config()
+console.log(process.env)
 const mailerlite = new Mailerlite(firebaseConfig.mailerlite.key || process.env.MAILERLIGHT_TOKEN)
 const mailerliteSubscribers = mailerlite.Subscribers
 const mailerliteList = mailerlite.Lists
