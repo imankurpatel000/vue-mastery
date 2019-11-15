@@ -14,9 +14,9 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
-    environment:
-      FIREBASE_TOKEN: $FIREBASE_TOKEN
-      MAILERLIGHT_TOKEN: $MAILERLIGHT_TOKEN
+      environment:
+        FIREBASE_TOKEN: $FIREBASE_TOKEN
+        MAILERLIGHT_TOKEN: $MAILERLIGHT_TOKEN
 
     working_directory: ~/repo
 
