@@ -122,9 +122,9 @@ it('User can subscribe to monthly subscription', async () => {
 
 it('User can unsubscribe from monthly subscription', async () => {
   // Test subscribeUserToPlan (user, planId, isSubcribing)
-  subscription.subscribeUserToPlan(account, 'monthly-subscription', false)
+  await subscription.subscribeUserToPlan(account, 'monthly-subscription', false)
   const groups = await subscription.getSubscriberGroups(account.email)
-  expect(groups[0].name).toEqual('Vue Mastery Subscribers')
+  expect(groups.length).toEqual(0)
 })
 
 it('User can subscribe to annual subscription', async () => {
@@ -140,9 +140,9 @@ it('User can subscribe to annual subscription', async () => {
 
 it('User can unsubscribe from annual subscription', async () => {
   // Test subscribeUserToPlan (user, planId, isSubcribing)
-  subscription.subscribeUserToPlan(account, 'year-subscription', false)
+  await subscription.subscribeUserToPlan(account, 'year-subscription', false)
   const groups = await subscription.getSubscriberGroups(account.email)
-  expect(groups[0].name).toEqual('Vue Mastery Subscribers')
+  expect(groups.length).toEqual(0)
 })
 
 it('User can subscribe to gift subscription', async () => {
@@ -157,9 +157,9 @@ it('User can subscribe to gift subscription', async () => {
 })
 
 it('User can unsubscribe from gift subscription', async () => {
-  subscription.subscribeUserToPlan(account, '6-months-gift', false)
+  await subscription.subscribeUserToPlan(account, '6-months-gift', false)
   const groups = await subscription.getSubscriberGroups(account.email)
-  expect(groups[0].name).toEqual('Vue Mastery Subscribers')
+  expect(groups.length).toEqual(0)
 })
 
 it('User can subscribe to 3 months gift subscription', async () => {
@@ -210,6 +210,7 @@ it('Should remove the list', async () => {
 it('The user should not be in mailerlite', async () => {
   // Test unsubscribeSubscriber (email)
   await subscription.unsubscribeSubscriber(account2.email)
+  await subscription.unsubscribeSubscriber(account.email)
   // Check if user exist
   const detail = await subscription.getUserDetail(account2.email)
   expect(detail.status).toEqual('unsubscribed')

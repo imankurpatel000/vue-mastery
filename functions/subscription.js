@@ -1,7 +1,9 @@
 const functions = require('firebase-functions')
 const Mailerlite = require('mailerlite')
 const firebaseConfig = functions.config()
-const mailerlite = new Mailerlite(firebaseConfig.mailerlite.key)
+console.log(process.env)
+const mailerKey = firebaseConfig ? firebaseConfig.mailerlite.key : process.env.MAILERLIGHT_TOKEN
+const mailerlite = new Mailerlite(mailerKey)
 const mailerliteSubscribers = mailerlite.Subscribers
 const mailerliteList = mailerlite.Lists
 let mailerlist = []
@@ -32,14 +34,15 @@ module.exports = {
     return mailerlist
   },
 
-  async getSubscriberGroups (email) {
-    const account = await mailerliteSubscribers.getDetails(email, false)
-    return account.groups
-  },
-
   async getUserDetail (email) {
+    // getDetails(list_id, callback)
     const account = await mailerliteSubscribers.getDetails(email, false)
     return account
+  },
+
+  async getSubscriberGroups (email) {
+    const account = await this.getUserDetail(email)
+    return account.groups
   },
 
   /**
@@ -132,10 +135,10 @@ module.exports = {
 
     if (planGroup >= 0) {
       if (isSubcribing) {
-        toAdd.push(planIds.splice(planGroup, 1)) // Get plan name to add
+        toAdd.push(planIds.splice(planGroup, 1)[0]) // Get plan name to add
         toRemove = planIds // Remove all other plan that the user potentially subscribed
       } else {
-        toRemove.push(planIds.splice(planGroup, 1)) // Get plan name to remove
+        toRemove.push(planIds.splice(planGroup, 1)[0]) // Get plan name to remove
       }
 
       const isAddingToTeamList = (isSubcribing && isTeamPlan) || (!isSubcribing && !isTeamPlan)
