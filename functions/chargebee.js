@@ -25,7 +25,7 @@ module.exports = {
 
   unsubscribeSubscriber (chargbeeId) {
     return chargebee.customer.delete(chargbeeId).request((error, result) => {
-      console.log(error || `Delete ${result.customer} from subscription ${result.subscription} on chargebee customer (${chargbeeId})`)
+      console.log(error || `Delete ${result.customer} with card ${result.card} on chargebee customer (${chargbeeId})`)
     })
   },
 
