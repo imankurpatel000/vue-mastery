@@ -23,6 +23,12 @@ module.exports = {
       })
   },
 
+  unsubscribeSubscriber (chargbeeId) {
+    return chargebee.subscription.delete(chargbeeId).request((error, result) => {
+      console.log(error || `Update email ${result.customer} from subscription ${result.subscription} on chargebee customer (${chargbeeId})`)
+    })
+  },
+
   createPortalSession (req, res) {
     res = configHeader(res)
     chargebee.portal_session.create({

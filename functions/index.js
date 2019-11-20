@@ -24,7 +24,12 @@ module.exports = {
 
   deleteCustomer: functions.auth.user()
     .onDelete(user => {
-      return subscription.unsubscribeSubscriber(user.email)
+      const promises = []
+      if (user.chargebeeId) {
+        promises.push(chargebee.unsubscribeSubscriber(user.chargebeeId))
+      }
+      promises.push(subscription.unsubscribeSubscriber(user.email))
+      return Promise.all(promises)
     }),
 
   updateUser: functions.database.ref('/accounts/{uid}')
