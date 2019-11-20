@@ -24,7 +24,7 @@ module.exports = {
   },
 
   unsubscribeSubscriber (chargbeeId) {
-    return chargebee.subscription.delete(chargbeeId).request((error, result) => {
+    return chargebee.customer.delete(chargbeeId).request((error, result) => {
       console.log(error || `Update email ${result.customer} from subscription ${result.subscription} on chargebee customer (${chargbeeId})`)
     })
   },
