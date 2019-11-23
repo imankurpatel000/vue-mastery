@@ -38,5 +38,3 @@ static/sitemap.xml
 package-lock.json
 .monitor/
 local-test
-
-.env
