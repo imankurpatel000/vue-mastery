@@ -58,7 +58,7 @@
 
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $50 of your yearly subscription goes to supporting the Vue.js project itself.
+                span $28 of your yearly subscription goes to supporting the Vue.js project itself.
 
               .benefit.color-gold
                 i.fas.fa-shield-alt
