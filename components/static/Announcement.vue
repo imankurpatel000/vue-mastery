@@ -1,6 +1,6 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    a.announcement-bar(href="/pricing" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+    nuxt-link(to='/pricing' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
       .squares
         .square
         .square
