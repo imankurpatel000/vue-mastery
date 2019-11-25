@@ -31,7 +31,11 @@
 
               .text-center
                 i per month
-              .center Access to all courses
+
+              .benefit.first-benefit
+                i.fa.fa-unlock
+                | Access to all courses
+
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
                 span $5 of your monthly subscription goes to supporting the Vue.js project itself.
@@ -56,7 +60,9 @@
               .text-center
                 i per year
 
-              .center Access to all courses
+              .benefit.first-benefit
+                i.fa.fa-unlock
+                | Access to all courses
 
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
@@ -414,7 +420,10 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
     padding 3px 12px
     transform rotate(0deg) translate3d(50%, 50%, 0)
 
-.center
-  margin 10px auto
-  text-align center
+.fa-unlock
+  margin-left: 3px
+  margin-top: -6px
+
+.first-benefit
+  margin-top 25px
 </style>
