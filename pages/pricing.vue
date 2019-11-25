@@ -4,13 +4,17 @@
   .wrapper
     .pricing-layout
       .pricing-content
-        h2.title Becoming a Vue Mastery Paid Subscriber means
-        ul
-          li Accessing all paid content. New Lessons Weekly.
-          li Unlocking 3 Vue Cheat Sheets.
-          li Track your course progress and earning badges.
-          li Supporting our Blog & Podcast.
-          li Most importantly, funding the Vue.js project itself.
+        h2.title Want our biggest discount ever?
+        .video-wrapper
+          iframe(src='https://player.vimeo.com/video/375049882' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
+
+        //- h2.title Becoming a Vue Mastery Paid Subscriber means
+        //- ul
+        //-   li Accessing all paid content. New Lessons Weekly.
+        //-   li Unlocking 3 Vue Cheat Sheets.
+        //-   li Track your course progress and earning badges.
+        //-   li Supporting our Blog & Podcast.
+        //-   li Most importantly, funding the Vue.js project itself.
 
       .pricing-structure
         .page-title.text-center
@@ -38,13 +42,15 @@
 
               button.button.primary.-full(@click="subscribe('monthly-subscription')") Select Plan
 
-        .annually
+        .annually(:class="{ 'promo': promo }")
           .card
             .card-body
               h3.text-center Annual
 
-              .money
-                .symbol $
+              .money(:class="{ 'promo': promo }")
+                .symbol
+                  | $
+                  span(v-if='promo') {{190 * (100 - promo) / 100}}
                 .decimal 190
 
               .text-center
@@ -120,7 +126,8 @@ export default {
   data () {
     return {
       chargebeeInstance: null,
-      chargbeeLink: ''
+      chargbeeLink: '',
+      promo: 40
     }
   },
 
@@ -374,9 +381,32 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   padding-top 10px
   margin-left -20px
 
+  span
+    color #fff
+
+.video-wrapper
+  width: 100%
+  margin: 40px auto
+
 .decimal
   color $secondary-color
   font-weight 700
   font-size 100px
   line-height 1
+
+
+.promo
+  .decimal
+    text-decoration: line-through
+
+  .money
+    position relative
+
+  .symbol
+    position absolute
+    right 50%
+    bottom 50%
+    background #835ec2d1
+    padding 3px 12px
+    transform rotate(0deg) translate3d(50%, 50%, 0)
 </style>

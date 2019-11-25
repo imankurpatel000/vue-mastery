@@ -47,9 +47,9 @@ module.exports = {
 
   generateHostedPageCheckout (req, res) {
     res = configHeader(res)
-
     chargebee.hosted_page.checkout_new({
       subscription: {
+        'coupon': req.body.plan_id === 'year-subscription' ? 'BLACKFRIDAY40' : '',
         'plan_id': req.body.plan_id
       },
       customer: {
