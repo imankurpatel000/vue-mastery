@@ -6,6 +6,7 @@ const conf = require('./firebase')
 const serviceAccount = require(`./serviceAccountKey.json`)
 const algoliasearch = require('algoliasearch')
 const removeMd = require('remove-markdown')
+const sizeof = require('object-sizeof')
 
 // Init firebase
 const firebaseConfig = {
@@ -31,7 +32,7 @@ const createIndexObject = function (data, url, category) {
     console.log(`Image for the lesson ${data.title} does not exist`)
   }
 
-  return {
+  const obj = {
     objectID: data.id,
     url: url,
     title: data.title,
@@ -40,11 +41,38 @@ const createIndexObject = function (data, url, category) {
     date: data.date || data.presentedDate,
     free: data.free || true,
     description: data.description,
-    body: removeMd(data.markdown ? data.markdown : data.body, {
-      useImgAltText: true
-    }),
     image: image
   }
+
+  let body = data.markdown ? data.markdown : data.body
+  body = removeMd(body)
+  const size = sizeof(body)
+
+  if (size > 10000) {
+    console.log(`TOO BIG ${data.title}:  ${size}`)
+    body = body.substr(0, body.length / 2)
+    // body = data.markdown ? data.markdown : data.body
+    // body = body.split('## ')
+    // for (let index = 0; index < body.length; index++) {
+    //   let element = body[index]
+    //   if (sizeof(element) > 10000) {
+    //     element = element.split('```javascript')
+    //     for (let index2 = 0; index2 < element.length; index2++) {
+    //       const element2 = element[index2]
+    //       obj[`body-${index}-${index2}`] = removeMd(element2)
+
+    //       if (sizeof(element2) > 10000) {console.log('yoyoy', element2)}
+    //     }
+    //   } else {
+    //     obj[`body-${index}`] = removeMd(element)
+    //   }
+    // }
+  } else {
+    console.log(`${data.title}:  ${size}`)
+    obj.body = body
+  }
+
+  return obj
 }
 
 const getCoursesPage = async function () {
@@ -95,7 +123,7 @@ const getTalksPage = async function () {
           for (const id of Object.keys(conference.talks)) {
             const talk = conference.talks[id]
             if (talk.isVideoLive === 'true') {
-              talkPages.push(createIndexObject(conference, `/conferences/${conference.slug}/${talk.slug}`, 'conference'))
+              talkPages.push(createIndexObject(talk, `/conferences/${conference.slug}/${talk.slug}`, 'conference'))
             }
           }
         }
