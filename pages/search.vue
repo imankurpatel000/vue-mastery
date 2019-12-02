@@ -3,7 +3,7 @@ ais-instant-search-ssr
   ais-search-box(index-name="string")
   .search-top
     ais-refinement-list(attribute='category' operator='and')
-    //- ais-sort-by(:items='[{ value: "category", label: "Category" }, { value: "free", label: "Free" }]')
+    //- ais-sort-by(:items='[{ value: "date", label: "Date" }, { value: "category", label: "Category" }, { value: "free", label: "Free" }]')
     ais-stats
   ais-hits
     template(slot='item' slot-scope='{ item }')
