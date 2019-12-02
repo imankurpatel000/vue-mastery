@@ -144,7 +144,7 @@ const saveToAlgolia = async function (type, pages) {
       console.log(`Content ${type} imported into Algolia`)
     })
     .catch(error => {
-      console.error('Error when importing lesson into Algolia', error)
+      console.error('Error when importing lesson into Algolia', error.message, error.debugData.contentLength, error.statusCode)
     })
 }
 
@@ -157,14 +157,10 @@ const indexAllContent = async function () {
 
   const result = coursesPages.concat(talksPages, postsPages)
 
-  console.log(coursesPages.length,
-    talksPages.length,
-    postsPages.length, result.length)
+  console.log(coursesPages.length, talksPages.length, postsPages.length, result.length) //, result[0], talksPages[0], postsPages[0], coursesPages[0])
 
   // Get all lessons from Firebase
-  await saveToAlgolia('lessons', result)
-  // await saveToAlgolia('talks', talksPages)
-  // await saveToAlgolia('posts', postsPages)
+  await saveToAlgolia('vuemastery', result)
 
   process.exit(1)
 }
