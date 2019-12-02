@@ -6,7 +6,7 @@ const conf = require('./firebase')
 const serviceAccount = require(`./serviceAccountKey.json`)
 const algoliasearch = require('algoliasearch')
 const removeMd = require('remove-markdown')
-const sizeof = require('object-sizeof')
+// const sizeof = require('object-sizeof')
 
 // Init firebase
 const firebaseConfig = {
@@ -25,7 +25,7 @@ const algolia = algoliasearch(
 
 const createIndexObject = function (data, url, category) {
   let image
-
+  const list = []
   try {
     image = data.image[0].url
   } catch (error) {
@@ -34,6 +34,7 @@ const createIndexObject = function (data, url, category) {
 
   const obj = {
     objectID: data.id,
+    courseID: data.id,
     url: url,
     title: data.title,
     slug: data.slug,
@@ -46,33 +47,18 @@ const createIndexObject = function (data, url, category) {
 
   let body = data.markdown ? data.markdown : data.body
   body = removeMd(body)
-  const size = sizeof(body)
+  // const size = sizeof(body)
 
-  if (size > 10000) {
-    console.log(`TOO BIG ${data.title}:  ${size}`)
-    body = body.substr(0, body.length / 2)
-    // body = data.markdown ? data.markdown : data.body
-    // body = body.split('## ')
-    // for (let index = 0; index < body.length; index++) {
-    //   let element = body[index]
-    //   if (sizeof(element) > 10000) {
-    //     element = element.split('```javascript')
-    //     for (let index2 = 0; index2 < element.length; index2++) {
-    //       const element2 = element[index2]
-    //       obj[`body-${index}-${index2}`] = removeMd(element2)
-
-    //       if (sizeof(element2) > 10000) {console.log('yoyoy', element2)}
-    //     }
-    //   } else {
-    //     obj[`body-${index}`] = removeMd(element)
-    //   }
-    // }
-  } else {
-    console.log(`${data.title}:  ${size}`)
-    obj.body = body
+  body = body.split('\n\n')
+  for (const [i, value] of body.entries()) {
+    const nobj = Object.assign({}, obj)
+    nobj.body = value
+    nobj.objectID = obj.courseID + '_' + i
+    // console.log(obj.objectID)
+    list.push(nobj)
   }
 
-  return obj
+  return list
 }
 
 const getCoursesPage = async function () {
@@ -87,14 +73,14 @@ const getCoursesPage = async function () {
       subFields: [ 'image' ]
     }]})
     .then(async courses => {
-      const coursePages = []
+      let coursePages = []
       for (const key of Object.keys(courses)) {
         const course = courses[key]
         if (course.hasOwnProperty('lessons')) {
           for (const id of Object.keys(course.lessons)) {
             const lesson = course.lessons[id]
             if (lesson.status === 'published') {
-              coursePages.push(createIndexObject(lesson, `/courses/${course.slug}/${lesson.slug}`, 'course'))
+              coursePages = coursePages.concat(createIndexObject(lesson, `/courses/${course.slug}/${lesson.slug}`, 'course'))
             }
           }
         }
@@ -115,15 +101,15 @@ const getTalksPage = async function () {
       subFields: [ 'image' ]
     }]})
     .then(async conferences => {
-      const talkPages = []
+      let talkPages = []
       for (const key of Object.keys(conferences)) {
         const conference = conferences[key]
         if (conference.hasOwnProperty('talks')) {
-          // talkPages.push(createIndexObject(conference, `/conferences/${conference.slug}`, 'conferences'))
+          // talkPages = talkPages.concat(createIndexObject(conference, `/conferences/${conference.slug}`, 'conferences'))
           for (const id of Object.keys(conference.talks)) {
             const talk = conference.talks[id]
             if (talk.isVideoLive === 'true') {
-              talkPages.push(createIndexObject(talk, `/conferences/${conference.slug}/${talk.slug}`, 'conference'))
+              talkPages = talkPages.concat(createIndexObject(talk, `/conferences/${conference.slug}/${talk.slug}`, 'conference'))
             }
           }
         }
@@ -140,11 +126,11 @@ const getPostsPage = async function () {
       subFields: [ 'image' ]
     }]})
     .then(async posts => {
-      const postsPages = []
+      let postsPages = []
       for (const key of Object.keys(posts)) {
         const post = posts[key]
         if (post.status === 'published') {
-          postsPages.push(createIndexObject(post, `/blog/${post.slug}`, 'blog'))
+          postsPages = postsPages.concat(createIndexObject(post, `/blog/${post.slug}`, 'blog'))
         }
       }
       return postsPages
@@ -169,14 +155,16 @@ const indexAllContent = async function () {
   const talksPages = await getTalksPage(db)
   const postsPages = await getPostsPage(db)
 
+  const result = coursesPages.concat(talksPages, postsPages)
+
   console.log(coursesPages.length,
     talksPages.length,
-    postsPages.length)
+    postsPages.length, result.length)
 
   // Get all lessons from Firebase
-  await saveToAlgolia('lessons', coursesPages)
-  await saveToAlgolia('talks', talksPages)
-  await saveToAlgolia('posts', postsPages)
+  await saveToAlgolia('lessons', result)
+  // await saveToAlgolia('talks', talksPages)
+  // await saveToAlgolia('posts', postsPages)
 
   process.exit(1)
 }

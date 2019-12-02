@@ -397,7 +397,8 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    transpile: ['vue-instantsearch', 'instantsearch.js/es']
   },
   /*
   ** Generate Sitemap
