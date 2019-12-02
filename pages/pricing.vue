@@ -32,6 +32,10 @@
               .text-center
                 i per month
 
+              .benefit.first-benefit
+                i.fa.fa-unlock
+                | Access to all courses
+
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
                 span $5 of your monthly subscription goes to supporting the Vue.js project itself.
@@ -56,6 +60,10 @@
               .text-center
                 i per year
 
+              .benefit.first-benefit
+                i.fa.fa-unlock
+                | Access to all courses
+
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
                 span $28 of your yearly subscription goes to supporting the Vue.js project itself.
@@ -66,8 +74,10 @@
 
               .benefit.color-primary
                 i.fa.fa-piggy-bank
-                b Get 2 months free <br>
-                  small ($38 discount)
+                b 
+                  | Lock in our best discount
+                  br
+                  small (You’ll get the same price on renewal)
 
               button.button.primary.-full(@click="subscribe('year-subscription')") Select Plan
 
@@ -409,4 +419,11 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
     background #835ec2d1
     padding 3px 12px
     transform rotate(0deg) translate3d(50%, 50%, 0)
+
+.fa-unlock
+  margin-left: 3px
+  margin-top: -6px
+
+.first-benefit
+  margin-top 25px
 </style>

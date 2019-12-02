@@ -164,6 +164,13 @@ export default {
     .button
       margin-left: 18px
 
+.open-nav
+  .navbar
+    @media screen and (max-height: 45em)
+      margin-top: 40px
+      a, button
+        margin-bottom 25px
+
 .navbar-profile
   display: flex
   border-radius: 50%
@@ -244,4 +251,7 @@ export default {
     for i in (1..2)
       &:nth-child({i})
         transition-delay: (i*100 + 200)ms
+
+  .header
+    position: fixed !important
 </style>
