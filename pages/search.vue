@@ -14,6 +14,11 @@ ais-instant-search-ssr
           ais-highlight(attribute='title' :hit='item')
 
         ais-snippet(
+          attribute='description'
+          :hit='item'
+        )
+
+        ais-snippet(
           attribute='body'
           :hit='item'
         )
