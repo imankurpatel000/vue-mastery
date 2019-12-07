@@ -4,17 +4,13 @@
   .wrapper
     .pricing-layout
       .pricing-content
-        h2.title Want our biggest discount ever?
-        .video-wrapper
-          iframe(src='https://player.vimeo.com/video/375049882' width='640' height='360' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen)
-
-        //- h2.title Becoming a Vue Mastery Paid Subscriber means
-        //- ul
-        //-   li Accessing all paid content. New Lessons Weekly.
-        //-   li Unlocking 3 Vue Cheat Sheets.
-        //-   li Track your course progress and earning badges.
-        //-   li Supporting our Blog & Podcast.
-        //-   li Most importantly, funding the Vue.js project itself.
+        h2.title Becoming a Vue Mastery Paid Subscriber means
+        ul
+          li Accessing all paid content. New Lessons Weekly.
+          li Unlocking 3 Vue Cheat Sheets.
+          li Track your course progress and earning badges.
+          li Supporting our Blog & Podcast.
+          li Most importantly, funding the Vue.js project itself.
 
       .pricing-structure
         .page-title.text-center
@@ -32,10 +28,6 @@
               .text-center
                 i per month
 
-              .benefit.first-benefit
-                i.fa.fa-unlock
-                | Access to all courses
-
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
                 span $5 of your monthly subscription goes to supporting the Vue.js project itself.
@@ -46,27 +38,21 @@
 
               button.button.primary.-full(@click="subscribe('monthly-subscription')") Select Plan
 
-        .annually(:class="{ 'promo': promo }")
+        .annually
           .card
             .card-body
               h3.text-center Annual
 
-              .money(:class="{ 'promo': promo }")
-                .symbol
-                  | $
-                  span(v-if='promo') {{190 * (100 - promo) / 100}}
+              .money
+                .symbol $
                 .decimal 190
 
               .text-center
                 i per year
 
-              .benefit.first-benefit
-                i.fa.fa-unlock
-                | Access to all courses
-
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $28 of your yearly subscription goes to supporting the Vue.js project itself.
+                span $50 of your yearly subscription goes to supporting the Vue.js project itself.
 
               .benefit.color-gold
                 i.fas.fa-shield-alt
@@ -74,10 +60,8 @@
 
               .benefit.color-primary
                 i.fa.fa-piggy-bank
-                b 
-                  | Lock in our best discount
-                  br
-                  small (You’ll get the same price on renewal)
+                b Get 2 months free <br>
+                  small ($38 discount)
 
               button.button.primary.-full(@click="subscribe('year-subscription')") Select Plan
 
@@ -136,8 +120,7 @@ export default {
   data () {
     return {
       chargebeeInstance: null,
-      chargbeeLink: '',
-      promo: 40
+      chargbeeLink: ''
     }
   },
 
@@ -391,39 +374,9 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   padding-top 10px
   margin-left -20px
 
-  span
-    color #fff
-
-.video-wrapper
-  width: 100%
-  margin: 40px auto
-
 .decimal
   color $secondary-color
   font-weight 700
   font-size 100px
   line-height 1
-
-
-.promo
-  .decimal
-    text-decoration: line-through
-
-  .money
-    position relative
-
-  .symbol
-    position absolute
-    right 50%
-    bottom 50%
-    background #835ec2d1
-    padding 3px 12px
-    transform rotate(0deg) translate3d(50%, 50%, 0)
-
-.fa-unlock
-  margin-left: 3px
-  margin-top: -6px
-
-.first-benefit
-  margin-top 25px
 </style>

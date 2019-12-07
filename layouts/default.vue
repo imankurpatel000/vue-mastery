@@ -1,6 +1,6 @@
 <template lang='pug'>
   .container(:class="$store.state.openNav ? 'open-nav': ''")
-    Announcement
+    //- Announcement
     .main
       HeroImage(:class='$route.name' :isIndex='$route.name === "index"')
       PageHeader(:class='$route.name')
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Announcement from '~/components/static/Announcement.vue'
+// import Announcement from '~/components/static/Announcement.vue'
 import PageHeader from '~/components/header/Header.vue'
 import PageFooter from '~/components/footer/Footer.vue'
 import AuthForm from '~/components/account/Accountmodal.vue'
@@ -21,7 +21,7 @@ export default {
   name: 'default-layout',
 
   components: {
-    Announcement,
+    // Announcement,
     HeroImage,
     PageHeader,
     PageFooter,
