@@ -1,6 +1,6 @@
 <template lang='pug'>
   .container(:class="$store.state.openNav ? 'open-nav': ''")
-    //- Announcement
+    Announcement
     .main
       HeroImage(:class='$route.name' :isIndex='$route.name === "index"')
       PageHeader(:class='$route.name')
