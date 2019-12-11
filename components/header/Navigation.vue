@@ -177,7 +177,7 @@ export default {
 .open-nav
   .navbar
     @media screen and (max-height: 45em)
-      margin-top: 40px
+      padding-top: 60px
       a, button
         margin-bottom 25px
 
