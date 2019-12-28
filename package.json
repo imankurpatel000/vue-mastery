@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "events": "^3.0.0",
     "firebase": "^6.4.0",
     "firebase-auth": "^0.1.2",
     "flamelink": "^1.0.0-alpha.19",
