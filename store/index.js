@@ -5,12 +5,19 @@ import { flamelink, firebase } from '~/services/database.js'
 export const strict = false
 
 export const state = () => ({
-  openNav: false
+  openNav: false,
+  searchText: ''
 })
 
 export const plugins = [
   analyticsMiddleware
 ]
+
+export const getters = () => ({
+  searchText (state) {
+    return state.searchText
+  }
+})
 
 export const actions = {
   nuxtServerInit ({ commit }, { req }) {
@@ -25,6 +32,9 @@ export const actions = {
   },
   sendTeamSubscriptionRequest ({ commit }, newData) {
     return firebase.database().ref('/team-request/').push(newData)
+  },
+  search ({ commit }, searchText) {
+    commit('search', searchText)
   }
 }
 
@@ -33,5 +43,8 @@ export const mutations = {
   toggleNav (state, forceClose) {
     if (forceClose) state.openNav = false
     else state.openNav = !state.openNav
+  },
+  search (state, searchText) {
+    state.searchText = searchText
   }
 }
