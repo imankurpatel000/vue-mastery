@@ -120,6 +120,7 @@ export default {
 <style lang="stylus" scoped>
 .header
   position relative
+  width: 100%
   top 0
   z-index 4
 
