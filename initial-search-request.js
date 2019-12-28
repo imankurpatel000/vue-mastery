@@ -27,20 +27,27 @@ const createIndexObject = function (data, url, category) {
   let image
   const list = []
   try {
-    image = data.image[0].url
+    if (category === 'conference') {
+      image = data.twitterImage[0].url
+    } else {
+      image = data.image[0].url
+    }
   } catch (error) {
     console.log(`Image for the lesson ${data.title} does not exist`)
   }
 
+  const order = ['course', 'blog', 'conference']
+
   const obj = {
     objectID: data.id,
     courseID: data.id,
+    order: order.findIndex((val) => val === category),
     url: url,
     title: data.title,
     slug: data.slug,
     category: category,
     date: data.date || data.presentedDate,
-    free: data.free || true,
+    free: typeof data.free === 'undefined' ? true : data.free,
     description: data.description,
     image: image
   }
@@ -94,8 +101,8 @@ const getTalksPage = async function () {
     schemaKey: 'conference',
     populate: [{
       field: 'talks',
-      subFields: [ 'lessons', 'image' ],
-      populate: [ 'image' ]
+      subFields: [ 'lessons', 'twitterImage' ],
+      populate: [ 'twitterImage' ]
     }, {
       field: 'image',
       subFields: [ 'image' ]
@@ -156,8 +163,9 @@ const indexAllContent = async function () {
   const postsPages = await getPostsPage(db)
 
   const result = coursesPages.concat(talksPages, postsPages)
+  // console.log(coursesPages)
 
-  console.log(coursesPages.length, talksPages.length, postsPages.length, result.length) //, result[0], talksPages[0], postsPages[0], coursesPages[0])
+  // console.log(coursesPages.length, talksPages.length, postsPages.length, result.length) //, result[0], talksPages[0], postsPages[0], coursesPages[0])
 
   // Get all lessons from Firebase
   await saveToAlgolia('vuemastery', result)
