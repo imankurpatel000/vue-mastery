@@ -4,6 +4,7 @@
     .main
       HeroImage(:class='$route.name' :isIndex='$route.name === "index"')
       PageHeader(:class='$route.name')
+      PageSearch(:class='$route.name')
       nuxt
       PageFooter
       AuthForm
@@ -16,6 +17,7 @@ import PageHeader from '~/components/header/Header.vue'
 import PageFooter from '~/components/footer/Footer.vue'
 import AuthForm from '~/components/account/Accountmodal.vue'
 import HeroImage from '~/components/static/HeroImage'
+import PageSearch from '~/components/search/Search'
 
 export default {
   name: 'default-layout',
@@ -24,6 +26,7 @@ export default {
     Announcement,
     HeroImage,
     PageHeader,
+    PageSearch,
     PageFooter,
     AuthForm
   }
