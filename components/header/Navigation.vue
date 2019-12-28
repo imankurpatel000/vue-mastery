@@ -7,12 +7,8 @@
       router-link.navbar-item.underline(to="/pricing" v-if="!account || (account && !account.subscribed)" v-cloak) Pricing
       router-link.navbar-item.underline(to="/blog") Blog
       router-link.navbar-item.underline(to="/conferences") Conference Videos
-      //- router-link.navbar-item.underline(to="/live-training") Live Training
-      .form-group.-inline
-        input.input.-small(type='search' placeholder='Search' ref='search')
-        button.button.-has-icon.-small.link.search-icon(type='button')
-          i.fa.fa-search
-      //- Icon(name='search' width='28' height='28' color='#fff' class='search-icon')
+
+      search-box
 
     no-ssr
       transition(:name="account ? 'signin' : 'signout'" mode='out-in' appear)
@@ -28,12 +24,13 @@
 </template>
 
 <script>
-import Icon from '~/components/ui/Icon'
+import SearchBox from '~/components/search/form'
+
 export default {
   name: 'header-navigation',
 
   components: {
-    Icon
+    SearchBox
   },
 
   props: {
@@ -264,11 +261,4 @@ export default {
 
   .header
     position: fixed !important
-
-  .search-icon
-    top: 5px
-    right: 0
-    padding-left: 1rem
-    margin-left: 0
-
 </style>
