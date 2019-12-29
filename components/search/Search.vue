@@ -451,7 +451,7 @@ export default {
     border-bottom none
     margin-bottom 1rem
     display flex
-    padding 0.2rem 1.4rem 1.4rem 1.4rem
+    padding 0 1.4rem 0 1.4rem
 
     +tablet-up()
       margin-bottom 2rem
@@ -481,6 +481,7 @@ export default {
     align-items center
     height 5rem
     max-width 100%
+    margin-bottom -1.6rem
 
     +tablet-up()
       height 7rem
@@ -503,6 +504,9 @@ export default {
   .ais-SearchBox-form
     width 760px
     max-width calc(100% - 2rem)
+
+  .ais-RefinementList-list
+    padding 1rem 0 1.3rem 0
 
   .ais-SearchBox-submit
     right 2.2rem
