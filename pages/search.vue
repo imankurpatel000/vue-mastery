@@ -1,17 +1,9 @@
 <template lang='pug'></template>
 
 <script>
-import { mapActions } from 'vuex'
 
 export default {
-  name: 'Search',
-  mounted () {
-    const q = this.$route.query['q']
-    if (q !== undefined) this.search(q)
-  },
-  methods: {
-    ...mapActions(['search'])
-  }
+  name: 'Search'
 }
 </script>
 
