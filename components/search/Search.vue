@@ -1,13 +1,13 @@
 <template lang='pug'>
-div(@click='reset')
-  ais-instant-search-ssr(:class="{ 'show': searchText !== '' }")
-    ais-search-box(index-name="vuemastery" v-model='searchText' autofocus)
-    .ais-wrapper(:style='`transform: translateX(${positionX}px)`')
-
+ais-instant-search-ssr
+  .ais-background(@click='reset' v-if='searchText !== ""')
+  .ais-wrapper(:class="{ 'show': searchText !== '' }")
+    ais-search-box(index-name="vuemastery" v-model='searchText' autofocus placeholder='Search')
+    .search-result
       .search-top
         ais-refinement-list(attribute='category' operator='or' :sort-by="['name:desc']")
         ais-toggle-refinement(attribute='free' label="Free")
-
+    
       ais-state-results
         template(slot-scope='{ hits }')
           ais-hits(v-if='hits.length > 0')
@@ -31,14 +31,19 @@ div(@click='reset')
                     :hit='item'
                   )
 
-          p(v-else) There are no hits found for: <q>{{searchText}}</q>
+          .no-result(v-else) 
+            p Your search - <q>{{searchText}}</q> - did not match any documents.
+            p Suggestions:
+            ul
+              li Make sure that all words are spelled correctly.
+              li Try different keywords.
+              li Try more general keywords.
+              li Try fewer keywords.
 
           ais-pagination(v-if='hits.length > 0')
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-
 import {
   AisInstantSearchSsr,
   AisRefinementList,
@@ -65,38 +70,24 @@ const { instantsearch, rootMixin } = createInstantSearch({
 export default {
   data () {
     return {
-      positionX: 0
+      searchText: ''
     }
   },
   asyncData () {
     const q = this.$route.query['q']
-    if (q !== undefined) this.search(q)
-  },
-  computed: {
-    ...mapState({
-      searchFromStore: 'searchText'
-    }),
-    searchText: {
-      get () {
-        return this.searchFromStore
-      },
-      set (newSearch) {
-        return this.search(newSearch)
-      }
-    }
-  },
-  watch: {
-    searchText (searchText) {
-      return this.algoliaSearch(searchText)
+    if (q !== undefined) {
+      this.searchText = q
+      this.algoliaSearch(q)
     }
   },
   beforeMount () {
     // Nuxt will merge `asyncData` and `data` on the client
     instantsearch.hydrate(this.algoliaState)
-    this.checkSize()
-    window.addEventListener('resize', this.checkSize)
   },
-
+  mounted () {
+    const q = this.$route.query['q']
+    if (q !== undefined) this.searchText = q
+  },
   mixins: [rootMixin],
   components: {
     AisInstantSearchSsr,
@@ -110,10 +101,6 @@ export default {
     AisStateResults
   },
   methods: {
-    ...mapActions(['search']),
-    checkSize () {
-      this.positionX = document.querySelector('#searchForm').getBoundingClientRect().x
-    },
     dispose (disposeOptions) {
       this.search = null
     },
@@ -143,12 +130,8 @@ export default {
   font-size 1rem
 
 .ais-wrapper
-  background #f5f5fa
-  overflow hidden
-  padding 0rem 1.1rem 0 1.1rem
-  transform translateX(328px)
-  border-radius 0 10px 10px 10px
-  max-width 400px
+  position absolute
+  left calc(50vw + 3rem)
 
 .ais-Hits-Img
   display none
@@ -156,16 +139,15 @@ export default {
 .ais-SearchBox-form
   display block
   position relative
-  width 760px
-  max-width calc(100% - 2rem)
 
 .ais-SearchBox-loadingIndicator,
 .ais-SearchBox-reset,
 .ais-SearchBox-submit
+  background transparent
   appearance none
   position absolute
   z-index 1
-  width 20px
+  width 25px
   height 20px
   top 50%
   right .3rem
@@ -182,18 +164,14 @@ export default {
   color #0a2b4e
   text-decoration-color #39b982
 
-.ais-SearchBox-submit
-  left 1rem
-
 .ais-Hits-Box
   flex 1
 
   .ais-Hits-Title
     margin-top 0
 
-  .ais-Hits-Title .badge
-    font-size 0.6rem
-
+    .badge
+      font-size 0.6rem
 
   .badge
     margin 8px 8px 8px 0
@@ -202,30 +180,24 @@ export default {
   .ais-Highlight
     margin-right 8px
 
-.ais-InstantSearch
-  position absolute
-  top 100px
-  opacity 0
+.ais-background
+  position fixed
+  top 0
+  left 0
   width 100%
   height 100%
-  transition opacity .2s ease-out, transform .2s ease-out
-  overflow hidden
-  pointer-events none
-  display none
 
-  +laptop-up()
+.ais-InstantSearch
+  display none
+  position absolute
+  top 28px
+
+  +wide-up()
     z-index 5
     display block
 
-  &.show
-    transition opacity .2s ease-in, transform .2s ease-in
-    transform translateY(-28px)
-    opacity 1
-    width 100%
-    pointer-events initial
-
 .ais-SearchBox
-  display none
+  max-width 246px
 
 .ais-ToggleRefinement-checkbox
   display none
@@ -242,17 +214,17 @@ export default {
     display flex
     justify-content flex-end
     align-items center
-    padding-right 1rem
+    padding-right 1.7rem
     box-sizing border-box
 
 .ais-SearchBox-input
-  padding 0 3rem
-  height 54px
   width 100%
-  line-height 54px
-  border 1px solid #bbb
+  height 44px
+  padding 0 36px 0 23px
+  font-size 20px
+  border 2px solid #bbb
   border-radius 30px
-  color initial
+  transition all ease-out 0.2s
 
   &:focus
     outline none
@@ -262,26 +234,31 @@ export default {
   fill $primary-color
 
 .ais-SearchBox-submit
-  left .8rem
-  margin-top 1px
+  right 1.3rem
+  margin-top -1px
 
   svg
-    width 1rem
-    height 1rem
+    width 20px
+    height 20px
 
 .ais-SearchBox-reset
-  right 1rem
+  right .8rem
   width 1.8rem
   height 1rem
 
   svg
     width 100%
 
+.ais-StateResults
+  background #f5f5fa
+  padding 0rem 1.1rem 0 1.1rem
+  border-radius 0 0 10px 10px
+
 .search-top
   overflow hidden
   position relative
-  margin 0 -1.1rem
-  padding 1rem
+  padding 0 1rem
+  border-radius 0 10px 0 0
   border-bottom 2px solid #fff
   display flex
   justify-content space-between
@@ -293,11 +270,37 @@ export default {
   +mobile-only()
     display none
 
+.search-result
+  opacity 0
+  width 400px
+  max-width 100%
+  height 100%
+  transition opacity .2s ease-out, transform .2s ease-out
+  overflow hidden
+  pointer-events none
+  transform translateY(30px)
+
+.show
+  .search-result
+    transition opacity .2s ease-in, transform .2s ease-in
+    transform translateY(0)
+    opacity 1
+    pointer-events initial
+
+  .ais-SearchBox-input
+    padding 0 36px 0 18px
+    border-radius 10px 10px 0 0
+    border-color #f5f5fa
+    background #f5f5fa
+
+  .ais-SearchBox-submit
+    opacity 0
+
 .ais-RefinementList-list
   display flex
   list-style-type none
   margin-left -.5rem
-  padding 0
+  padding 1rem 0
   position relative
   z-index 4
 
@@ -323,6 +326,9 @@ export default {
     background #835ec2
     color #fff
 
+.ais-RefinementList--noRefinement,
+.ais-ToggleRefinement--noRefinement
+  display none
 
 .ais-Hits-list
   margin 0
@@ -361,7 +367,6 @@ export default {
   li
     display flex
     margin-bottom 0
-
 
 .ais-Pagination-item
   border-radius 50%
@@ -409,8 +414,20 @@ export default {
   padding-bottom 10px
   max-width 365px
 
+.no-result
+  padding 1rem 0
+  p
+    margin-top 0
+  q
+    font-weight bold
+
+  ul
+    list-style-type none
+    padding 0
+    margin-left 0
+
 .search
-  .ais-InstantSearch
+  &.ais-InstantSearch
     opacity 1
     pointer-events initial
     position relative
@@ -418,35 +435,80 @@ export default {
     top 0
     display block
 
-  .ais-wrapper
-    transform none !important
-    max-width 785px
+  .search-result
+    margin 0 auto
+    width 100%
+    background #f5f5fa
+    opacity 1
+    transform none
+
+  .search-top
+    width: 100%
+    max-width: 100%
+    background: #0a2b4e
+    color: #fff
+    border-radius initial
+    border-bottom none
+    margin-bottom 1rem
+    display flex
+    padding 0.2rem 1.4rem 1.4rem 1.4rem
+
+    +tablet-up()
+      margin-bottom 2rem
+
+    @media screen and (min-width: 50em)
+      padding-left calc(50% - 345px)
+      padding-right calc(50% - 357px)
+
+  .ais-StateResults
     margin 0 auto
     background transparent
-    // test
-    overflow visible
-    margin-top -4rem
+    max-width 100%
+    width 785px
+    min-height 300px
+
+  .ais-wrapper
+    position: relative
+    left: 0
+
+  .ais-background
+    display none
 
   .ais-SearchBox
-    display block
-    margin-bottom 1rem
     background-color #0a2b4e
-    height 7rem
     display flex
     justify-content center
     align-items center
+    height 5rem
+    max-width 100%
 
-    // test
-    height 10rem
-    padding-bottom 3rem
-    margin-bottom 0
+    +tablet-up()
+      height 7rem
 
-  .search-top
-    background transparent
-    color #082a4e
+  .ais-SearchBox-input
+    padding 0 1.4rem
+    height 47px
+    line-height 47px
+    font-size 16px
+    border: 2px solid #bbb
+    border-radius 30px
+    color initial
 
-    // test
-    border-bottom: none
+    +tablet-up()
+      padding 0 2rem
+      height 54px
+      line-height 54px
+      font-size 20px
+
+  .ais-SearchBox-form
+    width 760px
+    max-width calc(100% - 2rem)
+
+  .ais-SearchBox-submit
+    right 2.2rem
+
+  .ais-SearchBox-reset
+    right 1.8rem
 
   .ais-ToggleRefinement-checkbox
     &:checked + span
@@ -460,10 +522,18 @@ export default {
   .ais-Snippet
     max-width 100%
 
+  .ais-Hits-Title
+    line-height 1.2rem
 
-  // Test
-  .search-top
-    color #fff
-    padding 1.3rem 2rem
-    margin-bottom 3rem
+  .ais-Pagination-list
+    max-width: 500px
+    margin: 2rem auto 3rem auto
+
+  .no-result
+    text-align center
+
+    ul
+      list-style-type none
+      padding 0
+      margin-left 0
 </style>
