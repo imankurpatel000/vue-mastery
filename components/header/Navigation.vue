@@ -7,8 +7,7 @@
       router-link.navbar-item.underline(to="/pricing" v-if="!account || (account && !account.subscribed)" v-cloak) Pricing
       router-link.navbar-item.underline(to="/blog") Blog
       router-link.navbar-item.underline(to="/conferences") Conference Videos
-
-      search-box
+      router-link.navbar-item.underline.search-link(to="/search") Search
 
     no-ssr
       transition(:name="account ? 'signin' : 'signout'" mode='out-in' appear)
@@ -24,14 +23,8 @@
 </template>
 
 <script>
-import SearchBox from '~/components/search/form'
-
 export default {
   name: 'header-navigation',
-
-  components: {
-    SearchBox
-  },
 
   props: {
     account: {
@@ -230,6 +223,10 @@ export default {
 
 .signout-enter, .signout-leave-to
   opacity: 0
+
+.search-link
+  +wide-up()
+    display none
 </style>
 
 <style lang='stylus'>
