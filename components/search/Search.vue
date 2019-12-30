@@ -2,6 +2,7 @@
 ais-instant-search-ssr
   .ais-background(@click='reset' v-if='searchText !== ""')
   .ais-wrapper(:class="{ 'show': searchText !== '' }")
+    ais-configure(:hits-per-page.camel="$route.name !== 'search' ? 5 : 10")
     ais-search-box(index-name="vuemastery" v-model='searchText' autofocus placeholder='Search')
     .search-result
       .search-top
@@ -12,7 +13,7 @@ ais-instant-search-ssr
         template(slot-scope='{ hits }')
           ais-hits(v-if='hits.length > 0')
             template(slot='item' slot-scope='{ item }')
-              nuxt-link(:to='item.url')
+              nuxt-link(:to='item.url' @click.native='reset')
                 img.ais-Hits-Img(:src='item.image' :alt='item.name')
                 .ais-Hits-Box
                   h2.ais-Hits-Title
@@ -46,6 +47,7 @@ ais-instant-search-ssr
 <script>
 import {
   AisInstantSearchSsr,
+  AisConfigure,
   AisRefinementList,
   AisHits,
   AisHighlight,
@@ -91,6 +93,7 @@ export default {
   mixins: [rootMixin],
   components: {
     AisInstantSearchSsr,
+    AisConfigure,
     AisRefinementList,
     AisHits,
     AisHighlight,
@@ -108,7 +111,7 @@ export default {
       return instantsearch
         .findResultsState({
           query: valueText,
-          hitsPerPage: 9,
+          hitsPerPage: 10,
           disjunctiveFacets: ['category', 'free'],
           facets: ['category'],
           distinct: true,
@@ -361,8 +364,8 @@ export default {
   display flex
   list-style-type none
   justify-content space-evenly
-  margin 20px 0 30px 0
-  padding 0px
+  margin 0
+  padding 20px 0 30px 0
 
   li
     display flex
@@ -451,7 +454,7 @@ export default {
     border-bottom none
     margin-bottom 1rem
     display flex
-    padding 0 1.4rem 0 1.4rem
+    padding 0 .8rem 0 1.4rem
 
     +tablet-up()
       margin-bottom 2rem
@@ -503,7 +506,7 @@ export default {
 
   .ais-SearchBox-form
     width 760px
-    max-width calc(100% - 2rem)
+    max-width calc(100% - 1.4rem)
 
   .ais-RefinementList-list
     padding 1rem 0 1.3rem 0
@@ -530,8 +533,9 @@ export default {
     line-height 1.2rem
 
   .ais-Pagination-list
-    max-width: 500px
-    margin: 2rem auto 3rem auto
+    max-width 500px
+    padding 0
+    margin 2rem auto 3rem auto
 
   .no-result
     text-align center
