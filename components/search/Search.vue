@@ -6,7 +6,7 @@ ais-instant-search-ssr
     ais-search-box(index-name="vuemastery" v-model='searchText' autofocus placeholder='Search')
     .search-result
       .search-top
-        ais-refinement-list(attribute='category' operator='or' :sort-by="['name:desc']")
+        ais-menu(attribute='category' :sort-by="['name:desc']")
         ais-toggle-refinement(attribute='free' label="Free")
     
       ais-state-results
@@ -48,8 +48,8 @@ ais-instant-search-ssr
 import {
   AisInstantSearchSsr,
   AisConfigure,
-  AisRefinementList,
   AisHits,
+  AisMenu,
   AisHighlight,
   AisSearchBox,
   AisPagination,
@@ -92,16 +92,16 @@ export default {
   },
   mixins: [rootMixin],
   components: {
-    AisInstantSearchSsr,
     AisConfigure,
-    AisRefinementList,
     AisHits,
     AisHighlight,
-    AisSearchBox,
+    AisInstantSearchSsr,
+    AisMenu,
     AisPagination,
+    AisSearchBox,
     AisSnippet,
-    AisToggleRefinement,
-    AisStateResults
+    AisStateResults,
+    AisToggleRefinement
   },
   methods: {
     dispose (disposeOptions) {
@@ -113,7 +113,6 @@ export default {
           query: valueText,
           hitsPerPage: 10,
           disjunctiveFacets: ['category', 'free'],
-          facets: ['category'],
           distinct: true,
           disjunctiveFacetsRefinements: ['category']
         })
@@ -299,7 +298,7 @@ export default {
   .ais-SearchBox-submit
     opacity 0
 
-.ais-RefinementList-list
+.ais-Menu-list
   display flex
   list-style-type none
   margin-left -.5rem
@@ -307,29 +306,39 @@ export default {
   position relative
   z-index 4
 
-.ais-RefinementList-item
+.ais-Menu-item
   margin-right .5rem
   margin-bottom 0
 
 .ais-ToggleRefinement-count,
-.ais-RefinementList-count
+.ais-Menu-count
   display none
 
 .ais-ToggleRefinement-labelText,
-.ais-RefinementList-labelText
+.ais-Menu-label
   padding 4px 10px
   border-radius 24px
   font-size .8rem
   cursor pointer
+  color #fff
+  display block
+  text-decoration none
 
-.ais-RefinementList-checkbox
-  display none
+.ais-Menu-item
+  border-radius 24px
 
-  &:checked + span
-    background #835ec2
-    color #fff
+.ais-ToggleRefinement-labelText:hover,
+.ais-Menu-item:hover,
+.ais-Menu-item--selected
+  background #835ec2
+  color #fff
 
-.ais-RefinementList--noRefinement,
+  .ais-Menu-link
+    text-decoration none
+
+.ais-ToggleRefinement
+  padding: 1rem 0
+
 .ais-ToggleRefinement--noRefinement
   display none
 
@@ -484,7 +493,7 @@ export default {
     align-items center
     height 5rem
     max-width 100%
-    margin-bottom -1.6rem
+    margin-bottom -1rem
 
     +tablet-up()
       height 7rem
@@ -508,7 +517,7 @@ export default {
     width 760px
     max-width calc(100% - 1.4rem)
 
-  .ais-RefinementList-list
+  .ais-Menu-list
     padding 1rem 0 1.3rem 0
 
   .ais-SearchBox-submit
