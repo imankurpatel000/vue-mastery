@@ -54,7 +54,7 @@ export default {
 
   methods: {
     path (talk) {
-      return talk.lock ? '#' : `/conferences/${this.conference.slug}/${talk.slug}`
+      return (talk.lock || talk.isVideoLive === 'false') ? '#' : `/conferences/${this.conference.slug}/${talk.slug}`
     },
 
     gotLightningTalks () {
