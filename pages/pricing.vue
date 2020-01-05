@@ -119,8 +119,7 @@ export default {
 
   data () {
     return {
-      chargebeeInstance: null,
-      chargbeeLink: ''
+      chargebeeInstance: null
     }
   },
 
