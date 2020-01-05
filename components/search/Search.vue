@@ -62,8 +62,10 @@ import {
 } from 'vue-instantsearch'
 
 import algoliasearch from 'algoliasearch/lite'
-const serviceAccount = require('~/serviceAccountKey.json')
-const searchClient = algoliasearch(serviceAccount.algolia.id, serviceAccount.algolia.key)
+const searchClient = algoliasearch(
+  process.env.algolia.app_id,
+  process.env.algolia.api_key
+)
 const { instantsearch, rootMixin } = createInstantSearch({
   searchClient,
   indexName: 'vuemastery'
