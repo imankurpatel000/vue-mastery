@@ -441,6 +441,21 @@ export default {
     margin-left 0
 
 .search
+  .ais-Hits-Img
+    display none
+    width: 200px
+    padding-top: .9rem
+    padding-bottom: .9rem
+    object-fit: contain
+    object-position: top
+
+    +tablet-up()
+      display block
+
+  .ais-Hits-Box
+    +tablet-up()
+      padding-left: 2rem
+
   &.ais-InstantSearch
     opacity 1
     pointer-events initial
@@ -485,6 +500,7 @@ export default {
   .ais-wrapper
     position: relative
     left: 0
+    margin-right 0
 
   .ais-background
     display none
