@@ -1,7 +1,7 @@
 <template lang='pug'>
 ais-instant-search-ssr
   .ais-background(@click='reset' v-if='searchText !== ""')
-  .ais-wrapper(:class="{ 'show': searchText !== '' }")
+  .ais-wrapper(:class="{ 'show': searchText !== '', 'signin': account }")
     ais-configure(:hits-per-page.camel="$route.name !== 'search' ? 5 : 10")
     ais-search-box(index-name="vuemastery" v-model='searchText' autofocus placeholder='Search')
     .search-result
@@ -45,6 +45,7 @@ ais-instant-search-ssr
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import {
   AisInstantSearchSsr,
   AisConfigure,
@@ -105,6 +106,11 @@ export default {
     AisStateResults,
     AisToggleRefinement
   },
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
+  },
   methods: {
     dispose (disposeOptions) {
       this.search = null
@@ -136,6 +142,10 @@ export default {
 .ais-wrapper
   position absolute
   left calc(50vw + 3rem)
+  transition left ease-out .5s
+
+  &.signin
+    left calc(58vw + 3rem)
 
 .ais-Hits-Img
   display none
