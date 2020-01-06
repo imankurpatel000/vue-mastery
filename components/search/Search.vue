@@ -248,7 +248,6 @@ export default {
 .ais-SearchBox-reset
   right .8rem
   width 1.8rem
-  height 1rem
 
   svg
     width 100%
@@ -370,6 +369,7 @@ export default {
 
   a
     display flex
+    align-items end
 
 .ais-Pagination-list
   display flex
@@ -455,6 +455,7 @@ export default {
     background #f5f5fa
     opacity 1
     transform none
+    pointer-events initial
 
   .search-top
     width: 100%
@@ -503,7 +504,6 @@ export default {
   .ais-SearchBox-input
     padding 0 1.4rem
     height 47px
-    line-height 47px
     font-size 16px
     border: 2px solid #bbb
     border-radius 30px
@@ -512,7 +512,6 @@ export default {
     +tablet-up()
       padding 0 2rem
       height 54px
-      line-height 54px
       font-size 20px
 
   .ais-SearchBox-form
