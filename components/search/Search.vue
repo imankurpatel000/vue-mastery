@@ -146,7 +146,7 @@ export default {
   max-width 246px
 
   &.signin
-    left calc(58vw + 3rem)
+    left calc(52vw + 3rem)
 
 .ais-Hits-Img
   display none
@@ -295,8 +295,8 @@ export default {
   transform translateY(30px)
 
 .show
-  .ais-wrapper
-    max-width auto
+  &.ais-wrapper
+    max-width initial
 
   .search-result
     transition opacity .2s ease-in, transform .2s ease-in
@@ -515,7 +515,7 @@ export default {
     position: relative
     left: 0
     margin-right 0
-    max-width auto
+    max-width initial
 
   .ais-background
     display none
