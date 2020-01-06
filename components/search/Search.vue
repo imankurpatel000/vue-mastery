@@ -143,6 +143,7 @@ export default {
   position absolute
   left calc(50vw + 3rem)
   transition left ease-out .5s
+  max-width 246px
 
   &.signin
     left calc(58vw + 3rem)
@@ -294,6 +295,9 @@ export default {
   transform translateY(30px)
 
 .show
+  .ais-wrapper
+    max-width auto
+
   .search-result
     transition opacity .2s ease-in, transform .2s ease-in
     transform translateY(0)
@@ -511,6 +515,7 @@ export default {
     position: relative
     left: 0
     margin-right 0
+    max-width auto
 
   .ais-background
     display none
