@@ -146,7 +146,7 @@ export default {
     transform: none
     max-width 240px
     min-width 200px
-    margin: -10px 70px 0 0
+    margin: -10px 90px 0 0
 
 .index
   position: absolute;
