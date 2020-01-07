@@ -141,12 +141,12 @@ export default {
 
 .ais-wrapper
   position absolute
-  left calc(50vw + 3rem)
+  left 10rem
   transition left ease-out .5s
   max-width 246px
 
   &.signin
-    left calc(52vw + 3rem)
+    left 14rem
 
 .ais-Hits-Img
   display none
@@ -206,6 +206,7 @@ export default {
   display none
   position absolute
   top 28px
+  right 50%
 
   +wide-up()
     z-index 5
@@ -476,6 +477,7 @@ export default {
     position relative
     transform none
     top 0
+    right 0
     display block
 
   .search-result
