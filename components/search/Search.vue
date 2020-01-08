@@ -122,6 +122,7 @@ export default {
           hitsPerPage: 10,
           disjunctiveFacets: ['category', 'free'],
           distinct: true,
+          facets: ['category'],
           disjunctiveFacetsRefinements: ['category']
         })
         .then(() => ({
@@ -139,11 +140,13 @@ export default {
 [class^=ais-]
   font-size 1rem
 
+$inputWidth = 246px
+
 .ais-wrapper
   position absolute
   left 10rem
   transition left ease-out .5s
-  max-width 246px
+  max-width $inputWidth
 
   &.signin
     left 14rem
@@ -213,7 +216,7 @@ export default {
     display block
 
 .ais-SearchBox
-  max-width 246px
+  max-width $inputWidth
 
 .ais-ToggleRefinement-checkbox
   display none
@@ -301,9 +304,20 @@ export default {
 
   .search-result
     transition opacity .2s ease-in, transform .2s ease-in
-    transform translateY(0)
+    transform translateY(2px)
     opacity 1
     pointer-events initial
+    overflow visible
+
+    &:before
+      content ''
+      position absolute
+      height 3px
+      top -3px
+      width $inputWidth + 4
+      background-color #0a2b4e
+      -webkit-mask-image: radial-gradient(circle 3px at $inputWidth + 3 0, transparent 0, transparent 3px, black 2px)
+
 
   .ais-SearchBox-input
     padding 0 36px 0 18px
@@ -487,6 +501,9 @@ export default {
     opacity 1
     transform none
     pointer-events initial
+
+    &:before
+      display none
 
   .search-top
     width: 100%
