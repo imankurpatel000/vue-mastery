@@ -1,16 +1,51 @@
 <template lang='pug'>
 ais-instant-search-ssr
-  .ais-background(@click='reset' v-if='searchText !== ""')
+  .ais-background(
+    v-if='searchText !== ""'
+    @click='reset'
+  )
   .ais-wrapper(:class="{ 'show': searchText !== '', 'signin': account }")
     ais-configure(:hits-per-page.camel="$route.name !== 'search' ? 5 : 10")
-    ais-search-box(index-name="vuemastery" v-model='debouncedText' autofocus placeholder='Search')
-      div(slot-scope="{ currentRefinement, isSearchStalled, refine }")
-        form.ais-SearchBox-form(action='' role='search' novalidate='novalidate' @submit.prevent='searchPage')
-          input.ais-SearchBox-input(type="search" v-model='query' autocorrect='off' autocapitalize='off' autocomplete='off' spellcheck='false' required='required' maxlength='512' aria-label='Search' placeholder='Search' autofocus='autofocus')
-          button.reset(v-if='searchText !== ""' type='reset' title='Clear' @click.prevent='reset')
-            Icon(name='x' width='28' height='28')
-          button(v-else type='submit' title='Search' @click='searchPage')
-            Icon(name='search' width='28' height='28')
+    ais-search-box(
+      index-name="vuemastery"
+      v-model='debouncedText'
+      autofocus
+      placeholder='Search'
+    )
+      form.ais-SearchBox-form(
+        slot-scope="{ currentRefinement, isSearchStalled, refine }"
+        action=''
+        role='search'
+        novalidate='novalidate'
+        @submit.prevent='searchPage'
+      )
+        input.ais-SearchBox-input(
+          type="search"
+          v-model='query'
+          autocorrect='off'
+          autocapitalize='off'
+          autocomplete='off'
+          spellcheck='false'
+          required='required'
+          maxlength='512'
+          aria-label='Search'
+          placeholder='Search'
+          autofocus='autofocus'
+        )
+        button.reset(
+          v-if='searchText !== ""'
+          type='reset'
+          title='Clear'
+          @click.prevent='reset'
+        )
+          Icon(name='x' width='28' height='28')
+        button(
+          v-else
+          type='submit'
+          title='Search'
+          @click='searchPage'
+        )
+          Icon(name='search' width='28' height='28')
 
     .search-result
       .search-top
