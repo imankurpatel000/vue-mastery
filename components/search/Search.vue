@@ -326,7 +326,7 @@ $inputWidth = 246px
   opacity 0
   width 400px
   max-width 100%
-  height 100%
+  height 0
   transition opacity .2s ease-out, transform .2s ease-out
   overflow hidden
   pointer-events none
@@ -340,6 +340,7 @@ $inputWidth = 246px
     transition opacity .2s ease-in, transform .2s ease-in
     transform translateY(2px)
     opacity 1
+    height 100%
     pointer-events initial
     overflow visible
 
@@ -536,6 +537,7 @@ $inputWidth = 246px
     transform none
     pointer-events initial
     padding-bottom 1px
+    height 100%
 
     &:before
       display none
