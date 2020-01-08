@@ -3,7 +3,15 @@ ais-instant-search-ssr
   .ais-background(@click='reset' v-if='searchText !== ""')
   .ais-wrapper(:class="{ 'show': searchText !== '', 'signin': account }")
     ais-configure(:hits-per-page.camel="$route.name !== 'search' ? 5 : 10")
-    ais-search-box(index-name="vuemastery" v-model='searchText' autofocus placeholder='Search')
+    ais-search-box(index-name="vuemastery" v-model='debouncedText' autofocus placeholder='Search')
+      div(slot-scope="{ currentRefinement, isSearchStalled, refine }")
+        form.ais-SearchBox-form(action='' role='search' novalidate='novalidate' @submit.prevent='searchPage')
+          input.ais-SearchBox-input(type="search" v-model='query' autocorrect='off' autocapitalize='off' autocomplete='off' spellcheck='false' required='required' maxlength='512' aria-label='Search' placeholder='Search' autofocus='autofocus')
+          button.reset(v-if='searchText !== ""' type='reset' title='Clear' @click.prevent='reset')
+            Icon(name='x' width='28' height='28')
+          button(v-else type='submit' title='Search' @click='searchPage')
+            Icon(name='search' width='28' height='28')
+
     .search-result
       .search-top
         ais-menu(attribute='category' :sort-by="['name:desc']")
@@ -46,6 +54,7 @@ ais-instant-search-ssr
 
 <script>
 import { mapState } from 'vuex'
+import Icon from '~/components/ui/Icon'
 import {
   AisInstantSearchSsr,
   AisConfigure,
@@ -75,7 +84,13 @@ const { instantsearch, rootMixin } = createInstantSearch({
 export default {
   data () {
     return {
-      searchText: ''
+      searchText: '',
+      debouncedText: '',
+      delay: {
+        type: Number,
+        default: 1000,
+        required: false
+      }
     }
   },
   asyncData () {
@@ -95,6 +110,7 @@ export default {
   },
   mixins: [rootMixin],
   components: {
+    Icon,
     AisConfigure,
     AisHits,
     AisHighlight,
@@ -109,7 +125,18 @@ export default {
   computed: {
     ...mapState({
       account: result => result.account.account
-    })
+    }),
+    query: {
+      get () {
+        return this.searchText
+      },
+      set (val) {
+        this.searchText = val
+        this.timeoutId = setTimeout(() => {
+          this.debouncedText = this.searchText
+        }, 500)
+      }
+    }
   },
   methods: {
     dispose (disposeOptions) {
@@ -129,8 +156,14 @@ export default {
           algoliaState: instantsearch.getState()
         }))
     },
+    search (refine, value) {
+      // setTimeout(refine(value), 10000)
+    },
+    searchPage () {
+      this.$router.push(`/search?q=${this.searchText}`)
+    },
     reset () {
-      if (this.$route.name !== 'search') this.searchText = ''
+      this.searchText = ''
     }
   }
 }
@@ -157,6 +190,22 @@ $inputWidth = 246px
 .ais-SearchBox-form
   display block
   position relative
+
+  button
+    color $primary-color
+    background-color transparent
+    appearance none
+    box-shadow none
+    border-radius 0
+    border none
+    position absolute
+    right 0.8rem
+    top 0.4rem
+    cursor pointer
+
+    &.reset
+      right 0.35rem
+      top 0.45rem
 
 .ais-SearchBox-loadingIndicator,
 .ais-SearchBox-reset,
@@ -251,21 +300,6 @@ $inputWidth = 246px
 
 .ais-SearchBox-submitIcon path
   fill $primary-color
-
-.ais-SearchBox-submit
-  right 1.3rem
-  margin-top -1px
-
-  svg
-    width 20px
-    height 20px
-
-.ais-SearchBox-reset
-  right .8rem
-  width 1.8rem
-
-  svg
-    width 100%
 
 .ais-StateResults
   background #f5f5fa
@@ -501,6 +535,7 @@ $inputWidth = 246px
     opacity 1
     transform none
     pointer-events initial
+    padding-bottom 1px
 
     &:before
       display none
@@ -567,6 +602,13 @@ $inputWidth = 246px
   .ais-SearchBox-form
     width 760px
     max-width calc(100% - 1.4rem)
+
+    button
+      right 1.4rem
+      top .7rem
+      
+      &.reset
+        top: 0.75rem
 
   .ais-Menu-list
     padding 1rem 0 1.3rem 0
