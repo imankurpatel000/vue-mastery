@@ -120,6 +120,7 @@ export default {
 <style lang="stylus" scoped>
 .header
   position relative
+  width: 100%
   top 0
   z-index 4
 
@@ -143,9 +144,9 @@ export default {
 
   +laptop-up()
     transform: none
-    max-width 282px
+    max-width 240px
     min-width 200px
-    margin: -10px 70px 0 0
+    margin: -10px 90px 0 0
 
 .index
   position: absolute;

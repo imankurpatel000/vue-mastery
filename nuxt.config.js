@@ -18,7 +18,8 @@ module.exports = {
     messagingSenderId: conf.messagingSenderId,
     url: conf.baseUrl,
     cloudfunctions: conf.cloudfunctions,
-    chargebeeSite: conf.chargebeeSite
+    chargebeeSite: conf.chargebeeSite,
+    algolia: conf.algolia
   },
   /*
   ** Headers of the page
@@ -397,7 +398,8 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    transpile: ['vue-instantsearch', 'instantsearch.js/es']
   },
   /*
   ** Generate Sitemap

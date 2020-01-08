@@ -6,6 +6,7 @@ const conf = require('./firebase')
 const serviceAccount = require(`./serviceAccountKey.json`)
 const algoliasearch = require('algoliasearch')
 const removeMd = require('remove-markdown')
+// const sizeof = require('object-sizeof')
 
 // Init firebase
 const firebaseConfig = {
@@ -24,27 +25,47 @@ const algolia = algoliasearch(
 
 const createIndexObject = function (data, url, category) {
   let image
-
+  const list = []
   try {
-    image = data.image[0].url
+    if (category === 'conference') {
+      image = data.twitterImage[0].url
+    } else {
+      image = data.image[0].url
+    }
   } catch (error) {
     console.log(`Image for the lesson ${data.title} does not exist`)
   }
 
-  return {
+  const order = ['course', 'blog', 'conference']
+
+  const obj = {
     objectID: data.id,
+    courseID: data.id,
+    order: order.findIndex((val) => val === category),
     url: url,
     title: data.title,
     slug: data.slug,
     category: category,
     date: data.date || data.presentedDate,
-    free: data.free || true,
+    free: typeof data.free === 'undefined' ? true : data.free,
     description: data.description,
-    body: removeMd(data.markdown ? data.markdown : data.body, {
-      useImgAltText: true
-    }),
     image: image
   }
+
+  let body = data.markdown ? data.markdown : data.body
+  body = removeMd(body)
+  // const size = sizeof(body)
+
+  body = body.split('\n\n')
+  for (const [i, value] of body.entries()) {
+    const nobj = Object.assign({}, obj)
+    nobj.body = value
+    nobj.objectID = obj.courseID + '_' + i
+    // console.log(obj.objectID)
+    list.push(nobj)
+  }
+
+  return list
 }
 
 const getCoursesPage = async function () {
@@ -59,14 +80,14 @@ const getCoursesPage = async function () {
       subFields: [ 'image' ]
     }]})
     .then(async courses => {
-      const coursePages = []
+      let coursePages = []
       for (const key of Object.keys(courses)) {
         const course = courses[key]
         if (course.hasOwnProperty('lessons')) {
           for (const id of Object.keys(course.lessons)) {
             const lesson = course.lessons[id]
             if (lesson.status === 'published') {
-              coursePages.push(createIndexObject(lesson, `/courses/${course.slug}/${lesson.slug}`, 'course'))
+              coursePages = coursePages.concat(createIndexObject(lesson, `/courses/${course.slug}/${lesson.slug}`, 'course'))
             }
           }
         }
@@ -80,22 +101,22 @@ const getTalksPage = async function () {
     schemaKey: 'conference',
     populate: [{
       field: 'talks',
-      subFields: [ 'lessons', 'image' ],
-      populate: [ 'image' ]
+      subFields: [ 'lessons', 'twitterImage' ],
+      populate: [ 'twitterImage' ]
     }, {
       field: 'image',
       subFields: [ 'image' ]
     }]})
     .then(async conferences => {
-      const talkPages = []
+      let talkPages = []
       for (const key of Object.keys(conferences)) {
         const conference = conferences[key]
         if (conference.hasOwnProperty('talks')) {
-          // talkPages.push(createIndexObject(conference, `/conferences/${conference.slug}`, 'conferences'))
+          // talkPages = talkPages.concat(createIndexObject(conference, `/conferences/${conference.slug}`, 'conferences'))
           for (const id of Object.keys(conference.talks)) {
             const talk = conference.talks[id]
             if (talk.isVideoLive === 'true') {
-              talkPages.push(createIndexObject(conference, `/conferences/${conference.slug}/${talk.slug}`, 'conference'))
+              talkPages = talkPages.concat(createIndexObject(talk, `/conferences/${conference.slug}/${talk.slug}`, 'conference'))
             }
           }
         }
@@ -112,11 +133,11 @@ const getPostsPage = async function () {
       subFields: [ 'image' ]
     }]})
     .then(async posts => {
-      const postsPages = []
+      let postsPages = []
       for (const key of Object.keys(posts)) {
         const post = posts[key]
         if (post.status === 'published') {
-          postsPages.push(createIndexObject(post, `/blog/${post.slug}`, 'blog'))
+          postsPages = postsPages.concat(createIndexObject(post, `/blog/${post.slug}`, 'blog'))
         }
       }
       return postsPages
@@ -130,7 +151,7 @@ const saveToAlgolia = async function (type, pages) {
       console.log(`Content ${type} imported into Algolia`)
     })
     .catch(error => {
-      console.error('Error when importing lesson into Algolia', error)
+      console.error('Error when importing lesson into Algolia', error.message, error.debugData.contentLength, error.statusCode)
     })
 }
 
@@ -141,14 +162,13 @@ const indexAllContent = async function () {
   const talksPages = await getTalksPage(db)
   const postsPages = await getPostsPage(db)
 
-  console.log(coursesPages.length,
-    talksPages.length,
-    postsPages.length)
+  const result = coursesPages.concat(talksPages, postsPages)
+  // console.log(coursesPages)
+
+  // console.log(coursesPages.length, talksPages.length, postsPages.length, result.length) //, result[0], talksPages[0], postsPages[0], coursesPages[0])
 
   // Get all lessons from Firebase
-  await saveToAlgolia('lessons', coursesPages)
-  await saveToAlgolia('talks', talksPages)
-  await saveToAlgolia('posts', postsPages)
+  await saveToAlgolia('vuemastery', result)
 
   process.exit(1)
 }
