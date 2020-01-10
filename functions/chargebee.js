@@ -49,7 +49,7 @@ module.exports = {
     res = configHeader(res)
     chargebee.hosted_page.checkout_new({
       subscription: {
-        'coupon': req.body.plan_id === 'year-subscription' ? 'HOLIDAYDISCOUNT19' : '',
+        'coupon': req.body.plan_id === 'year-subscription' ? 'DISCOUNT2020' : '',
         'plan_id': req.body.plan_id
       },
       customer: {

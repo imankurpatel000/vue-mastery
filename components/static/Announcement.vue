@@ -12,7 +12,7 @@
         .square
 
       p.para
-        | Get 35% off an annual subscription with our holiday discount
+        | Get 20% off an annual discount for 2020
         button.button.high-contrast.-small Save now
 </template>
 
