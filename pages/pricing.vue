@@ -133,7 +133,7 @@ export default {
     return {
       chargebeeInstance: null,
       chargbeeLink: '',
-      promo: 35
+      promo: 20
     }
   },
 
