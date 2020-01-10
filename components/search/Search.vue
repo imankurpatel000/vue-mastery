@@ -9,8 +9,6 @@ ais-instant-search-ssr
     ais-search-box(
       index-name="vuemastery"
       v-model='debouncedText'
-      autofocus
-      placeholder='Search'
     )
       form.ais-SearchBox-form(
         slot-scope="{ currentRefinement, isSearchStalled, refine }"
@@ -29,7 +27,7 @@ ais-instant-search-ssr
           required='required'
           maxlength='512'
           aria-label='Search'
-          placeholder='Search'
+          placeholder='Search for topics'
           autofocus='autofocus'
         )
         button.reset(
