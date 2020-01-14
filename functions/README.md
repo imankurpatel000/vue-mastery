@@ -7,12 +7,21 @@ https://firebase.google.com/docs/functions/
 
 #### Configuration keys
 
-To use MailerLite, SparkPost, and stripe we need to configure enviroment keys using this command:
+To use MailerLite, SparkPost, and stripe etc... we need to configure enviroment keys using this command:
 
 ``` bash
 $ firebase functions:config:set mailerlite.key="THE KEY"
 $ firebase functions:config:set sparkpost.key="THE KEY"
 $ firebase functions:config:set stripe.token="THE KEY"
+$ firebase functions:config:set algolia.id="THE KEY"
+$ firebase functions:config:set algolia.key="THE KEY"
+$ firebase functions:config:set chargebee.key="THE KEY"
+$ firebase functions:config:set chargebee.site="vuemastery"
+$ firebase functions:config:set mailgun.apikey="vuemastery"
+$ firebase functions:config:set chargebee.email="vuemastery"
+etc...
+
+I'm working on a script to import that automatically from the secret file
 ```
 To list the current config:
 
