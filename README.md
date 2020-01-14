@@ -80,6 +80,13 @@ To use MailerLite, SparkPost, and stripe we need to configure environment keys u
 $ firebase functions:config:set mailerlite.key="THE KEY"
 $ firebase functions:config:set sparkpost.key="THE KEY"
 $ firebase functions:config:set stripe.token="THE KEY"
+$ firebase functions:config:set algolia.id="THE KEY"
+$ firebase functions:config:set algolia.key="THE KEY"
+$ firebase functions:config:set chargebee.key="THE KEY"
+$ firebase functions:config:set chargebee.site="vuemastery"
+$ firebase functions:config:set mailgun.apikey="vuemastery"
+$ firebase functions:config:set chargebee.email="vuemastery"
+etc..
 ```
 
 To list the current config:
