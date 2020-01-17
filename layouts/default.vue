@@ -15,7 +15,7 @@
 import Announcement from '~/components/static/Announcement.vue'
 import PageHeader from '~/components/header/Header.vue'
 import PageFooter from '~/components/footer/Footer.vue'
-import AuthForm from '~/components/account/Accountmodal.vue'
+import AuthForm from '~/components/account/AccountModal.vue'
 import HeroImage from '~/components/static/HeroImage'
 import PageSearch from '~/components/search/Search'
 
