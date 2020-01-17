@@ -1,7 +1,7 @@
 import flamelink from 'flamelink/app'
 import 'flamelink/content'
 import 'flamelink/storage'
-const env = require(`~/environmentVariable.js`)
+const env = require(`../environmentVariable.js`)
 const admin = require('firebase-admin')
 
 let result = {
