@@ -7,7 +7,6 @@ node_modules
 *.cache
 
 #locks
-yarn.lock
 package-lock.json
 
 # Nuxt build
