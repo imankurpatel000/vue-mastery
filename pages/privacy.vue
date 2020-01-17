@@ -196,7 +196,7 @@ export default {
       meta: [{
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/privacy`
+        content: `${process.env.baseUrl}/privacy`
       }]
     }
   }

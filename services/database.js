@@ -4,18 +4,17 @@ import 'flamelink/storage'
 import 'flamelink/navigation'
 import 'flamelink/settings'
 import 'flamelink/users'
-
+const conf = require('~/firebase')
 let firebaseApp
 let fb
 if (process.server) {
   const admin = require('firebase-admin')
-
   if (!admin.apps.length) {
-    const serviceAccount = require(`../serviceAccountKey.json`)
+    const env = require(`../environmentVariable.js`)
     firebaseApp = admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: process.env.databaseURL,
-      storageBucket: process.env.storageBucket
+      credential: admin.credential.cert(env),
+      databaseURL: env.databaseURL,
+      storageBucket: env.storageBucket
     })
   } else {
     firebaseApp = admin.app()
@@ -28,14 +27,7 @@ if (process.server) {
   require('firebase/storage')
 
   if (!firebase.apps.length) {
-    firebaseApp = firebase.initializeApp({
-      apiKey: process.env.apiKey,
-      authDomain: process.env.authDomain,
-      databaseURL: process.env.databaseURL,
-      projectId: process.env.projectId,
-      storageBucket: process.env.storageBucket,
-      messagingSenderId: process.env.messagingSenderId
-    })
+    firebaseApp = firebase.initializeApp(conf)
   } else {
     firebaseApp = firebase.app()
   }

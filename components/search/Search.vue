@@ -105,9 +105,10 @@ import {
 } from 'vue-instantsearch'
 
 import algoliasearch from 'algoliasearch/lite'
+const conf = require('~/firebase')
 const searchClient = algoliasearch(
-  process.env.algolia.app_id,
-  process.env.algolia.api_key
+  conf.algoliaAppId,
+  conf.algoliaApiKey
 )
 const { instantsearch, rootMixin } = createInstantSearch({
   searchClient,
@@ -466,7 +467,7 @@ $inputWidth = 246px
 
   a
     display flex
-    align-items end
+    align-items flex-end
 
 .ais-Pagination-list
   display flex

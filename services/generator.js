@@ -1,9 +1,8 @@
 import flamelink from 'flamelink/app'
 import 'flamelink/content'
 import 'flamelink/storage'
-
+const env = require(`~/environmentVariable.js`)
 const admin = require('firebase-admin')
-const conf = require('../firebase')
 
 let result = {
   pages: [],
@@ -100,7 +99,7 @@ const getTalksPage = async function (db) {
             if (talk.isVideoLive === 'true') {
               const url = `/conferences/${conference.slug}/${talk.slug}`
               result.pages.push(url)
-              if (!talk.lock && conf.env !== 'staging') {
+              if (!talk.lock && env.env !== 'staging') {
                 result.sitemap.push(createVideoTags(url, talk))
               }
             }
@@ -132,12 +131,10 @@ const getPostsPage = async function (db) {
 
 module.exports = async function () {
   console.log('Get dynamic routes')
-  const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
-  const serviceAccount = require(`../serviceAccountKey${key}.json`)
   const firebaseConfig = {
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: conf.databaseURL,
-    storageBucket: conf.storageBucket
+    credential: admin.credential.cert(env),
+    databaseURL: env.databaseURL,
+    storageBucket: env.storageBucket
   }
   let firebaseApp = {}
   if (admin.apps.length === 0) {
@@ -145,7 +142,7 @@ module.exports = async function () {
   } else {
     firebaseApp = admin.apps[0]
   }
-  const db = flamelink({ firebaseApp, isAdminApp: true, env: conf.env }).content
+  const db = flamelink({ firebaseApp, isAdminApp: true, env: env.env }).content
 
   await getCoursesPage(db)
   await getTalksPage(db)

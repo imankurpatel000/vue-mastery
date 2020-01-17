@@ -8,19 +8,7 @@ module.exports = {
   /*
   ** Build configuration
   */
-  env: {
-    env: conf.env,
-    apiKey: conf.apiKey,
-    authDomain: conf.authDomain,
-    databaseURL: conf.databaseURL,
-    projectId: conf.projectId,
-    storageBucket: conf.storageBucket,
-    messagingSenderId: conf.messagingSenderId,
-    url: conf.baseUrl,
-    cloudfunctions: conf.cloudfunctions,
-    chargebeeSite: conf.chargebeeSite,
-    algolia: conf.algolia
-  },
+  env: conf,
   /*
   ** Headers of the page
   */

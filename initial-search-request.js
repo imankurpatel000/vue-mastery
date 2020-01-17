@@ -2,25 +2,23 @@ const flamelink = require('flamelink/app')
 require('flamelink/content')
 require('flamelink/storage')
 const admin = require('firebase-admin')
-const conf = require('./firebase')
-const serviceAccount = require(`./serviceAccountKey.json`)
 const algoliasearch = require('algoliasearch')
 const removeMd = require('remove-markdown')
-// const sizeof = require('object-sizeof')
+const env = require(`environmentVariable.js`)
 
 // Init firebase
 const firebaseConfig = {
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: conf.databaseURL,
-  storageBucket: conf.storageBucket
+  credential: admin.credential.cert(env),
+  databaseURL: env.databaseURL,
+  storageBucket: env.storageBucket
 }
 const firebaseApp = admin.initializeApp(firebaseConfig)
-const db = flamelink({ firebaseApp, isAdminApp: true, env: conf.env }).content
+const db = flamelink({ firebaseApp, isAdminApp: true, env: process.env.env }).content
 
 // configure algolia
 const algolia = algoliasearch(
-  conf.algolia.app_id,
-  conf.algolia.api_key
+  env.algoliaAppId,
+  env.algoliaApiKey
 )
 
 const createIndexObject = function (data, url, category) {

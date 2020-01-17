@@ -46,7 +46,7 @@ export default {
       meta: [{
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/vue-conf`
+        content: `${process.env.baseUrl}/vue-conf`
       },
       {
         hid: `description`,

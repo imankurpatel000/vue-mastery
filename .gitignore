@@ -17,7 +17,6 @@ package-lock.json
 dist
 
 # dont show the firebase file
-firebase.js
 serviceAccountKey.json
 serviceAccountKeyStaging.json
 chargebeeAccountKey.json

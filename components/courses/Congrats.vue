@@ -30,7 +30,7 @@ export default {
 
   data () {
     return {
-      base: process.env.url
+      base: process.env.baseUrl
     }
   },
 
