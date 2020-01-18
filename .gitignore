@@ -21,6 +21,7 @@ serviceAccountKeyStaging.json
 chargebeeAccountKey.json
 functions/.runtimeconfig.json
 firebaseConfig.json
+.env
 
 # hide the compiled service worker
 sw.*
