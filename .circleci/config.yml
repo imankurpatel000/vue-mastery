@@ -71,9 +71,6 @@ jobs:
     executor: vue-master
     steps:
       - run:
-        name: Check variables
-        command: printenv
-      - run:
           name: Firebase Deploy
           command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting
 
