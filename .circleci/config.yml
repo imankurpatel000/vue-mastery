@@ -60,7 +60,7 @@ jobs:
           name: Build
           command: npm run generate
           paths:
-            - ./
+              - ./
 
       - hold:
           type: approval
@@ -69,4 +69,4 @@ jobs:
           name: Firebase Deploy
           command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting
           requires:
-            - hold
+              - hold
