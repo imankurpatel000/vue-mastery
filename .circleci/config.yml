@@ -9,6 +9,9 @@ executors:
     docker:
       - image: circleci/node:12.13.0
 
+    parameters:
+      debug: true
+
     working_directory: ~/vue-mastery
 
 jobs:
