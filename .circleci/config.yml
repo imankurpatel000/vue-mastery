@@ -62,9 +62,11 @@ jobs:
           paths:
             - ./
 
-      - hold:
-          type: approval
+  deploy:
+    - hold:
+        type: approval
 
+    steps:
       - run:
           name: Firebase Deploy
           command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting
