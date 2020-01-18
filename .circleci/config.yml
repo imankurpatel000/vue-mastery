@@ -71,6 +71,12 @@ jobs:
     executor: vue-master
     steps:
       - run:
+        name: Build
+        command: npm run generate
+        paths:
+            - ./
+
+      - run:
           name: Firebase Deploy
           command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting
 
