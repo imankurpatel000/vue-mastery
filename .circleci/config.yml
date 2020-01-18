@@ -3,14 +3,17 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2.1
-jobs:
-  build:
+
+executors:
+  vue-master:
     docker:
-      # specify the version you desire here
       - image: circleci/node:lts
 
-    # working_directory: ~/vue-mastery
+    working_directory: ~/vue-mastery
 
+jobs:
+  build:
+    executor: vue-master
     steps:
       - checkout
 
@@ -51,10 +54,7 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
-            - ./node_modules
-
-      # run tests!
-      # - run: yarn test
+              - ./node_modules
 
       - run:
           name: Build
@@ -62,11 +62,33 @@ jobs:
           paths:
               - ./
 
-      - hold:
-          type: approval
+  tests:
+    executor: vue-master
+    steps:
+      - run: npm test
 
+  deploy:
+    executor: vue-master
+    steps:
       - run:
           name: Firebase Deploy
           command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting
+
+workflows:
+  version: 2
+  build-test-and-approval-deploy:
+    jobs:
+      - build
+
+      # - test:
+      #         requires:
+      #             - build
+
+      - hold:
+          type: approval
+          # requires:
+          #     - test
+
+      - deploy:
           requires:
               - hold
