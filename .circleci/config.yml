@@ -70,13 +70,9 @@ jobs:
   deploy:
     executor: vue-master
     steps:
-      - checkout
       - run:
-        name: Build 2
-        command: npm run generate
-        paths:
-            - ./
-
+        name: Check variables
+        command: printenv
       - run:
           name: Firebase Deploy
           command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting
@@ -98,4 +94,5 @@ workflows:
 
       - deploy:
           requires:
+              - build
               - hold
