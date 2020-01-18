@@ -72,7 +72,7 @@ jobs:
     steps:
       - run:
           name: Firebase Deploy
-          command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting
+          command: firebase deploy --token "$FIREBASETOKEN" --only hosting
 
 workflows:
   version: 2
