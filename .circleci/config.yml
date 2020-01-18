@@ -70,6 +70,7 @@ jobs:
   deploy:
     executor: vue-master
     steps:
+      - checkout
       - run:
         name: Build 2
         command: npm run generate
