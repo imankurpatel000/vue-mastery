@@ -63,8 +63,8 @@ jobs:
               - ./
 
       - run:
-        name: List folder
-        command: ls
+          name: List folder
+          command: ls
 
       - run:
           name: Firebase Deploy
