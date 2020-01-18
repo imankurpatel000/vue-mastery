@@ -71,7 +71,7 @@ jobs:
     executor: vue-master
     steps:
       - run:
-        name: Build
+        name: Build 2
         command: npm run generate
         paths:
             - ./
