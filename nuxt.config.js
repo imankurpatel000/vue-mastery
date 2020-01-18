@@ -373,6 +373,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    quiet: false,
     // analyze: true,
     // /*
     // ** Run ESLint on save
