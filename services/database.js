@@ -7,7 +7,7 @@ import 'flamelink/users'
 const conf = require('~/firebase')
 let firebaseApp
 let fb
-if (process.server) {
+if (process.server || process.env.env === 'production') {
   const admin = require('firebase-admin')
   if (!admin.apps.length) {
     const env = require(`../environmentVariable.js`)
