@@ -412,6 +412,7 @@ module.exports = {
       if (!generatorData) {
         generatorData = await generator()
       }
+      console.log('Route generated. Env:' process.server)
       return generatorData.pages
     }
   }
