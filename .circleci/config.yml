@@ -66,9 +66,6 @@ jobs:
           name: List folder
           command: ls
 
-      - run:
-          name: Firebase Deploy
-          command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting --project=default
   tests:
     executor: vue-master
     steps:
@@ -91,13 +88,13 @@ workflows:
       #         requires:
       #             - build
 
-      # - hold:
-      #     type: approval
-      #     requires:
-      #         - build
-      #         # - test
+      - hold:
+          type: approval
+          requires:
+              - build
+              # - test
 
-      # - deploy:
-      #     requires:
-      #         # - build
-      #         - hold
+      - deploy:
+          requires:
+              - build
+              - hold
