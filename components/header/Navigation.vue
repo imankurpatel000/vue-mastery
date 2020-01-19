@@ -9,7 +9,7 @@
       router-link.navbar-item.underline(to="/conferences") Conference Videos
       router-link.navbar-item.underline.search-link(to="/search") Search
 
-    no-ssr
+    client-only
       transition(:name="account ? 'signin' : 'signout'" mode='out-in' appear)
         .navbar-secondary(v-if='account' v-cloak key='islogged')
           button.button.primary.-small.appear(type='button' @click='signOut') Sign Out

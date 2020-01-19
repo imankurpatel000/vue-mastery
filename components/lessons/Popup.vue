@@ -1,5 +1,5 @@
 <template lang='pug'>
-no-ssr
+client-only
   modal(name='next-lesson' height='auto' @before-open='beforeOpen')
     h3.form-title(v-if='account' v-cloak)
       span Next {{isLesson ? 'Lesson' : 'Talk'}}: {{ lesson.title }}

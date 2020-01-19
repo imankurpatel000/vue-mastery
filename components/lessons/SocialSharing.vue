@@ -4,7 +4,7 @@ div
     Icon(name='share-2')
     | Share Lesson
 
-  no-ssr
+  client-only
     modal(name='share' v-cloak height='270')
       h3.form-title Share this lesson
       social-sharing(inline-template :url="base+baseUrl+lesson.slug"

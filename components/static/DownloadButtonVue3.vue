@@ -1,5 +1,5 @@
 <template lang='pug'>
-  no-ssr
+  client-only
     a.button(v-if='account' v-cloak
              href='/pdf/Vue-3-Cheat-Sheet.pdf'
              :class='buttonClass'

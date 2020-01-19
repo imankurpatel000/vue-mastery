@@ -1,5 +1,5 @@
 <template lang='pug'>
-no-ssr
+client-only
   a.button.secondary.-full(v-cloak
             v-if='account'
             :href='courseLink'

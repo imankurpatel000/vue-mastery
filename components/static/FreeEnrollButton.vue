@@ -1,5 +1,5 @@
 <template lang='pug'>
-  no-ssr
+  client-only
     button.button(v-if='account' v-cloak
       @click='enroll'
       :class='buttonClass') Enroll Free Now

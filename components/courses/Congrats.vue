@@ -1,5 +1,5 @@
 <template lang="pug">
-no-ssr
+client-only
   modal(name='finish-course' height='auto' @before-open='beforeOpen' @before-close='beforeClose')
     .body
       button(class="modal-close" @click="$modal.hide('finish-course')" @before-close="beforeClose") &times;
