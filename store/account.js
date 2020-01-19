@@ -204,8 +204,15 @@ export const actions = {
   userUpdate ({ state }, newData) {
     return updateUser(state, { displayName: newData.displayName })
   },
-  userUpdateImage ({ state }, image) {
-    return updateUser(state, { image })
+  userUpdateImage ({ state }, file) {
+    const ref = firebase.storage().ref().child(`accounts/profile/${state.account['.key']}`)
+    return ref.put(file)
+      .then((snapshot) => {
+        return snapshot.ref.getDownloadURL()
+      })
+      .then((downloadUrl) => {
+        return updateUser(state, { image: downloadUrl })
+      })
   },
   userUpdateSubscribe ({ state }, courseSlug) {
     let courses = getCourseHistory(state.account.courses, courseSlug)
