@@ -42,7 +42,6 @@ jobs:
             echo "authProviderX509CertUrl=$AUTHPROVIDERX509CERTURL" >> .env
             echo "clientX509CertUrl=$CLIENTX509CERTURL" >> .env
 
-      # Download and cache dependencies
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
 
@@ -62,6 +61,11 @@ jobs:
           paths:
               - ./
 
+      - save_cache:
+        key: dist-cache
+        paths:
+            - ./dist
+
       - run:
           name: List folder
           command: ls
@@ -69,11 +73,27 @@ jobs:
   tests:
     executor: vue-master
     steps:
+      - checkout
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+
+      - restore_cache:
+          key: dist-cache
+
       - run: npm test
 
   deploy:
     executor: vue-master
     steps:
+      - checkout
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+
+      - restore_cache:
+          key: dist-cache
+
       - run:
           name: Firebase Deploy
           command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting --project=default
