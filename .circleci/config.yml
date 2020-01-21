@@ -63,7 +63,7 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
-            - dist
+            - dist/*
 
       - run:
           name: List folder
