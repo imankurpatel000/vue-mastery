@@ -63,7 +63,7 @@ jobs:
       - persist_to_workspace:
           root: /tmp
           paths:
-            - dist
+            - ~/vue-mastery/dist
 
       - run:
           name: List folder
