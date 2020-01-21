@@ -56,7 +56,7 @@ jobs:
             - ./
 
       - save_cache:
-          key: site-cache-{{ checksum "yarn.lock" }}
+          key: site-cache-{{ epoch }}
           paths:
             - ./node_modules
             - ./dist
