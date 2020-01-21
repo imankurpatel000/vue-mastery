@@ -99,9 +99,9 @@ jobs:
           name: List folder
           command: ls ./dist
 
-      # - run:
-      #     name: Firebase Deploy
-      #     command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting --project=default
+      - run:
+          name: Firebase Deploy
+          command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting --project=default
 
 workflows:
   version: 2
