@@ -11,6 +11,11 @@ executors:
 
     working_directory: ~/vue-mastery
 
+    persist_to_workspace:
+      root: ~/vue-mastery
+      paths:
+        - dist/*
+
 jobs:
   build:
     executor: vue-master
@@ -49,17 +54,16 @@ jobs:
           name: Install dependences
           command: yarn install
 
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+
       - run:
           name: Build
           command: npm run generate
           paths:
             - ./
-
-      - save_cache:
-          key: site-cache-{{ epoch }}
-          paths:
-            - ./node_modules
-            - ./dist
 
       - run:
           name: List folder
@@ -72,7 +76,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - site-cache-{{ epoch }}
+            - dependency-cache-{{ checksum "yarn.lock" }}
 
       - run: npm test
 
@@ -83,7 +87,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - site-cache-{{ epoch }}
+            - dependency-cache-{{ checksum "yarn.lock" }}
 
       - run:
           name: Firebase Deploy
