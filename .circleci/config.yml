@@ -61,7 +61,7 @@ jobs:
             - ./
 
       - persist_to_workspace:
-          root: ~/vue-mastery
+          root: ./
           paths:
             - dist
 
@@ -78,7 +78,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
 
       - attach_workspace:
-          at: dist
+          at: ~/vue-mastery/dist
 
       - run: npm test
 
@@ -91,7 +91,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
 
       - attach_workspace:
-          at: dist
+          at: ~/vue-mastery/dist
 
       - run:
           name: List folder
