@@ -9,7 +9,7 @@ executors:
     docker:
       - image: circleci/node:12.13.0
 
-    working_directory: /tmp
+    working_directory: ~/vue-mastery
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
     steps:
       - checkout
 
-      - run: mkdir -p vuemastery
+      - run: mkdir -p /tmp/vuemastery
 
       - run:
           name: Add environment variables
@@ -63,7 +63,7 @@ jobs:
             - ./
 
       - persist_to_workspace:
-          root: vuemastery
+          root: ~/vue-mastery
           paths:
             - dist
 
@@ -80,7 +80,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
 
       - attach_workspace:
-          at: /tmp/vuemastery
+          at: ~/vue-mastery
 
       - run: npm test
 
@@ -93,7 +93,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
 
       - attach_workspace:
-          at: /tmp/vuemastery
+          at: ~/vue-mastery
 
       - run:
           name: List folder
