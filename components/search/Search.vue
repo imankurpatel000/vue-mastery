@@ -1,95 +1,96 @@
 <template lang='pug'>
-ais-instant-search-ssr
-  .ais-background(
-    v-if='searchText !== ""'
-    @click='reset'
-  )
-  .ais-wrapper(:class="{ 'show': searchText !== '', 'signin': account }")
+client-only
+  ais-instant-search(:search-client='searchClient' index-name='vuemastery')
     ais-configure(:hits-per-page.camel="$route.name !== 'search' ? 5 : 10")
-    ais-search-box(
-      index-name="vuemastery"
-      v-model='debouncedText'
+    .ais-background(
+      v-if='searchText !== ""'
+      @click='reset'
     )
-      form.ais-SearchBox-form(
-        slot-scope="{ currentRefinement, isSearchStalled, refine }"
-        action=''
-        role='search'
-        novalidate='novalidate'
-        @submit.prevent='searchPage'
+    .ais-wrapper(:class="{ 'show': searchText !== '', 'signin': account }")
+      ais-search-box(
+        index-name="vuemastery"
+        v-model='debouncedText'
       )
-        input.ais-SearchBox-input(
-          type="search"
-          v-model='query'
-          autocorrect='off'
-          autocapitalize='off'
-          autocomplete='off'
-          spellcheck='false'
-          required='required'
-          maxlength='512'
-          aria-label='Search'
-          placeholder='Search for topics'
-          autofocus='autofocus'
+        form.ais-SearchBox-form(
+          slot-scope="{ currentRefinement, isSearchStalled, refine }"
+          action=''
+          role='search'
+          novalidate='novalidate'
+          @submit.prevent='searchPage'
         )
-        button.reset(
-          v-if='searchText !== ""'
-          type='reset'
-          title='Clear'
-          @click.prevent='reset'
-        )
-          Icon(name='x' width='28' height='28')
-        button(
-          v-else
-          type='submit'
-          title='Search'
-          @click='searchPage'
-        )
-          Icon(name='search' width='28' height='28')
+          input.ais-SearchBox-input(
+            type="search"
+            v-model='query'
+            autocorrect='off'
+            autocapitalize='off'
+            autocomplete='off'
+            spellcheck='false'
+            required='required'
+            maxlength='512'
+            aria-label='Search'
+            placeholder='Search for topics'
+            autofocus='autofocus'
+          )
+          button.reset(
+            v-if='searchText !== ""'
+            type='reset'
+            title='Clear'
+            @click.prevent='reset'
+          )
+            Icon(name='x' width='28' height='28')
+          button(
+            v-else
+            type='submit'
+            title='Search'
+            @click='searchPage'
+          )
+            Icon(name='search' width='28' height='28')
 
-    .search-result
-      .search-top
-        ais-menu(attribute='category' :sort-by="['name:desc']")
-        ais-toggle-refinement(attribute='free' label="Free")
-    
-      ais-state-results
-        template(slot-scope='{ hits }')
-          ais-hits(v-if='hits.length > 0')
-            template(slot='item' slot-scope='{ item }')
-              nuxt-link(:to='item.url' @click.native='reset')
-                img.ais-Hits-Img(:src='item.image' :alt='item.name')
-                .ais-Hits-Box
-                  h2.ais-Hits-Title
-                    ais-highlight(attribute='title' :hit='item')
+      .search-result
+        .search-top
+          ais-menu(attribute='category' :sort-by="['name:desc']")
+          ais-toggle-refinement(attribute='free' label="Free")
+      
+        ais-state-results
+          template(slot-scope='{ hits }')
+            ais-hits(v-if='hits.length > 0')
+              template(slot='item' slot-scope='{ item }')
+                nuxt-link(:to='item.url' @click.native='reset')
+                  img.ais-Hits-Img(:src='item.image' :alt='item.name')
+                  .ais-Hits-Box
+                    h2.ais-Hits-Title
+                      ais-highlight(attribute='title' :hit='item')
 
-                  .badge.tertiary {{item.category}}
-                  .badge.primary(v-if='item.free') FREE
+                    .badge.tertiary {{item.category}}
+                    .badge.primary(v-if='item.free') FREE
 
-                  ais-snippet(
-                    attribute='description'
-                    :hit='item'
-                  )
-                  ais-snippet(
-                    v-if='item._snippetResult.body.matchLevel !== "none"'
-                    attribute='body'
-                    :hit='item'
-                  )
+                    ais-snippet(
+                      attribute='description'
+                      :hit='item'
+                    )
+                    ais-snippet(
+                      v-if='item._snippetResult.body.matchLevel !== "none"'
+                      attribute='body'
+                      :hit='item'
+                    )
 
-          .no-result(v-else) 
-            p Your search - <q>{{searchText}}</q> - did not match any documents.
-            p Suggestions:
-            ul
-              li Make sure that all words are spelled correctly.
-              li Try different keywords.
-              li Try more general keywords.
-              li Try fewer keywords.
+            .no-result(v-else) 
+              p Your search - <q>{{searchText}}</q> - did not match any documents.
+              p Suggestions:
+              ul
+                li Make sure that all words are spelled correctly.
+                li Try different keywords.
+                li Try more general keywords.
+                li Try fewer keywords.
 
-          ais-pagination(v-if='hits.length > 0')
+            ais-pagination(v-if='hits.length > 0')
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import Icon from '~/components/ui/Icon'
 import {
-  AisInstantSearchSsr,
+  AisInstantSearch,
   AisConfigure,
   AisHits,
   AisMenu,
@@ -106,18 +107,40 @@ import {
 
 import algoliasearch from 'algoliasearch/lite'
 const conf = require('~/firebase')
-const searchClient = algoliasearch(
+const algoliaClient = algoliasearch(
   conf.algoliaAppId,
   conf.algoliaApiKey
 )
-const { instantsearch, rootMixin } = createInstantSearch({
-  searchClient,
+const { rootMixin } = createInstantSearch({
+  searchClient: algoliaClient,
   indexName: 'vuemastery'
 })
+
+const searchClient = {
+  async search (requests) {
+    // change conditional if any of the other facets are faked"
+    if (window.location.pathname !== '/search' && requests.every(({ params: { query } }) => Boolean(query) === false)) {
+      return {
+        results: requests.map(params => {
+          // fake something of the result if used by the search interface
+          return {
+            processingTimeMS: 0,
+            nbHits: 0,
+            hits: [],
+            facets: {},
+            nbPages: 0
+          }
+        })
+      }
+    }
+    return algoliaClient.search(requests)
+  }
+}
 
 export default {
   data () {
     return {
+      searchClient,
       searchText: '',
       debouncedText: '',
       delay: {
@@ -127,20 +150,12 @@ export default {
       }
     }
   },
-  asyncData () {
+  mounted () {
     const q = this.$route.query['q']
     if (q !== undefined) {
       this.searchText = q
-      this.algoliaSearch(q)
+      this.debouncedText = q
     }
-  },
-  beforeMount () {
-    // Nuxt will merge `asyncData` and `data` on the client
-    instantsearch.hydrate(this.algoliaState)
-  },
-  mounted () {
-    const q = this.$route.query['q']
-    if (q !== undefined) this.searchText = q
   },
   mixins: [rootMixin],
   components: {
@@ -148,7 +163,7 @@ export default {
     AisConfigure,
     AisHits,
     AisHighlight,
-    AisInstantSearchSsr,
+    AisInstantSearch,
     AisMenu,
     AisPagination,
     AisSearchBox,
@@ -176,28 +191,12 @@ export default {
     dispose (disposeOptions) {
       this.search = null
     },
-    algoliaSearch (valueText) {
-      return instantsearch
-        .findResultsState({
-          query: valueText,
-          hitsPerPage: 10,
-          disjunctiveFacets: ['category', 'free'],
-          distinct: true,
-          facets: ['category'],
-          disjunctiveFacetsRefinements: ['category']
-        })
-        .then(() => ({
-          algoliaState: instantsearch.getState()
-        }))
-    },
-    search (refine, value) {
-      // setTimeout(refine(value), 10000)
-    },
     searchPage () {
-      this.$router.push(`/search?q=${this.searchText}`)
+      this.$router.push(`/search${this.searchText !== '' ? '?q=' + this.searchText : ''}`)
     },
     reset () {
       this.searchText = ''
+      if (window.location.pathname === '/search') this.$router.replace({ query: '' })
     }
   }
 }
@@ -437,6 +436,7 @@ $inputWidth = 246px
 
 .ais-ToggleRefinement
   padding: 1rem 0
+  margin-left: auto
 
 .ais-ToggleRefinement--noRefinement
   display none
@@ -467,7 +467,7 @@ $inputWidth = 246px
 
   a
     display flex
-    align-items flex-end
+    // align-items flex-end
 
 .ais-Pagination-list
   display flex
@@ -562,6 +562,7 @@ $inputWidth = 246px
     top 0
     right 0
     display block
+    min-height 100vh
 
   .search-result
     margin 0 auto
