@@ -34,7 +34,7 @@
 
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $5 of your monthly subscription goes to supporting the Vue.js project itself.
+                span 25% of your monthly subscription goes to supporting the Vue.js project itself.
 
               .benefit.color-gold
                 i.fas.fa-shield-alt
@@ -50,8 +50,8 @@
               .money(:class="{ 'promo': promo }")
                 .symbol
                   | $
-                  span(v-if='promo') {{190 * (100 - promo) / 100}}
-                .decimal 190
+                  span(v-if='promo') {{228 - promo}}
+                .decimal 228
 
               .text-center
                 i per year
@@ -62,7 +62,7 @@
 
               .benefit
                 img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $25 of your yearly subscription goes to supporting the Vue.js project itself.
+                span 25% of your yearly subscription goes to supporting the Vue.js project itself.
 
               .benefit.color-gold
                 i.fas.fa-shield-alt
@@ -71,9 +71,8 @@
               .benefit.color-primary
                 i.fa.fa-piggy-bank
                 b 
-                  | Lock in our holiday discount
-                  br
-                  small (You’ll get the same price on renewal)
+                  b Get 2 months free <br>
+                  small ($38 discount)
 
               button.button.primary.-full(@click="subscribe('year-subscription')") Select Plan
 
@@ -133,7 +132,7 @@ export default {
     return {
       chargebeeInstance: null,
       chargbeeLink: '',
-      promo: 20
+      promo: 38
     }
   },
 

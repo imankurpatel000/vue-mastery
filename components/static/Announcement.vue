@@ -12,8 +12,7 @@
         .square
 
       p.para
-        | Get 20% off an annual discount for 2020
-        button.button.high-contrast.-small Save now
+        | Get 20% off an annual subscription for 2020 by using code DISCOUNT2020
 </template>
 
 <script>
