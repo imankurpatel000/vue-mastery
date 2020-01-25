@@ -56,6 +56,7 @@ const getCoursesPage = async function (db) {
     .then(async courses => {
       for (const key of Object.keys(courses)) {
         const course = courses[key]
+        result.pages.push(`/courses/${course.slug}`)
         if (course.hasOwnProperty('lessons')) {
           for (const id of Object.keys(course.lessons)) {
             const lesson = course.lessons[id]

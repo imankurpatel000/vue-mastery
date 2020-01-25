@@ -39,6 +39,10 @@ export default {
         hid: `author`,
         name: 'author',
         content: d.author || 'Adam Jahr'
+      }, {
+        hid: 'robots',
+        name: 'robots',
+        content: d.robots || 'index, follow'
       }]
     }
   }
