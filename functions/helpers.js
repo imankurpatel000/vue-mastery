@@ -103,7 +103,6 @@ module.exports = {
             // Check if user is part of a team
             team.members.forEach((member) => {
               if (email === member.email) {
-                console.log('YOLO', email, team.companyName)
                 promises.push(this.subscribeTeamMember(email, team, true))
               }
             })
