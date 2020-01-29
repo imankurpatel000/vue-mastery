@@ -6,7 +6,8 @@
         img(:src='account.image' width='100' height='100' :alt='imageAlt')
 
     .account-info
-      h3(v-text='account.displayName')
+      h3.title(v-text='account.displayName')
+      p(v-text='account.email')
 
   .account-actions
     button.tab(type='button'
@@ -270,6 +271,9 @@ export default {
 
 .account-info
   color $secondary-color
+
+  .title 
+    margin-bottom: -1rem
 
 .course-list
   display grid
