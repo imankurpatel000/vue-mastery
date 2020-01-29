@@ -33,6 +33,16 @@ module.exports = {
     return admin.database().ref(pathToCourse).once('value')
   },
 
+  getCourseDuration (id) {
+    const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}/duration`
+    return admin.database().ref(pathToCourse)
+  },
+
+  getCourseCount (id) {
+    const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}/lessonsCount`
+    return admin.database().ref(pathToCourse)
+  },
+
   teams () {
     const pathToTeam = '/flamelink/environments/production/content/team/en-US'
     return admin.database().ref(pathToTeam).once('value')
@@ -82,29 +92,25 @@ module.exports = {
   },
 
   checkIfTeamMember (email) {
-    return this.teams().then(snapshot => {
+    return this.teams().then(async snapshot => {
+      const promises = []
       if (snapshot !== undefined) {
         // For each team in database
-        return new Promise((resolve, reject) => {
-          const promises = []
-          snapshot.forEach((teamSnapshot) => {
-            let team = teamSnapshot.val()
-            if (team !== undefined) {
-              // Check if user is part of a team
-              team.members.forEach((member) => {
-                if (email === member.email) {
-                  promises.push(this.subscribeTeamMember(email, team, true))
-                }
-              })
-            }
-          })
-          Promise.all(promises).then((result) => {
-            return resolve(result)
-          }, (error) => {
-            return reject(error)
-          })
+        snapshot.forEach((teamSnapshot) => {
+          let team = teamSnapshot.val()
+          console.log('checkIfTeamMember', team.companyName)
+          if (team !== undefined) {
+            // Check if user is part of a team
+            team.members.forEach((member) => {
+              if (email === member.email) {
+                console.log('YOLO', email, team.companyName)
+                promises.push(this.subscribeTeamMember(email, team, true))
+              }
+            })
+          }
         })
       }
+      return promises
     })
   },
 

@@ -14,12 +14,13 @@ module.exports = {
   createCustomer: functions.auth.user()
     .onCreate(async user => {
       console.log(`Adding new customer ${user.email}`)
-
       // Check if user is part of a team
-      await db.checkIfTeamMember(user.email)
-
+      const promises = await db.checkIfTeamMember(user.email)
       // Subscribe customer to the mailerLite groups
-      return subscription.subscribeNewMember(user)
+      if (promises === []) {
+        promises.push(subscription.subscribeNewMember(user))
+      }
+      return Promise.all(promises)
     }),
 
   deleteCustomer: functions.auth.user()
@@ -131,12 +132,14 @@ module.exports = {
       course = course.val()
       let count = 0
       let duration = 0
+      console.log('Change in lessons. Now looking for class time in classes:')
       await Promise.all(course.lessons.map(async (lessonsId) => {
         let lesson = await db.lesson(lessonsId)
         lesson = lesson.val()
         if (lesson.status === 'published') {
           count++
           duration = db.addTimes(duration, lesson.duration)
+          console.log(`Lesson: ${lesson.title} , id:${lessonsId}, duration: ${lesson.duration}, total: ${duration}`)
         }
       }))
 
@@ -147,6 +150,34 @@ module.exports = {
       return Promise.all([
         countRef.set(count),
         durationRef.set(duration)
+      ])
+    }),
+
+  // Update lesson count in a course
+  // Triggers when a lesson is created, updated, or deleted
+  updateCourseDuration: functions.database.ref('/flamelink/environments/production/content/lessons/en-US/{lid}')
+    .onWrite(async (change, context) => {
+      let lesson = await db.lesson(context.params.lid)
+      lesson = lesson.val()
+      const courseId = await lesson.belongsToCourse
+      let course = await db.course(courseId)
+      course = course.val()
+      let count = 0
+      let duration = 0
+      console.log('Change in lessons. Now looking for class time in classes:')
+      await Promise.all(course.lessons.map(async (lessonsId) => {
+        let lesson = await db.lesson(lessonsId)
+        lesson = lesson.val()
+        if (lesson.status === 'published') {
+          count++
+          duration = db.addTimes(duration, lesson.duration)
+          console.log(`Lesson: ${lesson.title} , id:${lessonsId}, duration: ${lesson.duration}, total: ${duration}`)
+        }
+      }))
+
+      return Promise.all([
+        db.getCourseCount(courseId).set(count),
+        db.getCourseDuration(courseId).set(duration)
       ])
     }),
 
