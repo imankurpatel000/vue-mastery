@@ -98,7 +98,7 @@ module.exports = {
         // For each team in database
         snapshot.forEach((teamSnapshot) => {
           let team = teamSnapshot.val()
-          console.log('checkIfTeamMember', team.companyName)
+
           if (team !== undefined) {
             // Check if user is part of a team
             team.members.forEach((member) => {
