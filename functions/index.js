@@ -163,8 +163,8 @@ module.exports = {
       let course = await db.course(courseId)
       course = course.val()
       let count = 0
-      let duration = 0
-      console.log('Change in lessons. Now looking for class time in classes:')
+      let duration = '00:00:00'
+      console.log(`Change in lessons. Now looking for class time in ${course} classes:`)
       await Promise.all(course.lessons.map(async (lessonsId) => {
         let lesson = await db.lesson(lessonsId)
         lesson = lesson.val()
