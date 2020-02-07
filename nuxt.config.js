@@ -415,12 +415,7 @@ module.exports = {
           title: 'Vue Mastery Blog',
           link: 'https://www.vuemastery.com/feed.xml',
           description: 'Vue Mastery is the ultimate learning resource for Vue.js developers. We release weekly video tutorials and articles as well as the proud producers of the official Vue.js News. You can consume it in newsletter and podcast format at news.vuejs.org.',
-          generator: 'Nuxt from custom Vue Mastery build',
-          image: {
-            url: `${baseUrl}/images/facbeook_image.png`,
-            link: 'https://www.vuemastery.com/feed.xml',
-            title: 'Vue Mastery Blog'
-          }
+          generator: 'Nuxt from custom Vue Mastery build'
         }
 
         const posts = generatorData.feed
