@@ -14,6 +14,7 @@ package-lock.json
 
 # Nuxt generate
 dist
+feed.xml
 
 # dont show the firebase file
 serviceAccountKey.json

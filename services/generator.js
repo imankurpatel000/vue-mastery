@@ -6,7 +6,8 @@ const admin = require('firebase-admin')
 
 let result = {
   pages: [],
-  sitemap: []
+  sitemap: [],
+  feed: []
 }
 
 const timeConvert = function (time) {
@@ -51,7 +52,7 @@ const getCoursesPage = async function (db) {
       populate: [ 'image' ]
     }, {
       field: 'image',
-      subFields: [ 'image' ]
+      subFields: [ 'image' ] // to remove?
     }]})
     .then(async courses => {
       for (const key of Object.keys(courses)) {
@@ -87,7 +88,7 @@ const getTalksPage = async function (db) {
       populate: [ 'image' ]
     }, {
       field: 'image',
-      subFields: [ 'image' ]
+      subFields: [ 'image' ] // to remove?
     }]})
     .then(async conferences => {
       for (const key of Object.keys(conferences)) {
@@ -124,6 +125,14 @@ const getPostsPage = async function (db) {
         if (post.status === 'published') {
           result.pages.push(`/blog/${post.slug}`)
           result.sitemap.push(`/blog/${post.slug}`)
+          result.feed.push({
+            title: post.title,
+            id: `/blog/${post.slug}`,
+            link: `/blog/${post.slug}`,
+            description: post.description,
+            pubDate: post.date,
+            author: post.author
+          })
         }
       }
       return result

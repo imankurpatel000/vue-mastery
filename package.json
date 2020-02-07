@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@firebase/app-types": "0.4.3",
+    "@nuxtjs/feed": "^1.1.0",
     "@nuxtjs/google-tag-manager": "^2.2.0",
     "@nuxtjs/markdownit": "^1.2.5",
     "@nuxtjs/pwa": "^3.0.0-beta.16",

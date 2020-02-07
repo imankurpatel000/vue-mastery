@@ -278,6 +278,7 @@ module.exports = {
     ['@nuxtjs/pwa', { icon: false }],
     '@nuxtjs/markdownit',
     '@nuxtjs/sitemap',
+    '@nuxtjs/feed',
     '@nuxtjs/style-resources',
     '@nuxtjs/toast',
     ['nuxt-facebook-pixel-module', {
@@ -402,6 +403,44 @@ module.exports = {
       return generatorData.sitemap
     }
   },
+  feed: [
+    {
+      path: '/feed.xml', // The route to your feed.
+      async create (feed) {
+        if (!generatorData) {
+          generatorData = await generator()
+        }
+
+        feed.options = {
+          title: 'Vue Mastery Blog',
+          link: 'https://www.vuemastery.com/feed.xml',
+          description: 'Vue Mastery is the ultimate learning resource for Vue.js developers. We release weekly video tutorials and articles as well as the proud producers of the official Vue.js News. You can consume it in newsletter and podcast format at news.vuejs.org.',
+          generator: 'Nuxt from custom Vue Mastery build',
+          image: {
+            url: `${baseUrl}/images/facbeook_image.png`,
+            link: 'https://www.vuemastery.com/feed.xml',
+            title: 'Vue Mastery Blog'
+          }
+        }
+
+        const posts = generatorData.feed
+        posts.forEach(post => {
+          post.link = baseUrl + post.link
+          feed.addItem(post)
+        })
+
+        feed.addCategory('Vue Mastery') // Change later if we add categories
+
+        feed.addContributor({
+          name: 'Vue Mastery',
+          email: 'team@vuemastery.com',
+          link: 'https://www.vuemastery.com/'
+        })
+      },
+      cacheTime: 1000 * 60 * 15, // How long should the feed be cached
+      type: 'rss2' // Can be: rss2, atom1, json1
+    }
+  ],
   /*
   ** Generate Static pages
   */
