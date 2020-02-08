@@ -49,13 +49,13 @@ module.exports = {
     res = configHeader(res)
     chargebee.hosted_page.checkout_new({
       subscription: {
-        // 'coupon': req.body.plan_id === 'year-subscription' ? 'DISCOUNT2020' : '',
-        'plan_id': req.body.plan_id
+        // coupon: req.body.plan_id === 'year-subscription' ? 'DISCOUNT2020' : '',
+        plan_id: req.body.plan_id
       },
       customer: {
-        'email': req.body.email,
-        'last_name': req.body.last_name,
-        'first_name': req.body.first_name
+        email: req.body.email,
+        last_name: req.body.last_name,
+        first_name: req.body.first_name
       },
       embed: 'false'
     }).request((error, result) => {
