@@ -15,12 +15,11 @@ module.exports = {
     .onCreate(async user => {
       console.log(`Adding new customer ${user.email}`)
       // Check if user is part of a team
-      const promises = await db.checkIfTeamMember(user.email)
-      // Subscribe customer to the mailerLite groups
-      if (promises === []) {
-        promises.push(subscription.subscribeNewMember(user))
+      const isTeamMember = await db.checkIfTeamMember(user.email)
+      if (!isTeamMember) {
+        // Subscribe customer to the mailerLite groups
+        await subscription.subscribeNewMember(user)
       }
-      return Promise.all(promises)
     }),
 
   deleteCustomer: functions.auth.user()

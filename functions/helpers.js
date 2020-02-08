@@ -109,7 +109,11 @@ module.exports = {
           }
         })
       }
-      return promises
+      if (promises.length) {
+        await Promise.all(promises)
+        return true
+      }
+      return false
     })
   },
 
