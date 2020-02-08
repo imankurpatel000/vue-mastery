@@ -49,6 +49,20 @@ export default {
         hid: `og:url`,
         property: 'og:url',
         content: process.env
+      }],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [{
+        type: 'application/ld+json',
+        json: {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          url: process.env.baseUrl,
+          potentialAction: [{
+            '@type': 'SearchAction',
+            target: 'https://www.vuemastery.com/search?q={search_term_string}',
+            'query-input': 'required name=search_term_string'
+          }]
+        }
       }]
     }
   },

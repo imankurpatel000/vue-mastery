@@ -249,7 +249,6 @@ module.exports = {
         rel: 'manifest'
       }
     ],
-    __dangerouslyDisableSanitizers: ['script'],
     script: [
       // Vimeo analytics
       {
@@ -262,20 +261,6 @@ module.exports = {
         type: 'text/javascript',
         defer: 'defer',
         src: 'https://js.chargebee.com/v2/chargebee.js'
-      },
-      // Google Sitelinks Searchbox
-      {
-        type: 'application/ld+jso',
-        innerHTML: `{
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          url: baseUrl,
-          potentialAction: [{
-            '@type': 'SearchAction',
-            target: 'https://www.vuemastery.com/search?q={search_term_string}',
-            'query-input': 'required name=search_term_string'
-          }]
-        }`
       }
     ]
   },
