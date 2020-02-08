@@ -30,17 +30,20 @@ const createVideoTags = function (url, lesson) {
   } catch (error) {
     console.log(`Image for the lesson ${lesson.title} does not exist`)
   }
-  return {
+
+  const video = {
     url: url,
     video: {
       thumbnail_loc: image.url.replace(/&/g, '&amp;'),
       title: lesson.title,
       description: lesson.description,
-      // YO: check that
-      player_loc: `https://player.vimeo.com/video/${lesson.videoEmbedId}`,
       duration: timeConvert(lesson.duration)
     }
   }
+  if (lesson.free) {
+    video.player_loc = `https://player.vimeo.com/video/${lesson.videoEmbedId}`
+  }
+  return video
 }
 
 const getCoursesPage = async function (db) {
