@@ -1,82 +1,41 @@
 <template lang='pug'>
   .banner
-    .wrapper
-      .media
-        img(src='/images/image-cheatsheet-example@2x.png')
+    .body
+      h2.title Download the cheatsheets
+      p.lead Our Vue essentials, Vue 3, and Nuxt.Js cheat sheets save you time and energy by giving you essential syntax at your fingertips.
 
-      .body
-        h2.title Get the Ultimate Vue Cheat Sheet
-        p.lead All the essential syntax at your fingertips.
-
-        DownloadButton(button-class='inverted' location='Front-page cheat sheet download')
+    CheatSheets(button-class='inverted' location='Front-page cheat sheet download')
 </template>
 
 <script>
-import DownloadButton from '~/components/static/DownloadButton'
+import CheatSheets from '~/components/static/CheatSheets'
 
 export default {
   name: 'cheat-sheet-main',
 
   components: {
-    DownloadButton
+    CheatSheets
   }
 }
 </script>
 
 
 <style lang='stylus' scoped>
-.wrapper
-  grid-template-columns 1fr 1fr
-  padding-top $vertical-space
-  grid-template-areas 'body body'\
-                      'media media'
-
-  +laptop-up()
-    grid-template-areas 'media body'\
-                        'media body'
 .banner
-  background-image url(/images/bkg-cheatsheet-main.jpg)
-
-.media
-  display grid
-  grid-area media
-  justify-content center
-
-  img
-    align-self end
-    justify-self center
-    width 70%
-
-    +laptop-up()
-      justify-self center
-      width 100%
+  background-image url(/images/cheatsheets/background.svg)
+  background-size cover
+  background-position bottom center
+  margin-bottom -168px
+  position relative
+  height 924px
+  z-index 2
 
 .body
-  display grid
-  grid-area body
-  padding-bottom 1em
   text-align center
-
-  +laptop-up()
-    padding-bottom $vertical-space
-
-.title
-  color $secondary-color
-  margin 0
-  padding-top 0
-  +tablet-up()
-    font-size 56px
-
-.lead
-  max-width 690px
-  font-size 16px
-  color $secondary-color
-
-  +laptop-up()
-    font-size 24px
-
-.button
-  justify-self center
-  text-transform uppercase
+  max-width 400px
+  color #fff
+  position relative
+  left 55%
+  padding-top 100px
 
 </style>
