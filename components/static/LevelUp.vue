@@ -1,8 +1,8 @@
 <template lang='pug'>
 section.bg-wrapper(v-once)
   .body
-    h2.title Support the community
-    p.lead We give 25% of our revenue to the Vue.js framework, so learning with us means supporting the growth and the substainability of your technology.
+    h2.title Level-up your knowledge - fast
+    p.lead Our course break down concept visually, giving you the knowledge you need to start coding immediatly
 </template>
 
 <script>
@@ -14,24 +14,24 @@ export default {
 
 <style lang='stylus' scoped>
 section.bg-wrapper
-  background: linear-gradient(360deg, #B5FFDA 11.34%, #8CE5CE 20.89%, #23A4B1 42.29%, #008EA7 49.28%, #006C85 58.91%, #004C65 69.86%, #00354E 80.47%, #002841 90.49%, #00233C 99.31%)
+  background linear-gradient(0deg, #9FFFC7 21.49%, #76E1BF 30.01%, #0D96AA 49.1%, #008CA7 51.48%, #02627B 63.63%, #052E45 80.31%, #070D24 92.81%, #080117 99.6%)
   background-attachment scroll
-  height 520px
+  height 580px
   margin-top -2px
   z-index 3
   display flex
   justify-content center
 
   &:before
-    background-image url(/images/community/background.svg)
+    background-image url(/images/level-up/middle.svg)
     background-size 100% auto
     background-position center bottom 15px
 
   &:after
-    background-image url(/images/community/foreground.svg)
+    background-image url(/images/level-up/foreground.svg)
     background-size 100% auto
 
-
+  
   +mobile-only()
     &:before,
     &:after
@@ -47,13 +47,13 @@ section.bg-wrapper
   z-index 3
   width 100%
   max-width 400px
-  top 20px
+  top 100px
 
   +desktop-up()
     width 310px
     max-width 50%
     padding-right 50px
-    top 35px
+    top 120px
     right 50%
 
 .title

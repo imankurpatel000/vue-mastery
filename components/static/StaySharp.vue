@@ -1,8 +1,8 @@
 <template lang='pug'>
 section.bg-wrapper(v-once)
   .body
-    h2.title Support the community
-    p.lead We give 25% of our revenue to the Vue.js framework, so learning with us means supporting the growth and the substainability of your technology.
+    h2.title Stay sharp
+    p.lead New topics every week so you can sharpen your skills and deepen your understanding of Vue.js and its ecosystem of tools.
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
 
 <style lang='stylus' scoped>
 section.bg-wrapper
-  background: linear-gradient(360deg, #B5FFDA 11.34%, #8CE5CE 20.89%, #23A4B1 42.29%, #008EA7 49.28%, #006C85 58.91%, #004C65 69.86%, #00354E 80.47%, #002841 90.49%, #00233C 99.31%)
+  background linear-gradient(0deg, #B5FFDA 3.85%, #8CE5CE 13.14%, #23A4B1 33.95%, #008EA7 40.76%, #0087A0 43.73%, #00516A 69.85%, #003049 89.38%, #00233C 100%)
   background-attachment scroll
   height 520px
   margin-top -2px
@@ -23,14 +23,13 @@ section.bg-wrapper
   justify-content center
 
   &:before
-    background-image url(/images/community/background.svg)
-    background-size 100% auto
+    background-image url(/images/stay-sharp/middle.svg)
+    background-size auto 100%
     background-position center bottom 15px
 
   &:after
-    background-image url(/images/community/foreground.svg)
+    background-image url(/images/stay-sharp/foreground.svg)
     background-size 100% auto
-
 
   +mobile-only()
     &:before,
@@ -46,15 +45,15 @@ section.bg-wrapper
   color #fff
   z-index 3
   width 100%
-  max-width 400px
-  top 20px
+  max-width 430px
+  top 60px
 
   +desktop-up()
     width 310px
     max-width 50%
-    padding-right 50px
+    padding-left 83px
     top 35px
-    right 50%
+    left 50%
 
 .title
   margin-bottom 0

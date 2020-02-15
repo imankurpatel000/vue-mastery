@@ -23,7 +23,7 @@ a
   position relative
   display flex
   flex-direction column
-  background-image url(/images/community/foreground.svg)
+  background-image url(/images/learn-from-experts/foreground.svg)
   background-repeat no-repeat
   background-position 50% 80%
   background-size auto 50%

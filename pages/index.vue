@@ -1,6 +1,8 @@
 <template lang='pug'>
 .homepage
   Hero
+  LevelUp
+  StaySharp
   CommunitySupport
   CheatSheetMain
   .bg-wrapper.experts-teachers
@@ -11,6 +13,8 @@
 
 <script>
 import Hero from '~/components/static/Hero'
+import LevelUp from '~/components/static/LevelUp'
+import StaySharp from '~/components/static/StaySharp'
 import MeetTeachers from '~/components/static/MeetTeachers'
 import CommunitySupport from '~/components/static/CommunitySupport'
 import CheatSheetMain from '~/components/static/CheatSheetMain'
@@ -49,8 +53,10 @@ export default {
 
   components: {
     Hero,
-    MeetTeachers,
+    LevelUp,
+    StaySharp,
     CommunitySupport,
+    MeetTeachers,
     CheatSheetMain,
     LearnFromExperts,
     ProTips
