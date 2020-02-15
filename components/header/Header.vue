@@ -149,8 +149,9 @@ export default {
     margin: -10px 90px 0 0
 
 .index
-  position: absolute;
-  width: 100%;
+  .wrapper
+    position: absolute;
+    width: 100%;
 
   +laptop-up()
     ::v-deep .navbar-item

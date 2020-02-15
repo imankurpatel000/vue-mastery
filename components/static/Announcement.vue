@@ -1,61 +1,33 @@
 <template lang='pug'>
-  transition(name="push" mode='out-in' appear)
-    nuxt-link(to='/pricing' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-      .squares
-        .square
-        .square
-        .square
+  nuxt-link(to='/pricing' class="announcement-bar")
+    .squares
+      .square
+      .square
+      .square
 
-      .squares.right
-        .square
-        .square
-        .square
+    .squares.right
+      .square
+      .square
+      .square
 
-      p.para
-        | Get 20% off an annual subscription for 2020 by using code DISCOUNT2020
+    p.para
+      | Get 20% off an annual subscription for 2020 by using code DISCOUNT2020
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-  name: 'announcement-bar',
-
-  data () {
-    return {
-      ready: false
-    }
-  },
-
-  mounted () {
-    setTimeout(() => {
-      this.ready = true
-    }, 2000)
-  },
-
-  computed: {
-    ...mapState({
-      account: result => result.account.account
-    })
-  }
+  name: 'announcement-bar'
 }
 </script>
 
-
-<style lang="stylus">
-.open-nav
-  .announcement-bar
-    +laptop-down()
-      position absolute
-      opacity 0
-</style>
-
 <style lang="stylus" scoped>
 .announcement-bar
+  position fixed
+  width 100%
   display flex
   align-items center
   flex-direction row
   padding 0 10px
-  position relative
   justify-content center
   overflow hidden
   text-align left
@@ -63,8 +35,10 @@ export default {
   color #fff
   min-height $vertical-space
   background $secondary-color
-  // background-image radial-gradient(800px 100% at center -35px, #02101f, #0a2b4e)
   text-align center
+
+  +mobile-only()
+    font-size 14px
 
   &:hover
     text-decoration none
@@ -92,16 +66,6 @@ export default {
   +tablet-up()
     width 70px
     margin 0 18px
-
-
-.push-enter-active
-  transition margin-top ease-in .5s
-
-.push-leave-active
-  transition margin-top ease-out .5s
-
-.push-enter, .push-leave-to
-  margin-top: -90px
 
 .button
   font-size: 18px

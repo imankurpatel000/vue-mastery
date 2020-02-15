@@ -1,5 +1,6 @@
 <template lang='pug'>
-  client-only
+client-only
+  .cheatsheets-carousel-wrapper
     .cheatsheets-carousel(
       :class='active'
       @click='openLogin'
@@ -61,17 +62,28 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+.cheatsheets-carousel-wrapper
+  position absolute
+  width 100%
+  left 0
+  top 170px
+  border-bottom 20px solid #021c35
+  height 355px
+
 .cheatsheets-carousel
   width 375px
   height 337px
   position absolute
   z-index 2
-  top 172px
-  right 57%
+  right 50%
   background-image url(/images/cheatsheets/light.svg)
   background-size 100% auto
   background-position 7px bottom
   background-repeat no-repeat
+  transform translateX(50%)
+    
+  +desktop-up()
+    transform translateX(0)
 
 .cheatsheets-item
   display block

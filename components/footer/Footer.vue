@@ -55,9 +55,17 @@ export default {
 build-grid-area(brand nav-1 nav-2)
 
 .footer
-  background-color $secondary-color
+  background url(/images/footer.svg)
+  background-position center top
+  background-size cover
+  border-bottom 40px solid #080117
   color #fff
   padding ($vertical-space/2) 0
+  position relative
+  z-index: 5
+  margin-top -3vw
+  padding-top 220px
+
 .wrapper
   display grid
   text-align center
