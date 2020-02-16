@@ -2,7 +2,7 @@
   .banner
     .wrapper
       .media
-        img(src='/images/img-vue-3-cheatsheet-example@2x.png')
+        img(src='/images/cheatsheets/img-vue-3-cheatsheet-example@2x.png')
 
       .body
         h2.title Get the Vue 3 Cheat Sheet

@@ -18,9 +18,9 @@ section.bg-wrapper
   background-attachment scroll
   height 580px
   margin-top -2px
-  z-index 3
   display flex
   justify-content center
+  z-index 3
 
   &:before
     background-image url(/images/level-up/middle.svg)
@@ -47,6 +47,7 @@ section.bg-wrapper
   z-index 3
   width 100%
   max-width 400px
+  padding 0 30px
   top 100px
 
   +desktop-up()
@@ -59,6 +60,7 @@ section.bg-wrapper
 .title
   margin-bottom 0
   font-size 1.8rem
+  max-width 212px
 
 .lead
   font-size: 1rem

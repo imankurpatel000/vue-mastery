@@ -23,7 +23,6 @@
     "firebase-auth": "^0.1.2",
     "flamelink": "^1.0.0-alpha.28",
     "object-sizeof": "^1.5.2",
-    "skrollr": "^0.6.26",
     "vue": "^2.6.11",
     "vue-analytics": "^5.17.2",
     "vue-confetti": "^2.0.1",

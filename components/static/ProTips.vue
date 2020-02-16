@@ -25,9 +25,14 @@ section.bg-wrapper
 
   &:after
     background url(/images/pro-tips/ship.svg)
-    background-size 652px auto 
     background-position 15% bottom
     background-repeat no-repeat
+    background-size 100%
+
+    +desktop-up()
+      background-size 652px auto 
+
+  
 
 .body
   position absolute
@@ -38,7 +43,10 @@ section.bg-wrapper
   color #fff
   z-index 3
   width 100%
-  top 20px
+  top 100px
+
+  +tablet-up()
+    top 20px
 
   +desktop-up()
     width 700px
@@ -49,5 +57,7 @@ section.bg-wrapper
 
 .lead,
 .title
-  max-width 400px
+  max-width 158px
+  +tablet-up()
+    max-width 400px
 </style>

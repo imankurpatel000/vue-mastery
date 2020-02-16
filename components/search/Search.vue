@@ -211,6 +211,10 @@ $inputWidth = 246px
 
 .search-wrapper
   position relative
+  top -100px
+
+.index
+  top 0
 
 .ais-wrapper
   position absolute

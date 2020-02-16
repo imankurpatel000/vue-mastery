@@ -46,6 +46,7 @@ section.bg-wrapper
   z-index 3
   width 100%
   max-width 430px
+  padding 0 30px
   top 60px
 
   +desktop-up()

@@ -119,8 +119,9 @@ export default {
 
 <style lang="stylus" scoped>
 .header
+  background-color #fff
   position relative
-  width: 100%
+  width 100%
   top 0
   z-index 4
 

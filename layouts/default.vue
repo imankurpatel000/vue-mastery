@@ -6,7 +6,8 @@
       PageSearch(:class='$route.name')
       nuxt
       PageFooter
-      AuthForm
+
+    AuthForm
 
 </template>
 

@@ -23,6 +23,7 @@ export default {
 <style lang='stylus' scoped>
 section.bg-wrapper
   margin-bottom -168px
+  margin-top -2px
   height 924px
   z-index: 3
 
@@ -42,22 +43,24 @@ section.bg-wrapper
   flex-direction column
   align-items center
   color #fff
-  padding-top 11%
   z-index 3
   width 100%
-  bottom 200px
-
-  +tablet-up()
-    bottom: 150px
+  height: 740px
+  padding 0 30px
+  top 26px
+  justify-content space-between
 
   +desktop-up()
     width 700px
     max-width 50%
-    bottom auto
+    top 100px
     left 50%
+    height auto
 
 
 .lead,
 .title
-  max-width 400px
+  max-width 320px
+  +tablet-up()
+    max-width 400px
 </style>

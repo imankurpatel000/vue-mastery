@@ -1,13 +1,13 @@
 <template lang='pug'>
-  .container
-    PageHeader(title='Our Courses'
-              background_image='/images/courses.svg')
+.container
+  PageHeader(title='Our Courses'
+            background_image='/images/courses.svg')
 
-    .courses-body.wrapper
-      LearningPath(:courses='courses'
-        :account='account')
+  .courses-body.wrapper
+    LearningPath(:courses='courses'
+      :account='account')
 
-    CheatSheetAlt(location='Course page cheat sheet download')
+  CheatSheetAlt(location='Course page cheat sheet download')
 </template>
 
 <script>
@@ -60,6 +60,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+.container
+  background-color #fff
 .page-header
     background-size auto 200%
     height 466px

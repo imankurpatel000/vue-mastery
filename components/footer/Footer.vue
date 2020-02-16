@@ -64,7 +64,11 @@ build-grid-area(brand nav-1 nav-2)
   position relative
   z-index: 5
   margin-top -3vw
-  padding-top 220px
+  padding-top 100px
+
+  +tablet-up()
+    padding-top 220px
+
 
 .wrapper
   display grid
