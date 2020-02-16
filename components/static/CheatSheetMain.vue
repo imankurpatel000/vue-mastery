@@ -21,6 +21,35 @@ export default {
 
 
 <style lang='stylus' scoped>
+.bg-wrapper
+  position relative
+  overflow hidden
+  background-size cover
+  background-attachment fixed
+  background-position center
+  -webkit-overflow-scrolling touch
+
+  &::before,
+  &::after
+    content ''
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    background-size cover
+    background-position center bottom
+    background-repeat no-repeat
+    z-index 1
+
+  &::before
+    /* Move the pseudo-element back away from the camera,
+    * then scale it back up to fill the viewport.
+    * Because the pseudo-element is further away, it appears to move more slowly, like in real life. */
+    transform translateZ(-1px) scale(1.5)
+    bottom -1px // Remove bottom artfacts
+    left -4px // Remove bottom artfacts
+
 section.bg-wrapper
   margin-bottom -168px
   margin-top -2px

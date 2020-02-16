@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+.container
   .post-wrapper(
     v-if='post'
     v-cloak
@@ -100,6 +100,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.container
+  background #fff
+
 .post-wrapper
   max-width: 1000px
   padding: 0 4%

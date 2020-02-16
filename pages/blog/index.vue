@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.container
+  background #fff
+
 .post-list
   display grid
   margin-top 40px
