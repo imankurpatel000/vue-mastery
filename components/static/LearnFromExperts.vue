@@ -1,8 +1,10 @@
 <template lang="pug">
 .banner
-  nuxt-link(to='/conferences')
-    h2.title Learn from the Experts.
-    p.lead Binge our exclusive collection of global Vue Conference talks.
+  h2.title Learn from the Experts.
+  p.lead Binge our exclusive collection of global Vue Conference talks.
+
+  .actions
+    nuxt-link.button.inverted(to='/conferences') Explore conferences
 </template>
 
 <script>
@@ -16,9 +18,7 @@ export default {
   position relative
   z-index 2
   overflow hidden
-  padding-top 20vh
-
-a
+  padding-top 28vh
   text-align center
   position relative
   display flex
@@ -27,15 +27,13 @@ a
   background-repeat no-repeat
   background-position 50% 80%
   background-size auto 50%
-  height 600px
-  padding-top 8vh
+  height 1200px
   text-decoration none
   color #fff
   z-index 3
 
   +tablet-up()
-    height 800px
-    background-position 50% 80%
+    height 1200px
     background-size auto 580px
 
 .lead

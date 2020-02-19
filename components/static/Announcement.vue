@@ -22,7 +22,7 @@ export default {
 
 <style lang="stylus" scoped>
 .announcement-bar
-  position fixed
+  position absolute
   width 100%
   display flex
   align-items center
@@ -36,6 +36,8 @@ export default {
   min-height $vertical-space
   background $secondary-color
   text-align center
+  left 0
+  z-index 0
 
   +mobile-only()
     font-size 14px

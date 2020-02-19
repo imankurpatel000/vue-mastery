@@ -124,6 +124,8 @@ export default {
   width 100%
   top 0
   z-index 4
+  display flex
+  justify-content center
 
   .wrapper
     height $header-height

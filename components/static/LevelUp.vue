@@ -3,6 +3,8 @@ section.bg-wrapper(v-once)
   .body
     h2.title Level-up your knowledge - fast
     p.lead Our course break down concept visually, giving you the knowledge you need to start coding immediatly
+    .actions
+      nuxt-link.button.inverted(to='/courses') Explore courses
 </template>
 
 <script>
@@ -22,10 +24,14 @@ section.bg-wrapper
   justify-content center
   z-index 3
 
+  +desktop-up()
+    height 720px
+
   &:before
     background-image url(/images/level-up/middle.svg)
     background-size 100% auto
-    background-position center bottom 15px
+    background-position center bottom
+    bottom -43px
 
   &:after
     background-image url(/images/level-up/foreground.svg)
@@ -35,7 +41,7 @@ section.bg-wrapper
   +mobile-only()
     &:before,
     &:after
-      background-size 200% auto
+      background-size 800px auto
 
 .body
   position absolute
@@ -50,17 +56,22 @@ section.bg-wrapper
   padding 0 30px
   top 100px
 
-  +desktop-up()
-    width 310px
+  @media screen and (min-width: 50em)
+    width 375px
     max-width 50%
-    padding-right 50px
-    top 120px
+    top 60px
     right 50%
+
+  +desktop-up()
+    top 16%
+    padding-right 50px
 
 .title
   margin-bottom 0
-  font-size 1.8rem
-  max-width 212px
+  font-size 2rem
+
+  +desktop-up()
+    font-size 2.5rem
 
 .lead
   font-size: 1rem

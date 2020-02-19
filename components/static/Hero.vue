@@ -21,19 +21,31 @@ section.bg-wrapper
   height 92vh
   min-height 600px
   background-image url(/images/hero/background.svg)
-  background-position calc(50% - 8px) center
-  +mobile-only()
-    background-position 35% center
-
-    &::before
-    &::after
-      background-position 10% bottom
+  background-position 35% center
 
   &::before
-    background-image url(/images/hero/middle.svg)
-
   &::after
-    background-image url(/images/hero/foreground.svg)
+    background-position 10% bottom
+
+  &::before
+      background-image url(/images/hero/middle.svg)
+
+    &::after
+      background-image url(/images/hero/foreground.svg)
+
+  +tablet-up()
+    &::before
+    &::after
+      background-position 5% bottom
+
+  +desktop-up()
+    background-position calc(50% - 8px) center
+
+    &::before
+      background-position center bottom
+
+    &::after
+      background-position center bottom
 
   @media (orientation: portrait)
     min-height 600px
@@ -42,12 +54,10 @@ section.bg-wrapper
   max-width: 300px
   padding-top 0
   margin 0 auto
-  font-size 24px
-  font-weight 600
 
   +tablet-up()
-    max-width 400px
-    font-size 29px
+    max-width 500px
+    font-size 2.5rem
 
   +laptop-up()
     max-width 550px
@@ -56,14 +66,14 @@ section.bg-wrapper
 .hero
   position absolute
   z-index 2
-  top 20%
+  top 15%
   width 100%
   height 100%
   padding 0 15px
   color white
   text-align center
 
-  +tablet-up()
+  +desktop-up()
     top 20%
 
   @media screen and (orientation: landscape) and (max-width: 40em)

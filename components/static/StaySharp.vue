@@ -3,6 +3,8 @@ section.bg-wrapper(v-once)
   .body
     h2.title Stay sharp
     p.lead New topics every week so you can sharpen your skills and deepen your understanding of Vue.js and its ecosystem of tools.
+    .actions
+      nuxt-link.button.inverted(to='/courses') Explore courses
 </template>
 
 <script>
@@ -22,9 +24,12 @@ section.bg-wrapper
   display flex
   justify-content center
 
+  +desktop-up()
+    height 720px
+
   &:before
     background-image url(/images/stay-sharp/middle.svg)
-    background-size auto 100%
+    background-size 100% auto
     background-position center bottom 15px
 
   &:after
@@ -34,7 +39,7 @@ section.bg-wrapper
   +mobile-only()
     &:before,
     &:after
-      background-size 200% auto
+      background-size 800px auto
 
 .body
   position absolute
@@ -49,16 +54,20 @@ section.bg-wrapper
   padding 0 30px
   top 60px
 
-  +desktop-up()
+  @media screen and (min-width: 50em)
     width 310px
     max-width 50%
-    padding-left 83px
-    top 35px
+    padding-left 9%
+    box-sizing content-box
+    top 16%
     left 50%
 
 .title
   margin-bottom 0
-  font-size 1.8rem
+  font-size 2rem
+
+  +desktop-up()
+    font-size 2.5rem
 
 .lead
   font-size: 1rem

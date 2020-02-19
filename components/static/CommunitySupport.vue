@@ -3,6 +3,9 @@ section.bg-wrapper(v-once)
   .body
     h2.title Support the community
     p.lead We give 25% of our revenue to the Vue.js framework, so learning with us means supporting the growth and the substainability of your technology.
+
+    .actions
+      nuxt-link.button.inverted(to='/courses') Explore courses
 </template>
 
 <script>
@@ -35,7 +38,10 @@ section.bg-wrapper
   +mobile-only()
     &:before,
     &:after
-      background-size 200% auto
+      background-size 800px auto
+
+  +desktop-up()
+    height 720px
 
 .body
   position absolute
@@ -46,20 +52,16 @@ section.bg-wrapper
   color #fff
   z-index 3
   width 100%
-  max-width 400px
+  max-width 500px
   padding 0 30px
-  top 20px
-
-  +desktop-up()
-    width 310px
-    max-width 50%
-    padding-right 50px
-    top 35px
-    right 50%
+  top 0
 
 .title
   margin-bottom 0
-  font-size 1.8rem
+  font-size 2rem
+
+  +desktop-up()
+    font-size 2.5rem
 
 .lead
   font-size: 1rem

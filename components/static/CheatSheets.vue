@@ -152,7 +152,7 @@ i
     max-width 50%
     width 700px
     justify-content center
-    top 183px
+    top 60%
     bottom auto
 
     .next,

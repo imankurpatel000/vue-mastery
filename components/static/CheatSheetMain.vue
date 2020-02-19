@@ -51,7 +51,7 @@ export default {
     left -4px // Remove bottom artfacts
 
 section.bg-wrapper
-  margin-bottom -168px
+  margin-bottom -186px
   margin-top -2px
   height 924px
   z-index: 3
@@ -82,7 +82,7 @@ section.bg-wrapper
   +desktop-up()
     width 700px
     max-width 50%
-    top 100px
+    top 15%
     left 50%
     height auto
 
@@ -91,5 +91,12 @@ section.bg-wrapper
 .title
   max-width 320px
   +tablet-up()
-    max-width 400px
+    max-width 366px
+
+.title
+  margin-bottom 0
+  font-size 2rem
+
+  +desktop-up()
+    font-size 2.5rem
 </style>
