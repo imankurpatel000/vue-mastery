@@ -1,32 +1,31 @@
 <template lang="pug">
-  .container
-    PageHeader(title='Vue Conference Videos'
-              background_image='/images/banner-conference.png')
+.container
+  PageHeader(title='Vue Conference Videos'
+            background_image='/images/banner-conference.png')
 
-    .wrapper
-      .conference-body
-        .list(v-if='conferences' v-cloak)
-          nuxt-link.list-card(v-for='conference, key, index in orderedConferences'
-                        v-if='!conference.upcoming'
-                        :key='conference.id'
-                        :class='conference.available ? "" : "not-available"'
-                        :to='getConferenceUrl(conference)')
-                        
-            Card(:title='conference.title' v-if='conference'
-              :image_url='conference.banner ? conference.banner[0].url : ""'
-              image_placement='top'
-              :meta='conference.location'
-              :content='getNumbersOfTalks(conference)')
-              ConferenceActions(slot='actions' :conference='conference')
+  .wrapper
+    .conference-body
+      .list(v-if='conferences' v-cloak)
+        nuxt-link.list-card(v-for='conference, key, index in orderedConferences'
+                      v-if='!conference.upcoming'
+                      :key='conference.id'
+                      :class='conference.available ? "" : "not-available"'
+                      :to='getConferenceUrl(conference)')
+                      
+          Card(:title='conference.title' v-if='conference'
+            :image_url='conference.banner ? conference.banner[0].url : ""'
+            image_placement='top'
+            :meta='conference.location'
+            :content='getNumbersOfTalks(conference)')
+            ConferenceActions(slot='actions' :conference='conference')
 
-        .sidebar
-          h2.title Upcoming Conferences
-          .list-card(v-for='conference, key, index in upcomings'
-                    :key='conference.id')
-            Card(:title='conference.title'
-              :meta='conference.upcomingDate | dateFormat("MMMM YYYY")')
-              ConferenceActions(slot='actions' :conference='conference')
-
+      .sidebar
+        h2.title Upcoming Conferences
+        .list-card(v-for='conference, key, index in upcomings'
+                  :key='conference.id')
+          Card(:title='conference.title'
+            :meta='conference.upcomingDate | dateFormat("MMMM YYYY")')
+            ConferenceActions(slot='actions' :conference='conference')
 </template>
 
 <script>
@@ -106,7 +105,7 @@ export default {
   grid-column-gap 4%
   grid-row-gap 45px
   padding-top ($vertical-space/2)
-  padding-bottom ($vertical-space/2)
+  padding-bottom ($vertical-space)
 
   +laptop-up()
     grid-template-columns 63% 33%
@@ -124,6 +123,10 @@ export default {
   display block
   color $black
   margin-bottom 35px
+  transition transform .5s cubic-bezier(0.19, 1, 0.22, 1)
+
+  &:hover
+    transform scale(1.03)
 
   &:hover
     text-decoration none

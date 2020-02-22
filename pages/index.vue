@@ -4,7 +4,7 @@
   LevelUp
   StaySharp
   CommunitySupport
-  CheatSheetMain
+  CheatSheetMain.index
   .bg-wrapper.experts-teachers
     LearnFromExperts
     MeetTeachers

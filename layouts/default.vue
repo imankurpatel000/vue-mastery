@@ -5,7 +5,7 @@
     PageHeader(:class='$route.name')
     PageSearch(:class='$route.name')
     nuxt
-    PageFooter
+    PageFooter(:class='$route.name')
 
   AuthForm
 

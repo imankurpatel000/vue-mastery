@@ -104,9 +104,11 @@ export default {
   display block
   margin-bottom 35px
   color $black
+  transition transform .5s cubic-bezier(0.19, 1, 0.22, 1)
 
   &:hover
     text-decoration none
+    transform scale(1.03)
 
 .card-body
   display flex

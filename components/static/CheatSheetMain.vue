@@ -1,5 +1,5 @@
 <template lang='pug'>
-section.bg-wrapper
+section.bg-wrapper.align-top
   .body
     h2.title Download the cheatsheets
     p.lead Our Vue essentials, Vue 3, and Nuxt.Js cheat sheets save you time and energy by giving you essential syntax at your fingertips.
@@ -65,6 +65,24 @@ section.bg-wrapper
     transform none
     height: 70%
 
+  &:not(.index)
+    margin-bottom -140px
+    +desktop-up()
+      margin-bottom 0
+      height 510px
+
+    &:before
+      height: 100%
+
+    &:after
+      background-position: top
+
+    +desktop-up()
+      .body
+        top 120px
+
+      .buttons
+        top 180px
 .body
   position absolute
   text-align center

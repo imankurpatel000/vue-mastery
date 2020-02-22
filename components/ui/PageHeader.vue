@@ -1,9 +1,10 @@
 <template lang='pug'>
-.page-header(:style='style'
-  :class='{darken: hasBackgroundFade}')
+.page-header(:style='style')
   .wrapper
     h2.title {{ title }}
     h3.title2 {{ title2 }}
+
+  slot
 </template>
 
 <script>
@@ -53,15 +54,8 @@ export default {
   align-items center
   background-repeat no-repeat
   background-size cover
-
-.darken::after
-  content ''
-  position absolute
-  top 0
-  left 0
-  right 0
-  bottom 0
-  background rgba(0,0,0,0.4)
+  background-attachment fixed
+  background-position center
 
 .wrapper
   z-index 1

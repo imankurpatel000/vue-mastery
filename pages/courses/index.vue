@@ -1,20 +1,21 @@
 <template lang='pug'>
 .container
   PageHeader(title='Our Courses'
-            background_image='/images/courses.svg')
-
+            background_image='/images/courses/background.svg')
+    .v
   .courses-body.wrapper
     LearningPath(:courses='courses'
       :account='account')
 
-  CheatSheetAlt(location='Course page cheat sheet download')
+  CheatSheetMain
+
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
 import LearningPath from '~/components/courses/LearningPath'
-import CheatSheetAlt from '~/components/static/CheatSheetAlt'
+import CheatSheetMain from '~/components/static/CheatSheetMain'
 import VueConfBanner from '~/components/static/VueConfBanner'
 import PageHeader from '~/components/ui/PageHeader'
 
@@ -41,9 +42,9 @@ export default {
 
   components: {
     LearningPath,
-    CheatSheetAlt,
     VueConfBanner,
-    PageHeader
+    PageHeader,
+    CheatSheetMain
   },
 
   async fetch ({ store }) {
@@ -62,22 +63,60 @@ export default {
 <style lang='stylus' scoped>
 .container
   background-color #fff
+
 .page-header
-    background-size auto 200%
-    height 466px
-    background-position center
-    align-items: flex-end
-    background-size auto 200%
-    padding-bottom 50px
+  background-size cover
+  background-attachment fixed
+  height 466px
+  align-items flex-end
+  padding-bottom 50px
+  overflow hidden
 
-    ::v-deep .title
-      +mobile-only()
-        text-align center
+  &::before,
+  &::after
+    content ''
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    background-size auto 100%
+    background-position top 200px center
+    background-repeat no-repeat
+    z-index 1
+    transform translateZ(-1px) scale(1.5)
+    bottom -1px // Remove bottom artfacts
+    left -4px 
 
-    @media screen and (min-width: 1800px)
-      background-size cover
+  &:before
+    background-image url(/images/courses/foreground.svg)
 
+  &:after
+    background-image url(/images/courses/light.svg)
+    background-size auto 118%
+    background-position top center
+    left -13px
+    opacity .5
 
+  ::v-deep .title
+    +mobile-only()
+      text-align center
+
+.v
+  position: absolute;
+  width: 60px;
+  height: 33px;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  margin-left: -23px;
+  margin-top: -13px;
+  transform: translateZ(-1px) scale(1.5);
+  background-image: url(/images/courses/v.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  
 .courses-body
   display grid
   width 100%

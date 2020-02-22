@@ -18,23 +18,25 @@ export default {
   position relative
   z-index 2
   overflow hidden
-  padding-top 28vh
+  padding-top 150px
   text-align center
   position relative
+  height 800px
   display flex
   flex-direction column
   background-image url(/images/learn-from-experts/foreground.svg)
   background-repeat no-repeat
   background-position 50% 80%
   background-size auto 50%
-  height 1200px
   text-decoration none
   color #fff
   z-index 3
 
   +tablet-up()
     height 1200px
+    padding-top 250px
     background-size auto 580px
+
 
 .lead
   margin-top 0
