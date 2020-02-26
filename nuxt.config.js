@@ -391,6 +391,26 @@ module.exports = {
     },
     transpile: ['vue-instantsearch', 'instantsearch.js/es']
   },
+  // Extend route for course path
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'beginner',
+        path: '/courses-path/beginner',
+        component: resolve(__dirname, 'pages/courses/index.vue')
+      })
+      routes.push({
+        name: 'intermediate',
+        path: '/courses-path/intermediate',
+        component: resolve(__dirname, 'pages/courses/index.vue')
+      })
+      routes.push({
+        name: 'advanced',
+        path: '/courses-path/advanced',
+        component: resolve(__dirname, 'pages/courses/index.vue')
+      })
+    }
+  },
   /*
   ** Generate Sitemap
   */

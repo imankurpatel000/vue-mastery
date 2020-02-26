@@ -1,6 +1,5 @@
 <template lang='pug'>
-.page-header(:style='style'
-  :class='{darken: hasBackgroundFade}')
+.page-header(:style='style')
   .wrapper
     h2.title {{ title }}
     h3.title2 {{ title2 }}
@@ -36,9 +35,6 @@ export default {
         backgroundImage: `url(${this.background_image}) ${backgroundColor}`,
         textAlign: this.align
       }
-    },
-    hasBackgroundFade () {
-      if (this.background_color === undefined || this.background_color === '') return true
     }
   }
 }
@@ -54,17 +50,9 @@ export default {
   background-repeat no-repeat
   background-size cover
 
-.darken::after
-  content ''
-  position absolute
-  top 0
-  left 0
-  right 0
-  bottom 0
-  background rgba(0,0,0,0.4)
-
 .wrapper
   z-index 1
+
 .title
   margin 0
   padding-top 0

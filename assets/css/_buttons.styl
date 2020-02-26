@@ -87,7 +87,9 @@ button
   &.-small
     height $button-height-small
     padding 0 15px
-    line-height $button-height-small
+
+    +tablet-up()
+      line-height $button-height-small
     &.-has-icon
       line-height inherit
 
@@ -151,6 +153,7 @@ button
         line-height: ($button-height-small - ($border-size * 2))
 
 a:hover .button
+.button.active
 .button:hover
   text-decoration none
 

@@ -39,13 +39,23 @@ export default {
     isFirst () { return this.selected === 0 },
     isLast () {
       const next = this.lessons[this.selected + 1]
-      return this.selected === this.lessons.length - 1 || (!this.account && next.lock) || next.status === 'draft'
+      let isLast = this.selected === this.lessons.length - 1
+      if (!isLast && this.type !== 'path') {
+        isLast = (!this.account && next.lock) || next.status === 'draft'
+      }
+      return isLast
     }
   },
 
   methods: {
     goTo (direction) {
-      this.$emit('redirect', this.lessons[this.selected + direction].slug)
+      window.scroll({
+        top: 300,
+        behavior: 'smooth'
+      })
+      let next = this.lessons[this.selected + direction]
+      if (this.type !== 'path') next = next.slug
+      this.$emit('redirect', next)
     }
   }
 }
