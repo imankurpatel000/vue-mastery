@@ -39,8 +39,8 @@ module.exports = {
 
       // Subscribe a user to free weekend
       if (hasChanged(change, 'enrolledFreeWeekend')) {
-        // Subscribe user to the free weekend mailing list (11150428: 'Free Weekend 2019')
-        return subscription.subscribeUser(user, '11150428', user.enrolledFreeWeekend)
+        // Subscribe user to the free weekend mailing list (94430698: 'Free Weekend 2020')
+        return subscription.subscribeUser(user, '94430698', user.enrolledFreeWeekend)
       }
 
       // Change mailerlite subscriber and chargebee on email update
