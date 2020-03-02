@@ -109,6 +109,8 @@ export default {
   .logo
     transform: translateX(-50%)
     margin-left: 50%
+
+  .courses,
   .index
     .st0
       fill: #36495E !important
@@ -148,6 +150,8 @@ export default {
     min-width 200px
     margin: -10px 90px 0 0
 
+.courses-path,
+.courses,
 .index
   position: absolute;
   width: 100%;

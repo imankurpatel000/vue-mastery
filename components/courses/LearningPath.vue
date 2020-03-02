@@ -50,7 +50,8 @@ $timing = 500ms
   place-items center
 
 .part
-  max-width 1000px
+  +desktop-up()
+    max-width 900px
 
   > .intro-part
     margin-bottom 1rem
@@ -59,16 +60,30 @@ $timing = 500ms
       margin-bottom 2rem
 
 .intro-part
+  padding 0 1rem 1rem 1rem
+  text-align center
+
+  +tablet-up()
+    padding 0 2rem 2rem 2rem
+
+  ::v-deep p
+    margin 0 auto
+    max-width 900px
+    display initial
+
+    +desktop-up()
+      display block
+
+.text
+  color #3d2c61
+  background linear-gradient(to top right, rgba(61, 44, 97, 0.1), rgba(131, 94, 194, 0.11))
   border-radius 1rem
-  background #faf7a1
-  color #5c5605
+  margin-top 4rem
+  margin-bottom 2rem
   padding 1rem
 
   +tablet-up()
     padding 2rem
-
-  ::v-deep p
-    margin 0
 
 .slide
   &-move

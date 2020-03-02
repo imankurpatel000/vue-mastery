@@ -3,6 +3,7 @@
   .wrapper
     h2.title {{ title }}
     h3.title2 {{ title2 }}
+    slot
 </template>
 
 <script>
