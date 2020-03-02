@@ -136,9 +136,9 @@ export default {
     locked (lesson) { // Copied over logic from Wrapper
       if (lesson.free === false) {
         // FREEWEEKEND
-        // return !this.account
+        return !this.account
         // NOT FREEWEEKEND
-        return this.account ? !this.account.subscribed : true
+        // return this.account ? !this.account.subscribed : true
       }
       if (lesson.lock) {
         return !this.account

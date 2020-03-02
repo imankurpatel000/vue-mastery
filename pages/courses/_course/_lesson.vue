@@ -109,15 +109,17 @@ export default {
     },
 
     checkRestriction () {
+      // FREEWEEKEND
       // Talk don't have the free option
-      let restriction = this.current.free !== undefined ? !this.current.free : false
-      // Check lessons restrictions
-      if (restriction) {
-        restriction = this.account ? !this.account.subscribed : true
-      } else if (this.current.lock) {
-        restriction = !this.account
-      }
-      this.restricted = restriction
+      // let restriction = this.current.free !== undefined ? !this.current.free : false
+      // // Check lessons restrictions
+      // if (restriction) {
+      //   restriction = this.account ? !this.account.subscribed : true
+      // } else if (this.current.lock) {
+      //   restriction = !this.account
+      // }
+      // this.restricted = restriction
+      this.restricted = false
     }
   },
 
