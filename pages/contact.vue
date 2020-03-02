@@ -45,7 +45,7 @@ export default {
       meta: [{
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/contact`
+        content: `${process.env.baseUrl}/contact`
       }]
     }
   },

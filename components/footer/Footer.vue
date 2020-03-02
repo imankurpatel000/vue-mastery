@@ -1,10 +1,10 @@
 <template lang="pug">
 footer.footer
   .wrapper
-    .brand
+    .brand(role="banner")
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
-        img(src="/images/lgo-vue-mastery-green.png" role="logo" alt="Vue Mastery logo")
+        img(src="/images/lgo-vue-mastery-green.png" alt="Vue Mastery logo")
       p As the ultimate resource for Vue.js developers, Vue Mastery produces weekly lessons so you can learn what you need to succeed as a Vue.js Developer.
       SocialMediaLinks
 
@@ -16,6 +16,8 @@ footer.footer
         li
           nuxt-link(to='/conferences' class="-inverted") Conference Videos
         li
+          nuxt-link(to='/blog' class="-inverted") Blog
+        li
           nuxt-link(to='/live-training' class="-inverted") Live Training
         li
           nuxt-link(to='/pricing' class="-inverted") Pricing
@@ -23,6 +25,8 @@ footer.footer
           nuxt-link(to='/vue-cheat-sheet' class="-inverted") Vue Cheat Sheet
         li
           nuxt-link(to='/nuxt-cheat-sheet' class="-inverted") Nuxt Cheat Sheet
+        li
+          nuxt-link(to='/vue-3-cheat-sheet' class="-inverted") Vue 3 Cheat Sheet
     .nav-2
       h4 About Us
       ul.list-unstyled

@@ -1,30 +1,21 @@
 <template lang="pug">
 aside.lesson-aside
-  affix(ref='affix'
-    :relative-element-selector='affixToElement'
-    :offset='{ top: 20, bottom: 20 }',
-    :enabled='enableAffix')
+  .sticky
     .card
       .card-body
-        //-  FREEWEEKEND
-        //- Download( v-if="!locked || (account && account.subscribed)"
-        //-         :courseLink='current.downloadLink'
-        //-         :account='account')
-
-        Download( v-if="!locked"
-                :courseLink='current.downloadLink'
+        Download(v-if="lesson" v-cloak
+                :courseLink='lesson.downloadLink'
                 :account='account')
 
         SocialShare(:lesson='current'
                   :baseUrl='baseUrl')
 
-      .card-space
-        Resources(v-if='current.resources'
-                  :resources='current.resources'
-                  v-cloak)
+      .card-space(v-if='lesson' v-cloak)
+        Resources(v-if='lesson.resources'
+                  :resources='lesson.resources')
 
-        Challenges(v-if='current.codingChallenge'
-                  :challenges='current.codingChallenge')
+        Challenges(v-if='lesson.codingChallenge'
+                  :challenges='lesson.codingChallenge')
 
 
     .card.download(v-if='!isLesson' v-cloak)
@@ -38,6 +29,12 @@ aside.lesson-aside
         h3 Download the Nuxt.js Cheat Sheet
         p All the Nuxt.js syntax at your fingertips
         DownloadButtonNuxt(button-class='inverted' location='Vueconf download button')
+
+    .card.download(v-if='!isLesson' v-cloak)
+      .card-body
+        h3 Download the Vue 3 Cheat Sheet
+        p Get a head start on the Composition API
+        DownloadButtonVue3(button-class='inverted' location='Vueconf download button')
 
     .card.communication.text-center(v-if='isLesson')
       .card-body
@@ -54,6 +51,7 @@ import Download from '~/components/lessons/Download'
 import SocialShare from '~/components/lessons/SocialSharing'
 import DownloadButton from '~/components/static/DownloadButton'
 import DownloadButtonNuxt from '~/components/static/DownloadButtonNuxt'
+import DownloadButtonVue3 from '~/components/static/DownloadButtonVue3'
 import Icon from '~/components/ui/Icon'
 
 export default {
@@ -80,9 +78,9 @@ export default {
       type: Boolean,
       default: false
     },
-    locked: {
-      type: Boolean,
-      default: true
+    lesson: {
+      type: Object,
+      required: false
     },
     affixToElement: {
       type: String,
@@ -96,71 +94,15 @@ export default {
     Download,
     DownloadButton,
     DownloadButtonNuxt,
+    DownloadButtonVue3,
     SocialShare,
     Icon
   },
 
-  data () {
-    return {
-      windowWidth: null,
-      enableAffix: false,
-      debounceTimer: setTimeout(() => {})
-    }
-  },
-
-  mounted () {
-    this.calculateWindowWidth()
-    this.addAffix()
-  },
-
   computed: {
     baseUrl () {
-      return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
-    },
-
-    relativeElement () {
-      if (process.browser) {
-        return document.querySelector(this.affixToElement)
-      }
+      return `/${this.isLesson ? 'courses' : 'conferences'}/${this.course.slug}/`
     }
-  },
-
-  methods: {
-    calculateWindowWidth () {
-      this.windowWidth = window.innerWidth
-    },
-
-    handleResize () {
-      clearTimeout(this.debounceTimer)
-      this.debounceTimer = setTimeout(() => {
-        this.calculateWindowWidth()
-        this.addAffix()
-      }, 100)
-    },
-
-    mediaBreakpointUp (width) {
-      return (this.windowWidth > width)
-    },
-
-    affixTooLarge (element) {
-      const yPadding = 80
-      return (this.$refs.affix.affixHeight + yPadding > element.offsetHeight)
-    },
-
-    addAffix () {
-      if (this.mediaBreakpointUp(1024) && !this.affixTooLarge(this.relativeElement)) {
-        this.enableAffix = true
-      }
-    }
-  },
-
-  created () {
-    if (process.browser) {
-      window.addEventListener('resize', this.handleResize)
-    }
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.handleResize)
   }
 }
 </script>
@@ -174,9 +116,6 @@ export default {
   +laptop-up()
     margin $vertical-space 0
 
-  .vue-affix.affix
-    margin-right 1.2%
-
   .control-group
     justify-content center
 
@@ -188,6 +127,13 @@ export default {
 
       +laptop-up()
         margin-right 0
+
+.sticky
+  position sticky
+  top 20px
+
+  +laptop-up()
+    margin-right 1.2%
 
 .card
   flex-flow column

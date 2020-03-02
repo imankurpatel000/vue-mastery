@@ -4,13 +4,12 @@ div
     Icon(name='share-2')
     | Share Lesson
 
-  no-ssr
+  client-only
     modal(name='share' v-cloak height='270')
       h3.form-title Share this lesson
       social-sharing(inline-template :url="base+baseUrl+lesson.slug"
                     :title='lesson.socialSharingDescription || lesson.title'
-                    :description='lesson.description'
-                    twitter-user='vuemastery')
+                    :description='lesson.description')
 
         .social-wrapper
           network.button.primary.border.-has-icon(network='facebook')
@@ -50,7 +49,7 @@ export default {
 
   data () {
     return {
-      base: process.env.url
+      base: process.env.baseUrl
     }
   },
 

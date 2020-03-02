@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   .list(v-if='featured' v-cloak)
-    nuxt-link.list-card(v-for='course, key in Object.values(featured).slice(0,3)'
+    nuxt-link.list-card(v-for='course, key in hardcodedCourses()'
                         v-if='course.lessons'
                         :key='key'
                         :to='link(course)')
@@ -49,6 +49,14 @@ export default {
     },
     showBadge (course, account) {
       if ((course.free && !account) || (course.free && account && !account.subscribed)) return true
+    },
+    hardcodedCourses () {
+      const courseIds = [1516789793545, 1569440715969, 1539806977174]
+      return Object.values(this.featured).filter(
+        function (course) {
+          return courseIds.includes(course.id)
+        }
+      )
     }
   }
 }

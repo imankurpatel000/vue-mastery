@@ -5,14 +5,12 @@
       img(src='/images/lgo-vue-news.svg')
 
     .body
-      h2.title The Official Vue.js News
-      p.lead We also help produce the Official Vue.js News. It's a free community resource where we curate the most impactful Vue.js news and tutorials. Offered up in both text and audio versions. Consider subscribing today.
+      h2.title Bonus Vue.js Content
+      p.lead Aside from our courses, we also publish the biggest collection of Vue.js conference videos you'll find on the Internet.  Also, we recently started publishing blog content here on Vue Mastery.
 
       .actions.control-group
-        a.button.primary(href='https://news.vuejs.org/' target='_blank') Read Official Vue.js News
-        a.button.secondary(href='https://news.vuejs.org/' target='_blank')
-          Icon(name='volume-2')
-          span Listen to the Podcast
+        a.button.primary(href='/conferences') Watch Conference Videos
+        a.button.secondary(href='/blog') Read our Blog
 </template>
 
 <script>
@@ -47,7 +45,7 @@ export default {
   justify-content: space-evenly
 
   +laptop-up()
-    justify-content: start
+    justify-content: flex-start
 
 .media
   display grid

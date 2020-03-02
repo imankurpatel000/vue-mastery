@@ -9,7 +9,7 @@
     div(v-if='isSubscribed()')
       span Subscribed
     div(v-else)
-      span Coming Soon
+      span Videos Coming Soon
 
       .button.primary.border.-full(@click.prevent='subscribedToMailingList()' v-if='account' v-cloak)
         | Notify Me
@@ -63,7 +63,7 @@ export default {
     },
 
     subscribedToMailingList () {
-      this.$store.dispatch('userUpdateSubscribeConference', this.conference.slug)
+      this.$store.dispatch('account/userUpdateSubscribeConference', this.conference.slug)
     },
 
     openLogin () {

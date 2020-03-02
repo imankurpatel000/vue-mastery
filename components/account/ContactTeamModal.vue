@@ -1,5 +1,5 @@
 <template lang='pug'>
-no-ssr
+client-only
   modal(name="contact-team-form" v-cloak height="auto" scrollable=true)
     form.form(@submit.prevent='submit')
       h3.form-title Contact Us

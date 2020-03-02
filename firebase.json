@@ -18,7 +18,20 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "redirects": [ {
+      "source": "/conferences/vueconf-2018/:conference*",
+      "destination": "/conferences/vueconf-us-2018/:conference*",
+      "type": 301
+    }, {
+      "source": "/vueconf",
+      "destination": "/conferences/vueconf-us-2018",
+      "type": 301
+    }, {
+      "source": "/vueconf/:conference*",
+      "destination": "/conferences/vueconf-us-2018/:conference*",
+      "type": 301
+    }]
   },
   "storage": {
     "rules": "storage.rules"

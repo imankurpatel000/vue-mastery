@@ -11,7 +11,7 @@ form.form(@submit.prevent='submit')
       ul
         li The ability to track your progress as you complete lessons
         li Early access to lessons before we officially release them
-        li Access to download our ultimate Vue.js Cheat Sheet
+        li Access to download our Vue.js Cheat Sheets
 
   .form-group
     label.label(for='email') Email
@@ -48,8 +48,8 @@ form.form(@submit.prevent='submit')
 
     .control-group.-spaced(v-if='rememberPassword' v-cloak)
       .label {{ label }} with:
-      GoogleButton.button.secondary.border.-has-icon.-small(label='Google' :disabled='actionDisabled')
-      GithubButton.button.secondary.border.-has-icon.-small(label='Github' :disabled='actionDisabled')
+      GoogleButton.button.secondary.border.-has-icon.-small(label='Google' :disabled='actionDisabled' v-on:error="updateError($event)")
+      GithubButton.button.secondary.border.-has-icon.-small(label='Github' :disabled='actionDisabled' v-on:error="updateError($event)")
 
   .form-footer
     .control-group(v-if='isNew' v-cloak)
@@ -177,7 +177,7 @@ export default {
       }
 
       // Dispach information to the store
-      this.$store.dispatch(action, {
+      this.$store.dispatch(`account/${action}`, {
         email: this.email,
         password: this.password
       })
@@ -187,7 +187,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error)
           this.formError = error.message
         })
     },
@@ -200,6 +199,10 @@ export default {
     close (e) {
       // Prevent enter event to close the modal
       if (e.screenX !== 0) this.$modal.hide('login-form')
+    },
+
+    updateError (e) {
+      this.formError = e.message
     }
   }
 }

@@ -6,7 +6,8 @@
         img(:src='account.image' width='100' height='100' :alt='imageAlt')
 
     .account-info
-      h3(v-text='account.displayName')
+      h3.title(v-text='account.displayName')
+      p(v-text='account.email')
 
   .account-actions
     button.tab(type='button'
@@ -160,7 +161,7 @@ export default {
   },
 
   mounted () {
-    this.$store.dispatch('getAllCourses')
+    this.$store.dispatch('courses/getAllCourses')
 
     if (!process.server) {
       this.chargebeeInstance = window.Chargebee.init({
@@ -202,7 +203,7 @@ export default {
     },
 
     signOut () {
-      this.$store.dispatch('userLogout')
+      this.$store.dispatch('account/userLogout')
         .then(() => {
           this.$router.push('/')
         })
@@ -271,6 +272,9 @@ export default {
 .account-info
   color $secondary-color
 
+  .title 
+    margin-bottom: -1rem
+
 .course-list
   display grid
   grid-template-areas 'main'\
@@ -318,7 +322,7 @@ export default {
   justify-items flex-start
   margin-bottom: ($vertical-space/2)
   box-shadow: inset 0 -2px 0 0 $secondary-color
-  overflow-x scroll
+  overflow-x auto
 
 .download
   color #FFFFFF

@@ -6,14 +6,75 @@
       .pricing-content
         h2.title Becoming a Vue Mastery Paid Subscriber means
         ul
-          li Access to all paid content. New Lessons Weekly.
-          li The ability to track your course progress.
-          li Supporting the Vue.js News Podcast.
-          li Most importantly, supporting the Vue.js project itself.
+          li Accessing all paid content. New Lessons Weekly.
+          li Unlocking 3 Vue Cheat Sheets.
+          li Track your course progress and earning badges.
+          li Supporting our Blog & Podcast.
+          li Most importantly, funding the Vue.js project itself.
 
       .pricing-structure
         .page-title.text-center
           h2 Pricing
+
+        .monthly
+          .card
+            .card-body
+              h3.text-center Monthly
+
+              .money
+                .symbol $
+                .decimal 19
+
+              .text-center
+                i per month
+
+              .benefit.first-benefit
+                i.fa.fa-unlock
+                | Access to all courses
+
+              .benefit
+                img(src="/images/lgo-vue.svg" alt="Vue.js")
+                span 25% of your monthly subscription goes to supporting the Vue.js project itself.
+
+              .benefit.color-gold
+                i.fas.fa-shield-alt
+                span 14-day money-back guarantee
+
+              button.button.primary.-full(@click="subscribe('monthly-subscription')") Select Plan
+
+        .annually(:class="{ 'promo': promo }")
+          .card
+            .card-body
+              h3.text-center Annual
+
+              .money(:class="{ 'promo': promo }")
+                .symbol
+                  | $
+                  span(v-if='promo') {{228 - promo}}
+                .decimal 228
+
+              .text-center
+                i per year
+
+              .benefit.first-benefit
+                i.fa.fa-unlock
+                | Access to all courses
+
+              .benefit
+                img(src="/images/lgo-vue.svg" alt="Vue.js")
+                span 25% of your yearly subscription goes to supporting the Vue.js project itself.
+
+              .benefit.color-gold
+                i.fas.fa-shield-alt
+                span 14-day money-back guarantee
+
+              .benefit.color-primary
+                i.fa.fa-piggy-bank
+                b 
+                  b Get 2 months free <br>
+                  small ($38 discount)
+
+              button.button.primary.-full(@click="subscribe('year-subscription')") Select Plan
 
         .free-sub
           .card
@@ -30,56 +91,6 @@
                 p Free educational content delivered to your inbox
 
               button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
-
-
-        .monthly
-          .card
-            .card-body
-              h3.text-center Monthly
-
-              .money
-                .symbol $
-                .decimal 19
-
-              .text-center
-                i per month
-
-              .benefit
-                img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $5 of your monthly subscription goes to supporting the Vue.js project itself.
-
-              .benefit.color-gold
-                i.fas.fa-shield-alt
-                span 14-day money-back guarantee
-
-              button.button.primary.-full( @click="subscribe('monthly-subscription')") Select Plan
-
-        .annually
-          .card
-            .card-body
-              h3.text-center Annual
-
-              .money
-                .symbol $
-                .decimal 190
-
-              .text-center
-                i per year
-
-              .benefit
-                img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span $50 of your yearly subscription goes to supporting the Vue.js project itself.
-
-              .benefit.color-gold
-                i.fas.fa-shield-alt
-                span 14-day money-back guarantee
-
-              .benefit.color-primary
-                i.fa.fa-piggy-bank
-                b Get 2 months free <br>
-                  small ($38 discount)
-
-              button.button.primary.-full( @click="subscribe('year-subscription')") Select Plan
 
         .team
           .card
@@ -120,7 +131,8 @@ export default {
   data () {
     return {
       chargebeeInstance: null,
-      chargbeeLink: ''
+      chargbeeLink: '',
+      promo: 38
     }
   },
 
@@ -183,8 +195,12 @@ export default {
         // If the library that you use for making ajax calls, can return a promise, you can directly return that
         hostedPage: () => {
           let params = new URLSearchParams()
-          const lastName = this.account.displayName.split(' ')[1] || this.account.displayName
-          const firstName = this.account.displayName.split(' ')[0] || ' '
+          let lastName = ''
+          let firstName = ''
+          if (this.account.displayName) {
+            lastName = this.account.displayName.split(' ')[1] || this.account.displayName
+            firstName = this.account.displayName.split(' ')[0] || ' '
+          }
           params.append('email', this.account.email)
           params.append('last_name', lastName)
           params.append('first_name', firstName)
@@ -202,14 +218,25 @@ export default {
         success: () => {
           this.chargebeeInstance.closeAll()
           let redirect
-          if (plan === 'monthly-subscription') {
-            redirect = '/thank-you-monthly'
-            if (this.$trackMonthly) this.$trackMonthly()
-          } else {
-            redirect = '/thank-you-annual'
-            if (this.$trackAnnual) this.$trackAnnual()
+          switch (plan) {
+            case 'monthly-subscription':
+              redirect = '/thank-you-monthly'
+              if (this.$trackMonthly) this.$trackMonthly()
+              break
+
+            case '3-month-subscription':
+              redirect = '/thank-you-summer'
+              if (this.$track3Months) this.$track3Months()
+              break
+
+            case 'annual-subscription':
+              redirect = '/thank-you-annual'
+              if (this.$trackAnnual) this.$trackAnnual()
+              break
+            default:
+              break
           }
-          this.$store.dispatch('fakeSubscribe')
+          this.$store.dispatch('account/fakeSubscribe')
           this.$router.push(redirect)
         }
       })
@@ -233,6 +260,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   flex-direction column
   align-items center
   max-width 568px
+  margin 0 auto
 
   +laptop-up()
     padding-top $vertical-space
@@ -254,23 +282,23 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   grid-row-gap 20px
   grid-template-columns 1fr
   grid-template-areas 'page-title'\
-                      'free-sub'\
                       'monthly'\
                       'annually'\
+                      'free-sub'\
                       'team'
 
   +tablet-up()
     grid-column-gap 20px
     grid-template-columns 1fr 1fr 1fr
     grid-template-areas 'page-title page-title page-title'\
-                        'free-sub monthly annually'\
-                        'team team team'
+                        'monthly annually free-sub'\
+                        'team nothing nothing'
 
-  +desktop-up()
-    align-items stretch
-    grid-template-columns 1fr 1fr 1fr 1fr
-    grid-template-areas 'page-title page-title page-title page-title'\
-                        'free-sub monthly annually team'\
+  // +desktop-up()
+  //   align-items stretch
+  //   grid-template-columns 1fr 1fr 1fr 1fr 1fr
+  //   grid-template-areas 'page-title page-title page-title page-title page-title'\
+  //                       'free-sub monthly annually team'\
 
 .page-title h2
   color $secondary-color
@@ -301,7 +329,7 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
 
 .benefit
   display flex
-  align-items start
+  align-items flex-start
   margin-bottom 10px
   margin-top 10px
 
@@ -358,9 +386,34 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   padding-top 10px
   margin-left -20px
 
+  span
+    color #fff
+
 .decimal
   color $secondary-color
   font-weight 700
   font-size 100px
   line-height 1
+
+.promo
+  .decimal
+    text-decoration: line-through
+
+  .money
+    position relative
+
+  .symbol
+    position absolute
+    right 50%
+    bottom 50%
+    background #835ec2d1
+    padding 3px 12px
+    transform rotate(0deg) translate3d(50%, 50%, 0)
+
+.fa-unlock
+  margin-left: 3px
+  margin-top: -6px
+
+.first-benefit
+  margin-top 25px
 </style>

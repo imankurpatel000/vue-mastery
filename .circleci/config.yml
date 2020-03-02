@@ -1,0 +1,125 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+
+executors:
+  vue-master:
+    docker:
+      - image: circleci/node:12.13.0
+
+    working_directory: ~/vue-mastery
+
+jobs:
+  build:
+    executor: vue-master
+    steps:
+      - checkout
+
+      - run: mkdir -p /tmp/vuemastery
+
+      - run:
+          name: Add environment variables
+          command: |
+            echo "env=$ENV" >> .env
+            echo "apiKey=$APIKEY" >> .env
+            echo "authDomain=$AUTHDOMAIN" >> .env
+            echo "databaseURL=$DATABASEURL" >> .env
+            echo "projectId=$PROJECTID" >> .env
+            echo "storageBucket=$STORAGEBUCKET" >> .env
+            echo "messagingSenderId=$MESSAGINGSENDERID" >> .env
+            echo "baseUrl=$BASEURL" >> .env
+            echo "cloudfunctions=$CLOUDFUNCTIONS" >> .env
+            echo "chargebeeSite=$CHARGEBEESITE" >> .env
+            echo "chargebeeKey=$CHARGEBEEKEY" >> .env
+            echo "algoliaAppId=$ALGOLIAAPPID" >> .env
+            echo "algoliaApiKey=$ALGOLIAAPIKEY" >> .env
+            echo "privateKeyId=$PRIVATEKEYID" >> .env
+            echo "privateKey=$PRIVATEKEY" >> .env
+            echo "clientEmail=$CLIENTEMAIL" >> .env
+            echo "clientId=$CLIENTID" >> .env
+            echo "authUri=$AUTHURI" >> .env
+            echo "tokenUri=$TOKENURI" >> .env
+            echo "authProviderX509CertUrl=$AUTHPROVIDERX509CERTURL" >> .env
+            echo "clientX509CertUrl=$CLIENTX509CERTURL" >> .env
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: Install dependences
+          command: yarn install
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+
+      - run:
+          name: Build
+          command: npm run generate
+          paths:
+            - ./
+
+      - persist_to_workspace:
+          root: ~/vue-mastery
+          paths:
+            - dist
+
+      - run:
+          name: List folder
+          command: ls
+
+  tests:
+    executor: vue-master
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+
+      - attach_workspace:
+          at: ~/vue-mastery
+
+      - run: npm test
+
+  deploy:
+    executor: vue-master
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+
+      - attach_workspace:
+          at: ~/vue-mastery
+
+      - run:
+          name: List folder
+          command: ls ./dist
+
+      - run:
+          name: Firebase Deploy
+          command: ./node_modules/.bin/firebase deploy --token "$FIREBASETOKEN" --only hosting --project=default
+
+workflows:
+  version: 2
+  build-test-and-approval-deploy:
+    jobs:
+      - build
+
+      # - test:
+      #         requires:
+      #             - build
+
+      - hold:
+          type: approval
+          requires:
+              - build
+              # - test
+
+      - deploy:
+          requires:
+              - build
+              - hold

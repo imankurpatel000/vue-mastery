@@ -1,8 +1,7 @@
 <template lang="pug">
   .container
     PageHeader(title='Vue Conference Videos'
-              background_image='/images/conference-background-transparent.png'
-              background_color='linear-gradient(to right, #41B782 , #86D169)')
+              background_image='/images/banner-conference.png')
 
     .wrapper
       .conference-body
@@ -14,7 +13,7 @@
                         :to='getConferenceUrl(conference)')
                         
             Card(:title='conference.title' v-if='conference'
-              :image_url='conference.banner[0].url'
+              :image_url='conference.banner ? conference.banner[0].url : ""'
               image_placement='top'
               :meta='conference.location'
               :content='getNumbersOfTalks(conference)')
@@ -22,11 +21,10 @@
 
         .sidebar
           h2.title Upcoming Conferences
-          .list-card(v-for='conference, key, index in conferences'
-                        v-if='conference.upcoming'
-                        :key='conference.id')
+          .list-card(v-for='conference, key, index in upcomings'
+                    :key='conference.id')
             Card(:title='conference.title'
-              :meta='conference.upcomingDate | moment("MMMM YYYY")')
+              :meta='conference.upcomingDate | dateFormat("MMMM YYYY")')
               ConferenceActions(slot='actions' :conference='conference')
 
 </template>
@@ -44,11 +42,16 @@ export default {
 
   head () {
     return {
-      title: 'Conferences | Vue Mastery',
+      title: 'Vue.js Conference Videos | Vue Mastery',
       meta: [{
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/vue-conf`
+        content: `${process.env.baseUrl}/vue-conf`
+      },
+      {
+        hid: `description`,
+        name: 'description',
+        content: 'Watch the latest Vue conference talks free, covering a variety of topics.  With videos from VueConf US, Vue Amsterdam, Vue London, and VueConf Toronto.'
       }]
     }
   },
@@ -60,24 +63,17 @@ export default {
   },
 
   async fetch ({ store }) {
-    await store.dispatch('getAllConferences')
-  },
-
-  data () {
-    return {
-      upcomings: null
-    }
+    await store.dispatch('courses/getAllConferences')
   },
 
   computed: {
     ...mapState({
-      conferences: result => {
-        const conferences = result.courses.conferences
-        this.upcomings = Object.values(conferences).filter(conference => conference.upcoming)
-        return conferences
-      },
+      conferences: result => result.courses.conferences,
       account: result => result.account.account
     }),
+    upcomings () {
+      return Object.values(this.conferences).filter(conference => conference.upcoming)
+    },
     orderedConferences () {
       return Object.values(this.conferences)
         .sort((a, b) => new Date(b.upcomingDate) - new Date(a.upcomingDate))
@@ -90,9 +86,6 @@ export default {
     },
     getConferenceUrl (conference) {
       let url = conference.available ? '/conferences/' + conference.slug : ''
-      if (conference.slug === 'vueconf-us-2018') {
-        url = '/vueconf'
-      }
       return url
     },
     getNumbersOfTalks (conference) {

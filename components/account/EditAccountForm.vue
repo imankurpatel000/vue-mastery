@@ -26,8 +26,6 @@ form.form.card
 </template>
 
 <script>
-import firebase from 'firebase'
-
 export default {
   name: 'account-edit',
 
@@ -70,8 +68,7 @@ export default {
       this.resetFormMessages()
       clearTimeout(this.debounceTimer)
       this.debounceTimer = setTimeout(() => {
-        console.info('update field', key)
-        this.$store.dispatch('userUpdate', this.newData)
+        this.$store.dispatch('account/userUpdate', this.newData)
           .then(() => {
             this.formSuccess = 'Successfully updated your account details'
           })
@@ -84,11 +81,7 @@ export default {
 
     updateProfileImage () {
       this.resetFormMessages()
-      const file = this.$refs.fileInput.files[0]
-      const ref = firebase.storage().ref(`accounts/profile/${this.account['.key']}`)
-      ref.put(file).then((snapshot) => {
-        return this.$store.dispatch('userUpdateImage', snapshot.downloadURL)
-      })
+      this.$store.dispatch(`account/userUpdateImage`, this.$refs.fileInput.files[0])
         .then(() => {
           this.formSuccess = 'Successfully uploaded a new profile image'
           // reset the form input

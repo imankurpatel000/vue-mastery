@@ -34,7 +34,7 @@ export default {
 
   methods: {
     deleteAccount () {
-      this.$store.dispatch('deleteUser')
+      this.$store.dispatch('account/deleteUser')
         .then(() => {
           this.$toast.show('Your account has been deleted.', {
             duration: 7000,
@@ -46,7 +46,14 @@ export default {
               }
             }
           })
-          this.$router.push('/')
+          this.$store
+            .dispatch('account/userLogout')
+            .then(() => {
+              this.$router.push('/')
+            })
+            .catch(error => {
+              console.log(error)
+            })
         })
         .catch((error) => {
           console.log(error)

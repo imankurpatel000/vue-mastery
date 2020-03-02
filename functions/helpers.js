@@ -1,9 +1,8 @@
 const admin = require('firebase-admin')
 const subscription = require('./subscription')
 
-const functions = require('firebase-functions')
 if (admin.apps.length === 0) {
-  admin.initializeApp(functions.config().firebase)
+  admin.initializeApp()
 }
 
 module.exports = {
@@ -12,215 +11,137 @@ module.exports = {
     return admin.database().ref(accountPath).once('value')
   },
 
-  checkUserTeamSubscription (user) {
-    return admin
-      .database()
-      .ref('/flamelink/environments/production/content/team/en-US')
-      .once('value', (snapshot) => {
-        const teams = snapshot.val()
-        console.log(teams)
-        for (let team in teams) {
-          for (let member in teams[team].members) {
-            if (member.email === user.email) {
-              console.log(`Found new team member : ${member.email}`)
-              this.subscribe(user.email, null, 'year-subscription', true)
-            }
-          }
-        }
-      })
-  },
-
-  // subscribe (email, id, subscribing = true, tryNumber = 0) {
-  subscribe (email, id, planId, subscribing = true) {
-    if (subscribing) console.log(`Attempt to subscribe user with email ${email}`)
-    // if (tryNumber) {
-    //   if (tryNumber > 10) {
-    //     subscription.emailAdminFailedSubscription(email)
-    //   } else {
-    //     this.checkIfSubscribed(email, id, subscribing, tryNumber)
-    //   }
-    // }
+  accountsFromEmail (email) {
     return admin
       .database()
       .ref('accounts')
       .orderByChild('email')
       .equalTo(email)
-      .once('child_added', snapshot => {
-        const user = snapshot.val()
-        // console.log(`Found ${val} with email ${email}, now updating chargebeeId: ${id}`)
-        snapshot.ref
-          .update({
-            subscribed: subscribing,
-            chargebeeId: id
-          }, (error) => {
-            if (error) {
-              console.log(`Error subscribing the user: ${error}`)
-            } else {
-              console.log(`Success subscribing the user`)
-            }
-          })
-        console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${user.displayName}`)
-
-        let mailingList = ['Vue Mastery Subscribers']
-        switch (planId) {
-          case 'monthly-subscription':
-            mailingList.push('Active Monthly Subscribers')
-            break
-          case 'year-subscription':
-            mailingList.push('Active Annual Subscribers')
-            break
-          case 'team-annual-(10-19)-subscription':
-          case 'team-annual-(4-9)-subsciption':
-            mailingList.push('Vue Mastery Team Subscribers')
-            break
-          case '12-months-gift':
-          case '6-months-gift':
-          case '3-months-gift':
-            mailingList.push('Active Gift Subscription')
-            break
-        }
-
-        console.log(`List found: ${mailingList}`)
-
-        const subscribed = []
-        mailingList.forEach((list) => {
-          console.log(`List added: ${list}`)
-          subscribed.push(subscription.getMailerList(list)
-            .then(listID => {
-              console.log(`Subscribing user to list: ${user.email}, ${listID}, ${subscribing}`)
-              subscription.subscribeUser(user, listID, subscribing)
-            })
-            .catch(function (error) {
-              console.log(error)
-            })
-          )
-        })
-        return Promise.all(subscribed)
-      }, (error) => {
-        console.log(error)
-      })
+      .once('value')
   },
 
-  updateMailingSubscription (user, planId) {
-    let toRemove = ''
-    let toAdd = ''
-
-    switch (planId) {
-      case 'monthly-subscription':
-        toRemove = ['Active Annual Subscribers', 'Active Gift Subscription']
-        toAdd = 'Active Monthly Subscribers'
-        break
-      case 'year-subscription':
-      case 'team-annual-(10-19)-subscription':
-      case 'team-annual-(4-9)-subsciption':
-        toRemove = ['Active Monthly Subscribers', 'Active Gift Subscription']
-        toAdd = 'Active Annual Subscribers'
-        break
-      case '12-months-gift':
-      case '6-months-gift':
-      case '3-months-gift':
-        toRemove = ['Active Annual Subscribers', 'Active Monthly Subscribers']
-        toAdd = 'Active Gift Subscription'
-        break
-    }
-
-    const actions = []
-    toRemove.forEach((list) => {
-      actions.push(subscription.getMailerList(list)
-        .then(listID => {
-          return subscription.deleteSubscriber(listID, user.email).then(() => {
-            console.log('Subscriber deleted')
-          })
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
-      )
-    })
-    actions.push(subscription.getMailerList(toAdd)
-      .then(listID => {
-        subscription.subscribeUser(user, listID, true)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-    )
-
-    return Promise.all(actions)
-  },
-
-  checkIfSubscribed (email, id, subscribing, tryNumber) {
-    setTimeout(() => {
-      console.log('Checking if subscriber already subscribed')
-      return admin
-        .database()
-        .ref('accounts')
-        .orderByChild('email')
-        .equalTo(email)
-        .once('child_added', (snapshot) => {
-          console.log('Checking success: user found')
-          const val = snapshot.val()
-          tryNumber++
-          if (!val || !val.subscribed) this.subscribe(email, id, subscribing, tryNumber)
-        })
-    }, 10000)
-  },
-
-  checkIfTeamMember (email) {
-    return admin
-      .database()
-      .ref('/flamelink/environments/production/content/team/en-US')
-      .on('value', (snapshot) => {
-        if (snapshot !== undefined) {
-          snapshot.forEach((teamSnapshot) => {
-            let team = teamSnapshot.val()
-            if (team !== undefined) {
-              team.members.forEach((member) => {
-                if (email === member.email) {
-                  this.subscribeTeamMember(email, team, true)
-                }
-              })
-            }
-          })
-        }
-      })
-  },
-
-  subscribeTeamMember (email, team, subscribing = true) {
-    return admin
-      .database()
-      .ref('accounts')
-      .orderByChild('email')
-      .equalTo(email)
-      .once('child_added', (snapshot) => {
-        const val = snapshot.val()
-        let teamData = {
-          subscribed: subscribing,
-          team: null
-        }
-        if (team) {
-          teamData.team = {
-            companyName: team.companyName,
-            adminName: team.adminName,
-            adminEmail: team.adminEmail
-          }
-        }
-        snapshot.ref
-          .update(teamData)
-        console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${val.displayName}`)
-        return subscription.getMailerList('Vue Mastery Team Subscribers')
-          .then(listID => { return subscription.subscribeUser(val, listID, subscribing) })
-      })
-  },
+  // getAllAccounts () {
+  //   return admin
+  //     .database()
+  //     .ref('accounts')
+  //     .orderByChild('email')
+  //     .once('value')
+  // },
 
   course (id) {
     const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}`
     return admin.database().ref(pathToCourse).once('value')
   },
 
+  getCourseDuration (id) {
+    const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}/duration`
+    return admin.database().ref(pathToCourse)
+  },
+
+  getCourseCount (id) {
+    const pathToCourse = `flamelink/environments/production/content/courses/en-US/${id}/lessonsCount`
+    return admin.database().ref(pathToCourse)
+  },
+
+  teams () {
+    const pathToTeam = '/flamelink/environments/production/content/team/en-US'
+    return admin.database().ref(pathToTeam).once('value')
+  },
+
   lesson (id) {
     const pathToCourse = `flamelink/environments/production/content/lessons/en-US/${id}`
     return admin.database().ref(pathToCourse).once('value')
+  },
+
+  subscribe (customer, planId, subscribing = true) {
+    if (subscribing) console.log(`Attempt to subscribe user with email ${customer.email}`)
+    return new Promise((resolve, reject) => {
+      this.accountsFromEmail(customer.email).then(snapshot => {
+        snapshot.forEach((child) => {
+          let user = child.val()
+          if (user) {
+            const promises = []
+            console.log(`${subscribing ? 'Subscribe' : 'Unsubscribe'} ${user.displayName}`)
+            promises.push(child.ref
+              .update({
+                subscribed: subscribing,
+                chargebeeId: customer.id
+              }, (error) => {
+                if (error) {
+                  console.log(`Error subscribing the user: ${error}`)
+                } else {
+                  console.log(`Success subscribing the user`)
+                }
+              })
+            )
+
+            // TODO remove mailerlite subscription and add promise to main function?
+            promises.push(subscription.subscribeUserToPlan(user, planId, subscribing))
+
+            Promise.all(promises).then((result) => {
+              return resolve(result)
+            })
+          } else {
+            return reject(new Error('User not found in firebase'))
+          }
+        })
+      }, (error) => {
+        return reject(error)
+      })
+    })
+  },
+
+  checkIfTeamMember (email) {
+    return this.teams().then(async snapshot => {
+      const promises = []
+      if (snapshot !== undefined) {
+        // For each team in database
+        snapshot.forEach((teamSnapshot) => {
+          let team = teamSnapshot.val()
+
+          if (team !== undefined) {
+            // Check if user is part of a team
+            team.members.forEach((member) => {
+              if (email === member.email) {
+                promises.push(this.subscribeTeamMember(email, team, true))
+              }
+            })
+          }
+        })
+      }
+      if (promises.length) {
+        await Promise.all(promises)
+        return true
+      }
+      return false
+    })
+  },
+
+  subscribeTeamMember (email, team, subscribing = true) {
+    return this.accountsFromEmail(email).then(snapshot => {
+      const promises = []
+      snapshot.forEach((child) => {
+        team = team ? {
+          companyName: team.companyName,
+          adminName: team.adminName,
+          adminEmail: team.adminEmail
+        } : null
+
+        // Add or remove team data from user in Firebase
+        promises.push(
+          child.ref.update({
+            subscribed: subscribing,
+            team: team
+          })
+        )
+
+        // Subscribe or unsubscribe user from mailer lite team group
+        promises.push(
+          subscription.subscribeUser(child.val(), 'Vue Mastery Team Subscribers', subscribing)
+        )
+      })
+      return Promise.all(promises)
+    })
   },
 
   addTimes (startTime, endTime) {

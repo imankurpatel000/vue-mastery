@@ -57,11 +57,13 @@ export default {
       try {
         let total = 0
         if (this.course.completable) {
-          Object.entries(this.account.courses[this.course.slug].completedLessons).forEach(
-            ([key, value]) => {
-              if (value) total++
-            }
-          )
+          if (this.account.courses[this.course.slug]) {
+            Object.entries(this.account.courses[this.course.slug].completedLessons).forEach(
+              ([key, value]) => {
+                if (value) total++
+              }
+            )
+          }
           if (total >= this.course.lessonsCount) {
             return true
           }
@@ -105,7 +107,7 @@ export default {
     },
 
     subscribedToMailingList () {
-      this.$store.dispatch('userUpdateSubscribe', this.course.slug)
+      this.$store.dispatch('account/userUpdateSubscribe', this.course.slug)
     },
 
     openLogin () {

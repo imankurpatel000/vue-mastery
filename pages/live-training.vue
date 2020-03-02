@@ -3,8 +3,7 @@
     PageHeader(title='We Teach Live'
               title2='Learn Vue in our interactive workshop'
               align='center'
-              background_image='/images/conference-background-transparent.png'
-              background_color='linear-gradient(to right, #41B782 , #86D169)')
+              background_image='/images/banner-live-training.png')
 
     section.benefit-section
       .wrapper
@@ -64,47 +63,47 @@
               li Forms and Validation
               li Filters & Mixins
       
-    section.workshops-section
-      .wrapper
-        h3.display-3.text-center Upcoming Workshops
+    //- section.workshops-section
+    //-   .wrapper
+    //-     h3.display-3.text-center Upcoming Workshops
 
-        .flex-columns.-half
-          .workshop
-            label.primary-label 1 Day Only
-            h4 Intro to Vue @ VueConf US
-            .workshop-meta.-light
-              Icon(name="calendar")
-              span March 25, 2019 - 9:00 AM to 6:00 PM
-            .workshop-meta
-              Icon(name="map")
-              b Tampa, FL
-            p This one day intensive in Tampa, Florida is for developers who haven’t started learning Vue, or just got started.  We teach you the fundamentals of Vue so you can start being productive and building apps immediately.  This is the day before VueConf US, so our workshop will be a great primer for those new to Vue.js.
+    //-     .flex-columns.-half
+    //-       .workshop
+    //-         label.primary-label 1 Day Only
+    //-         h4 Intro to Vue @ VueConf US
+    //-         .workshop-meta.-light
+    //-           Icon(name="calendar")
+    //-           span March 25, 2019 - 9:00 AM to 6:00 PM
+    //-         .workshop-meta
+    //-           Icon(name="map")
+    //-           b Tampa, FL
+    //-         p This one day intensive in Tampa, Florida is for developers who haven’t started learning Vue, or just got started.  We teach you the fundamentals of Vue so you can start being productive and building apps immediately.  This is the day before VueConf US, so our workshop will be a great primer for those new to Vue.js.
 
-            b Cost for Workshop + Conference: $1295
-            .workshop-promo 
-                span Use Promo code: #[b() VUEMASTERYWS50]
-            div
-              a(class="button secondary" target="_blank" href="https://us.vuejs.org/workshops") Visit Conference Website
+    //-         b Cost for Workshop + Conference: $1295
+    //-         .workshop-promo 
+    //-             span Use Promo code: #[b() VUEMASTERYWS50]
+    //-         div
+    //-           a(class="button secondary" target="_blank" href="https://us.vuejs.org/workshops") Visit Conference Website
 
-          .workshop
-            label.primary-label 1 Day Only
-            h4 Intro to Vue @ VueJS Amsterdam
-            .workshop-meta.-light
-              Icon(name="calendar")
-              span February 12, 2019 - 9:00 AM to 5:00 PM
-            .workshop-meta
-              Icon(name="map")
-              b Amsterdam, Netherlands
-            p This one day intensive in Amsterdam, Netherlands is for developers who haven’t started learning Vue, or just got started.  We teach you the fundamentals of Vue so you can start being productive and building apps immediately.  This is the day before the FrontEnd Love & VueJS Amsterdam conferences, so our workshop will be a great primer for those new to Vue.js.
+    //-       .workshop
+    //-         label.primary-label 1 Day Only
+    //-         h4 Intro to Vue @ VueJS Amsterdam
+    //-         .workshop-meta.-light
+    //-           Icon(name="calendar")
+    //-           span February 12, 2019 - 9:00 AM to 5:00 PM
+    //-         .workshop-meta
+    //-           Icon(name="map")
+    //-           b Amsterdam, Netherlands
+    //-         p This one day intensive in Amsterdam, Netherlands is for developers who haven’t started learning Vue, or just got started.  We teach you the fundamentals of Vue so you can start being productive and building apps immediately.  This is the day before the FrontEnd Love & VueJS Amsterdam conferences, so our workshop will be a great primer for those new to Vue.js.
 
-            b Cost for Workshop: €754.98
-            div
-              a(class="button secondary" target="_blank" href="https://www.eventbrite.co.uk/e/vuejs-amsterdam-frontend-love-workshops-tickets-53379423292#tickets") Visit Workshop Registration
+    //-         b Cost for Workshop: €754.98
+    //-         div
+    //-           a(class="button secondary" target="_blank" href="https://www.eventbrite.co.uk/e/vuejs-amsterdam-frontend-love-workshops-tickets-53379423292#tickets") Visit Workshop Registration
 
     section.public-section
       .text-wrapper.text-center
         h3.display-3 Private Workshops
-        p.lead If your company wants onsite training, we’d love to send two of our teachers to run this workshop with your team.
+        p.lead If your company wants onsite training, we’d love to run this workshop with your team.
 
         h5 Cost: #[b $9,000] for 1-Day, #[b $12,000] for 2-Days
         p (for 10 or less developers, then $1,000 per extra developer)

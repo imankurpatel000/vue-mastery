@@ -28,7 +28,7 @@
         | Upcoming lessons
       ul
         li(v-for='lesson in course.lessons' v-if='lesson.status === "draft"')
-          | {{lesson.title}} - {{lesson.date | moment("MMMM D")}}
+          | {{lesson.title}} - {{lesson.date | dateFormat}}
 </template>
 
 <script>
@@ -67,7 +67,7 @@ export default {
 
 <style lang='stylus' scoped>
 .media
-  align-self start
+  align-self flex-start
 
   img
     +tablet-up()

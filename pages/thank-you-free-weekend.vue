@@ -21,8 +21,10 @@
           .card-body
             h4
               i.fa.fa-lock-open &nbsp;
-              | The Courses Unlock Friday
-            p At 12:00 PM EST, Feburary 22nd your Vue Mastery account will be given access to all our free courses, and then they'll go back to normal on February 24th at 11:59 PM EST (23:59). 
+              | All Courses Unlocked 
+            p You have until February 24th at 11:59 PM EST (23:59) to take all the lessons you can.  
+            p
+              nuxt-link.button.primary(to='/courses') View Courses
 
             h4
               i.fa.fa-share-square &nbsp;
@@ -47,14 +49,10 @@
                   network.button.primary.border.-has-icon(network='reddit')
                     i.fab.fa-reddit
                     span Reddit
-
-            h4
-              i.fa.fa-play-circle &nbsp;
-              | Get a Head Start on Learning
-            p Our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue.js course] is completely free, as are many of the first lessons of each course.  Take a look at the #[nuxt-link(to='/courses') courses page], and consider watching all our free content.
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'page-thank-you-free-weekend',
 
@@ -72,13 +70,23 @@ export default {
       show: false,
       card: false,
       link: 'https://www.vuemastery.com/free-weekend',
-      description: 'I\'ll be sharpening my Vue skills during Vue Mastery\'s free weekend.  Don\'t miss out on these free Vue.js courses.'
+      description: 'Vue Mastery\'s free weekend is going on right now.  Don\'t miss out on these free Vue.js courses.'
     }
+  },
+
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
   },
 
   mounted () {
     setTimeout(() => {
       this.ready = true
+      if (this.account && !this.account.enrolledFreeWeekend) {
+        // This is to ensure people that are just login are subscribed
+        this.$store.dispatch('account/userEnrollFreeWeekend')
+      }
     }, 500)
   },
 

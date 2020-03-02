@@ -5,10 +5,11 @@
         router-link.navbar-item.underline(to="/account/dashboard" v-if="account") Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
       router-link.navbar-item.underline(to="/pricing" v-if="!account || (account && !account.subscribed)" v-cloak) Pricing
+      router-link.navbar-item.underline(to="/blog") Blog
       router-link.navbar-item.underline(to="/conferences") Conference Videos
-      router-link.navbar-item.underline(to="/live-training") Live Training
+      router-link.navbar-item.underline.search-link(to="/search") Search
 
-    no-ssr
+    client-only
       transition(:name="account ? 'signin' : 'signout'" mode='out-in' appear)
         .navbar-secondary(v-if='account' v-cloak key='islogged')
           button.button.primary.-small.appear(type='button' @click='signOut') Sign Out
@@ -51,7 +52,7 @@ export default {
   methods: {
     signOut () {
       this.$store
-        .dispatch('userLogout')
+        .dispatch('account/userLogout')
         .then(() => {
           this.$router.push('/')
         })
@@ -105,6 +106,7 @@ export default {
     position: relative
     height: $header-height
     flex-direction: row
+    flex-wrap: initial
 
     *
       pointer-events initial
@@ -162,6 +164,13 @@ export default {
     .button
       margin-left: 18px
 
+.open-nav
+  .navbar
+    @media screen and (max-height: 45em)
+      padding-top: 60px
+      a, button
+        margin-bottom 25px
+
 .navbar-profile
   display: flex
   border-radius: 50%
@@ -214,6 +223,10 @@ export default {
 
 .signout-enter, .signout-leave-to
   opacity: 0
+
+.search-link
+  +wide-up()
+    display none
 </style>
 
 <style lang='stylus'>
@@ -242,4 +255,7 @@ export default {
     for i in (1..2)
       &:nth-child({i})
         transition-delay: (i*100 + 200)ms
+
+  .header
+    position: fixed !important
 </style>

@@ -18,7 +18,7 @@ export default {
       meta: [{
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/download`
+        content: `${process.env.baseUrl}/download`
       }]
     }
   },

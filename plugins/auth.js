@@ -1,20 +1,13 @@
-import conf from '~/firebase'
-import firebase from 'firebase'
-import * as types from '~/store/mutation-types'
-import flamelink from 'flamelink'
+import { firebase, flamelink } from '~/services/database.js'
 
 export default function ({
-  store,
-  redirect
+  store
 }) {
-  if (!firebase.apps.length) {
-    const firebaseApp = firebase.initializeApp(conf)
-    store.commit(types.APP_READY, flamelink({ firebaseApp, env: conf.env }))
-  }
+  store.commit('courses/APP_READY', flamelink)
 
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      store.commit(types.SET_USER, user)
+      store.commit('account/SET_USER', user)
     }
   })
 }

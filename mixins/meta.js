@@ -1,7 +1,8 @@
 export default {
   get (d) {
+    let title = `${d.pageTitle}${d.categoryTitle ? ' - ' + d.categoryTitle : ''} | Vue Mastery`
     return {
-      title: `${d.pageTitle} - ${d.categoryTitle} | Vue Mastery`,
+      title: title,
       meta: [{
         hid: `description`,
         name: 'description',
@@ -13,15 +14,15 @@ export default {
       }, {
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.url}/${d.category}/${d.categorySlug}/${d.pageSlug}`
+        content: `${process.env.baseUrl}/${d.category}${d.categorySlug ? '/' + d.categorySlug : ''}/${d.pageSlug}`
       }, {
         hid: `og:title`,
         property: 'og:title',
-        content: `${d.categoryTitle}: ${d.pageTitle}`
+        content: title
       }, {
         hid: `og:image`,
         property: 'og:image',
-        content: d.facebookImage || d.image || `${process.env.url}/images/facbeook_image.png`
+        content: d.facebookImage || d.image || `${process.env.baseUrl}/images/facbeook_image.png`
       }, {
         hid: 'twitter:title',
         name: 'twitter:title',
@@ -33,11 +34,15 @@ export default {
       }, {
         hid: 'twitter:image',
         name: 'twitter:image',
-        content: d.twitterImage || d.image || `${process.env.url}/images/facbeook_image.png`
+        content: d.twitterImage || d.image || `${process.env.baseUrl}/images/facbeook_image.png`
       }, {
         hid: `author`,
         name: 'author',
         content: d.author || 'Adam Jahr'
+      }, {
+        hid: 'robots',
+        name: 'robots',
+        content: d.robots || 'index, follow'
       }]
     }
   }

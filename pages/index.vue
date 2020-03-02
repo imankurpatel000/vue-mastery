@@ -1,7 +1,14 @@
 <template lang='pug'>
-  .homepage
-    .hero
-      Hero
+  .homepage(:class='{ready: ready}')
+    .hero-wrapper
+      .hero
+        .text
+          h1.title The ultimate learning resource for Vue developers
+          p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
+
+      .actions
+        nuxt-link.button.inverted(to='/courses') Explore courses
+
     .free-videos
       FeaturedLessons(:featured='featured' :account='account')
     .course-list
@@ -25,7 +32,6 @@
 import { mapState } from 'vuex'
 import FeaturedCourses from '~/components/courses/FeaturedCourses'
 import FeaturedLessons from '~/components/courses/FeaturedLessons'
-import Hero from '~/components/static/HeroBanner'
 import MeetTeachers from '~/components/static/MeetTeachers'
 import CommunitySupport from '~/components/static/CommunitySupport'
 import CheatSheetMain from '~/components/static/CheatSheetMain'
@@ -43,12 +49,35 @@ export default {
         hid: `og:url`,
         property: 'og:url',
         content: process.env
+      }],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [{
+        type: 'application/ld+json',
+        json: {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          url: process.env.baseUrl,
+          potentialAction: [{
+            '@type': 'SearchAction',
+            target: 'https://www.vuemastery.com/search?q={search_term_string}',
+            'query-input': 'required name=search_term_string'
+          }]
+        }
       }]
     }
   },
 
+  data () {
+    return {
+      ready: false
+    }
+  },
+
+  mounted () {
+    this.ready = true
+  },
+
   components: {
-    Hero,
     FeaturedLessons,
     FeaturedCourses,
     MeetTeachers,
@@ -66,8 +95,8 @@ export default {
   },
 
   async fetch ({ store }) {
-    await store.dispatch('featured')
-    await store.dispatch('getAllCourses')
+    await store.dispatch('courses/featured')
+    await store.dispatch('courses/getAllCourses')
   }
 }
 </script>
@@ -85,6 +114,77 @@ build-grid-area(hero free-videos course-list vue-conf meet-teachers cheatsheet c
     'meet-teachers meet-teachers'\
     'cheatsheet cheatsheet'\
     'community community'
+  z-index: 2;
+  position: relative;
+
+  &.ready
+    ::v-deep .title,
+    .hero-wrapper
+      opacity: 1
+      transition: ease-in .3s 1.3s
+
+::v-deep .title
+  opacity: 0
+
+.text
+  position absolute
+  color white
+  top: 20%
+  text-align: center
+  padding: 0 15px;
+  width: 100%
+  height: 100%
+  +tablet-up()
+    top: 20%
+
+  @media screen and (orientation: landscape) and (max-width: 40em)
+    top: 90px
+
+.hero-wrapper
+  grid-area: hero
+  max-height: 92vh
+  min-height: 600px
+  position: relative
+  opacity: 0
+
+  @media (orientation: portrait)
+    min-height: 600px
+
+.hero
+  height: 0;
+  padding-top: 65%;
+
+  .title
+    max-width: 300px;
+    padding-top 0
+    margin 0 auto
+    font-size: 24px;
+    font-weight: 600;
+
+    +tablet-up()
+      font-size: 29px;
+      max-width: 400px;
+
+    +laptop-up()
+      font-size: 40px;
+      max-width 550px
+
+.lead
+  font-size: 16px;
+  font-weight: 400;
+
+.actions
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 50px;
+  text-align: center;
+
+  .button
+    width: max-content
+
+  +mobile-only()
+    top: 58%;
 
 .section
   .title

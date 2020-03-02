@@ -1,5 +1,5 @@
 <template lang='pug'>
-  no-ssr
+  client-only
     button.button(v-if='account' v-cloak
       @click='enroll'
       :class='buttonClass') Enroll Free Now
@@ -41,7 +41,7 @@ export default {
       })
     },
     enroll () {
-      this.$store.dispatch('userEnrollFreeWeekend')
+      this.$store.dispatch('account/userEnrollFreeWeekend')
         .then(() => {
           this.$router.push('/thank-you-free-weekend')
         })

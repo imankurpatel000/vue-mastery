@@ -19,7 +19,7 @@
             i.far.fa-user
             span {{ lesson.author}}
         .list-item-meta(v-else)
-          | To be released on {{ (lesson.date || lesson.releaseDate)  | moment("MMMM D")}}
+          | To be released on {{ (lesson.date || lesson.releaseDate)  | dateFormat}}
 
       .list-item-actions(@click.stop v-if='lesson.status === "published" || lesson.isVideoLive === "true"')
         i.fa.fa-lock
@@ -89,7 +89,7 @@ export default {
 
     toggleCompleted (lessonSlug) {
       const isLessonCompleted = !this.isCompleted(lessonSlug)
-      this.$store.dispatch('userUpdateCompleted', {
+      this.$store.dispatch('account/userUpdateCompleted', {
         lessonSlug: lessonSlug,
         courseSlug: this.course.slug,
         isCompleted: isLessonCompleted
@@ -137,6 +137,7 @@ export default {
       if (lesson.free === false) {
         // FREEWEEKEND
         // return !this.account
+        // NOT FREEWEEKEND
         return this.account ? !this.account.subscribed : true
       }
       if (lesson.lock) {

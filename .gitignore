@@ -7,7 +7,6 @@ node_modules
 *.cache
 
 #locks
-yarn.lock
 package-lock.json
 
 # Nuxt build
@@ -15,14 +14,15 @@ package-lock.json
 
 # Nuxt generate
 dist
+feed.xml
 
 # dont show the firebase file
-firebase.js
 serviceAccountKey.json
 serviceAccountKeyStaging.json
+chargebeeAccountKey.json
 functions/.runtimeconfig.json
-updateAllSubscription.js
-functions/check.js
+firebaseConfig.json
+.env
 
 # hide the compiled service worker
 sw.*
@@ -37,3 +37,4 @@ static/sitemap.xml
 \.vscode/settings\.json
 package-lock.json
 .monitor/
+local-test

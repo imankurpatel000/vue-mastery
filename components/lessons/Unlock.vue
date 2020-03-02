@@ -1,5 +1,5 @@
 <template lang='pug'>
-no-ssr
+client-only
   .locked-action
     h3 This Lesson Is Locked.
     h5(v-if='free') Create a free account to unlock it.
@@ -24,6 +24,7 @@ export default {
 
   methods: {
     openLogin () {
+      // -  FREEWEEKEND - Just comment out the conditionals
       if (this.free) {
         this.$modal.show('login-form', {
           newAccount: true,

@@ -16,7 +16,7 @@
       .content
         p.releaseDate(v-if="talk.showRelease")
           b To be released on:&nbsp;
-          span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
+          span {{ talk.releaseDate | dateFormat }}
         p {{ talk.description }}
 
   div(v-if="gotLightningTalks()")
@@ -34,7 +34,7 @@
             label.lightning-author {{ talk.author }}
             p.releaseDate(v-if="talk.showRelease")
               b To be released on:&nbsp;
-              span {{ talk.releaseDate | moment("MMMM D, YYYY") }}
+              span {{ talk.releaseDate | dateFormat }}
 </template>
 
 <script>
@@ -54,7 +54,7 @@ export default {
 
   methods: {
     path (talk) {
-      return talk.lock ? '#' : `/conferences/${this.conference.slug}/${talk.slug}`
+      return (talk.lock || talk.isVideoLive === 'false') ? '#' : `/conferences/${this.conference.slug}/${talk.slug}`
     },
 
     gotLightningTalks () {

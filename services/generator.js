@@ -1,10 +1,13 @@
-const flamelink = require('flamelink')
+import flamelink from 'flamelink/app'
+import 'flamelink/content'
+import 'flamelink/storage'
+const env = require(`../environmentVariable.js`)
 const admin = require('firebase-admin')
-const conf = require('../firebase')
 
 let result = {
   pages: [],
-  sitemap: []
+  sitemap: [],
+  feed: []
 }
 
 const timeConvert = function (time) {
@@ -27,31 +30,37 @@ const createVideoTags = function (url, lesson) {
   } catch (error) {
     console.log(`Image for the lesson ${lesson.title} does not exist`)
   }
-  return {
+
+  const video = {
     url: url,
     video: {
       thumbnail_loc: image.url.replace(/&/g, '&amp;'),
       title: lesson.title,
       description: lesson.description,
-      player_loc: `https://player.vimeo.com/video/${lesson.videoEmbedId}`,
       duration: timeConvert(lesson.duration)
     }
   }
+  if (lesson.free) {
+    video.player_loc = `https://player.vimeo.com/video/${lesson.videoEmbedId}`
+  }
+  return video
 }
 
 const getCoursesPage = async function (db) {
-  return db.get('courses', {
+  return db.get({
+    schemaKey: 'courses',
     populate: [{
       field: 'lessons',
       subFields: [ 'lessons', 'image', 'status' ],
       populate: [ 'image' ]
     }, {
       field: 'image',
-      subFields: [ 'image' ]
+      subFields: [ 'image' ] // to remove?
     }]})
     .then(async courses => {
       for (const key of Object.keys(courses)) {
         const course = courses[key]
+        result.pages.push(`/courses/${course.slug}`)
         if (course.hasOwnProperty('lessons')) {
           for (const id of Object.keys(course.lessons)) {
             const lesson = course.lessons[id]
@@ -74,14 +83,15 @@ const getCoursesPage = async function (db) {
 // TODO: refactor the identical functions once conference table is renamed conferences
 // and vue/conf v1 is not in prod
 const getTalksPage = async function (db) {
-  return db.get('conference', {
+  return db.get({
+    schemaKey: 'conference',
     populate: [{
       field: 'talks',
       subFields: [ 'lessons', 'image' ],
       populate: [ 'image' ]
     }, {
       field: 'image',
-      subFields: [ 'image' ]
+      subFields: [ 'image' ] // to remove?
     }]})
     .then(async conferences => {
       for (const key of Object.keys(conferences)) {
@@ -94,7 +104,7 @@ const getTalksPage = async function (db) {
             if (talk.isVideoLive === 'true') {
               const url = `/conferences/${conference.slug}/${talk.slug}`
               result.pages.push(url)
-              if (!talk.lock && conf.env !== 'staging') {
+              if (!talk.lock && env.env !== 'staging') {
                 result.sitemap.push(createVideoTags(url, talk))
               }
             }
@@ -105,14 +115,39 @@ const getTalksPage = async function (db) {
     })
 }
 
-module.exports = async function (nuxt, generateOptions) {
+const getPostsPage = async function (db) {
+  return db.get({
+    schemaKey: 'posts',
+    populate: [{
+      field: 'image',
+      subFields: [ 'image' ]
+    }]})
+    .then(async posts => {
+      for (const key of Object.keys(posts)) {
+        const post = posts[key]
+        if (post.status === 'published') {
+          result.pages.push(`/blog/${post.slug}`)
+          result.sitemap.push(`/blog/${post.slug}`)
+          result.feed.push({
+            title: post.title,
+            id: `/blog/${post.slug}`,
+            link: `/blog/${post.slug}`,
+            description: post.description,
+            pubDate: post.date,
+            author: post.author
+          })
+        }
+      }
+      return result
+    })
+}
+
+module.exports = async function () {
   console.log('Get dynamic routes')
-  const key = conf.authDomain === 'vue-mastery-staging.firebaseapp.com' ? 'Staging' : ''
-  const serviceAccount = require(`../serviceAccountKey${key}.json`)
   const firebaseConfig = {
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: conf.databaseURL,
-    storageBucket: conf.storageBucket
+    credential: admin.credential.cert(env),
+    databaseURL: env.databaseURL,
+    storageBucket: env.storageBucket
   }
   let firebaseApp = {}
   if (admin.apps.length === 0) {
@@ -120,9 +155,10 @@ module.exports = async function (nuxt, generateOptions) {
   } else {
     firebaseApp = admin.apps[0]
   }
-  const db = flamelink({ firebaseApp, isAdminApp: true, env: conf.env }).content
+  const db = flamelink({ firebaseApp, isAdminApp: true, env: env.env }).content
 
-  await getCoursesPage(db, result)
-  await getTalksPage(db, result)
+  await getCoursesPage(db)
+  await getTalksPage(db)
+  await getPostsPage(db)
   return result
 }

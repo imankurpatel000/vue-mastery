@@ -2,40 +2,59 @@
 
 > The ultimate learning resource for Vue developers
 
-## Getting Started
-
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-You need a node version > v9
-``` bash
-npm -v # need to be > v9
-
-# if not:
-npm install -g n # install node version manager
-n latest # get latest node version
-```
-
-``` bash
-# install dependencies
-$ npm install # Or yarn install
-```
+## Getting Started
 
 ### Prerequisites
 
-We need to install firebase tools to deploy.
+- [Node.js v12.0+](https://nodejs.org/en/)
+- [yarn](https://yarnpkg.com) - Optional, but recommended
+- `firebase.js` - Request from active developer
+- `serviceAccountKey.json` - Request from active developer
 
-``` bash
-$ npm install -g firebase-tools
+### Instructions
+
+1. Clone repo
+1. Place `firebase.js` in project root directory
+1. Place `serviceAccountKey.json` in project root directory
+1. Open project in terminal
+1. Run the following commands
+
+```bash
+# install dependencies
+$ yarn # or npm install
+# start local dev server
+$ yarn dev # or npm run dev
 ```
 
-Tell firebase to use the default enviroment
-``` bash
+You should now have a local server running with hot reloading at http://localhost:3000! 🎉
+
+## Deployment
+
+### Prerequisites
+
+- Install [Firebase CLI](https://github.com/firebase/firebase-tools) globally
+- Access to Firebase project with a Google account
+
+### Instructions
+
+1. Tell firebase to use the default environment
+
+```bash
 firebase use default
 ```
 
-Initiate a connection to firebase:
-``` bash
+2. Initiate a connection to firebase
+
+```bash
 firebase login
+```
+
+3. Deploy application
+
+```bash
+npm run deploy
 ```
 
 ### Firebase Setup
@@ -44,27 +63,35 @@ Because we don't want to share Firebase credential we need to create a `firebase
 
 ```js
 module.exports = {
-  'apiKey': 'info-from-firebase-web-instructions',
-  'authDomain': 'info-from-firebase-web-instructions',
-  'databaseURL': 'info-from-firebase-web-instructions',
-  'projectId': 'info-from-firebase-web-instructions',
-  'storageBucket': 'info-from-firebase-web-instructions',
-  'messagingSenderId': 'info-from-firebase-web-instructions'
+  apiKey: 'info-from-firebase-web-instructions',
+  authDomain: 'info-from-firebase-web-instructions',
+  databaseURL: 'info-from-firebase-web-instructions',
+  projectId: 'info-from-firebase-web-instructions',
+  storageBucket: 'info-from-firebase-web-instructions',
+  messagingSenderId: 'info-from-firebase-web-instructions'
 }
 ```
 
 #### Configuration keys
 
-To use MailerLite, SparkPost, and stripe we need to configure enviroment keys using this command:
+To use MailerLite, SparkPost, and stripe we need to configure environment keys using this command:
 
-``` bash
+```bash
 $ firebase functions:config:set mailerlite.key="THE KEY"
 $ firebase functions:config:set sparkpost.key="THE KEY"
 $ firebase functions:config:set stripe.token="THE KEY"
+$ firebase functions:config:set algolia.id="THE KEY"
+$ firebase functions:config:set algolia.key="THE KEY"
+$ firebase functions:config:set chargebee.key="THE KEY"
+$ firebase functions:config:set chargebee.site="vuemastery"
+$ firebase functions:config:set mailgun.apikey="vuemastery"
+$ firebase functions:config:set chargebee.email="vuemastery"
+etc..
 ```
+
 To list the current config:
 
-``` bash
+```bash
 $ firebase functions:config:get
 ```
 
@@ -91,28 +118,19 @@ We will setup social login for Google and Github. We will need to login to your 
 
 ## Test
 
-We use Cypress to test 
+We use Cypress to test
 
-``` bash
+```bash
 $(npm bin)/cypress open
 ```
 
 ## Usage
 
-### Development
-
-``` bash
-# serve with hot reloading at localhost:3000
-$ npm run dev
-```
-
-Go to [http://localhost:3000](http://localhost:3000)
-
 ### Production
 
-This is just in case we want to deploy on differrent server then firebase hosting
+This is just in case we want to deploy on different server then firebase hosting
 
-``` bash
+```bash
 # build for production and launch the server
 $ npm run build
 $ npm start
@@ -120,32 +138,31 @@ $ npm start
 
 ### Generate
 
-``` bash
+```bash
 # generate a static project
 $ npm run generate
 ```
 
-## Deployment
+You should probably generate the static project before you deploy as the deployment take every static output from nuxt to the dist folder, which is then copy over to firebase host folder.
 
-You should probably generate the static porject before you deploy as the deployment take every static output from nuxt to the dist folder, which is then copy over to firebase host folder.
-The functions folder is also copy over and help us to repsond to specific backend tasks.
+The functions folder is also copy over and help us to respond to specific backend tasks.
 
-``` bash
+```bash
 # deploy the complete solution:
 $ firebase deploy
 # deploy only the functions:
 $ firebase deploy --only functions
 # deploy only the generated static pages:
 $ firebase deploy --only hosting
-# Shortcut that you should probably use all the time for deployment:
-$ npm run generate; firebase deploy
+# Shortcut that you should use all of the time for deployment:
+$ npm run deploy
 ```
 
 ### Staging vs production
 
 You can deploy on staging or in production with this command:
 
-``` bash
+```bash
 # deploy solution in production
 $ firebase use default
 # deploy solution on staging
