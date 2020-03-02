@@ -25,15 +25,15 @@ export default {
   methods: {
     openLogin () {
       // -  FREEWEEKEND - Just comment out the conditionals
-      this.$modal.show('login-form', {
-        newAccount: true,
-        headerTitle: 'Sign up to Unlock Free Content',
-        location: 'Lesson page locked video'
-      })
-      // if (this.free) {
-      // } else {
-      //   this.$router.push('/pricing')
-      // }
+      if (this.free) {
+        this.$modal.show('login-form', {
+          newAccount: true,
+          headerTitle: 'Sign up to Unlock Free Content',
+          location: 'Lesson page locked video'
+        })
+      } else {
+        this.$router.push('/pricing')
+      }
     }
   }
 }
