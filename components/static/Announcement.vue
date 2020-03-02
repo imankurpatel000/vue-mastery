@@ -1,6 +1,6 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    nuxt-link(to='/pricing' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+    nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
       .squares
         .square
         .square
@@ -12,7 +12,7 @@
         .square
 
       p.para
-        | Get 20% off an annual subscription for 2020 by using code DISCOUNT2020
+        | Enroll in Free Weekend! Reserve your spot to get access to all Vue.js courses free.
 </template>
 
 <script>
