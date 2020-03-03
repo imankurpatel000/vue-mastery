@@ -12,7 +12,7 @@
         p.lead.date
           | Friday through Sunday
           br
-          | Mar 13 at 12 PM ET until Mar 15, 11:59 PM ET
+          | March 13 at 12 PM ET until March 15, 11:59 PM ET
 
         FreeEnrollButton(button-class='tertiary' location='Free Weekend')
 </template>
