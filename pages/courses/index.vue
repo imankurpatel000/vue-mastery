@@ -13,6 +13,7 @@
       LearningPath(
         :parts='ordered'
         :account='account'
+        :slide='slide'
       )
 
     Nav(v-if='this.path'
@@ -67,7 +68,8 @@ export default {
   data () {
     return {
       path: this.$route.name,
-      pathsNames: ['courses', 'beginner', 'intermediate', 'advanced']
+      pathsNames: ['courses', 'beginner', 'intermediate', 'advanced'],
+      slide: 'slide'
     }
   },
 
@@ -83,7 +85,7 @@ export default {
       if (this.path === 'courses') {
         sections.push({
           intro: this.paths.intro,
-          courses: Object.values(this.courses).sort((a, b) => a.order - b.order)
+          courses: Object.values(this.courses).reverse() // .sort((a, b) => a.order - b.order)
         })
       } else {
         const parts = ['Intro', '', 'BonusText', 'Bonus', 'OptionText', 'Options'] // Ordered
@@ -106,7 +108,9 @@ export default {
   methods: {
     redirect (path) {
       history.pushState({}, null, path)
-      this.path = path.split('/').pop()
+      const newPath = path.split('/').pop()
+      this.slide = this.pathsNames.indexOf(newPath) > this.pathsNames.indexOf(this.path) ? 'slide-previous' : 'slide'
+      this.path = newPath
     }
   },
 

@@ -2,14 +2,14 @@
   section
     .learning-path(v-if='parts' v-cloak)
       .part(v-for='part, indexPart in parts')
-        transition(name='slide' appear mode='out-in')
+        transition(:name='slide' appear mode='out-in')
           .intro-part(
             v-html='part.intro'
             :key='part.intro'
             :class='{"text": (indexPart > 0) && !(indexPart % 1) }'
           )
 
-        transition-group(name='slide' :style='{ "--total": part.courses.length }' appear mode='out-in')
+        transition-group(:name='slide' :style='{ "--total": part.courses.length }' appear mode='out-in')
           CourseCard(
             v-for='course, index in part.courses'
             :style='{"--i": index}'
@@ -34,6 +34,10 @@ export default {
     parts: {
       type: Array,
       required: false
+    },
+    slide: {
+      type: String,
+      default: 'slide'
     }
   },
   components: {
@@ -55,9 +59,6 @@ $timing = 500ms
 
   > .intro-part
     margin-bottom 1rem
-
-    +tablet-up()
-      margin-bottom 2rem
 
 .intro-part
   padding 0 1rem 1rem 1rem
@@ -85,6 +86,7 @@ $timing = 500ms
   +tablet-up()
     padding 2rem
 
+.slide-previous,
 .slide
   &-move
     transition opacity 1s ease-in-out
@@ -105,5 +107,12 @@ $timing = 500ms
   &-leave-to
     transform translate3d(50px, 0, 0)
     
+.slide-previous
+  &-enter,
+  &-leave-to
+    transform translate3d(30px, 0, 0)
+
+  &-leave-to
+    transform translate3d(-50px, 0, 0)
 </style>
 
