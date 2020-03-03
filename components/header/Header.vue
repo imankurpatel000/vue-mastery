@@ -148,6 +148,7 @@ export default {
     min-width 200px
     margin: -10px 90px 0 0
 
+.thank-you-free-weekend,
 .index
   position: absolute;
   width: 100%;

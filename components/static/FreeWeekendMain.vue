@@ -14,16 +14,13 @@
           | Reserve your spot to get access to all Vue.js courses free.
           br
           span.normal We will email you when the courses are unlocked.
-
-        p
-          nuxt-link.button.primary(to='/courses') View Courses
         
         p.lead.date
           | Friday through Sunday
           br
-          | Mar 6 at 12 PM ET until Mar 8, 11:59 PM ET
+          | Mar 13 at 12 PM ET until Mar 15, 11:59 PM ET
 
-        FreeEnrollButton(button-class='inverted' location='Free Weekend')
+        FreeEnrollButton(button-class='tertiary' location='Free Weekend')
 </template>
 
 <script>

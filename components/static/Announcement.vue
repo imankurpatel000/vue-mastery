@@ -1,6 +1,8 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+    // FREEWEEKEND
+    //- nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+    nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account" v-cloak)
       .squares
         .square
         .square
@@ -12,7 +14,9 @@
         .square
 
       p.para
-        | Enroll in Free Weekend! Reserve your spot to get access to all Vue.js courses free.
+        | All courses will be free March 13-15.  Reserve your spot now.
+
+      .button.-small.tertiary Get Access
 </template>
 
 <script>
@@ -63,11 +67,15 @@ export default {
   color #fff
   min-height $vertical-space
   background $secondary-color
-  // background-image radial-gradient(800px 100% at center -35px, #02101f, #0a2b4e)
   text-align center
+  transition background .25s ease-out
+
+  +mobile-only()
+    flex-direction: column
 
   &:hover
     text-decoration none
+    background-color: #007bba
 
   &:after
     content: ''
@@ -104,20 +112,21 @@ export default {
   margin-top: -90px
 
 .button
+  display inline-block
   font-size: 18px
-
-  margin: 20px auto 0
-  display: block
+  text-transform uppercase
   min-width: 150px
+  margin 0 0 0 2rem
 
-  +desktop-up()
-    display inline
-    margin 0 0 0 2rem
-    min-width auto
+  +mobile-only()
+    margin-left: 0
+    margin-bottom: 1rem
+
 
 .para
   z-index 2
-  max-width: 33rem
+  max-width: 270px
+
   +desktop-up()
     max-width 100%
 

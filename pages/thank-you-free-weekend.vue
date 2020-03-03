@@ -1,64 +1,65 @@
 <template lang="pug">
 .container
-  .cloud-cover
   .wrapper
     div(v-if='ready')
-      transition-group(name="nature" @after-enter="showContent" appear)
-        img.sm-range(src="/images/img-sm-mountain.svg" key="sm-range")
-        img.bk-cloud(src="/images/img-cloud-back.svg" key="bk-cloud")
-        img.md-range(src="/images/img-md-mountain.svg" key="md-range")
-        img.mid-cloud(src="/images/img-cloud-middle.svg" key="mid-cloud")
-        img.lg-range(src="/images/img-lg-mountain.svg" key="lg-range")
-        img.fr-cloud(src="/images/img-cloud-front.svg" key="fr-cloud")
+      .media
+        transition-group(name="images" appear)
+          img.images.image1(key='1' src='/images/free-weekend/vuevue.png')
+          img.images.image2(key='2' src='/images/free-weekend/hand.png')
+          img.images.image3(key='3' src='/images/free-weekend/lock.png')
+          img.images.image4(key='4' src='/images/free-weekend/orb.png')
+          img.images.image5(key='5' src='/images/free-weekend/vue.png')
+          img.images.image6(key='6' src='/images/free-weekend/vue3.png')
 
-      .title
-        transition-group(name="thankyou" @after-enter="showCard")
-          h1.headline(v-if='show' key="headline") Thank You
-          p.copy(v-if='show' key="copy") You are now enrolled for Vue Mastery Free Weekend.
+      .content
+        .title
+          transition-group(name="thankyou" appear)
+            h1.headline(key="headline") Thank You
+            p.copy(key="copy") You are now enrolled for Vue Mastery Free Weekend.
 
-      transition(name="thankyou")
-        .card(v-if="card")
-          .card-body
-            h4
-              i.fa.fa-lock-open &nbsp;
-              | The Courses Unlock Friday
-            p At 12:00 PM EST, March 6th your Vue Mastery account will be given access to all our free courses, and then they'll go back to normal on March 8th at 11:59 PM EST (23:59). 
-            p
-              nuxt-link.button.primary(to='/courses') View Courses
+        transition(name="thankyou" appear)
+          .card
+            .card-body
+              h4
+                i.fa.fa-lock-open &nbsp;
+                | The Courses Unlock March 13
+              p At 12:00 PM EST, March 13th your Vue Mastery account will be given access to all our premium courses, and then they'll go back to normal on March 15th at 11:59 PM EST (23:59). 
 
-            h4
-              i.fa.fa-share-square &nbsp;
-              | Don't Let your Friends Miss Out
-            p Have any friends that'd appreciate free learning?  Share #[a(:href="link") this link] or hit a share button below to make sure they don't miss out.
-              social-sharing(inline-template 
-                  :url='link'
-                  :title="description"
-                  :description="description"
-                  :quote="description"
-                  twitter-user='vuemastery')
-                .social-wrapper
-                  network.button.primary.border.-has-icon(network='twitter')
-                    i.fab.fa-twitter
-                    span Twitter
-                  network.button.primary.border.-has-icon(network='facebook')
-                    i.fab.fa-facebook
-                    span Facebook
-                  network.button.primary.border.-has-icon(network='linkedin')
-                    i.fab.fa-linkedin
-                    span LinkedIn
-                  network.button.primary.border.-has-icon(network='reddit')
-                    i.fab.fa-reddit
-                    span Reddit
+              h4
+                i.fa.fa-share-square &nbsp;
+                | Don't Let your Friends Miss Out
+              p Have any friends that'd appreciate free learning?  Share #[a(:href="link") this link] or hit a share button below to make sure they don't miss out.
+                social-sharing(inline-template 
+                    :url='link'
+                    :title="description"
+                    :description="description"
+                    :quote="description"
+                    twitter-user='vuemastery')
+                  .social-wrapper
+                    network.button.primary.border.-has-icon(network='twitter')
+                      i.fab.fa-twitter
+                      span Twitter
+                    network.button.primary.border.-has-icon(network='facebook')
+                      i.fab.fa-facebook
+                      span Facebook
+                    network.button.primary.border.-has-icon(network='linkedin')
+                      i.fab.fa-linkedin
+                      span LinkedIn
+                    network.button.primary.border.-has-icon(network='reddit')
+                      i.fab.fa-reddit
+                      span Reddit
 
-            h4
-              i.fa.fa-play-circle &nbsp;	
-              | Get a Head Start on Learning	
+              h4
+                i.fa.fa-play-circle &nbsp;	
+                | Get a Head Start on Learning	
 
-            p Our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue.js course] is completely free, as are many of the first lessons of each course.  Take a look at the #[nuxt-link(to='/courses') courses page], and consider watching all our free content.
+              p Our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue.js course] is completely free, as are many of the first lessons of each course.  Take a look at the #[nuxt-link(to='/courses') courses page], and consider watching all our free content.
+              p
+                nuxt-link.button.primary(to='/courses') View Courses
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 export default {
   name: 'page-thank-you-free-weekend',
 
@@ -80,29 +81,20 @@ export default {
     }
   },
 
-  computed: {
-    ...mapState({
-      account: result => result.account.account
-    })
-  },
+  // computed: {
+  //   ...mapState({
+  //     account: result => result.account.account
+  //   })
+  // },
 
   mounted () {
     setTimeout(() => {
       this.ready = true
-      if (this.account && !this.account.enrolledFreeWeekend) {
-        // This is to ensure people that are just login are subscribed
-        this.$store.dispatch('account/userEnrollFreeWeekend')
-      }
+      // if (this.account && !this.account.enrolledFreeWeekend) {
+      //   // This is to ensure people that are just login are subscribed
+      //   this.$store.dispatch('account/userEnrollFreeWeekend')
+      // }
     }, 500)
-  },
-
-  methods: {
-    showContent () {
-      this.show = true
-    },
-    showCard () {
-      this.card = true
-    }
   }
 }
 </script>
@@ -111,34 +103,13 @@ export default {
 .container
   position relative
   overflow hidden
-  margin-top -100px
   padding-top 100px
-  background linear-gradient(to bottom right, #90C3D3, #EDFFED)
-
-.cloud-cover
-  display none
+  background-image url(/images/free-weekend/background.svg)
+  min-height 90vh
+  padding-top $vertical-space*1.5
 
   +laptop-up()
-    display block
-    position absolute
-    top -590px
-    width 100%
-    height 100%
-    background-size cover
-    background-position center top
-    background-repeat no-repeat
-    background-image url(/images/bkg-cloud-top.svg)
-
-.wrapper
-  position relative
-  height 1050px
-
-  // Media for iPhone 5/SE
-  @media (max-width: 325px)
-    height 1200px
-
-  +desktop-up()
-    height 890px
+    padding-top $vertical-space*2
 
 .button
   margin-bottom 0
@@ -147,115 +118,36 @@ export default {
   margin 15px 21px 0px 0
   min-width 162px
 
-img[class*="range"]
-img[class*="cloud"]
-  position absolute
-
-.lg-range
-  width 1147px
-  height 672px
-  bottom 0
-  right 50%
-  transform translateX(50%)
-  +laptop-up()
-    right -265px
-    transform none
-
-.md-range
-  display none
-  +laptop-up()
-    display block
-    width 865px
-    height 487px
-    bottom 0
-    right 275px
-
-.sm-range
-  display none
-  +laptop-up()
-    display block
-    width 653px
-    height 440px
-    right 643px
-    bottom 0
-
-.bk-cloud
-  display none
-  +laptop-up()
-    display block
-    width 550px
-    height 56px
-    right 600px
-    top 50%
-
-.mid-cloud
-  display none
-  +laptop-up()
-    display block
-    width 747px
-    height 76px
-    right 450px
-    top 60%
-
-.fr-cloud
-  width 2861px
-  height 503px
-  right -626px
-  bottom 70px
-
-.title
+.content
   position relative
   top 0
   bottom 0
   z-index 1
   width 100%
+  margin 0 auto
 
   +laptop-up()
-    margin-top $vertical-space*1.5
     padding-left 5%
     width 45%
     z-index 0
+    margin-right 0
 
 .headline
-  position absolute
-  top 0
   color #FFFFFF
   font-size 60px
   +tablet-up()
     font-size 80px
 
 .copy
-  position absolute
-  top 90px
-  +tablet-up()
-    top 120px
-
-.start
-  position absolute
-  top 140px
-  +tablet-up()
-    top 170px
+  color #FFFFFF
+  margin-bottom 40px
 
 .card
-  position absolute
   box-shadow none
-  width 90%
-  left 5%
-  top 240px
   transform-origin top center
 
-  +tablet-up()
-    top 280px
-
   +laptop-up()
-    top 0
-    width 45%
-    left 50%
-    margin-top $vertical-space
     transform-origin center left
-
-  +desktop-up()
-    width 42%
 
 .card-body
   padding 22px 40px
@@ -268,53 +160,89 @@ img[class*="cloud"]
     p
       padding-left 28px
 
-.nature-enter-active
-  transition opacity .3s ease-in
+.media
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  margin-left: -93px;
+  height 100vh
+  z-index 0
 
-  &.lg-range
-    transition transform 1.5s ease-in-out
+  +tablet-up()
+    height: 560px
+    top: 30%
+    left: 3%
+    margin-left 0
+    width 50%
+  img
+    position absolute
 
-  &.fr-cloud
-    transition transform 2s ease-in-out
+  .image1
+    top: -5%;
+    left: 44%;
+    width: 27%;
 
-  +laptop-up()
-    &.sm-range
-      transition transform 1s ease-in-out
+  .image2
+    bottom: -13%;
+    left: -13%;
+    width: 36%;
 
-    &.md-range
-      transition transform 1.3s ease-in-out
+    +tablet-up()
+      bottom: -34%;
+      left: -31%;
+      width: 58%;
 
-    &.bk-cloud
-      transition transform 2.8s ease-in-out
+  .image3
+    z-index: 5;
+    top: 10%;
+    left: 5%;
+    width: 52%;
 
-    &.mid-cloud
-      transition transform 2.5s ease-in-out
+  .image4
+    top: -11%;
+    left: -7%;
+    width: 23%;
 
-.nature-enter, .nature-leave-to
+  .image5
+    bottom: 45%;
+    left: -16%;
+    width: 13%;
+
+  .image6
+    bottom: 13%;
+    left: 42%;
+    width: 33%;
+
+.images-enter-active
+  transition opacity 1s ease-out, transform 1s ease-out
+
+.images-enter
   opacity 0
-  transform translateX(100%)
+  transform scale(0)
 
-  &.fr-cloud
-    transform translateX(25%)
+  for i in (1..6)
+    &.image{i}
+      transition-delay: (i*100)ms
+      transform translateX((i*100)%)
+  // &.image1
+  //   transform translateX(25%)
 
 .thankyou-enter-active
   &.headline
-    transition transform 0.7s ease-out
+    transition opacity .3s ease-out .7s, transform .5s ease-out .7s
 
   &.copy
-    transition transform 0.9s ease-out
+    transition opacity .3s ease-out .9s, transform .5s ease-out .7s
 
   &.start
-    transition transform 1.1s ease-out
+    transition opacity .4s ease-out 1.1s, transform .4s ease-out 1.1s
 
   &.card
-    transition transform .5s ease-in-out
+    transition opacity .5s ease-in-out 1.1s, transform .5s ease-in-out 1.1s
 
 .thankyou-enter, .thankyou-leave-to
-  transform translateY(800px)
-
-  &.card
-    transform scale(0)
+  transform translateX(200px)
+  opacity 0
 
 </style>
 
