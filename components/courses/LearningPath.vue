@@ -7,6 +7,7 @@
             v-html='part.intro'
             :key='part.intro'
             :class='{"text": (indexPart > 0) && !(indexPart % 1) }'
+            @click='$emit("handleLinks", $event)'
           )
 
         transition-group(:name='slide' :style='{ "--total": part.courses.length }' appear mode='out-in')

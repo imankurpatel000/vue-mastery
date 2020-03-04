@@ -15,6 +15,7 @@
         :parts='ordered'
         :account='account'
         :slide='slide'
+        @handleLinks='handleLinks'
       )
 
     Nav(v-if='this.path'
@@ -112,6 +113,11 @@ export default {
       const newPath = path.split('/').pop()
       this.slide = this.pathsNames.indexOf(newPath) > this.pathsNames.indexOf(this.path) ? 'slide-previous' : 'slide'
       this.path = newPath
+    },
+    handleLinks (event) {
+      event.stopPropagation()
+      event.preventDefault()
+      this.redirect(event.target.parentNode.pathname)
     }
   },
 
