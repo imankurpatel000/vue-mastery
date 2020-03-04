@@ -43,6 +43,7 @@ export default {
 .banner
   background-image url(/images/free-weekend/background.svg)
   overflow hidden
+  padding-top 100px
 
 .body
   padding-bottom 1em

@@ -3,7 +3,7 @@
     Announcement
     .main
       HeroImage(:class='$route.name' :isIndex='$route.name === "index"')
-      PageHeader(:class='$route.name')
+      PageHeader(:class='{"no-header-background": noHeaderBackground}')
       PageSearch(:class='$route.name')
       nuxt
       PageFooter
@@ -29,6 +29,12 @@ export default {
     PageSearch,
     PageFooter,
     AuthForm
+  },
+
+  computed: {
+    noHeaderBackground () {
+      return ['index', 'courses', 'courses-path', 'thank-you-free-weekend', 'free-weekend'].indexOf(this.$route.name) >= 0
+    }
   }
 }
 </script>
