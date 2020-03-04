@@ -13,7 +13,7 @@
           CourseCard(
             v-for='course, index in part.courses'
             :style='{"--i": index}'
-            :key="'course-' + course.id"
+            :key="path + '-course-' + course.id"
             :course='course'
             :account='account')
 
@@ -38,6 +38,9 @@ export default {
     slide: {
       type: String,
       default: 'slide'
+    },
+    path: {
+      type: String
     }
   },
   components: {

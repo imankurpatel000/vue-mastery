@@ -11,6 +11,7 @@
 
     .courses-body.wrapper
       LearningPath(
+        :path='path'
         :parts='ordered'
         :account='account'
         :slide='slide'
