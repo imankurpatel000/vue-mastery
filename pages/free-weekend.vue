@@ -19,17 +19,17 @@ export default {
       meta: [{
         hid: 'description',
         property: 'description',
-        content: "Vue Mastery will be unlocking all its courses free over one weekend in February.  Don't miss out!"
+        content: "Vue Mastery will be unlocking all its courses free over one weekend in March.  Don't miss out!"
       },
       {
         hid: 'twitter:description',
         property: 'twitter:description',
-        content: "Vue Mastery will be unlocking all its courses free over one weekend in February.  Don't miss out!"
+        content: "Vue Mastery will be unlocking all its courses free over one weekend in March.  Don't miss out!"
       },
       {
         hid: 'og:description',
         property: 'og:description',
-        content: "Vue Mastery will be unlocking all its courses free over one weekend in February.  Don't miss out!"
+        content: "Vue Mastery will be unlocking all its courses free over one weekend in March.  Don't miss out!"
       },
       {
         hid: `og:title`,
