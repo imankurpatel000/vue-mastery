@@ -152,6 +152,7 @@ export default {
 
 .courses-path,
 .courses,
+.thank-you-free-weekend,
 .index
   position: absolute;
   width: 100%;
