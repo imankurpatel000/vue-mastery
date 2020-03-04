@@ -547,6 +547,9 @@ $inputWidth = 246px
     margin-left 0
 
 .search
+  top 0
+  transition 0s
+
   .ais-Hits-Img
     display none
     width: 200px
@@ -562,7 +565,7 @@ $inputWidth = 246px
     +tablet-up()
       padding-left: 2rem
 
-  &.ais-InstantSearch
+  .ais-InstantSearch
     opacity 1
     pointer-events initial
     position relative
