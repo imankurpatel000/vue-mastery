@@ -1,6 +1,7 @@
 
 <template lang='pug'>
 section.bg-wrapper(v-once)
+  .bg
   .hero
     h1.title The ultimate learning resource for Vue developers
     p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
@@ -16,12 +17,20 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+.bg
+  position absolute
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  background-image: url(/images/hero/background.svg);
+  background-position: 35% center;
+  background-size: cover;
+  background-attachment: fixed;
+  will-change: transform;
 section.bg-wrapper
   position relative
   height 92vh
-  min-height 600px
-  background-image url(/images/hero/background.svg)
-  background-position 35% center
+  
 
   &::before
   &::after
