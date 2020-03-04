@@ -39,12 +39,12 @@ export default {
       {
         hid: `og:image`,
         property: 'og:image',
-        content: 'https://www.vuemastery.com/images/free-weekend-banner.jpg'
+        content: 'https://www.vuemastery.com/images/free-weekend/share-facebook.png'
       },
       {
         hid: `twitter:image`,
         property: 'twitter:image',
-        content: 'https://www.vuemastery.com/images/free-weekend-banner.jpg'
+        content: 'https://www.vuemastery.com/images/free-weekend/share-twitter.png'
       },
       {
         hid: `twitter:title`,
@@ -60,7 +60,3 @@ export default {
   }
 }
 </script>
-
-<style lang='stylus' scoped>
-
-</style>
