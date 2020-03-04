@@ -1,17 +1,22 @@
 <template lang='pug'>
-  nuxt-link(to='/pricing' class="announcement-bar")
-    .squares
-      .square
-      .square
-      .square
+  transition(name="push" mode='out-in' appear)
+    // FREEWEEKEND
+    //- nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+    nuxt-link(to='/free-weekend' class="announcement-bar")
+      .squares
+        .square
+        .square
+        .square
 
-    .squares.right
-      .square
-      .square
-      .square
+      .squares.right
+        .square
+        .square
+        .square
 
-    p.para
-      | Get 20% off an annual subscription for 2020 by using code DISCOUNT2020
+      p.para
+        | All courses will be free March 13-15.  Reserve your spot now.
+
+      .button.-small.tertiary Get Access
 </template>
 
 <script>
@@ -38,12 +43,17 @@ export default {
   text-align center
   left 0
   z-index 0
+  transition background .25s ease-out
+
+  // +mobile-only()
+  //   font-size 14px
 
   +mobile-only()
-    font-size 14px
+    flex-direction: column
 
   &:hover
     text-decoration none
+    background-color: #007bba
 
   &:after
     content: ''
@@ -70,20 +80,21 @@ export default {
     margin 0 18px
 
 .button
+  display inline-block
   font-size: 18px
-
-  margin: 20px auto 0
-  display: block
+  text-transform uppercase
   min-width: 150px
+  margin 0 0 0 2rem
 
-  +desktop-up()
-    display inline
-    margin 0 0 0 2rem
-    min-width auto
+  +mobile-only()
+    margin-left: 0
+    margin-bottom: 1rem
+
 
 .para
   z-index 2
-  max-width: 33rem
+  max-width: 270px
+
   +desktop-up()
     max-width 100%
 

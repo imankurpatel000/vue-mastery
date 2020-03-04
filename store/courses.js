@@ -50,7 +50,8 @@ export const state = () => ({
   featured: null,
   contentReady: false,
   posts: null,
-  post: null
+  post: null,
+  paths: null
 })
 
 export const actions = {
@@ -137,6 +138,15 @@ export const actions = {
       }]
     }).then(featured => {
       commit('RECEIVE_FEATURED', { featured })
+    })
+  },
+
+  paths ({ commit, state }) {
+    if (state.paths) return true
+    return db.get({
+      schemaKey: 'course'
+    }).then(paths => {
+      commit('RECEIVE_PATH', { paths })
     })
   },
 
@@ -318,5 +328,8 @@ export const mutations = {
   },
   'RECEIVE_POSTS' (state, posts) {
     state.posts = posts
+  },
+  'RECEIVE_PATH' (state, content) {
+    state.paths = content
   }
 }

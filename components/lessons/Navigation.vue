@@ -3,14 +3,14 @@
   button.prev(rel='prev'
               :disabled='isFirst'
               @click='goTo(-1)')
-    i.fa.fa-chevron-left
-    | Previous {{type}}
+    i.fa.fa-chevron-left(v-if='!isFirst || !isPath')
+    | {{previousCopy}}
 
   button.next(rel='next'
               :disabled='isLast'
               @click='goTo(1)')
-    | Next {{type}}
-    i.fa.fa-chevron-right
+    | {{nextCopy}}
+    i.fa.fa-chevron-right(v-if='!isLast || !isPath')
 </template>
 
 <script>
@@ -36,16 +36,42 @@ export default {
   },
 
   computed: {
+    isPath () { return this.type === 'path' },
     isFirst () { return this.selected === 0 },
     isLast () {
       const next = this.lessons[this.selected + 1]
-      return this.selected === this.lessons.length - 1 || (!this.account && next.lock) || next.status === 'draft'
+      let isLast = this.selected === this.lessons.length - 1
+      if (!isLast && !this.isPath) {
+        isLast = (!this.account && next.lock) || next.status === 'draft'
+      }
+      return isLast
+    },
+    previousCopy () {
+      if (this.isPath) {
+        if (this.selected === 1) return 'All courses'
+        return this.isFirst ? '' : this.lessons[this.selected - 1] + ' path'
+      } else {
+        return 'Previous ' + this.type
+      }
+    },
+    nextCopy () {
+      if (this.isPath) {
+        return this.isLast ? '' : this.lessons[this.selected + 1] + ' path'
+      } else {
+        return 'Next ' + this.type
+      }
     }
   },
 
   methods: {
     goTo (direction) {
-      this.$emit('redirect', this.lessons[this.selected + direction].slug)
+      window.scroll({
+        top: 300,
+        behavior: 'smooth'
+      })
+      let next = this.lessons[this.selected + direction]
+      if (this.type !== 'path') next = next.slug
+      this.$emit('redirect', next)
     }
   }
 }

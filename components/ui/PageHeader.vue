@@ -3,8 +3,7 @@
   .wrapper
     h2.title {{ title }}
     h3.title2 {{ title2 }}
-
-  slot
+    slot
 </template>
 
 <script>
@@ -37,9 +36,6 @@ export default {
         backgroundImage: `url(${this.background_image}) ${backgroundColor}`,
         textAlign: this.align
       }
-    },
-    hasBackgroundFade () {
-      if (this.background_color === undefined || this.background_color === '') return true
     }
   }
 }
@@ -59,6 +55,7 @@ export default {
 
 .wrapper
   z-index 1
+
 .title
   margin 0
   padding-top 0

@@ -2,10 +2,11 @@
 .container(:class='{"show-announcement": showAnnouncement, "open-nav": $store.state.openNav}')
   Announcement(v-if='showAnnouncement' v-cloak)
   .main
-    PageHeader(:class='$route.name')
-    PageSearch(:class='$route.name')
-    nuxt
-    PageFooter(:class='$route.name')
+    .relative
+      PageHeader(:class='{"no-header-background": noHeaderBackground}')
+      PageSearch(:class='$route.name')
+      nuxt
+      PageFooter(:class='$route.name')
 
   AuthForm
 
@@ -48,6 +49,9 @@ export default {
     }),
     showAnnouncement () {
       return (this.ready && !this.account) || (this.account && !this.account.subscribed)
+    },
+    noHeaderBackground () {
+      return ['index', 'courses', 'courses-path', 'thank-you-free-weekend', 'free-weekend'].indexOf(this.$route.name) >= 0
     }
   }
 }
@@ -78,6 +82,9 @@ export default {
     width: 2500px
     left: -450px
     background: radial-gradient(#0a1121 0%, #0a11210d 100%) 50%
+
+.relative
+  position relative
 
 .main
   position relative
