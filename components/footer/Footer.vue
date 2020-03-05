@@ -65,6 +65,12 @@ build-grid-area(brand nav-1 nav-2)
   z-index: 5
   padding-top 100px
 
+  &:not(.index)
+    z-index: 0;
+    padding-top: 100px;
+    position: sticky;
+    bottom: 0;
+
   &.index
     background-position center top
     margin-top -3vw

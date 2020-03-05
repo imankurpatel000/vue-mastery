@@ -67,11 +67,6 @@ export default {
     min-width 200px
     margin: -10px 90px 0 0
 
-.index
-  .wrapper
-    position: absolute
-    width: 100%
-
 .vuemastery-logo
   display block
 
@@ -86,6 +81,10 @@ export default {
   +laptop-up()
     ::v-deep .navbar-item
       color: #fff
+
+  .wrapper
+    position: absolute
+    width: 100%
 
   .hamburger:before, .hamburger:after
     background-color: #fff

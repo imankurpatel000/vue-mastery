@@ -53,6 +53,9 @@ export default {
   background-attachment fixed
   background-position center
 
+  &.static
+    background-attachment initial
+
 .wrapper
   z-index 1
 

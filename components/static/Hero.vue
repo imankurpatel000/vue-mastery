@@ -27,6 +27,10 @@ export default {
   background-size: cover;
   background-attachment: fixed;
   will-change: transform;
+
+  +desktop-up()
+    background-position calc(50% - 8px) center
+
 section.bg-wrapper
   position relative
   height 92vh
@@ -48,8 +52,6 @@ section.bg-wrapper
       background-position 5% bottom
 
   +desktop-up()
-    background-position calc(50% - 8px) center
-
     &::before
       background-position center bottom
 

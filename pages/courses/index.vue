@@ -1,26 +1,24 @@
 <template lang='pug'>
-.container
-  PageHeader(title='Our Courses'
-            background_image='/images/courses/background.svg')
-    .v
-    .paths
-      .group
-        button.button.tertiary.-small(:class='this.path === "courses" ? "active" : "border inverted"' @click='redirect("/courses")') Latest
-        button.button.tertiary.-small(:class='this.path === "beginner" ? "active" : "border inverted"' @click='redirect("/courses-path/beginner")') Beginner path
-      .group
-        button.button.tertiary.-small(:class='this.path === "intermediate" ? "active" : "border inverted"' @click='redirect("/courses-path/intermediate")') Intermediate path
-        button.button.tertiary.-small(:class='this.path === "advanced" ? "active" : "border inverted"' @click='redirect("/courses-path/advanced")') Advanced path
+  .container
+    PageHeader.static(title='Our Courses' background_image='/images/courses.svg' align='center')
+      .paths
+        .group
+          button.button.tertiary.-small(:class='this.path === "courses" ? "active" : "border inverted"' @click='redirect("/courses")') Latest
+          button.button.tertiary.-small(:class='this.path === "beginner" ? "active" : "border inverted"' @click='redirect("/courses-path/beginner")') Beginner path
+        .group
+          button.button.tertiary.-small(:class='this.path === "intermediate" ? "active" : "border inverted"' @click='redirect("/courses-path/intermediate")') Intermediate path
+          button.button.tertiary.-small(:class='this.path === "advanced" ? "active" : "border inverted"' @click='redirect("/courses-path/advanced")') Advanced path
 
-  .courses-body.wrapper
-    LearningPath(
-      :path='path'
-      :parts='ordered'
-      :account='account'
-      :slide='slide'
-      @handleLinks='handleLinks'
-    )
+    .courses-body.wrapper
+      LearningPath(
+        :path='path'
+        :parts='ordered'
+        :account='account'
+        :slide='slide'
+        @handleLinks='handleLinks'
+      )
 
-  Nav(v-if='this.path'
+    Nav(v-if='this.path'
       :lessons='pathsNames'
       :selected='pathsNames.indexOf(this.path)'
       :account='account'
@@ -28,8 +26,7 @@
       @redirect='redirect'
     )
 
-  CheatSheetMain
-
+    CheatSheetMain
 </template>
 
 <script>
@@ -132,19 +129,16 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-.container
-  background-color #fff
-
 .page-header
   max-height 92vh
   min-height 600px
   padding-bottom 50px
   margin-bottom 0
   align-items flex-end
-  background-position center top
   align-items center
   padding-top 120px
   background-color #000008
+  background-position center top
 
   +desktop-up()
     padding-top 130px
@@ -179,59 +173,6 @@ export default {
   justify-content center
   align-items center
 
-.page-header
-  background-size cover
-  background-attachment fixed
-  height 466px
-  align-items flex-end
-  padding-bottom 50px
-  overflow hidden
-
-  &::before,
-  &::after
-    content ''
-    position absolute
-    top 0
-    right 0
-    bottom 0
-    left 0
-    background-size auto 100%
-    background-position top 200px center
-    background-repeat no-repeat
-    z-index 1
-    transform translateZ(-1px) scale(1.5)
-    bottom -1px // Remove bottom artfacts
-    left -4px 
-
-  &:before
-    background-image url(/images/courses/foreground.svg)
-
-  &:after
-    background-image url(/images/courses/light.svg)
-    background-size auto 118%
-    background-position top center
-    left -13px
-    opacity .5
-
-  ::v-deep .title
-    +mobile-only()
-      text-align center
-
-.v
-  position: absolute;
-  width: 60px;
-  height: 33px;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  margin-left: -23px;
-  margin-top: -13px;
-  transform: translateZ(-1px) scale(1.5);
-  background-image: url(/images/courses/v.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  
 .courses-body
   display grid
   width 100%

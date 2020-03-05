@@ -213,7 +213,7 @@ $inputWidth = 246px
   position relative
   top -100px
 
-.index
+.no-header-background
   top 0
 
 .ais-wrapper

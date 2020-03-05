@@ -1,6 +1,6 @@
 <template lang='pug'>
   .container.vue-conf-page
-    PageHeader(:title='conference.title'
+    PageHeader.static(:title='conference.title'
       :title2='conference.location'
       :background_image='conference.banner[0].url'
       align='center')
