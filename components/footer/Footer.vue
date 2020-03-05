@@ -55,15 +55,18 @@ export default {
 build-grid-area(brand nav-1 nav-2)
 
 .footer
-  background url(/images/footer.svg)
-  background-position center top -32px
-  background-size cover
+  background linear-gradient(#041830, #080117)
   border-bottom 40px solid #080117
   color #fff
   padding ($vertical-space/2) 0
   position relative
-  z-index: 5
   padding-top 100px
+
+  &.index
+    background url(/images/footer.svg)
+    background-position center top -32px
+    background-size cover
+    z-index: 5
 
   &:not(.index)
     z-index: 0;

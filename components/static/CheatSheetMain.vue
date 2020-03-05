@@ -58,7 +58,7 @@ section.bg-wrapper
 
   &:after,
   &:before
-    background-image url(/images/cheatsheets/background.svg)
+    background-image url(/images/cheatsheets/background2.svg)
 
   &:before
     background: linear-gradient(360deg, #B5FFDA -3.63%, #8CE5CE 6.41%, #23A4B1 28.9%, #008EA7 36.25%, #0087A0 39.46%, #00516A 67.67%, #003049 88.78%, #00233C 100.25%) fixed;
@@ -66,16 +66,21 @@ section.bg-wrapper
     height: 70%
 
   &:not(.index)
-    margin-bottom -140px
+    margin-bottom 0
     +desktop-up()
       margin-bottom 0
-      height 510px
+      height 650px
 
     &:before
       height: 100%
 
     &:after
-      background-position: top
+      background-position center -62px
+      bottom -63px
+
+      +desktop-up()
+        background-position center -30px
+        bottom 0
 
     +desktop-up()
       .body
@@ -83,6 +88,10 @@ section.bg-wrapper
 
       .buttons
         top 180px
+
+  &.index
+    &:after
+      background-image url(/images/cheatsheets/background.svg)
 .body
   position absolute
   text-align center

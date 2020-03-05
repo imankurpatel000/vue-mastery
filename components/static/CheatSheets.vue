@@ -94,7 +94,7 @@ export default {
   position absolute
   width 100%
   left 0
-  top 170px
+  top 167px
   border-bottom 20px solid #021c35
   height 355px
   z-index 4
