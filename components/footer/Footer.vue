@@ -62,24 +62,28 @@ build-grid-area(brand nav-1 nav-2)
   position relative
   padding-top 100px
 
-  &.index
-    background url(/images/footer.svg)
-    background-position center top -32px
-    background-size cover
-    z-index: 5
 
-  &:not(.index)
-    z-index: 0;
-    padding-top: 100px;
-    position: sticky;
-    bottom: 0;
+  &.index,
+  &.courses,
+  &.course-path
+    +tablet-up()
+      padding-top 200px
 
   &.index
-    background-position center top
+    padding-top 100px
     margin-top -3vw
+    background url(/images/footer.svg)
+    background-position center top
+    background-size cover
+    z-index 5
 
     +tablet-up()
       padding-top 220px
+
+  &:not(.index)
+    position sticky
+    bottom 0
+    z-index 0
 
 
 .wrapper

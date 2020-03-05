@@ -93,11 +93,23 @@ export default {
 .cheatsheets-carousel-wrapper
   position absolute
   width 100%
+  height 102%
   left 0
   top 167px
-  border-bottom 20px solid #021c35
-  height 355px
   z-index 4
+  background url(/images/cheatsheets/bottom.svg)
+  background-position center 299px
+  background-repeat no-repeat
+  background-size 150% 324px
+
+  +tablet-up()
+    background-size 107% 350px
+    background-position center 300px
+
+  +desktop-up()
+    background-size: 100% 300px
+    background-position center 303px
+  
 
 .cheatsheets-carousel
   cursor pointer
@@ -142,7 +154,7 @@ i
   justify-content: space-evenly
   width 300px
   margin 0 auto 0 auto
-  bottom -110px
+  top 368px
   position absolute
   left 50%
   transform translateX(-50%)
@@ -152,7 +164,7 @@ i
     max-width 50%
     width 700px
     justify-content center
-    top 60%
+    top 200px
     bottom auto
 
     .next,

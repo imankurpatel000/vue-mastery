@@ -51,47 +51,29 @@ export default {
     left -4px // Remove bottom artfacts
 
 section.bg-wrapper
-  margin-bottom -186px
+  height 638px
   margin-top -2px
-  height 924px
-  z-index: 3
+  margin-bottom: 64px
+  overflow visible
+  z-index 3
 
   &:after,
   &:before
-    background-image url(/images/cheatsheets/background2.svg)
+    background-image url(/images/cheatsheets/background.svg)
 
   &:before
     background: linear-gradient(360deg, #B5FFDA -3.63%, #8CE5CE 6.41%, #23A4B1 28.9%, #008EA7 36.25%, #0087A0 39.46%, #00516A 67.67%, #003049 88.78%, #00233C 100.25%) fixed;
     transform none
-    height: 70%
+    height: 100%
 
-  &:not(.index)
-    margin-bottom 0
-    +desktop-up()
-      margin-bottom 0
-      height 650px
+  +desktop-up()
+    height: 596px;
+    .body
+      top 120px
 
-    &:before
-      height: 100%
+    .buttons
+      top 180px
 
-    &:after
-      background-position center -62px
-      bottom -63px
-
-      +desktop-up()
-        background-position center -30px
-        bottom 0
-
-    +desktop-up()
-      .body
-        top 120px
-
-      .buttons
-        top 180px
-
-  &.index
-    &:after
-      background-image url(/images/cheatsheets/background.svg)
 .body
   position absolute
   text-align center
@@ -99,12 +81,15 @@ section.bg-wrapper
   flex-direction column
   align-items center
   color #fff
-  z-index 3
+  z-index 5
   width 100%
-  height: 740px
+  height 664px
   padding 0 30px
   top 26px
   justify-content space-between
+
+  +tablet-up()
+    height 700px
 
   +desktop-up()
     width 700px
