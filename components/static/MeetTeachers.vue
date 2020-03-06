@@ -61,6 +61,7 @@ export default {
   img
     border-radius 50%
     overflow hidden
+    border: 2px solid #fff
 
   .img
     max-width 245px
