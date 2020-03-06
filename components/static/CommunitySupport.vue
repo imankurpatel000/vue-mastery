@@ -5,7 +5,7 @@ section.bg-wrapper(v-once)
     p.lead We give 25% of our revenue to the Vue.js framework, so learning with us means supporting the growth and the substainability of your technology.
 
     .actions
-      nuxt-link.button.inverted(to='/courses') Explore courses
+      nuxt-link.button.inverted(to='/pricing') Learn more
 </template>
 
 <script>

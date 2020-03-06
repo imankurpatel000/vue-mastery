@@ -4,7 +4,7 @@ section.bg-wrapper(v-once)
     h2.title Level-up your knowledge - fast
     p.lead Our course break down concept visually, giving you the knowledge you need to start coding immediatly
     .actions
-      nuxt-link.button.inverted(to='/courses') Explore courses
+      nuxt-link.button.inverted(to='/courses-path/beginner') Explore courses
 </template>
 
 <script>
