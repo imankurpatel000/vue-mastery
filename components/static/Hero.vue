@@ -1,18 +1,44 @@
 
 <template lang='pug'>
-section.bg-wrapper(v-once)
+section.bg-wrapper
   .bg
   .hero
     h1.title The ultimate learning resource for Vue developers
     p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
 
   .actions
-    nuxt-link.button.inverted(to='/courses') Explore courses
+    nuxt-link.button.modern.border.-small(
+      @mousemove.native='updatePosition'
+      @mouseleave.native='active = false'
+      @mouseenter.native='active = true'
+      to='/courses'
+      :style='bgPosition') Explore courses
 </template>
 
 <script>
 export default {
-  name: 'hero'
+  name: 'hero',
+
+  data () {
+    return {
+      x: null,
+      y: null,
+      active: false
+    }
+  },
+
+  methods: {
+    updatePosition (e) {
+      this.x = e.screenX / window.innerWidth * 100
+      this.y = e.screenY / window.innerHeight * 100
+    }
+  },
+
+  computed: {
+    bgPosition () {
+      return this.active ? { 'background-position': `${this.x}% ${this.y}%` } : ''
+    }
+  }
 }
 </script>
 
@@ -22,11 +48,14 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 600px;
-  background-image: url(/images/hero/background.svg);
+  background-image: url(/images/hero/background.jpg);
   background-position: 35% center;
   background-size: cover;
   background-attachment: fixed;
   will-change: transform;
+
+  +tablet-up()
+    background-position 15% center
 
   +desktop-up()
     background-position calc(50% - 8px) center
@@ -104,4 +133,28 @@ section.bg-wrapper
 
   +laptop-up()
     bottom 37%
+
+.button
+  background-image: url(/images/hero/background.svg);
+  background-size: 200vw
+  background-position: center
+  background-attachment: fixed
+  padding: 28px 85px
+  transition: all .3s ease-out
+  background-size cover
+
+  &:hover
+    // background-blend-mode: darken;
+    // background-color: #94a1a9;
+    background-size: 120vw;
+
+  background-position: 35% center;
+
+  +tablet-up()
+    background-position 15% center
+
+  +desktop-up()
+    background-position calc(50% - 8px) center
+
+
 </style>

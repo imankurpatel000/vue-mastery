@@ -3,11 +3,11 @@
     PageHeader.static(title='Our Courses' background_image='/images/courses.svg' align='center')
       .paths
         .group
-          button.button.tertiary.-small(:class='this.path === "courses" ? "active" : "border inverted"' @click='redirect("/courses")') Latest
-          button.button.tertiary.-small(:class='this.path === "beginner" ? "active" : "border inverted"' @click='redirect("/courses-path/beginner")') Beginner path
+          button.button.modern.-small(:class='this.path === "courses" ? "active" : "border"' @click='redirect("/courses")') Latest
+          button.button.modern.-small(:class='this.path === "beginner" ? "active" : "border"' @click='redirect("/courses-path/beginner")') Beginner path
         .group
-          button.button.tertiary.-small(:class='this.path === "intermediate" ? "active" : "border inverted"' @click='redirect("/courses-path/intermediate")') Intermediate path
-          button.button.tertiary.-small(:class='this.path === "advanced" ? "active" : "border inverted"' @click='redirect("/courses-path/advanced")') Advanced path
+          button.button.modern.-small(:class='this.path === "intermediate" ? "active" : "border"' @click='redirect("/courses-path/intermediate")') Intermediate path
+          button.button.modern.-small(:class='this.path === "advanced" ? "active" : "border"' @click='redirect("/courses-path/advanced")') Advanced path
 
     .courses-body.wrapper
       LearningPath(
@@ -180,29 +180,4 @@ export default {
   grid-row-gap 45px
   padding-top ($vertical-space/2)
   padding-bottom ($vertical-space/2)
-
-
-.paths
-  .button
-    border-color: #028ebb;
-    border-top-color: rgb(2, 142, 187);
-    border-bottom-color: rgb(2, 142, 187);
-    border-top: solid 1px rgba(3, 143, 188, 0.16);
-    border-bottom: solid 1px rgba(46, 162, 200, 0.29);
-    padding: 0 20px;
-
-    &:hover
-      background transparent
-      color: #fff
-
-
-    &.active
-      background: #028ebb2e;
-      box-shadow: inset 0px 9px 21px rgba(19, 183, 166, 0.1), 0px 0px 2px rgba(60,196,180,0.6);
-      border-color: #028ebb;
-      border-top-color: rgb(2, 142, 187);
-      border-bottom-color: rgb(2, 142, 187);
-      border-top: solid 1px #038fbcb8;
-      text-shadow: 0px 0 3px #0a1121;
-      border-bottom: solid 1px #038fbcb8;
 </style>
