@@ -30,7 +30,7 @@ export default {
   methods: {
     updatePosition (e) {
       this.x = e.screenX / window.innerWidth * 100
-      this.y = e.screenY / window.innerHeight * 100
+      this.y = e.screenY / window.innerHeight * 85
     }
   },
 
@@ -128,33 +128,42 @@ section.bg-wrapper
   z-index 6
   width 100%
   left 0
-  bottom 37%
+  bottom 9%
   text-align center
 
-  +laptop-up()
+  +tablet-up()
     bottom 37%
 
-.button
-  background-image: url(/images/hero/background.svg);
-  background-size: 200vw
-  background-position: center
-  background-attachment: fixed
-  padding: 28px 85px
-  transition: all .3s ease-out
-  background-size cover
-
-  &:hover
-    // background-blend-mode: darken;
-    // background-color: #94a1a9;
-    background-size: 120vw;
-
-  background-position: 35% center;
-
   +tablet-up()
-    background-position 15% center
+    bottom 30%
+
+.button
+  padding: 28px 85px
+  background #2d3c5275
 
   +desktop-up()
+    background-image: url(/images/hero/background.svg);
+    background-size: cover
+    background-position: center
+    background-attachment: fixed
     background-position calc(50% - 8px) center
+    transition: all .3s ease-out
 
+    &:hover
+      background-size 200vw
+      transform scale(1.2)
+      line-height 100px
+</style>
 
+<style lang='stylus'>
+.show-announcement
+  .bg
+    transform: translate3d(0, 54px, .5px)
+    transform-origin: center
+
+    +tablet-up()
+      transform: translate3d(0, 54px, .5px)
+      transform-origin: center
+    +desktop-up()
+      transform: none
 </style>

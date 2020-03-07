@@ -67,9 +67,9 @@ section.bg-wrapper
     height: 100%
 
   +desktop-up()
-    height: 596px;
+    height 596px
     .body
-      top 120px
+      top 132px
 
     .buttons
       top 180px

@@ -48,7 +48,9 @@ export default {
       account: result => result.account.account
     }),
     showAnnouncement () {
-      return (this.ready && !this.account) || (this.account && !this.account.subscribed)
+      // FREE WEEKEND
+      // return (this.ready && !this.account) || (this.account && !this.account.subscribed)
+      return this.ready && !this.account
     },
     noHeaderBackground () {
       return ['index', 'courses', 'courses-path', 'thank-you-free-weekend', 'free-weekend'].indexOf(this.$route.name) >= 0
