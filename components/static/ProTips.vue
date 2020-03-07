@@ -2,7 +2,7 @@
 section.bg-wrapper
   .body
     h2.title Want Vue Pro Tips?
-    p.lead Get pro tipsand occasional special offers in your inbox
+    p.lead Get important Vue knowledge and occasional special offers delivered to your inbox.
 </template>
 
 <script>

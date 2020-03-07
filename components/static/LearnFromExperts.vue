@@ -4,7 +4,7 @@
   p.lead Binge our exclusive collection of global Vue Conference talks.
 
   .actions
-    nuxt-link.button.inverted(to='/conferences') Explore conferences
+    nuxt-link.button.inverted(to='/conferences') Watch the talks
 </template>
 
 <script>

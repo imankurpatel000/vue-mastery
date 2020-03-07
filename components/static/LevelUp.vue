@@ -1,10 +1,10 @@
 <template lang='pug'>
 section.bg-wrapper(v-once)
   .body
-    h2.title Level-up your knowledge - fast
-    p.lead Our course break down concept visually, giving you the knowledge you need to start coding immediatly
+    h2.title Choose your learning path
+    p.lead Our paths guide you along your journey, whether you’re beginner, intermediate, or advanced.
     .actions
-      nuxt-link.button.inverted(to='/courses-path/beginner') Explore courses
+      nuxt-link.button.inverted(to='/courses-path/beginner') Start learning
 </template>
 
 <script>
