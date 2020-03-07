@@ -180,7 +180,4 @@ export default {
   grid-row-gap 45px
   padding-top ($vertical-space/2)
   padding-bottom ($vertical-space/2)
-
-.button.inverted
-  color #0A2B4E
 </style>

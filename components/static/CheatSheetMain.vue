@@ -87,6 +87,7 @@ section.bg-wrapper
   padding 0 30px
   top 26px
   justify-content space-between
+  pointer-events: none
 
   +tablet-up()
     height 700px

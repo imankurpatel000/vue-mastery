@@ -1,7 +1,12 @@
 <template lang='pug'>
 client-only
   .cheatsheets-carousel-wrapper(:class='shift')
+
     .cheatsheets-carousel
+      .copy
+        | {{copy[slide]}}
+        br
+        | Cheat Sheet
       a.cheatsheets-item.cheatsheets-essential(
         ref='cheatsheet2'
         :href='account ? "/pdf/Vue-Essentials-Cheat-Sheet.pdf": "#createAccount"'
@@ -29,7 +34,7 @@ client-only
     .buttons
       button.prev(@click='prev')
         i.fa.fa-chevron-left
-      button.button.inverted(@click='download') Download
+      button.button.inverted(@click='download') Download {{copy[slide]}} Cheat Sheet
       button.next(@click='next')
         i.fa.fa-chevron-right
 </template>
@@ -42,7 +47,8 @@ export default {
 
   data () {
     return {
-      slide: 0
+      slide: 0,
+      copy: ['NuxtJS', 'Vue 3', 'Vue Essentials']
     }
   },
 
@@ -145,6 +151,41 @@ export default {
   border none
   cursor pointer
 
+.copy
+  position: absolute
+  background: #ffffffc9
+  width: 206px
+  padding: 16px 30px
+  z-index: 5
+  left: 50%
+  transform: translateX(-50%) translateY(-100%)
+  top: 50%
+  text-decoration uppercase
+  text-align center
+  line-height: 22px
+  box-shadow: 0px 1px 3px #c1c0c0
+  font-weight: 800
+
+  &:before, 
+  &:after
+    content: ""
+    position: absolute
+    display: block
+    bottom: -9px
+    border: 4px solid rgba(230, 230, 230, 0.788)
+    border-bottom-color: transparent
+    z-index: -1
+
+  &:before
+    left: 0
+    border-right-width: 4px
+    border-left-color: transparent
+
+  &:after
+    right: 0
+    border-left-width: 4px
+    border-right-color: transparent
+
 i
   font-size 28px
   color #fff
@@ -152,7 +193,7 @@ i
 .buttons
   display flex
   justify-content: space-evenly
-  width 300px
+  width 400px
   margin 0 auto 0 auto
   top 368px
   position absolute

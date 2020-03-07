@@ -3,11 +3,34 @@ section.bg-wrapper
   .body
     h2.title Want Vue Pro Tips?
     p.lead Get important Vue knowledge and occasional special offers delivered to your inbox.
+    button.button.inverted(v-if='!account' @click='openLogin')
+      | Create a free account
+
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'pro-tips'
+  name: 'pro-tips',
+
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
+  },
+
+  methods: {
+    openLogin () {
+      // -  FREEWEEKEND - Just comment out the conditionals
+      this.$modal.show('login-form', {
+        newAccount: true,
+        headerTitle: 'Create a free account',
+        redirect: '/courses',
+        location: 'Homepage Pro tip'
+      })
+    }
+  }
 }
 </script>
 
@@ -29,6 +52,9 @@ section.bg-wrapper
     background-repeat no-repeat
     background-size 100%
 
+    +tablet-up()
+      background-size 50%
+
     +desktop-up()
       background-size 652px auto 
 
@@ -43,7 +69,7 @@ section.bg-wrapper
   color #fff
   z-index 3
   width 100%
-  top 100px
+  top 50px
 
   +tablet-up()
     top 20px
@@ -51,13 +77,13 @@ section.bg-wrapper
   +desktop-up()
     width 700px
     max-width 50%
-    top 200px
+    top 100px
     left 50%
 
 
 .lead,
 .title
-  max-width 158px
+  max-width 278px
   +tablet-up()
     max-width 400px
 </style>

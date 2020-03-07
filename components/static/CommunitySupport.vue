@@ -51,7 +51,10 @@ section.bg-wrapper
   width 100%
   max-width 500px
   padding 0 30px
-  top 0
+  top 5%
+
+  +desktop-up()
+    top 13%
 
 .title
   margin-bottom 0
