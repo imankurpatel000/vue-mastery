@@ -200,7 +200,7 @@ i
   left 50%
   transform translateX(-50%)
 
-  &.-small.border
+  .modern
     padding: 0 30px
 
   +desktop-up()
