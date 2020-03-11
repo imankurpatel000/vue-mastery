@@ -4,7 +4,7 @@ section.bg-wrapper(v-once)
     h2.title Choose your learning path
     p.lead Our paths guide you along your journey, whether you’re beginner, intermediate, or advanced.
     .actions
-      nuxt-link.button.inverted(to='/courses-path/beginner') Start learning
+      nuxt-link.button.modern.border.-small.-plain(to='/courses-path/beginner') Start learning
 </template>
 
 <script>

@@ -7,7 +7,7 @@ section.bg-wrapper
     p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
 
   .actions
-    nuxt-link.button.modern.border.-small(
+    nuxt-link.button.modern.border.-small.-plain(
       @mousemove.native='updatePosition'
       @mouseleave.native='active = false'
       @mouseenter.native='active = true'
@@ -48,7 +48,7 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 600px;
-  background-image: url(/images/hero/background.jpg);
+  background-image: url(/images/hero/background0.jpg);
   background-position: 35% center;
   background-size: cover;
   background-attachment: fixed;
@@ -103,6 +103,10 @@ section.bg-wrapper
     max-width 550px
     font-size 40px
 
+  +desktop-up()
+    font-size: 6vh
+    max-width: 75vh
+
 .hero
   position absolute
   z-index 2
@@ -114,7 +118,7 @@ section.bg-wrapper
   text-align center
 
   +desktop-up()
-    top 20%
+    top 17%
 
   @media screen and (orientation: landscape) and (max-width: 40em)
     top 90px
@@ -122,6 +126,9 @@ section.bg-wrapper
 .lead
   font-size 16px
   font-weight 400
+
+  +laptop-up()
+    font-size: 2.5vh
 
 .actions
   position absolute
@@ -137,22 +144,22 @@ section.bg-wrapper
   +tablet-up()
     bottom 30%
 
-.button
-  padding: 28px 85px
-  background #2d3c5275
+// .button
+//   padding: 28px 85px
+//   background rgba(5, 37, 59, 0.21)
 
-  +desktop-up()
-    background-image: url(/images/hero/background.svg);
-    background-size: cover
-    background-position: center
-    background-attachment: fixed
-    background-position calc(50% - 8px) center
-    transition: all .3s ease-out
+  // +desktop-up()
+  //   background-image: url(/images/hero/background.svg);
+  //   background-size: cover
+  //   background-position: center
+  //   background-attachment: fixed
+  //   background-position calc(50% - 8px) center
+  //   transition: all .3s ease-out
 
-    &:hover
-      background-size 200vw
-      transform scale(1.2)
-      line-height 100px
+  //   &:hover
+  //     background-size 200vw
+  //     transform scale(1.2)
+  //     line-height 100px
 </style>
 
 <style lang='stylus'>

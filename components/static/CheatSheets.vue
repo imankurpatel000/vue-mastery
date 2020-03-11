@@ -34,7 +34,7 @@ client-only
     .buttons
       button.prev(@click='prev')
         i.fa.fa-chevron-left
-      button.button.inverted(@click='download') Download {{copy[slide]}} Cheat Sheet
+      button.button.modern.border.-small.-plain(@click='download') Download {{copy[slide]}} Cheat Sheet
       button.next(@click='next')
         i.fa.fa-chevron-right
 </template>
@@ -199,6 +199,9 @@ i
   position absolute
   left 50%
   transform translateX(-50%)
+
+  &.-small.border
+    padding: 0 30px
 
   +desktop-up()
     transform translateX(0%)

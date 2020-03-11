@@ -4,7 +4,7 @@ section.bg-wrapper(v-once)
     h2.title Stay sharp
     p.lead New topics every week so you can sharpen your skills and deepen your understanding of Vue.js and its ecosystem of tools.
     .actions
-      nuxt-link.button.inverted(to='/courses') Latest courses
+      nuxt-link.button.modern.border.-small.-plain(to='/courses') Latest courses
 </template>
 
 <script>
