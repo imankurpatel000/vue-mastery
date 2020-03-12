@@ -65,13 +65,14 @@ export default {
 
   methods: {
     goTo (direction) {
-      window.scroll({
-        top: 300,
-        behavior: 'smooth'
-      })
       let next = this.lessons[this.selected + direction]
       if (this.type !== 'path') next = next.slug
       this.$emit('redirect', next)
+
+      document.getElementsByClassName('main')[0].scroll({
+        top: 600,
+        behavior: 'smooth'
+      })
     }
   }
 }

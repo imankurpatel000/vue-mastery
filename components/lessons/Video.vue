@@ -1,6 +1,8 @@
 <template lang='pug'>
 .lesson-video-wrapper(:style='lockedStyle')
-  Unlock(:free='current.free' v-if='restricted' v-cloak )
+  // FREE WEEKEND
+  Unlock(:free='true' v-if='restricted' v-cloak )
+  //- Unlock(:free='current.free' v-if='restricted' v-cloak )
   
   .lesson-video(v-else)
     div(v-if='video' v-cloak
