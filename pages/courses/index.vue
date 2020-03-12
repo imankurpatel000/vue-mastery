@@ -113,6 +113,12 @@ export default {
       const newPath = path.split('/').pop()
       this.slide = this.pathsNames.indexOf(newPath) > this.pathsNames.indexOf(this.path) ? 'slide-previous' : 'slide'
       this.path = newPath
+      setTimeout(() => {
+        document.getElementsByClassName('main')[0].scroll({
+          top: 470,
+          behavior: 'smooth'
+        })
+      }, 700)
     },
     handleLinks (event) {
       event.stopPropagation()
