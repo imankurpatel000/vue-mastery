@@ -21,8 +21,11 @@
     .post-body(v-html='body')
 
     .post-related(v-if='related')
-      h2 If you like this blog post, you may want to watch:
-      LearningPath(:courses='related' :account='account')
+      LearningPath(
+        path='related'
+        :parts='related'
+        :account='account'
+      )
 
   CheatSheetMain
 </template>
@@ -72,12 +75,15 @@ export default {
     related () {
       const r = this.post.relatedCourses
       if (r) {
-        return Object.keys(this.courses)
-          .filter(key => r.includes(parseInt(key)))
-          .reduce((obj, key) => {
-            obj[key] = this.courses[key]
-            return obj
-          }, {})
+        return [ {
+          intro: 'If you like this blog post, you may want to watch:',
+          courses: Object.keys(this.courses)
+            .filter(key => r.includes(parseInt(key)))
+            .reduce((obj, key) => {
+              obj[key] = this.courses[key]
+              return obj
+            }, {})
+        }]
       } else {
         return false
       }
@@ -134,11 +140,11 @@ export default {
 
 .post-body
   font-size 16px
-  margin-bottom: 120px
+  margin-bottom: 20px
 
   +tablet-up()
     font-size 22px
 
 .post-related
-  margin 120px 0 50px 0
+  margin 0px 0 50px 0
 </style>
