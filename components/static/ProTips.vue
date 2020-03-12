@@ -1,9 +1,9 @@
 <template lang='pug'>
 section.bg-wrapper
-  .body
+  .body(v-if='!account')
     h2.title Want Vue Pro Tips?
     p.lead Get important Vue knowledge and occasional special offers delivered to your inbox.
-    button.button.inverted(v-if='!account' @click='openLogin')
+    button.button.inverted(@click='openLogin')
       | Create a free account
 
 </template>
