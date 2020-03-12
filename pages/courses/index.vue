@@ -75,6 +75,10 @@ export default {
     }
   },
 
+  mounted () {
+    this.scrollTop(0)
+  },
+
   computed: {
     ...mapState({
       account: result => result.account.account,
@@ -108,17 +112,20 @@ export default {
   },
 
   methods: {
+    scrollTop (height) {
+      setTimeout(() => {
+        document.getElementsByClassName('main')[0].scroll({
+          top: height,
+          behavior: 'smooth'
+        })
+      }, 700)
+    },
     redirect (path) {
       history.pushState({}, null, path)
       const newPath = path.split('/').pop()
       this.slide = this.pathsNames.indexOf(newPath) > this.pathsNames.indexOf(this.path) ? 'slide-previous' : 'slide'
       this.path = newPath
-      setTimeout(() => {
-        document.getElementsByClassName('main')[0].scroll({
-          top: 470,
-          behavior: 'smooth'
-        })
-      }, 700)
+      this.scrollTop(470)
     },
     handleLinks (event) {
       event.stopPropagation()
