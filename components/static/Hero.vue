@@ -132,7 +132,7 @@ section.bg-wrapper
 
 .actions
   position absolute
-  z-index 6
+  z-index 3
   width 100%
   left 0
   bottom 9%
