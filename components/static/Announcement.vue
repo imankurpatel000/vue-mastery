@@ -14,7 +14,7 @@
         .square
 
       p.para
-        | All courses will be free March 13-15.  Reserve your spot now.
+        | All courses are free this weekend with a free account.
 
       .button.-small.tertiary Get Access
 </template>

@@ -8,15 +8,18 @@
         .title
           transition-group(name="thankyou" appear)
             h1.headline(key="headline") Thank You
-            p.copy(key="copy") You are now enrolled for Vue Mastery Free Weekend.
+            p.copy(key="copy") You now have access to Vue Mastery Free Weekend.
 
         transition(name="thankyou" appear)
           .card
             .card-body
               h4
                 i.fa.fa-lock-open &nbsp;
-                | The Courses Unlock March 13
-              p At 12:00 PM EST, March 13th your Vue Mastery account will be given access to all our premium courses, and then they'll go back to normal on March 15th at 11:59 PM EST (23:59). 
+                | All Courses are Unlocked 
+              p You have until March 15th at 11:59 PM EST (23:59) to watch as many of our premium courses as you want. 
+
+              p
+                nuxt-link.button.primary(to='/courses') View Courses
 
               h4
                 i.fa.fa-share-square &nbsp;
@@ -41,14 +44,6 @@
                     network.button.primary.border.-has-icon(network='reddit')
                       i.fab.fa-reddit
                       span Reddit
-
-              h4
-                i.fa.fa-play-circle &nbsp;	
-                | Get a Head Start on Learning	
-
-              p Our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue.js course] is completely free, as are many of the first lessons of each course.  Take a look at the #[nuxt-link(to='/courses') courses page], and consider watching all our free content.
-              p
-                nuxt-link.button.primary(to='/courses') View Courses
 </template>
 
 <script>
@@ -76,7 +71,7 @@ export default {
       show: false,
       card: false,
       link: 'https://www.vuemastery.com/free-weekend',
-      description: 'I\'ll be sharpening my Vue skills during Vue Mastery\'s free weekend.  Don\'t miss out on these free Vue.js courses.'
+      description: 'I\'m sharpening my Vue skills on Vue Mastery\'s free weekend.  Don\'t miss out on these free Vue.js courses.'
     }
   },
 

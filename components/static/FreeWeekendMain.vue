@@ -3,11 +3,11 @@
     .wrapper
       free-weekend-badges
       .body
-        h2.title Enroll in Free Weekend
+        h2.title Free Weekend is Now Live
         p.lead
-          | Reserve your spot to get access to all Vue.js courses free.
+          | You can watch all our Vue.js courses free.
           br
-          span.normal We will email you when the courses are unlocked.
+          span.normal Just click the button below.
         
         p.lead.date
           | Friday through Sunday
