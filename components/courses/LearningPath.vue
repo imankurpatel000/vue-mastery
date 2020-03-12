@@ -6,7 +6,7 @@
           .intro-part(
             v-html='part.intro'
             :key='part.intro'
-            :class='{"text": (indexPart > 0) && !(indexPart % 1) }'
+            :class='{"text": (indexPart > 0) && !(indexPart % 1) || path === "related" }'
             @click='$emit("handleLinks", $event)'
           )
 
