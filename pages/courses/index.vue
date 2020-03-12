@@ -76,7 +76,7 @@ export default {
   },
 
   mounted () {
-    this.scrollTop(0)
+    this.scrollTop(0, 'auto')
   },
 
   computed: {
@@ -112,13 +112,13 @@ export default {
   },
 
   methods: {
-    scrollTop (height) {
+    scrollTop (height, behavior = 'smooth') {
       setTimeout(() => {
         document.getElementsByClassName('main')[0].scroll({
           top: height,
-          behavior: 'smooth'
+          behavior: behavior
         })
-      }, 700)
+      }, 0)
     },
     redirect (path) {
       history.pushState({}, null, path)
