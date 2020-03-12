@@ -1,7 +1,7 @@
 <template lang='pug'>
 client-only
   .locked-action
-    h3 This Lesson Is Locked. {{this.free}}
+    h3 This Lesson Is Locked.
     h5(v-if='free') Create a free account to unlock it.
     h5(v-else) Subscribe to a plan to unlock it.
 
