@@ -24,6 +24,7 @@ button
   -webkit-tap-highlight-color: rgba(0,0,0,0)
   -webkit-tap-highlight-color: transparent
 
+  &:before,
   &:after
     background linear-gradient(to top right, transparent , #fff)
     content: ""
@@ -103,6 +104,12 @@ button
     &.-plain
       padding: 28px 85px
       background rgba(5, 37, 59, 0.21)
+
+      &:before
+        animation: left 10s infinite
+
+      &:hover
+        transform: scale(1.2)
 
   &.-small
     height $button-height-small
@@ -210,3 +217,20 @@ a:hover .button
 
     i
       transform: scale(.9)
+
+@keyframes left
+  0%
+    top -40px
+    left -175px
+  40%
+    top -40px
+    left -175px
+  50%
+    top -40px
+    left 120%
+  55%
+    top -200px
+    left -175px
+  100%
+    top -40px
+    left -175px
