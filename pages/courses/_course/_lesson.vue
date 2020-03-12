@@ -113,7 +113,9 @@ export default {
       let restriction = this.current.free !== undefined ? !this.current.free : false
       // Check lessons restrictions
       if (restriction) {
-        restriction = this.account ? !this.account.subscribed : true
+        // FREE WEEKEND
+        // restriction = this.account ? !this.account.subscribed : true
+        restriction = !this.account
       } else if (this.current.lock) {
         restriction = !this.account
       }
