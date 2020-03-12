@@ -8,8 +8,7 @@
       .lesson-body(v-html = 'body')
 
     .lesson-locked(v-if = 'restricted' v-cloak)
-      // FREE WEEKEND
-      Unlock(:free='true')
+      Unlock(:free='course.free')
 </template>
 
 <script>
