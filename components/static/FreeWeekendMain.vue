@@ -36,6 +36,7 @@ export default {
 .wrapper
   padding-top 320px
   position relative
+  min-height calc(100vh - 616px)
 
   +desktop-up()
     padding-top $vertical-space

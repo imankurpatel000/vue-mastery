@@ -80,7 +80,7 @@ export default {
   position relative
   z-index 1
   background #fff
-  min-height 100vh
+  min-height calc(100vh - 516px)
 
 .main
   position relative
