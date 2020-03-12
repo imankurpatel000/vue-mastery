@@ -61,6 +61,10 @@ export default {
     ConferenceActions
   },
 
+  mounted () {
+    this.scrollTop(0, 'auto')
+  },
+
   async fetch ({ store }) {
     await store.dispatch('courses/getAllConferences')
   },
@@ -80,6 +84,14 @@ export default {
   },
 
   methods: {
+    scrollTop (height, behavior = 'smooth') {
+      setTimeout(() => {
+        document.getElementsByClassName('main')[0].scroll({
+          top: height,
+          behavior: behavior
+        })
+      }, 0)
+    },
     showBadge (course, account) {
       if ((course.free && !account) || (course.free && account && !account.subscribed)) return true
     },
