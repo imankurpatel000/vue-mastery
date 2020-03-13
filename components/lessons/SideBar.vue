@@ -5,7 +5,7 @@ aside.lesson-aside
       .card-body
         Download(v-if="lesson" v-cloak
                 :courseLink='lesson.downloadLink'
-                :account='account')
+                :account='account && account.subscribed')
 
         SocialShare(:lesson='current'
                   :baseUrl='baseUrl')

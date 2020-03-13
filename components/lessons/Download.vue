@@ -7,9 +7,9 @@ client-only
     Icon(name='download-cloud')
     | Download Video
 
-  button.button.secondary.-full(v-else v-cloak @click='openLogin')
-    Icon(name='download-cloud')
-    | Download Video
+  // button.button.secondary.-full(v-else v-cloak @click='openLogin')
+  //  Icon(name='download-cloud')
+  //  | Download Video
 </template>
 
 <script>
