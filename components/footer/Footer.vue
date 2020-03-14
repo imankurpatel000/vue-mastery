@@ -81,9 +81,10 @@ build-grid-area(brand nav-1 nav-2)
       padding-top 220px
 
   &:not(.index)
-    position sticky
-    bottom 0
-    z-index 0
+    +desktop-up()
+      position sticky
+      bottom 0
+      z-index 0
 
 
 .wrapper
