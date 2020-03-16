@@ -1,8 +1,6 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    // FREEWEEKEND
-    //- nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-    nuxt-link(to='/free-weekend' class="announcement-bar")
+    nuxt-link(to='/pricing' class="announcement-bar")
       .squares
         .square
         .square
@@ -14,9 +12,7 @@
         .square
 
       p.para
-        | All courses are free this weekend with a free account.
-
-      .button.-small.tertiary Get Access
+        | Keep learning with 30% off an annual subscription using code FREEWEEKEND2020
 </template>
 
 <script>
