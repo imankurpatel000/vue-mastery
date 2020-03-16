@@ -2,7 +2,7 @@
   transition(name="push" mode='out-in' appear)
     // FREEWEEKEND
     //- nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-    nuxt-link(to='/free-weekend' class="announcement-bar")
+    nuxt-link(to='/pricing' class="announcement-bar")
       .squares
         .square
         .square
@@ -14,7 +14,7 @@
         .square
 
       p.para
-        | All courses will be free March 13-15.  Reserve your spot now.
+        | Keep learning with 30% off an annual subscription using code FREEWEEKEND2020
 
       .button.-small.tertiary Get Access
 </template>
