@@ -16,7 +16,6 @@
       p.para
         | Keep learning with 30% off an annual subscription using code FREEWEEKEND2020
 
-      .button.-small.tertiary Get Access
 </template>
 
 <script>
