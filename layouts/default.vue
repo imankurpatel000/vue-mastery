@@ -49,8 +49,8 @@ export default {
     }),
     showAnnouncement () {
       // FREE WEEKEND
-      // return (this.ready && !this.account) || (this.account && !this.account.subscribed)
-      return this.ready && !this.account
+      // return this.ready && !this.account
+      return (this.ready && !this.account) || (this.account && !this.account.subscribed)
     },
     noHeaderBackground () {
       return ['index', 'courses', 'courses-path', 'thank-you-free-weekend', 'free-weekend'].indexOf(this.$route.name) >= 0
