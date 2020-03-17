@@ -1,6 +1,11 @@
 <template lang='pug'>
   .container
-    PageHeader.static(title='Our Courses' background_image='/images/courses.svg' align='center')
+    PageHeader.static(
+      title='Our Courses'
+      background_image='/images/courses.svg'
+      align='center'
+      :scroll='false'
+    )
       .paths
         .group
           button.button.modern.-small(:class='this.path === "courses" ? "active" : "border"' @click='redirect("/courses")') Latest

@@ -1,6 +1,6 @@
 <template lang='pug'>
 .page-header(:style='style')
-  .wrapper
+  .wrapper(:style='scrollingBackground')
     h2.title {{ title }}
     h3.title2 {{ title2 }}
     slot
@@ -21,8 +21,9 @@ export default {
       type: String,
       required: true
     },
-    background_color: {
-      type: String
+    scroll: {
+      type: Boolean,
+      default: true
     },
     align: {
       type: String,
@@ -31,10 +32,19 @@ export default {
   },
   computed: {
     style () {
-      let backgroundColor = (this.background_color) ? `, ${this.background_color}` : ''
-      return {
-        backgroundImage: `url(${this.background_image}) ${backgroundColor}`,
+      const style = {
         textAlign: this.align
+      }
+      if (!this.scroll && this.background_image) {
+        style.backgroundImage = `url(${this.background_image})`
+      }
+      return style
+    },
+    scrollingBackground () {
+      if (this.scroll && this.background_image) {
+        return {
+          '--backgroundImage': `url(${this.background_image})`
+        }
       }
     }
   }
@@ -52,12 +62,27 @@ export default {
   background-size cover
   background-attachment fixed
   background-position center
+  overflow hidden
 
   &.static
     background-attachment initial
 
 .wrapper
   z-index 1
+
+  &::before
+    content ''
+    position absolute
+    background-image var(--backgroundImage)
+    background-size cover
+    background-position center bottom
+    background-repeat no-repeat
+    z-index -1
+    transform translate3d(0,0,-1px) scale(2.2)
+    top 0
+    right 0
+    bottom -1px // Remove bottom artfacts
+    left -4px // Remove bottom artfacts
 
 .title
   margin 0
