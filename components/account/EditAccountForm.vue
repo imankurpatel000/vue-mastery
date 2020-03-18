@@ -14,7 +14,7 @@ form.form.card
     
     .form-group
       label Display Name
-      input.input(type='email'
+      input.input(type='text'
                   placeholder='Display Name'
                   v-model='newData.displayName'
                   @input="updateField('displayName')")
