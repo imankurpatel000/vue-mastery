@@ -1,7 +1,6 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    // FREEWEEKEND
-    //- nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+    section.announcement-bar(v-if="ready && !account || (account && !account.subscribed)" v-cloak)
     nuxt-link(to='/pricing' class="announcement-bar")
       .squares
         .square
@@ -14,7 +13,10 @@
         .square
 
       p.para
-        | Keep learning with 30% off an annual subscription using code FREEWEEKEND2020
+        | Get 20% off an annual subscription today using code SPRING2020
+
+      .anounce-icon
+        img(src='/images/ico-vue-spring.png')
 
 </template>
 
