@@ -1,6 +1,6 @@
 <template lang='pug'>
 .container(:class='{"show-announcement": showAnnouncement, "open-nav": $store.state.openNav}')
-  .main
+  .main(ref='main')
     Announcement(v-if='showAnnouncement' v-cloak)
     .relative
       PageHeader(:class='{"no-header-background": noHeaderBackground}')
@@ -33,7 +33,8 @@ export default {
 
   data () {
     return {
-      ready: false
+      ready: false,
+      main: {}
     }
   },
 
@@ -41,6 +42,17 @@ export default {
     setTimeout(() => {
       this.ready = true
     }, 2000)
+  },
+
+  watch: {
+    $route () {
+      setTimeout(() => {
+        this.$refs.main.scroll({
+          top: 0,
+          behavior: 'auto'
+        })
+      }, 0)
+    }
   },
 
   computed: {

@@ -14,7 +14,7 @@
           button.button.modern.-small(:class='this.path === "intermediate" ? "active" : "border"' @click='redirect("/courses-path/intermediate")') Intermediate path
           button.button.modern.-small(:class='this.path === "advanced" ? "active" : "border"' @click='redirect("/courses-path/advanced")') Advanced path
 
-    .courses-body.wrapper
+    .courses-body.wrapper(ref='body')
       LearningPath(
         :path='path'
         :parts='ordered'
@@ -80,10 +80,6 @@ export default {
     }
   },
 
-  mounted () {
-    this.scrollTop(0, 'auto')
-  },
-
   computed: {
     ...mapState({
       account: result => result.account.account,
@@ -130,7 +126,7 @@ export default {
       const newPath = path.split('/').pop()
       this.slide = this.pathsNames.indexOf(newPath) > this.pathsNames.indexOf(this.path) ? 'slide-previous' : 'slide'
       this.path = newPath
-      this.scrollTop(470)
+      this.scrollTop(this.$refs.body.offsetTop)
     },
     handleLinks (event) {
       event.stopPropagation()

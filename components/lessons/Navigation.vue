@@ -70,8 +70,8 @@ export default {
       this.$emit('redirect', next)
 
       document.getElementsByClassName('main')[0].scroll({
-        top: 600,
-        behavior: 'smooth'
+        top: 0,
+        behavior: 'auto'
       })
     }
   }
