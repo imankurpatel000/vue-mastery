@@ -36,10 +36,13 @@ export default {
 
 <style lang="stylus" scoped>
 .header
+  background-color #fff
   position relative
-  width: 100%
+  width 100%
   top 0
   z-index 4
+  display flex
+  justify-content center
 
   .wrapper
     height $header-height
@@ -73,10 +76,15 @@ export default {
 .no-header-background
   position: absolute;
   width: 100%;
+  background transparent
 
   +laptop-up()
     ::v-deep .navbar-item
       color: #fff
+
+  .wrapper
+    position: absolute
+    width: 100%
 
   .hamburger:before, .hamburger:after
     background-color: #fff

@@ -1,8 +1,7 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    // FREEWEEKEND
-    //- nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-    nuxt-link(to='/free-weekend' class="announcement-bar" v-if="ready && !account" v-cloak)
+    section.announcement-bar(v-if="ready && !account || (account && !account.subscribed)" v-cloak)
+    nuxt-link(to='/pricing' class="announcement-bar")
       .squares
         .square
         .square
@@ -14,52 +13,29 @@
         .square
 
       p.para
-        | All courses will be free March 13-15.  Reserve your spot now.
+        | Get 20% off an annual subscription today using code SPRING2020
 
-      .button.-small.tertiary Get Access
+      .anounce-icon
+        img(src='/images/ico-vue-spring.png')
+
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-  name: 'announcement-bar',
-
-  data () {
-    return {
-      ready: false
-    }
-  },
-
-  mounted () {
-    setTimeout(() => {
-      this.ready = true
-    }, 2000)
-  },
-
-  computed: {
-    ...mapState({
-      account: result => result.account.account
-    })
-  }
+  name: 'announcement-bar'
 }
 </script>
 
-
-<style lang="stylus">
-.open-nav
-  .announcement-bar
-    +laptop-down()
-      position absolute
-      opacity 0
-</style>
-
 <style lang="stylus" scoped>
 .announcement-bar
+  position sticky
+  left 0
+  top 0
+  width 100%
   display flex
   align-items center
   flex-direction row
   padding 0 10px
-  position relative
   justify-content center
   overflow hidden
   text-align left
@@ -68,6 +44,7 @@ export default {
   min-height $vertical-space
   background $secondary-color
   text-align center
+  z-index 0
   transition background .25s ease-out
 
   +mobile-only()
@@ -100,16 +77,6 @@ export default {
   +tablet-up()
     width 70px
     margin 0 18px
-
-
-.push-enter-active
-  transition margin-top ease-in .5s
-
-.push-leave-active
-  transition margin-top ease-out .5s
-
-.push-enter, .push-leave-to
-  margin-top: -90px
 
 .button
   display inline-block

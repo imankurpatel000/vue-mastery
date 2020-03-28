@@ -3,18 +3,12 @@
     .wrapper
       free-weekend-badges
       .body
-        h2.title Enroll in Free Weekend
+        h2.title Free Weekend is Now Over
         p.lead
-          | Reserve your spot to get access to all Vue.js courses free.
-          br
-          span.normal We will email you when the courses are unlocked.
-        
-        p.lead.date
-          | Friday through Sunday
-          br
-          | March 13 at 12 PM ET until March 15, 11:59 PM ET
+          | However, our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue course] is free, and many of our courses start with free lessons.
 
-        FreeEnrollButton(button-class='tertiary' location='Free Weekend')
+        p
+          nuxt-link.button.primary(to='/courses') View Courses
 </template>
 
 <script>

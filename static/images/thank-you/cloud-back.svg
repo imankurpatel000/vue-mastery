@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1100.86" height="113.19" viewBox="0 0 1100.86 113.19">
+  <defs>
+    <style>
+      .\37 8388b9a-0f8c-4cec-a0fe-2087b957449c {
+        opacity: 0.53;
+        fill: url(#3ad402d8-a16b-4c2e-ae79-b2a9e5fa8531);
+      }
+    </style>
+    <linearGradient id="3ad402d8-a16b-4c2e-ae79-b2a9e5fa8531" x1="1410.14" y1="56.6" x2="2511" y2="56.6" gradientTransform="translate(-1410.14)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.79"/>
+      <stop offset="0.19" stop-color="#fff" stop-opacity="0.63"/>
+      <stop offset="0.52" stop-color="#fff" stop-opacity="0.3"/>
+      <stop offset="0.59" stop-color="#fff" stop-opacity="0.34"/>
+      <stop offset="0.7" stop-color="#fff" stop-opacity="0.44"/>
+      <stop offset="0.85" stop-color="#fff" stop-opacity="0.61"/>
+      <stop offset="0.99" stop-color="#fff" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+  <title>img-cloud-back</title>
+  <g id="e0abdedc-59b5-40fb-89fb-9513ac1067e3" data-name="Layer 2">
+    <g id="f04e7cb7-8e26-4cb9-b0a5-7432434be6a2" data-name="clouds back">
+      <path class="78388b9a-0f8c-4cec-a0fe-2087b957449c" d="M921.61,35C891.92,20,798.23,9.08,687.23,9.08q-13.54,0-26.72.21C627.09,3.71,568.26,0,501.26,0,397.17,0,312.79,8.94,312.79,20c0,2.65,4.89,5.18,13.73,7.5C137.33,28.16,0,43.43,0,60.44,0,69,56,76.47,139.36,80.5,145.93,98.67,287,113.19,460,113.19c105.57,0,199.22-5.4,257.71-13.74,39.44,4,87.3,6.41,138.92,6.41,134.87,0,244.21-16.16,244.21-36.08C1100.86,53.18,1025,39.2,921.61,35Z"/>
+    </g>
+  </g>
+</svg>

@@ -1,51 +1,69 @@
 <template lang='pug'>
-  .banner
-    .wrapper
-      .body
-        h2.title We Support the Community
-        p.lead In addition to supporting your journey to Vue mastery, we also support Vue.js itself. $5 of your monthly subscription goes directly to the Vue.js organization, supporting its sustainability and growth.
+section.bg-wrapper(v-once)
+  .body
+    h2.title Support the community
+    p.lead We give 25% of our revenue to the Vue.js framework, so learning with us means supporting the growth and the substainability of your technology.
 </template>
 
 <script>
 export default {
-  name: 'community-support'
+  name: 'level-up'
 }
 </script>
 
-<style lang='stylus' scoped>
-.wrapper
-  grid-template-rows $vertical-space 1fr $vertical-space
-  align-items center
-  justify-content center
-  text-align center
 
-.banner
-  background-image url('/images/bkg-giveback.svg')
+<style lang='stylus' scoped>
+section.bg-wrapper
+  background: linear-gradient(360deg, #B5FFDA 11.34%, #8CE5CE 20.89%, #23A4B1 42.29%, #008EA7 49.28%, #006C85 58.91%, #004C65 69.86%, #00354E 80.47%, #002841 90.49%, #00233C 99.31%)
+  background-attachment scroll
+  height 520px
+  margin-top -2px
+  z-index 3
+  display flex
+  justify-content center
+
+  &:before
+    background-image url(/images/community/background.svg)
+    background-size 100% auto
+    background-position center bottom 15px
+
+  &:after
+    background-image url(/images/community/foreground.svg)
+    background-size 100% auto
+
+
+  +mobile-only()
+    &:before,
+    &:after
+      background-size 800px auto
+
   +desktop-up()
-    background-size contain
-    background-repeat repeat-x
+    height 720px
 
 .body
-  grid-row-start 2
+  position absolute
+  text-align center
+  display flex
+  flex-direction column
+  align-items center
+  color #fff
+  z-index 3
+  width 100%
+  max-width 500px
+  padding 0 30px
+  top 5%
+
+  +desktop-up()
+    top 13%
 
 .title
-  padding-top 0
-  color $primary-color
-  margin 0
+  margin-bottom 0
+  font-size 2rem
 
-  +tablet-up()
-    font-size 56px
+  +desktop-up()
+    font-size 2.5rem
 
 .lead
-  max-width 690px
-  font-size 16px
-  color $gray
-
-  +tablet-up()
-    font-size 24px
-
-.amount
-  color $primary-color
-  margin 0
-
+  font-size: 1rem
+  line-height: 1.3rem
 </style>

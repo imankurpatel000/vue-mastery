@@ -24,6 +24,7 @@ button
   -webkit-tap-highlight-color: rgba(0,0,0,0)
   -webkit-tap-highlight-color: transparent
 
+  &:before,
   &:after
     background linear-gradient(to top right, transparent , #fff)
     content: ""
@@ -70,7 +71,7 @@ button
 
   &.inverted
     background #FFFFFF
-    color $primary-color
+    color $secondary-color
 
     &.border
       color #FFFFFF
@@ -83,6 +84,32 @@ button
     background transparent
     border solid $border-size $secondary-color
     line-height ($button-height-small - ($border-size * 2))
+
+  &.modern
+    border-color: #028ebb
+    border-top: 1px solid rgba(3, 143, 188, 0.16)
+    border-bottom: 1px solid rgba(46, 162, 200, 0.29)
+    padding: 0 20px;
+
+    &.active
+      background #028ebb2e
+      box-shadow inset 0px 9px 21px rgba(19, 183, 166, 0.1), 0px 0px 2px rgba(60,196,180,0.6)
+      border-color #028ebb
+      border-top-color rgb(2, 142, 187)
+      border-bottom-color rgb(2, 142, 187)
+      border-top solid 1px #038fbcb8
+      text-shadow 0px 0 3px #0a1121
+      border-bottom solid 1px #038fbcb8
+
+    &.-plain
+      padding: 28px 85px
+      background rgba(5, 37, 59, 0.21)
+
+      &:before
+        animation: left 10s infinite
+
+      &:hover
+        transform: scale(1.1)
 
   &.-small
     height $button-height-small
@@ -177,9 +204,33 @@ a:hover .button
     border-color transparent
     color #fff
 
+  &.modern
+    box-shadow inset 0px 9px 21px rgba(19, 183, 166, 0.1), 0px 0px 2px rgba(60,196,180,0.6)
+    border-left-color #028ebb
+    border-right-color #028ebb
+    border-top solid 1px #038fbcb8
+    border-bottom solid 1px #038fbcb8
+
   &.-only-icon
     background transparent
     text-decoration none
 
     i
       transform: scale(.9)
+
+@keyframes left
+  0%
+    top -40px
+    left -175px
+  40%
+    top -40px
+    left -175px
+  50%
+    top -40px
+    left 120%
+  55%
+    top -200px
+    left -175px
+  100%
+    top -40px
+    left -175px

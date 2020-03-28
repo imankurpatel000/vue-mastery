@@ -1,8 +1,9 @@
 <template lang="pug">
   .container
     PageHeader(title='Our Articles'
-              background_image='/images/banner-blog.png')
-
+      background='/images/blog/background.svg'
+      background_image='/images/blog/foreground.svg'
+    )
     .wrapper
       .post-list(v-if='posts' v-cloak)
         nuxt-link.list-card(v-for='post, key, index in posts'
@@ -80,6 +81,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.container
+  background #fff
+
 .post-list
   display grid
   margin-top 40px
@@ -114,13 +118,14 @@ export default {
   box-shadow 0 1px 4px 0 rgba(0,0,0,0.30)
   overflow hidden
   border-radius 12px
-  transition box-shadow .5s cubic-bezier(0.19, 1, 0.22, 1)
+  transition box-shadow .5s cubic-bezier(0.19, 1, 0.22, 1), transform .5s cubic-bezier(0.19, 1, 0.22, 1)
 
   +tablet-up()
     grid-template-rows 300px 1fr
 
   &:hover
     box-shadow 0 2px 7px 0 rgba(0, 0, 0, .3)
+    transform scale(1.03)
 
     .title
       color $primary-color
@@ -138,6 +143,8 @@ export default {
   align-items center
   width 100%
   padding 20px
+  background #fff
+  z-index 2
 
   @media screen and (max-width: 30em)
     padding-top 35px

@@ -240,6 +240,7 @@ export default {
 <style lang='stylus' scoped>
 .lesson-wrapper
   display grid
+  background: #fff
   grid-template-columns 1fr
   grid-template-areas 'header'\
                       'video'\

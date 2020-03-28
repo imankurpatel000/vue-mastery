@@ -247,6 +247,8 @@ export default {
 
 <style lang="stylus" scoped>
 build-grid-area(pricing-content pricing-structure page-title monthly annually team)
+.container
+  background #fff
 
 .pricing-layout
   display grid

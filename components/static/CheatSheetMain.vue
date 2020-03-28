@@ -1,82 +1,115 @@
 <template lang='pug'>
-  .banner
-    .wrapper
-      .media
-        img(src='/images/image-cheatsheet-example@2x.png')
+section.bg-wrapper.align-top
+  .body
+    h2.title Download the cheatsheets
+    p.lead Our Vue essentials, Vue 3, and Nuxt.Js cheat sheets save you time and energy by giving you essential syntax at your fingertips.
 
-      .body
-        h2.title Get the Ultimate Vue Cheat Sheet
-        p.lead All the essential syntax at your fingertips.
-
-        DownloadButton(button-class='inverted' location='Front-page cheat sheet download')
+  CheatSheets(button-class='inverted' location='Front-page cheat sheet download')
 </template>
 
 <script>
-import DownloadButton from '~/components/static/DownloadButton'
+import CheatSheets from '~/components/static/CheatSheets'
 
 export default {
   name: 'cheat-sheet-main',
 
   components: {
-    DownloadButton
+    CheatSheets
   }
 }
 </script>
 
 
 <style lang='stylus' scoped>
-.wrapper
-  grid-template-columns 1fr 1fr
-  padding-top $vertical-space
-  grid-template-areas 'body body'\
-                      'media media'
+.bg-wrapper
+  position relative
+  overflow hidden
+  background-size cover
+  background-attachment fixed
+  background-position center
+  -webkit-overflow-scrolling touch
 
-  +laptop-up()
-    grid-template-areas 'media body'\
-                        'media body'
-.banner
-  background-image url(/images/bkg-cheatsheet-main.jpg)
+  &::before,
+  &::after
+    content ''
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    background-size cover
+    background-position center bottom
+    background-repeat no-repeat
+    z-index 1
 
-.media
-  display grid
-  grid-area media
-  justify-content center
+  &::before
+    /* Move the pseudo-element back away from the camera,
+    * then scale it back up to fill the viewport.
+    * Because the pseudo-element is further away, it appears to move more slowly, like in real life. */
+    transform translateZ(-1px) scale(1.5)
+    bottom -1px // Remove bottom artfacts
+    left -4px // Remove bottom artfacts
 
-  img
-    align-self end
-    justify-self center
-    width 70%
+section.bg-wrapper
+  height 638px
+  margin-top -2px
+  margin-bottom: 64px
+  overflow visible
+  z-index 3
 
-    +laptop-up()
-      justify-self center
-      width 100%
+  &:after,
+  &:before
+    background-image url(/images/cheatsheets/background.svg)
+
+  &:before
+    background: linear-gradient(360deg, #B5FFDA -3.63%, #8CE5CE 6.41%, #23A4B1 28.9%, #008EA7 36.25%, #0087A0 39.46%, #00516A 67.67%, #003049 88.78%, #00233C 100.25%) fixed;
+    transform none
+    height: 100%
+
+  +desktop-up()
+    height 596px
+    .body
+      top 132px
+
+    .buttons
+      top 180px
 
 .body
-  display grid
-  grid-area body
-  padding-bottom 1em
+  position absolute
   text-align center
+  display flex
+  flex-direction column
+  align-items center
+  color #fff
+  z-index 5
+  width 100%
+  height 664px
+  padding 0 30px
+  top 26px
+  justify-content space-between
+  pointer-events: none
 
-  +laptop-up()
-    padding-bottom $vertical-space
+  +tablet-up()
+    height 700px
+
+  +desktop-up()
+    width 700px
+    max-width 50%
+    top 15%
+    left 50%
+    height auto
+
+
+.lead,
+.title
+  max-width 320px
+  +tablet-up()
+    max-width 366px
 
 .title
-  color $secondary-color
-  margin 0
-  padding-top 0
-  +tablet-up()
-    font-size 56px
+  margin-bottom 0
+  font-size 2rem
 
-.lead
-  max-width 690px
-  font-size 16px
-  color $secondary-color
-
-  +laptop-up()
-    font-size 24px
-
-.button
-  justify-self center
-  text-transform uppercase
-
+  +desktop-up()
+    font-size 2.5rem
 </style>

@@ -2,7 +2,7 @@
   .banner
     .wrapper
       .media
-        img(src='/images/img-nuxt-cheatsheet-example@2x.png')
+        img(src='/images/cheatsheets/img-nuxt-cheatsheet-example@2x.png')
 
       .body
         h2.title Get the Ultimate Nuxt.js Cheat Sheet

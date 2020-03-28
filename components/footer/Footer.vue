@@ -55,9 +55,38 @@ export default {
 build-grid-area(brand nav-1 nav-2)
 
 .footer
-  background-color $secondary-color
+  background linear-gradient(#041830, #080117)
+  border-bottom 40px solid #080117
   color #fff
   padding ($vertical-space/2) 0
+  position relative
+  padding-top 100px
+
+
+  &.index,
+  &.courses,
+  &.course-path
+    +tablet-up()
+      padding-top 200px
+
+  &.index
+    padding-top 100px
+    margin-top -3vw
+    background url(/images/footer.svg)
+    background-position center top
+    background-size cover
+    z-index 5
+
+    +tablet-up()
+      padding-top 220px
+
+  &:not(.index)
+    +desktop-up()
+      position sticky
+      bottom 0
+      z-index 0
+
+
 .wrapper
   display grid
   text-align center
