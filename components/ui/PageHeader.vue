@@ -18,12 +18,10 @@ export default {
       type: String
     },
     background_image: {
-      type: String,
-      required: true
+      type: String
     },
-    scroll: {
-      type: Boolean,
-      default: true
+    background: {
+      type: String
     },
     align: {
       type: String,
@@ -35,15 +33,15 @@ export default {
       const style = {
         textAlign: this.align
       }
-      if (!this.scroll && this.background_image) {
-        style.backgroundImage = `url(${this.background_image})`
+      if (this.background) {
+        style.backgroundImage = `url(${this.background})`
       }
       return style
     },
     scrollingBackground () {
-      if (this.scroll && this.background_image) {
+      if (this.background_image) {
         return {
-          '--backgroundImage': `url(${this.background_image})`
+          '--backgroundImage': `url(  ${this.background_image})`
         }
       }
     }
@@ -75,14 +73,14 @@ export default {
     position absolute
     background-image var(--backgroundImage)
     background-size cover
-    background-position center bottom
+    background-position center
     background-repeat no-repeat
     z-index -1
-    transform translate3d(0,0,-1px) scale(2.2)
+    transform translate3d(0, 0, -0.4px) scale(2.2)
     top 0
     right 0
-    bottom -1px // Remove bottom artfacts
-    left -4px // Remove bottom artfacts
+    bottom 0
+    left 0
 
 .title
   margin 0

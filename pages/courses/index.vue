@@ -2,9 +2,9 @@
   .container
     PageHeader.static(
       title='Our Courses'
-      background_image='/images/courses.svg'
+      background='/images/courses/courses.svg'
+      background_image='/images/courses/courses.svg'
       align='center'
-      :scroll='false'
     )
       .paths
         .group
@@ -166,6 +166,13 @@ export default {
     .wrapper
       align-content space-between
       height 100%
+
+      &:before
+        transform: translate3d(0, 6%, 0.4px) scale(0.8)
+        +tablet-up()
+          transform: translate3d(0, 8%, 0.4px) scale(0.8)
+        +desktop-up()
+          transform: translate3d(0, 15%, 0.4px) scale(0.8)
 
     +mobile-only()
       .title

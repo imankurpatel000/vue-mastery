@@ -1,9 +1,12 @@
 <template lang='pug'>
   .container
-    PageHeader(title='We Teach Live'
-              title2='Learn Vue in our interactive workshop'
-              align='center'
-              background_image='/images/banner-live-training.png')
+    PageHeader(
+      title='We Teach Live'
+      title2='Learn Vue in our interactive workshop'
+      align='center'
+      background='/images/live-training/background.svg'
+      background_image='/images/live-training/foreground.svg'
+    )
 
     section.benefit-section
       .wrapper

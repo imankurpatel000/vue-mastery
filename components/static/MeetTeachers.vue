@@ -5,19 +5,19 @@
   .wrapper
     .instructor
       .img.gregg
-        img(src='/images/gregg-avatar.jpg')
+        img(src='/images/teachers/gregg-avatar.jpg')
       h3 Gregg Pollack
       p Gregg is passionate about teaching open source technology online. Previously he created Code School, an online software programming school which was acquired by Pluralsight.  He lives in Orlando, Florida with his two kids Ender and Alanna.
 
     .instructor
       .img.adam
-        img(src='/images/adam-avatar.jpg')
+        img(src='/images/teachers/adam-avatar.jpg')
       h3 Adam Jahr
       p Adam Jahr is a developer and programming instructor passionate about making it easier to learn complex skills. He previously instructed at The Iron Yard’s coding bootcamp before joining Vue Mastery in order to help developers progress along their professional paths.
 
     .instructor
       .img.ben
-        img(src='/images/ben-avatar.jpg')
+        img(src='/images/teachers/ben-avatar.jpg')
       h3 Ben Hong
       p Ben Hong is a psychologist / developer / educator hybrid, whose origin story harkens back to the days when he would build cheesy websites like his “Fortune Cookie Universe” using one too many marque, blink elements, and dancing baby GIFs
 </template>

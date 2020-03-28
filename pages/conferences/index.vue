@@ -1,7 +1,9 @@
 <template lang="pug">
 .container
   PageHeader(title='Vue Conference Videos'
-            background_image='/images/banner-conference.png')
+      background='/images/conferences/background.svg'
+      background_image='/images/conferences/foreground.svg'
+    )
 
   .wrapper
     .conference-body

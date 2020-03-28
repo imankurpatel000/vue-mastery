@@ -4,12 +4,12 @@
   .wrapper
     div(v-if='ready')
       transition-group(name="nature" @after-enter="showContent" appear)
-        img.sm-range(src="/images/img-sm-mountain.svg" key="sm-range")
-        img.bk-cloud(src="/images/img-cloud-back.svg" key="bk-cloud")
-        img.md-range(src="/images/img-md-mountain.svg" key="md-range")
-        img.mid-cloud(src="/images/img-cloud-middle.svg" key="mid-cloud")
-        img.lg-range(src="/images/img-lg-mountain.svg" key="lg-range")
-        img.fr-cloud(src="/images/img-cloud-front.svg" key="fr-cloud")
+        img.sm-range(src="/images/thank-you/sm-mountain.svg" key="sm-range")
+        img.bk-cloud(src="/images/thank-you/cloud-back.svg" key="bk-cloud")
+        img.md-range(src="/images/thank-you/md-mountain.svg" key="md-range")
+        img.mid-cloud(src="/images/thank-you/cloud-middle.svg" key="mid-cloud")
+        img.lg-range(src="/images/thank-you/lg-mountain.svg" key="lg-range")
+        img.fr-cloud(src="/images/thank-you/cloud-front.svg" key="fr-cloud")
 
       .title
         transition-group(name="thankyou" @after-enter="showCard")

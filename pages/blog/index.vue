@@ -1,8 +1,9 @@
 <template lang="pug">
   .container
     PageHeader(title='Our Articles'
-              background_image='/images/banner-blog.png')
-
+      background='/images/blog/background.svg'
+      background_image='/images/blog/foreground.svg'
+    )
     .wrapper
       .post-list(v-if='posts' v-cloak)
         nuxt-link.list-card(v-for='post, key, index in posts'
