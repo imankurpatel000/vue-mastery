@@ -97,4 +97,11 @@ export default {
 .experts-teachers
   &::before
     background-image url(/images/homepage/bg.svg)
+
+@supports (-moz-appearance:none) {
+  .experts-teachers::before {
+    transform none
+  }
+}
+
 </style>

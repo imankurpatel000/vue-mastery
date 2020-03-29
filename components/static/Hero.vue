@@ -52,7 +52,6 @@ export default {
   background-position: 35% center;
   background-size: cover;
   background-attachment: fixed;
-  will-change: transform;
 
   +tablet-up()
     background-position 15% center
