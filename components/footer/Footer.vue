@@ -81,7 +81,7 @@ build-grid-area(brand nav-1 nav-2)
       padding-top 220px
 
   &:not(.index)
-    +desktop-up()
+    @media screen and (min-height: 44em)
       position sticky
       bottom 0
       z-index 0
