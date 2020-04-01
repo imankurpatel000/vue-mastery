@@ -3,7 +3,6 @@
     PageHeader.static(
       title='Our Courses'
       background='/images/courses/courses.svg'
-      background_image='/images/courses/courses.svg'
       align='center'
     )
       .paths
