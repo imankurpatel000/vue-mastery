@@ -1,6 +1,9 @@
 
 <template lang='pug'>
-section.bg-wrapper
+section.bg-wrapper(
+  @mousemove='calculDistance'
+  @mouseleave='distance = 1000'
+)
   .bg
   .hero
     h1.title The ultimate learning resource for Vue developers
@@ -8,9 +11,7 @@ section.bg-wrapper
 
   .actions
     nuxt-link.button.modern.border.-small.-plain(
-      @mousemove.native='updatePosition'
-      @mouseleave.native='active = false'
-      @mouseenter.native='active = true'
+      ref='link'
       to='/courses'
       :style='bgPosition') Explore courses
 </template>
@@ -21,22 +22,24 @@ export default {
 
   data () {
     return {
-      x: null,
-      y: null,
-      active: false
+      distance: 1000
     }
   },
 
   methods: {
-    updatePosition (e) {
-      this.x = e.screenX / window.innerWidth * 100
-      this.y = e.screenY / window.innerHeight * 85
+    calculDistance (e) {
+      if (this.$refs.link) {
+        const { offsetWidth, offsetHeight } = this.$refs.link.$el
+        const { left, top } = this.$refs.link.$el.getBoundingClientRect()
+        this.distance = Math.floor(Math.sqrt(Math.pow(e.pageX - (left + (offsetWidth / 2)), 2) + Math.pow(e.pageY - (top + (offsetHeight / 2)), 2)))
+      }
     }
   },
 
   computed: {
     bgPosition () {
-      return this.active ? { 'background-position': `${this.x}% ${this.y}%` } : ''
+      const color = `rgb(2, ${Math.max(142, 300 - this.distance / 2)}, 187)`
+      return { 'border-left-color': color, 'border-right-color': color }
     }
   }
 }
