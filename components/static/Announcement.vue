@@ -1,22 +1,22 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear)
-    section.announcement-bar(v-if="ready && !account || (account && !account.subscribed)" v-cloak)
-    nuxt-link(to='/pricing' class="announcement-bar")
-      .squares
-        .square
-        .square
-        .square
+    section.announcement-bar
+      nuxt-link(to='/pricing' class="announcement-bar")
+        .squares
+          .square
+          .square
+          .square
 
-      .squares.right
-        .square
-        .square
-        .square
+        .squares.right
+          .square
+          .square
+          .square
 
-      p.para
-        | Get 20% off an annual subscription today using code SPRING2020
+        p.para
+          | Get 20% off an annual subscription today using code SPRING2020
 
-      .anounce-icon
-        img(src='/images/ico-vue-spring.png')
+        .anounce-icon
+          img(src='/images/ico-vue-spring.png')
 
 </template>
 
