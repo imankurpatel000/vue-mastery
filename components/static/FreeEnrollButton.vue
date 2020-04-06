@@ -36,14 +36,14 @@ export default {
       this.$modal.show('login-form', {
         newAccount: true,
         headerTitle: 'Please sign up to enroll free',
-        redirect: '/thank-you-free-weekend',
+        redirect: '/thank-you-free-week',
         location: this.location
       })
     },
     enroll () {
       this.$store.dispatch('account/userEnrollFreeWeekend')
         .then(() => {
-          this.$router.push('/thank-you-free-weekend')
+          this.$router.push('/thank-you-free-week')
         })
     }
   }

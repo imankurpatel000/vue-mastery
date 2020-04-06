@@ -3,12 +3,21 @@
     .wrapper
       free-weekend-badges
       .body
-        h2.title Free Weekend is Now Over
+        h2.title Enroll in Free Week
         p.lead
-          | However, our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue course] is free, and many of our courses start with free lessons.
+          | Reserve your spot to get access to all Vue.js courses free.
+          br
+          span.normal We will email you when the courses are unlocked.
+        p.lead
+          | Why are we doing this?
+          br
+          span.normal We want you to learn Vue while you might be stuck at home and we know some people around the world can't afford our courses.
+        p.lead.date
+          | Monday through Sunday
+          br
+          | April 13, 12:00 AM ET until April 19, 11:59 PM ET
 
-        p
-          nuxt-link.button.primary(to='/courses') View Courses
+        FreeEnrollButton(button-class='tertiary' location='Free Weekend')
 </template>
 
 <script>
@@ -67,7 +76,7 @@ export default {
     font-size 24px
 
 .normal
-  font-size 16px
+  font-size 14px
   color #fff
   font-weight normal
 
