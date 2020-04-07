@@ -2,11 +2,11 @@
 .container(:class='{"show-announcement": showAnnouncement, "open-nav": $store.state.openNav}')
   .main(ref='main')
     Announcement(v-if='showAnnouncement' v-cloak)
-    .relative
+    .relative(:class='{"no-sticky-footer": noStickyFooter}')
       PageHeader(:class='{"no-header-background": noHeaderBackground}')
       PageSearch(:class='[noHeaderBackground ? "no-header-background" : "", $route.name]')
       nuxt.page
-    PageFooter(:class='$route.name')
+    PageFooter(:class='[$route.name,noStickyFooter ? "no-sticky-footer" : "",]')
 
   AuthForm
 
@@ -65,7 +65,24 @@ export default {
       return (this.ready && !this.account) || (this.account && !this.account.subscribed)
     },
     noHeaderBackground () {
-      return ['index', 'courses', 'courses-path', 'thank-you-free-weekend', 'free-weekend'].indexOf(this.$route.name) >= 0
+      return [
+        'index',
+        'courses',
+        'courses-path',
+        'thank-you-free-weekend',
+        'free-weekend',
+        'free-week',
+        'thank-you-free-week'
+      ].indexOf(this.$route.name) >= 0
+    },
+    noStickyFooter () {
+      return [
+        'index',
+        'thank-you-free-weekend',
+        'free-weekend',
+        'free-week',
+        'thank-you-free-week'
+      ].indexOf(this.$route.name) >= 0
     }
   }
 }
@@ -92,7 +109,6 @@ export default {
   position relative
   z-index 1
   background #fff
-  min-height 100vh
 
 .main
   position relative

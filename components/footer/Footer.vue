@@ -80,7 +80,7 @@ build-grid-area(brand nav-1 nav-2)
     +tablet-up()
       padding-top 220px
 
-  &:not(.index)
+  &:not(.no-sticky-footer)
     @media screen and (min-height: 44em)
       position sticky
       bottom 0
