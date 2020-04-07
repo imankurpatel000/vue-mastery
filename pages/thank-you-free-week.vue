@@ -27,7 +27,7 @@ export default {
 
   data () {
     return {
-      link:'https://www.vuemastery.com/free-week'
+      link: 'https://www.vuemastery.com/free-week'
     }
   },
 
