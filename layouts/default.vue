@@ -109,6 +109,7 @@ export default {
   position relative
   z-index 1
   background #fff
+  min-height calc(100% - 32.25rem)
 
 .main
   position relative

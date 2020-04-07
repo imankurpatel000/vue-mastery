@@ -5,7 +5,7 @@ ThankYou(monthlyPayment='12' paySchedule='3 months' :renewal="new Date() | momen
 <script>
 import ThankYou from '~/components/account/ThankYou'
 export default {
-  name: 'page-thank-you-monthly',
+  name: 'page-thank-you-summer',
 
   head () {
     return {
