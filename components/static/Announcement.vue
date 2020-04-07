@@ -35,7 +35,6 @@ export default {
   display flex
   align-items center
   flex-direction row
-  padding 0 10px
   justify-content center
   overflow hidden
   text-align left
