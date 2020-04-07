@@ -1,12 +1,12 @@
 <template lang='pug'>
   .media(:class='{ animate: animate}')
     transition-group(name="images" appear)
-      img.images.image1(key='1' src='/images/free-weekend/vuevue.png')
-      img.images.image2(key='2' src='/images/free-weekend/hand.png')
-      img.images.image3(key='3' src='/images/free-weekend/lock.png')
-      img.images.image4(key='4' src='/images/free-weekend/orb.png')
-      img.images.image5(key='5' src='/images/free-weekend/vue.png')
-      img.images.image6(key='6' src='/images/free-weekend/vue3.png')
+      img.images.image1(key='1' src='/images/free-period/vuevue.png')
+      img.images.image2(key='2' src='/images/free-period/hand.png')
+      img.images.image3(key='3' src='/images/free-period/lock.png')
+      img.images.image4(key='4' src='/images/free-period/orb.png')
+      img.images.image5(key='5' src='/images/free-period/vue.png')
+      img.images.image6(key='6' src='/images/free-period/vue3.png')
 </template>
 
 <script>

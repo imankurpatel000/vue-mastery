@@ -50,17 +50,22 @@ export default {
       {
         hid: `og:title`,
         property: 'og:title',
-        content: `Vue Mastery Free Weekend`
+        content: `Vue Mastery Free Week`
       },
       {
         hid: `og:image`,
         property: 'og:image',
-        content: 'https://www.vuemastery.com/images/free-weekend/share-facebook.png'
+        content: 'https://www.vuemastery.com/images/free-period/share-facebook.png'
+      },
+      {
+        hid: `og:url`,
+        property: 'og:url',
+        content: 'https://www.vuemastery.com/free-week'
       },
       {
         hid: `twitter:image`,
         property: 'twitter:image',
-        content: 'https://www.vuemastery.com/images/free-weekend/share-twitter.png'
+        content: 'https://www.vuemastery.com/images/free-period/share-twitter.png'
       },
       {
         hid: `twitter:title`,

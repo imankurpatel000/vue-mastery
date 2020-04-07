@@ -46,12 +46,12 @@ export default {
       {
         hid: `og:image`,
         property: 'og:image',
-        content: 'https://www.vuemastery.com/images/free-weekend/share-facebook.png'
+        content: 'https://www.vuemastery.com/images/free-period/share-facebook.png'
       },
       {
         hid: `twitter:image`,
         property: 'twitter:image',
-        content: 'https://www.vuemastery.com/images/free-weekend/share-twitter.png'
+        content: 'https://www.vuemastery.com/images/free-period/share-twitter.png'
       },
       {
         hid: `twitter:title`,

@@ -98,7 +98,7 @@ export default {
   position relative
   overflow hidden
   padding-top 100px
-  background-image url(/images/free-weekend/background.svg)
+  background-image url(/images/free-period/background.svg)
   padding $vertical-space*1.5 0
   min-height 100vh
 

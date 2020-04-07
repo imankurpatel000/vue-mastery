@@ -29,7 +29,7 @@ export default {
     padding-top $vertical-space
 
 .banner
-  background-image url(/images/free-weekend/background.svg)
+  background-image url(/images/free-period/background.svg)
   overflow hidden
   padding-top 100px
 
