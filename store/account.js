@@ -198,8 +198,8 @@ export const actions = {
   userUpdateSubscription ({ state }, subscribedToMailingList) {
     return updateUser(state, { subscribedToMailingList: subscribedToMailingList })
   },
-  userEnrollFreeWeekend ({ state }) {
-    return updateUser(state, { enrolledFreeWeekend: true })
+  userEnrollFreePeriod ({ state }) {
+    return updateUser(state, { enrolledFreePeriod: true })
   },
   userUpdate ({ state }, newData) {
     return updateUser(state, { displayName: newData.displayName })

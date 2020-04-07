@@ -1,35 +1,20 @@
 <template lang='pug'>
   .banner
     .wrapper
-      free-weekend-badges
+      free-period-badges
       .body
-        h2.title Enroll in Free Week
-        p.lead
-          | Reserve your spot to get access to all Vue.js courses free.
-          br
-          span.normal We will email you when the courses are unlocked.
-        p.lead
-          | Why are we doing this?
-          br
-          span.normal We want you to learn Vue while you might be stuck at home and we know some people around the world can't afford our courses.
-        p.lead.date
-          | Monday through Sunday
-          br
-          | April 13, 12:00 AM ET until April 19, 11:59 PM ET
-
-        FreeEnrollButton(button-class='tertiary' location='Free Weekend')
+        slot
 </template>
 
 <script>
-import FreeEnrollButton from '~/components/static/FreeEnrollButton'
-import FreeWeekendBadges from '~/components/static/FreeWeekendBadges'
+
+import FreePeriodBadges from '~/components/promotions/FreePeriodBadges'
 
 export default {
   name: 'cheat-sheet-main',
 
   components: {
-    FreeEnrollButton,
-    FreeWeekendBadges
+    FreePeriodBadges
   }
 }
 </script>
@@ -69,7 +54,9 @@ export default {
 .lead
   font-size 16px
   color #fff
-  font-weight: bold
+  font-weight bold
+  max-width 410px
+  margin 2rem auto
 
   +laptop-up()
     max-width 690px

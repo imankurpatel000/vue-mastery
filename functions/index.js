@@ -37,10 +37,10 @@ module.exports = {
       // Get user data after changes
       const user = change.after.val()
 
-      // Subscribe a user to free weekend
-      if (hasChanged(change, 'enrolledFreeWeekend')) {
-        // Subscribe user to the free weekend mailing list (94430698: 'Free Weekend 2020')
-        return subscription.subscribeUser(user, 'Free Weekend 2020', user.enrolledFreeWeekend)
+      // Subscribe a user to free period
+      if (hasChanged(change, 'enrolledFreePeriod')) {
+        // Subscribe user to the free week mailing list (102481298: 'Free Week 2020')
+        return subscription.subscribeUser(user, 'Free Week 2020', user.enrolledFreePeriod)
       }
 
       // Change mailerlite subscriber and chargebee on email update

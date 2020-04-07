@@ -1,12 +1,28 @@
 <template lang='pug'>
   .homepage
     .cheatsheet
-      FreeWeekendMain 
+      free-period-wrapper
+        h2.title Enroll in Free Week
+        p.lead
+          | Reserve your spot to get access to all Vue.js courses free.
+          br
+          span.normal We will email you when the courses are unlocked.
+        p.lead
+          | Why are we doing this?
+          br
+          span.normal We want you to learn Vue while you might be stuck at home and we know some people around the world can't afford our courses.
+        p.lead.date
+          | Monday through Sunday
+          br
+          | April 13, 12:00 AM ET until April 19, 11:59 PM ET
+
+        free-enroll-button(button-class='tertiary' location='Free Week' redirect='/thank-you-free-week')
 
 </template>
 
 <script>
-import FreeWeekendMain from '~/components/static/FreeWeekendMain'
+import FreePeriodWrapper from '~/components/promotions/FreePeriodWrapper'
+import FreeEnrollButton from '~/components/promotions/FreeEnrollButton'
 
 export default {
   name: 'page-free-week',
@@ -56,7 +72,9 @@ export default {
   },
 
   components: {
-    FreeWeekendMain
+    FreePeriodWrapper,
+    FreeEnrollButton
   }
 }
 </script>
+

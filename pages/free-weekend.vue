@@ -1,12 +1,19 @@
 <template lang='pug'>
   .homepage
     .cheatsheet
-      FreeWeekendMain 
+      free-period-wrapper
+        .body
+        h2.title Free Weekend is Now Over
+        p.lead
+          | However, our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue course] is free, and many of our courses start with free lessons.
+
+        p
+          nuxt-link.button.primary(to='/courses') View Courses
 
 </template>
 
 <script>
-import FreeWeekendMain from '~/components/static/FreeWeekendMain'
+import FreePeriodWrapper from '~/components/promotions/FreePeriodWrapper'
 
 export default {
   name: 'page-free-weekend',
@@ -56,7 +63,7 @@ export default {
   },
 
   components: {
-    FreeWeekendMain
+    FreePeriodWrapper
   }
 }
 </script>
