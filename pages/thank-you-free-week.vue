@@ -1,6 +1,6 @@
 <template lang="pug">
 thank-you-wrapper(
-  link='https://www.vuemastery.com/free-week',
+  :link='link',
   description='I\'ll be sharpening my Vue skills during Vue Mastery\'s free week.  Don\'t miss out on these free Vue.js courses.'
   copy='You are now enrolled for Vue Mastery Free Week.'
 )
@@ -23,6 +23,12 @@ export default {
 
   components: {
     ThankYouWrapper
+  },
+
+  data () {
+    return {
+      link:'https://www.vuemastery.com/free-week'
+    }
   },
 
   head () {
