@@ -190,7 +190,6 @@ dt
 dd
   overflow hidden
   max-height 0
-  font-style italic
   background rgba(1,35,60,0.45)
   transition max-height 0.1s cubic-bezier(0.22, 0.61, 0.36, 1)
   margin 0
