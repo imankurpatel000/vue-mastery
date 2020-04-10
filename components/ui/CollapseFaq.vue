@@ -22,7 +22,7 @@ export default {
         answer: 'We understand that prices in the United States can weigh heavier in other places around the world. If you are coming from somewhere where the exchange rates with USD are too high, then shoot us an email at team@vuemastery.com and we\'ll provide assistance.',
         active: true
       }, {
-        question: 'Do you off** **student discounts?',
+        question: 'Do you offer student discounts?',
         answer: 'Yes. If you are a student, please send over an email and include your student email to team@vuemastery.com so we can verify it.',
         active: false
       }, {
