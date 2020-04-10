@@ -84,13 +84,14 @@
                   | Download our cheat sheets
               button.button.-full.secondary.border(:disabled='this.account') Create Free account
 
-        .team-wrapper(v-else key='team')
-          .card.team-card(
-            key='team-wrapper'
-            @mouseover='updateParticipation(800)'
-            @mouseout='updateParticipation()'
-            @click='openTeamContact'
-          )
+        .team-wrapper(
+          v-else
+          key='team'
+          @mouseover='updateParticipation(800)'
+          @mouseout='updateParticipation()'
+          @click='openTeamContact'
+        )
+          .card.team-card
             .card-body
               h3.text-center Team Discount
               .money
