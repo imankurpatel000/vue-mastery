@@ -95,6 +95,9 @@ export default {
   background url(/images/footer.svg)
   background-position center top -32px
   z-index -3
+
+.v--modal-block-scroll .main
+  perspective none !important
 </style>
 
 <style lang="stylus" scoped>

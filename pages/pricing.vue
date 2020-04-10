@@ -86,9 +86,10 @@
 
         .team-wrapper(v-else key='team')
           .card.team-card(
+            key='team-wrapper'
             @mouseover='updateParticipation(800)'
             @mouseout='updateParticipation()'
-            @click="openTeamContact"
+            @click='openTeamContact'
           )
             .card-body
               h3.text-center Team Discount
