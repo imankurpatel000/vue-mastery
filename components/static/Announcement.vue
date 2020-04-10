@@ -68,12 +68,11 @@ export default {
     font-size 22px
 
 .anounce-icon
-  display flex
+  display none
   align-items center
-  width 80px
-  margin 0 10px
 
   +tablet-up()
+    display flex
     width 70px
     margin 0 18px
 

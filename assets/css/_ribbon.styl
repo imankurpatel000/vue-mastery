@@ -1,0 +1,43 @@
+.ribbon
+  position absolute
+  right -6px
+  top -7px
+  z-index 1
+  overflow hidden
+  width 146px
+  height 141px
+  text-align center
+
+  span
+    font-size 14px
+    font-weight bold
+    color #fff
+    line-height 30px
+    transform rotate(45deg)
+    width 188px
+    display block
+    background $tertiary-color
+    background linear-gradient(#8269be 0%, $tertiary-color 100%)
+    box-shadow 0 1px 4px 0 rgba(0,0,0,0.3)
+    position absolute
+    top 43px
+    right -36px
+
+    &:after,
+    &:before
+      content ""
+      position absolute
+      top 100%
+      z-index -1
+      border-bottom 3px solid transparent
+      border-top 3px solid $tertiary-color
+
+    &:before
+      left 0px
+      border-left 3px solid $tertiary-color
+      border-right 3px solid transparent
+
+    &:after
+      right 0px
+      border-left 3px solid transparent
+      border-right 3px solid $tertiary-color

@@ -48,13 +48,13 @@ export default {
 <style lang='stylus' scoped>
 .bg
   position absolute
-  width: 100%;
-  height: 100%;
-  min-height: 600px;
-  background-image: url(/images/hero/background0.jpg);
-  background-position: 35% center;
-  background-size: cover;
-  background-attachment: fixed;
+  width 100%
+  height 100%
+  min-height 600px
+  background-image url(/images/hero/background0.jpg)
+  background-position 35% center
+  background-size cover
+  background-attachment fixed
 
   +tablet-up()
     background-position 15% center

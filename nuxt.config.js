@@ -385,7 +385,7 @@ module.exports = {
         })
       }
     },
-    transpile: ['vue-instantsearch', 'instantsearch.js/es']
+    transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vue-countup-v2', 'countup.js']
   },
   // Extend route for course path
   router: {

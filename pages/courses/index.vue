@@ -165,13 +165,13 @@ export default {
       &:before
         transform: translate3d(0, 6%, 0.4px) scale(0.8)
         +tablet-up()
-          transform: translate3d(0, 8%, 0.4px) scale(0.8)
+          transform translate3d(0, 8%, 0.4px) scale(0.8)
         +desktop-up()
-          transform: translate3d(0, 15%, 0.4px) scale(0.8)
+          transform translate3d(0, 15%, 0.4px) scale(0.8)
 
     +mobile-only()
       .title
-        font-size: 40px
+        font-size 40px
 
   @media screen and (min-width: 1800px)
     background-size auto 130%
