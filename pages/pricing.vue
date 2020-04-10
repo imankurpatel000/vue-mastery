@@ -168,8 +168,8 @@ export default {
       chargebeeInstance: null,
       chargbeeLink: '',
       team: false,
-      amount: 283234,
-      baseAmount: 283234,
+      amount: 205278,
+      baseAmount: 205278,
       hover: false
     }
   },
