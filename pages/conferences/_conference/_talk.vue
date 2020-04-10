@@ -59,7 +59,8 @@ export default {
       category: this.$route.params.conference,
       page: this.$route.params.talk,
       selected: -1,
-      restricted: true,
+      restricted: false, // FREEPERIOD
+      // restricted: true, // NOT FREEPERIOD
       current: {}
     }
   },
@@ -118,7 +119,10 @@ export default {
       let restriction = this.current.free !== undefined ? !this.current.free : false
       // Check lessons restrictions
       if (restriction) {
-        restriction = this.account ? !this.account.subscribed : true
+        // NOT FREE PERIOD
+        // restriction = this.account ? !this.account.subscribed : true
+        // FREE PERIOD
+        restriction = !this.account
       } else if (this.current.lock) {
         restriction = !this.account
       }

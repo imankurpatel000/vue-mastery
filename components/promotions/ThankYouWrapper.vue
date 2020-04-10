@@ -34,13 +34,14 @@
                     i.fab.fa-reddit
                     span Reddit
 
-              h4
-                i.fa.fa-play-circle &nbsp;	
-                | Get a Head Start on Learning	
+              //- NOT FREE PERIOD
+              //- h4
+              //-   i.fa.fa-play-circle &nbsp;	
+              //-   | Get a Head Start on Learning	
 
-              p Our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue.js course] is completely free, as are many of the first lessons of each course.  Take a look at the #[nuxt-link(to='/courses') courses page], and consider watching all our free content.
-              p
-                nuxt-link.button.primary(to='/courses') View Courses
+              //- p Our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue.js course] is completely free, as are many of the first lessons of each course.  Take a look at the #[nuxt-link(to='/courses') courses page], and consider watching all our free content.
+              //- p
+              //-   nuxt-link.button.primary(to='/courses') View Courses
 </template>
 
 <script>

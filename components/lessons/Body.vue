@@ -7,8 +7,11 @@
 
       .lesson-body(v-html = 'body')
 
-    .lesson-locked(v-if = 'restricted' v-cloak)
-      Unlock(:free='course.free')
+    .lesson-locked(v-if='restricted' v-cloak)
+      // FREE PERIOD
+      Unlock(:free='true')
+      //- NOT FREE PERIOD
+      //- Unlock(:free='current.free')
 </template>
 
 <script>

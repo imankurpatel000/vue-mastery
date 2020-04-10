@@ -9,7 +9,10 @@ nuxt-link.course-card(:to='linkTo()')
     label.free-label(v-if='isFreeCourse' cloak) Free Course
     label.free-label(v-else-if='isComingSoon' cloak) Lessons coming soon
     label.free-label(v-else-if='hasUpcomingLessons' cloak) Releasing New Lessons
-    label.free-label(v-else-if='hasFreeLesson' cloak) Free Lesson Inside
+    //- NOT FREE PERIOD
+    //- label.free-label(v-else-if='hasFreeLesson' cloak) Free Lesson Inside
+    //- FREE PERIOD
+    label.free-label(v-else-if='hasFreeLesson' cloak) All Lessons Free
     h2.title {{ course.title }}
 
   ul.course-info

@@ -2,12 +2,16 @@
 thank-you-wrapper(
   :link='link',
   description='I\'ll be sharpening my Vue skills during Vue Mastery\'s free week.  Don\'t miss out on these free Vue.js courses.'
-  copy='You are now enrolled for Vue Mastery Free Week.'
+  copy='You now have access to Vue Mastery Free Week.'
 )
   h4
     i.fa.fa-lock-open &nbsp;
-    | The Courses Unlock April 13
-  p At 12:00 AM ET (00:00), April 13th your Vue Mastery account will be given access to all our premium courses, and then they'll go back to normal on April 19th at 11:59 PM EST (23:59). 
+    | All Courses are Unlocked
+  p You have until April 19th at 11:59 PM EST (23:59) to watch as many of our premium courses as you want.
+
+  p
+    nuxt-link.button.primary(to='/courses') View Courses
+
 
   h4
     i.fa.fa-share-square &nbsp;

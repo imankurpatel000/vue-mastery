@@ -3,9 +3,14 @@ aside.lesson-aside
   .sticky
     .card
       .card-body
+        //- FREE PERIOD
         Download(v-if="lesson" v-cloak
                 :courseLink='lesson.downloadLink'
-                :account='account')
+                :account='account && account.subscribed')
+        //- NOT FREE PERIOD
+        //- Download(v-if="lesson" v-cloak
+        //-         :courseLink='lesson.downloadLink'
+        //-         :account='account')
 
         SocialShare(:lesson='current'
                   :baseUrl='baseUrl')

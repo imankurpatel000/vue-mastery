@@ -1,15 +1,18 @@
 <template lang='pug'>
 client-only
-  a.button.secondary.-full(v-cloak
-            v-if='account'
-            :href='courseLink'
-            download)
+  a.button.secondary.-full(
+    v-cloak
+    v-if='account'
+    :href='courseLink'
+    download
+  )
     Icon(name='download-cloud')
     | Download Video
 
-  button.button.secondary.-full(v-else v-cloak @click='openLogin')
-    Icon(name='download-cloud')
-    | Download Video
+  //- FREE PERIOD
+  //- button.button.secondary.-full(v-else v-cloak @click='openLogin')
+  //-   Icon(name='download-cloud')
+  //-   | Download Video
 </template>
 
 <script>
