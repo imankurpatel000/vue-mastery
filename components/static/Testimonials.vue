@@ -1,7 +1,7 @@
 <template lang="pug">
 .testimonials
   .wrapper(ref='testimonials')
-    .quote-box
+    .quote-box(ref='quote')
       blockquote Vue Mastery is absolutely the best place to learn Vue, from your first version to advanced techniques. Instructors are brilliant, material is laid out perfectly for easy comprehension, and videos are high quality. I've purchased a handful of other courses and they don't even come close to Vue Mastery. Thank you guys for putting together these awesome courses!
       cite
         img(src='/images/testimonials/william-clement.jpg')
@@ -40,16 +40,20 @@
         | Callum B.
 
   .controls
-    .fa.fa-chevron-left(@click='scroll(-200)')
-    .fa.fa-chevron-right(@click='scroll(200)')
+    .fa.fa-chevron-left(@click='scroll("left")')
+    .fa.fa-chevron-right(@click='scroll("right")')
 </template>
 
 <script>
 export default {
   name: 'testimonials',
   methods: {
-    scroll (px) {
-      this.$refs.testimonials.scrollLeft += px
+    scroll (direction) {
+      if (direction === 'right') {
+        this.$refs.testimonials.scrollLeft += this.$refs.quote.offsetWidth
+      } else {
+        this.$refs.testimonials.scrollLeft -= this.$refs.quote.offsetWidth
+      }
     }
   }
 }
