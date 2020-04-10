@@ -25,7 +25,7 @@
               .benefits-list
                 .benefit.first-benefit
                   i.fa.fa-check
-                  | Watch Premium vue courses
+                  | Watch premium Vue courses
                 .benefit
                   i.fa.fa-check
                   span New tutorials released weekly
