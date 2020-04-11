@@ -25,6 +25,7 @@
     "flamelink": "^1.0.0-alpha.28",
     "object-sizeof": "^1.5.2",
     "vue": "^2.6.11",
+    "vue-agile": "^1.0.12",
     "vue-analytics": "^5.17.2",
     "vue-confetti": "^2.0.1",
     "vue-countup-v2": "^4.0.0",

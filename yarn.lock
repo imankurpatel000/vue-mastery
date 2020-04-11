@@ -13202,6 +13202,13 @@ void-elements@^2.0.1:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
   integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
+vue-agile@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/vue-agile/-/vue-agile-1.0.12.tgz#138efbff0847e09b09364c76c9d1cdff078301be"
+  integrity sha512-SVx3g+zYdD0NcZY+h9f+zgPdr46KrI4nLZ9alVKVmYMgmg6a45zymv8RcxPgcwTFZV+RA+rX1dElaB98aJQviQ==
+  dependencies:
+    vue "^2.6.10"
+
 vue-analytics@^5.17.2:
   version "5.22.1"
   resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.22.1.tgz#9d6b32da56daee1b9dfb23a267b50349a03f710f"
@@ -13325,7 +13332,7 @@ vue-toasted@^1.1.27:
     rollup-plugin-babel "^3.0.2"
     vue "^2.4.4"
 
-vue@^2.2.4, vue@^2.4.4, vue@^2.6.11:
+vue@^2.2.4, vue@^2.4.4, vue@^2.6.10, vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
