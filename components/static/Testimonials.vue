@@ -1,7 +1,7 @@
 <template lang="pug">
 .testimonials
-  .wrapper(ref='testimonials')
-    .quote-box(ref='quote')
+  agile.wrapper(ref='carousel' :centerMode='true' :responsive='responsive' :dots='false' :navButtons='false')
+    .quote-box
       blockquote Vue Mastery is absolutely the best place to learn Vue, from your first version to advanced techniques. Instructors are brilliant, material is laid out perfectly for easy comprehension, and videos are high quality. I've purchased a handful of other courses and they don't even come close to Vue Mastery. Thank you guys for putting together these awesome courses!
       cite
         img(src='/images/testimonials/william-clement.jpg')
@@ -40,20 +40,32 @@
         | Callum B.
 
   .controls
-    .fa.fa-chevron-left(@click='scroll("left")')
-    .fa.fa-chevron-right(@click='scroll("right")')
+    .fa.fa-chevron-left(@click='$refs.carousel.goToPrevious()')
+    .fa.fa-chevron-right(@click='$refs.carousel.goToNext()')
 </template>
 
 <script>
+import { VueAgile } from 'vue-agile'
 export default {
   name: 'testimonials',
-  methods: {
-    scroll (direction) {
-      if (direction === 'right') {
-        this.$refs.testimonials.scrollLeft += this.$refs.quote.offsetWidth
-      } else {
-        this.$refs.testimonials.scrollLeft -= this.$refs.quote.offsetWidth
-      }
+  components: {
+    agile: VueAgile
+  },
+  data () {
+    return {
+      responsive: [
+        {
+          breakpoint: 640,
+          settings: {
+            slidesToShow: 2
+          }
+        }, {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: 3
+          }
+        }
+      ]
     }
   }
 }
@@ -62,24 +74,16 @@ export default {
 <style lang="stylus" scoped>
 .testimonials
   overflow hidden
-  height 19rem
-  background linear-gradient(180deg, #01233C 34.9%, #205168 100%)
   background #01233C
   position relative
+  text-align center
+  padding-top 2rem
   margin-bottom -1px
 
   +tablet-up()
-    height 24rem
-
-.wrapper
-  display flex
-  overflow-x scroll
-  align-items center
-  height 26rem
-  scroll-behavior smooth
-
-  +tablet-up()
-    height 30rem
+    padding-top 5rem
+    padding-bottom 3rem
+    text-align left
 
 .quote-box
   width 29rem
@@ -87,21 +91,26 @@ export default {
   font-size 16px
   color #fff
   line-height 1.6
-  flex-shrink 0
 
 blockquote
   font-style italic
-  max-height 8rem
-  overflow auto
-  margin 0 2rem 0 1rem
-  padding-right 2rem
+
+  +tablet-up()
+    padding-right 2rem
+    margin 0 2rem 0 1rem
+    max-height 8rem
+    overflow auto
 
 cite
   display flex
   flex-flow row
   align-items center
+  justify-content center
   margin 1rem 2rem 1rem 1rem
   font-style normal
+
+  +tablet-up()
+    justify-content left
 
   img
     border-radius 40px
@@ -112,18 +121,17 @@ cite
 .controls
   position absolute
   width 100%
-  top 3rem
+  top 50%
+  margin-top -3rem
   z-index 3
   display flex
   cursor pointer
   color #39b982
   justify-content space-between
 
-  +tablet-up()
-    top 4rem
-
   .fa
     padding 1rem
+    outline none
 
     &:hover
       color #fff
