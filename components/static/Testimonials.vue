@@ -49,10 +49,14 @@ export default {
   name: 'testimonials',
   methods: {
     scroll (direction) {
+      const container = this.$refs.testimonials
+      const quote = this.$refs.quote
       if (direction === 'right') {
-        this.$refs.testimonials.scrollLeft += this.$refs.quote.offsetWidth
+        if (container.scrollLeft + quote.offsetWidth >= container.offsetWidth) container.scrollLeft = 0
+        else container.scrollLeft += quote.offsetWidth
       } else {
-        this.$refs.testimonials.scrollLeft -= this.$refs.quote.offsetWidth
+        if (container.scrollLeft === 0) container.scrollLeft = container.offsetWidth - quote.offsetWidth
+        else container.scrollLeft -= quote.offsetWidth
       }
     }
   }

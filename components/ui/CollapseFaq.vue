@@ -1,6 +1,6 @@
 <template lang="pug">
 .faq-wrapper
-  h2.title FAQ
+  h2.title Frequently Ask Questions
   .wrapper
     dl
       div(v-for='q, index in qa' :key='index')
@@ -154,6 +154,11 @@ dl
     transform translateX(-50%)
     margin-top 4rem
 
+    p
+      font-size 18px
+      line-height 24px
+      color #fff
+
 dt
   position relative
   display flex
@@ -165,9 +170,7 @@ dt
   cursor pointer
 
   p
-    font-size 16px
     font-weight bold
-    color #fff
 
   &.active
     background $primary-color
