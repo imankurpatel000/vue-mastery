@@ -4,9 +4,7 @@
       free-period-wrapper
         h2.title Enroll in Free Week
         p.lead
-          | Reserve your spot to get access to all Vue.js courses free.
-          br
-          span.normal We will email you when the courses are unlocked.
+          | Get access to all Vue.js courses free right now.
         p.lead
           | Why are we doing this?
           br
