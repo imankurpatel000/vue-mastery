@@ -18,9 +18,13 @@ export default {
   data () {
     return {
       qa: [{
+        question: 'Is your content up to date with Vue 3? Should I learn Vue 2 or Vue 3?',
+        answer: 'If you want to start to build a Vue application before July 2020, you should learn and use Vue 2. It is stable, supported, and has many great libraries that work well with it. There will also be an easy upgrade guide to follow when Vue 3 is ready for production.<br><br>The Vue 3 way of coding an application isn\'t that different than the Vue 2 way. If you want to start learning Vue 3 features so you\'re ready for the release we already have a few courses for that. However, our introductory courses will all teach Vue 2 until Vue 3 becomes ready for production applications.<br><br>Once Vue 3 comes out our content will be updated to be compatible. However, we\'re only really talking about a 5% change outside of what we teach already in our Vue 3 courses. <br><br>So, if you want to learn Vue to build an application before July 2020, we\'d recommend learning Vue 2.  This is what we teach in all our courses that don\'t explicitly have Vue 3 in the title.',
+        active: true
+      }, {
         question: 'I live in a country where the USD is very expensive. Do you offer purchasing power parity discounts?',
         answer: 'We understand that prices in the United States can weigh heavier in other places around the world. If you are coming from somewhere where the exchange rates with USD are too high, then shoot us an email at team@vuemastery.com and we\'ll provide assistance.',
-        active: true
+        active: false
       }, {
         question: 'Do you offer student discounts?',
         answer: 'Yes. If you are a student, please send over an email and include your student email to team@vuemastery.com so we can verify it.',
@@ -197,6 +201,7 @@ dd
   transition max-height 0.1s cubic-bezier(0.22, 0.61, 0.36, 1)
   margin 0
   padding 0 1rem
+  transition max-height .2s ease-out
 
   +tablet-up()
     font-size 16px
@@ -206,6 +211,10 @@ dd
       margin 1.5rem 2rem 2rem .5rem
 
   &.active
-    max-height 20rem
-    transition max-height 1s ease-out
+    max-height 8rem
+    overflow auto
+
+    &:hover
+      transition max-height 1s ease-out 1s
+      max-height 40rem
 </style>
