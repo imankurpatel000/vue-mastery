@@ -5,7 +5,7 @@
     .pricing-layout
       .text-center
         h2.page-title A Vue Mastery subscription give you access to our library of Vue courses.
-        .switch(@click='team = !team' :class='{ "switch-active": team }')
+        .tab-switch(@click='team = !team' :class='{ "switch-active": team }')
           .switch-item Personal
           .switch-item Team
 
