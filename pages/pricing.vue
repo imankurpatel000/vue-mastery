@@ -54,13 +54,16 @@
               .benefits-list
                 .benefit.first-benefit
                   i.fa.fa-check
+                  span 2 Months Free
+                .benefit
+                  i.fa.fa-check
                   | Watch premium Vue courses
                 .benefit
                   i.fa.fa-check
                   span New tutorials released weekly
-                .benefit
-                  i.fa.fa-check
-                  span Exclusive content w/ Evan You
+                //- .benefit
+                //-   i.fa.fa-check
+                //-   span Exclusive content w/ Evan You
                 .benefit
                   i.fa.fa-check
                   span Donate to the Vue.js project
@@ -106,9 +109,9 @@
                 .benefit
                   i.fa.fa-check
                   span New tutorials released weekly
-                .benefit
-                  i.fa.fa-check
-                  span Exclusive content w/ Evan You
+                //- .benefit
+                //-   i.fa.fa-check
+                //-   span Exclusive content w/ Evan You
                 .benefit
                   i.fa.fa-check
                   span Donate to the Vue.js project
