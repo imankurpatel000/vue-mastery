@@ -2,6 +2,7 @@
 <template lang='pug'>
 .card
   .card-body
+    p If you would like to delete your account and you have an active subscription, please cancel your subscription first.  You can do this by clicking on <strong>My Subscription</strong> in the top right of this page, clicking your subscription, then clicking <strong>Cancel Subscription</strong>, and then confirming your cancellation. If you would also like to delete your account after cancelling, you can do so below.
     p(v-if='confirm' v-cloak)
       | Are you sure you want to remove your account?
       br
