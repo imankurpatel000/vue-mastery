@@ -91,7 +91,7 @@ export default {
       if (this.path === 'courses') {
         sections.push({
           intro: this.paths.intro,
-          courses: Object.values(this.courses).reverse() // .sort((a, b) => a.order - b.order)
+          courses: Object.values(this.courses).reverse().filter((course) => { return course.lessonsCount > 0 }) // .sort((a, b) => a.order - b.order)
         })
       } else {
         const parts = ['Intro', '', 'BonusText', 'Bonus', 'OptionText', 'Options'] // Ordered
