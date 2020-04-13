@@ -1,6 +1,6 @@
 <template lang="pug">
 .testimonials
-  agile.wrapper(ref='carousel' :centerMode='true' :responsive='responsive' :dots='false' :navButtons='false')
+  agile.wrapper(ref='carousel' :center-mode='true' :responsive='responsive' :dots='false' :nav-buttons='false')
     .quote-box
       blockquote Vue Mastery is absolutely the best place to learn Vue, from your first version to advanced techniques. Instructors are brilliant, material is laid out perfectly for easy comprehension, and videos are high quality. I've purchased a handful of other courses and they don't even come close to Vue Mastery. Thank you guys for putting together these awesome courses!
       cite
@@ -40,7 +40,7 @@
         | Callum B.
 
   .controls
-    .fa.fa-chevron-left(@click='$refs.carousel.goToPrevious()')
+    .fa.fa-chevron-left(@click='$refs.carousel.goToPrev()')
     .fa.fa-chevron-right(@click='$refs.carousel.goToNext()')
 </template>
 
@@ -91,6 +91,10 @@ export default {
   font-size 16px
   color #fff
   line-height 1.6
+
+>>> .agile__slides
+  scrollbar-color $primary-color transparent
+  scrollbar-width thin
 
 blockquote
   font-style italic
