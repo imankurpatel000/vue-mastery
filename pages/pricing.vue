@@ -472,7 +472,8 @@ build-grid-area(monthly annually team)
 .permonth
   position absolute
   bottom 1rem
-  margin-left 5.3rem
+  margin-left 3.5rem
+  left 50%
   font-weight bold
   color $primary-color
 
