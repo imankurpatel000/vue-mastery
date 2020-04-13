@@ -145,34 +145,4 @@ section.bg-wrapper
 
   +tablet-up()
     bottom 30%
-
-// .button
-//   padding: 28px 85px
-//   background rgba(5, 37, 59, 0.21)
-
-  // +desktop-up()
-  //   background-image: url(/images/hero/background.svg);
-  //   background-size: cover
-  //   background-position: center
-  //   background-attachment: fixed
-  //   background-position calc(50% - 8px) center
-  //   transition: all .3s ease-out
-
-  //   &:hover
-  //     background-size 200vw
-  //     transform scale(1.2)
-  //     line-height 100px
-</style>
-
-<style lang='stylus'>
-.show-announcement
-  .bg
-    transform: translate3d(0, 54px, .5px)
-    transform-origin: center
-
-    +tablet-up()
-      transform: translate3d(0, 54px, .5px)
-      transform-origin: center
-    +desktop-up()
-      transform: none
 </style>
