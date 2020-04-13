@@ -52,9 +52,9 @@
                 span.discount-price $190
                 span.billed-yearly billed yearly
               .benefits-list
-                .benefit.first-benefit
-                  i.fa.fa-check
-                  span 2 Months Free
+                //- .benefit.first-benefit
+                //-   i.fa.fa-check
+                //-   span 2 Months Free
                 .benefit
                   i.fa.fa-check
                   | Watch premium Vue courses
