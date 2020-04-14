@@ -2,7 +2,7 @@
   .container
     PageHeader.static(
       title='Our Courses'
-      background='/images/courses/courses.svg'
+      background='/images/courses/hero_compressed.jpg'
       align='center'
     )
       .paths
