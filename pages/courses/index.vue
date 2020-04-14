@@ -121,7 +121,10 @@ export default {
       }, 0)
     },
     redirect (path) {
-      history.pushState({}, null, '/courses/' + path)
+      const index = this.pathsNames.indexOf(path)
+      if (index === 0) path = '/courses'
+      if (index > 0) path = '/courses-path/' + path
+      history.pushState({}, null, path)
       const newPath = path.split('/').pop()
       this.slide = this.pathsNames.indexOf(newPath) > this.pathsNames.indexOf(this.path) ? 'slide-previous' : 'slide'
       this.path = newPath
