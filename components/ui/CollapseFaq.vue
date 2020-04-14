@@ -1,6 +1,6 @@
 <template lang="pug">
 .faq-wrapper
-  h2.title Frequently Ask Questions
+  h2.title Frequently Asked Questions
   .wrapper
     dl
       div(v-for='q, index in qa' :key='index')
@@ -19,7 +19,7 @@ export default {
     return {
       qa: [{
         question: 'Is your content up to date with Vue 3? Should I learn Vue 2 or Vue 3?',
-        answer: 'If you want to start to build a Vue application before July 2020, you should learn and use Vue 2. It is stable, supported, and has many great libraries that work well with it. There will also be an easy upgrade guide to follow when Vue 3 is ready for production.<br><br>The Vue 3 way of coding an application isn\'t that different than the Vue 2 way. If you want to start learning Vue 3 features so you\'re ready for the release we already have a few courses for that. However, our introductory courses will all teach Vue 2 until Vue 3 becomes ready for production applications.<br><br>Once Vue 3 comes out our content will be updated to be compatible. However, we\'re only really talking about a 5% change outside of what we teach already in our Vue 3 courses. <br><br>So, if you want to learn Vue to build an application before July 2020, we\'d recommend learning Vue 2.  This is what we teach in all our courses that don\'t explicitly have Vue 3 in the title.',
+        answer: 'If you want to start to build a Vue application before July 2020, you should learn and use Vue 2. It is stable, supported, and has many great libraries that work well with it. There will also be an easy upgrade guide to follow when Vue 3 is ready for production.<br><br>The Vue 3 way of coding an application isn\'t that different than the Vue 2 way. If you want to start learning Vue 3 features so you\'re ready for the release we already have a few courses for that. However, our introductory courses will all teach Vue 2 until Vue 3 becomes ready for production applications.<br><br>Once Vue 3 comes out our content will be updated to be compatible. However, we\'re only really talking about a 5% change outside of what we teach already in our Vue 2 courses. <br><br>So, if you want to learn Vue to build an application before July 2020, we\'d recommend learning Vue 2.  This is what we teach in all our courses that don\'t explicitly have Vue 3 in the title.',
         active: true
       }, {
         question: 'I live in a country where the USD is very expensive. Do you offer purchasing power parity discounts?',
@@ -30,7 +30,7 @@ export default {
         answer: 'Yes. If you are a student, please send over an email and include your student email to team@vuemastery.com so we can verify it.',
         active: false
       }, {
-        question: 'Can your courses prepare me for a career as a Vue developer?',
+        question: 'Can your courses prepare me to become a professional Vue developer?',
         answer: 'It\'s possible! We\'ve heard from subscribers who\'ve used our content to learn what they\'ve needed to get hired as a developer using Vue.',
         active: false
       }, {
