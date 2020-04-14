@@ -67,6 +67,15 @@ export default {
         }
       ]
     }
+  },
+
+  mounted () {
+    setTimeout(() => {
+      console.log(this.$refs.carousel)
+      if (this.$refs.carousel) {
+        this.$refs.carousel.reload()
+      }
+    }, 3000)
   }
 }
 </script>
@@ -95,6 +104,9 @@ export default {
 >>> .agile__slides
   scrollbar-color $primary-color transparent
   scrollbar-width thin
+
+>>> .agile__list
+  max-width calc(100vw - 4rem)
 
 blockquote
   font-style italic
