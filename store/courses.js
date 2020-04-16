@@ -189,7 +189,8 @@ export const actions = {
       })
   },
 
-  getConference ({ commit }, slug) {
+  getConference ({ commit, state }, slug) {
+    if (state.conference && state.conference.slug === slug) return true
     return db.getByField({
       schemaKey: 'conference',
       field: 'slug',
