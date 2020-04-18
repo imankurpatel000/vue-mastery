@@ -71,7 +71,6 @@ export default {
 
   mounted () {
     setTimeout(() => {
-      console.log(this.$refs.carousel)
       if (this.$refs.carousel) {
         this.$refs.carousel.reload()
       }

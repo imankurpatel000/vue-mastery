@@ -153,7 +153,13 @@ export default {
 
   head () {
     return {
-      title: 'Pricing | Vue Mastery'
+      title: 'Pricing | Vue Mastery',
+      script: [{
+        innerHTML: 'var chargebeeTrackFunc=function(fprom) {var tid = fprom.data.tid;var chargebeeInstance;try{chargebeeInstance = Chargebee.getInstance();}catch(err){}; if(tid && chargebeeInstance){var cart = chargebeeInstance.getCart();cart.setCustomer({cf_tid:tid});} else if (tid){ document.addEventListener("DOMContentLoaded",function(){chargebeeTrackFunc(fprom)}); }}; if(window.$FPROM){chargebeeTrackFunc($FPROM);}else{_fprom=window.fprom||[]; window._fprom=_fprom;_fprom.push(["_init",chargebeeTrackFunc]);}',
+        type: 'text/javascript',
+        charset: 'utf-8'
+      }],
+      __dangerouslyDisableSanitizers: ['script']
     }
   },
 
