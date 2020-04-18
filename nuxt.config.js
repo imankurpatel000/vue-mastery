@@ -351,6 +351,10 @@ module.exports = {
     {
       src: '~/plugins/social',
       mode: 'client'
+    },
+    {
+      src: '~/plugins/chargebee-tracker',
+      mode: 'client'
     }
   ],
   /*
