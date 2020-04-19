@@ -153,13 +153,7 @@ export default {
 
   head () {
     return {
-      title: 'Pricing | Vue Mastery',
-      script: [{
-        innerHTML: 'var chargebeeTrackFunc=function(fprom) {var tid = fprom.data.tid;var chargebeeInstance;try{chargebeeInstance = Chargebee.getInstance();}catch(err){}; if(tid && chargebeeInstance){var cart = chargebeeInstance.getCart();cart.setCustomer({cf_tid:tid});} else if (tid){ document.addEventListener("DOMContentLoaded",function(){chargebeeTrackFunc(fprom)}); }}; if(window.$FPROM){chargebeeTrackFunc($FPROM);}else{_fprom=window.fprom||[]; window._fprom=_fprom;_fprom.push(["_init",chargebeeTrackFunc]);}',
-        type: 'text/javascript',
-        charset: 'utf-8'
-      }],
-      __dangerouslyDisableSanitizers: ['script']
+      title: 'Pricing | Vue Mastery'
     }
   },
 
@@ -261,6 +255,19 @@ export default {
           params.append('last_name', lastName)
           params.append('first_name', firstName)
           params.append('plan_id', plan)
+
+          // First Promoter tracker
+          try {
+            const tid = window.$FPROM.data.tid
+            if (tid) {
+              params.append('cf_tid', tid)
+            } else {
+              console.log('No Id for forst promoter')
+            }
+          } catch (error) {
+            console.log(error)
+          }
+          
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
