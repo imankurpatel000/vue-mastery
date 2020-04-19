@@ -267,7 +267,7 @@ export default {
           } catch (error) {
             console.log(error)
           }
-          
+
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
