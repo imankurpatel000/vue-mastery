@@ -2,7 +2,7 @@
   .container
     PageHeader.static(
       title='Our Courses'
-      background='/images/courses/courses.svg'
+      background='/images/courses/hero_compressed.jpg'
       align='center'
     )
       .paths
@@ -91,7 +91,7 @@ export default {
       if (this.path === 'courses') {
         sections.push({
           intro: this.paths.intro,
-          courses: Object.values(this.courses).reverse() // .sort((a, b) => a.order - b.order)
+          courses: Object.values(this.courses).reverse().filter((course) => { return course.lessonsCount > 0 }) // .sort((a, b) => a.order - b.order)
         })
       } else {
         const parts = ['Intro', '', 'BonusText', 'Bonus', 'OptionText', 'Options'] // Ordered
@@ -121,6 +121,9 @@ export default {
       }, 0)
     },
     redirect (path) {
+      const index = this.pathsNames.indexOf(path)
+      if (index === 0) path = '/courses'
+      if (index > 0) path = '/courses-path/' + path
       history.pushState({}, null, path)
       const newPath = path.split('/').pop()
       this.slide = this.pathsNames.indexOf(newPath) > this.pathsNames.indexOf(this.path) ? 'slide-previous' : 'slide'
@@ -165,13 +168,13 @@ export default {
       &:before
         transform: translate3d(0, 6%, 0.4px) scale(0.8)
         +tablet-up()
-          transform: translate3d(0, 8%, 0.4px) scale(0.8)
+          transform translate3d(0, 8%, 0.4px) scale(0.8)
         +desktop-up()
-          transform: translate3d(0, 15%, 0.4px) scale(0.8)
+          transform translate3d(0, 15%, 0.4px) scale(0.8)
 
     +mobile-only()
       .title
-        font-size: 40px
+        font-size 40px
 
   @media screen and (min-width: 1800px)
     background-size auto 130%

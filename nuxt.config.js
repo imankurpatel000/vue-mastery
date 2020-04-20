@@ -351,6 +351,10 @@ module.exports = {
     {
       src: '~/plugins/social',
       mode: 'client'
+    },
+    {
+      src: '~/plugins/chargebee-tracker',
+      mode: 'client'
     }
   ],
   /*
@@ -385,7 +389,7 @@ module.exports = {
         })
       }
     },
-    transpile: ['vue-instantsearch', 'instantsearch.js/es']
+    transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vue-countup-v2', 'countup.js', 'vue-agile']
   },
   // Extend route for course path
   router: {

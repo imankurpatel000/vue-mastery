@@ -7,6 +7,11 @@
     h3.title Change Password
     ChangePassword
 
+    h3.title(v-if="account && account.chargebeeId") Cancel Subscription 
+    .card(v-if="account && account.chargebeeId")
+      .card-body
+        p You can cancel by clicking on <strong>My Subscription</strong> in the top right of this page, clicking your subscription, then clicking <strong>Cancel Subscription</strong>, and then confirming your cancellation.
+
     h3.title Delete Account
     DeleteAccount
 </template>

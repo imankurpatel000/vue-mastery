@@ -13,10 +13,7 @@
           .square
 
         p.para
-          | Get 20% off an annual subscription today using code SPRING2020
-
-        .anounce-icon
-          img(src='/images/ico-vue-spring.png')
+          | Keep learning with 30% off an annual subscription using code FREEWEEK2020
 
 </template>
 
@@ -68,12 +65,11 @@ export default {
     font-size 22px
 
 .anounce-icon
-  display flex
+  display none
   align-items center
-  width 80px
-  margin 0 10px
 
   +tablet-up()
+    display flex
     width 70px
     margin 0 18px
 

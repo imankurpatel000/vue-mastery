@@ -3,107 +3,141 @@
   ContactTeamModal(:account='account')
   .wrapper
     .pricing-layout
-      .pricing-content
-        h2.title Becoming a Vue Mastery Paid Subscriber means
-        ul
-          li Accessing all paid content. New Lessons Weekly.
-          li Unlocking 3 Vue Cheat Sheets.
-          li Track your course progress and earning badges.
-          li Supporting our Blog & Podcast.
-          li Most importantly, funding the Vue.js project itself.
+      .text-center
+        h2.page-title A Vue Mastery subscription gives you access to our library of Vue courses
+        .tab-switch(@click='team = !team' :class='{ "switch-active": team }')
+          .switch-item Personal
+          .switch-item Team
 
-      .pricing-structure
-        .page-title.text-center
-          h2 Pricing
-
-        .monthly
-          .card
+      transition(:name='team ? "swipe-back" : "swipe"' mode='out-in')
+        .pricing-cards(v-if='!team' key='personnal')
+          .card.side-card.monthly(
+            @mouseover='updateParticipation(19)'
+            @mouseout='updateParticipation()'
+            @click="subscribe('monthly-subscription')"
+          )
             .card-body
               h3.text-center Monthly
-
               .money
                 .symbol $
                 .decimal 19
+                .permonth / Month
+              .benefits-list
+                .benefit.first-benefit
+                  i.fa.fa-check
+                  | Watch premium Vue courses
+                .benefit
+                  i.fa.fa-check
+                  span New tutorials released weekly
+                .benefit
+                  i.fa.fa-check
+                  span Donate to the Vue.js project
+              button.button.primary.-full Start Plan
 
-              .text-center
-                i per month
-
-              .benefit.first-benefit
-                i.fa.fa-unlock
-                | Access to all courses
-
-              .benefit
-                img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span 25% of your monthly subscription goes to supporting the Vue.js project itself.
-
-              .benefit.color-gold
-                i.fas.fa-shield-alt
-                span 14-day money-back guarantee
-
-              button.button.primary.-full(@click="subscribe('monthly-subscription')") Select Plan
-
-        .annually(:class="{ 'promo': promo }")
-          .card
+          .card.annually(
+            @mouseover='updateParticipation(190)'
+            @mouseout='updateParticipation()'
+            @click="subscribe('year-subscription')"
+          )
             .card-body
+              .ribbon
+                span Most Popular
               h3.text-center Annual
+              .money
+                .symbol $
+                .decimal 16
+                .permonth / Month
+              .total-price
+                span.normal-price $220
+                span.discount-price $190
+                span.billed-yearly billed yearly
+              .benefits-list
+                //- .benefit.first-benefit
+                //-   i.fa.fa-check
+                //-   span 2 Months Free
+                .benefit
+                  i.fa.fa-check
+                  | Watch premium Vue courses
+                .benefit
+                  i.fa.fa-check
+                  span New tutorials released weekly
+                //- .benefit
+                //-   i.fa.fa-check
+                //-   span Exclusive content w/ Evan You
+                .benefit
+                  i.fa.fa-check
+                  span Donate to the Vue.js project
+              button.button.primary.-full Start Plan
 
-              .money(:class="{ 'promo': promo }")
-                .symbol
-                  | $
-                  span(v-if='promo') {{228 - promo}}
-                .decimal 228
-
-              .text-center
-                i per year
-
-              .benefit.first-benefit
-                i.fa.fa-unlock
-                | Access to all courses
-
-              .benefit
-                img(src="/images/lgo-vue.svg" alt="Vue.js")
-                span 25% of your yearly subscription goes to supporting the Vue.js project itself.
-
-              .benefit.color-gold
-                i.fas.fa-shield-alt
-                span 14-day money-back guarantee
-
-              .benefit.color-primary
-                i.fa.fa-piggy-bank
-                b 
-                  b Get 2 months free <br>
-                  small ($38 discount)
-
-              button.button.primary.-full(@click="subscribe('year-subscription')") Select Plan
-
-        .free-sub
-          .card
-            .card-body
+          .card.side-card(@click='openLogin')
+            .card-body.free-sub
               h3.text-center Free
-
               .money
                 .symbol $
                 .decimal 0
+              .benefits-list
+                .benefit.first-benefit
+                  i.fa.fa-check
+                  | Unlock additional free lessons
+                .benefit
+                  i.fa.fa-check
+                  | Track your progress
+                .benefit
+                  i.fa.fa-check
+                  | Download our cheat sheets
+              button.button.-full.secondary.border(:disabled='this.account') Create Free account
 
-              .text
-                p Free Vue.js CheatSheet
-                p Access to the complete Intro to Vue course
-                p Free educational content delivered to your inbox
-
-              button.button.-full(@click='openLogin' :class="[account ? 'secondary border' : 'primary']" :disabled='this.account') {{ freeText }}
-
-        .team
-          .card
+        .team-wrapper(
+          v-else
+          key='team'
+          @mouseover='updateParticipation(800)'
+          @mouseout='updateParticipation()'
+          @click='openTeamContact'
+        )
+          .card.team-card
             .card-body
-              h3.text-center Team Accounts
-              img(src="/images/img-group-dark.svg" alt="Team accounts VueMastery")
+              h3.text-center Team Discount
+              .money
+                .decimal 35
+                .pourcent-off
+                  .pourcent %
+                  .off Off
+              .benefits-list
+                .benefit
+                  i.fa.fa-check
+                  | Watch premium Vue courses
+                .benefit
+                  i.fa.fa-check
+                  span New tutorials released weekly
+                //- .benefit
+                //-   i.fa.fa-check
+                //-   span Exclusive content w/ Evan You
+                .benefit
+                  i.fa.fa-check
+                  span Donate to the Vue.js project
+              button.button.primary.-full Let's talk
 
-              div
-                p Reach out for special pricing for your team.
-                p FYI, all team accounts are billed yearly.
+          .card.team-description
+            .benefits-list
+              .benefit
+                i.fa.fa-check
+                | Level up your team’s Vue skills
+              .benefit
+                i.fa.fa-check
+                | Quickly onboard team members
+              .benefit
+                i.fa.fa-check
+                | Keep your team current on your technology
+              .benefit
+                i.fa.fa-check
+                | Support open source
 
-              button.button.secondary.border(@click='openTeamContact') Contact Us
-  Testimonials
+            p Team can be any size, and you can add or switch members as needed. Companies using our platform include:
+            img(src='/images/price/teams.png')
+
+  counter(:participation='amount' :hover='hover')
+  testimonials
+  collapse-faq
 </template>
 
 <script>
@@ -111,6 +145,8 @@ import { mapState } from 'vuex'
 import axios from 'axios'
 import ContactTeamModal from '~/components/account/ContactTeamModal.vue'
 import Testimonials from '~/components/static/Testimonials.vue'
+import CollapseFaq from '~/components/ui/CollapseFaq.vue'
+import Counter from '~/components/ui/Counter.vue'
 
 export default {
   name: 'page-pricing',
@@ -125,14 +161,19 @@ export default {
 
   components: {
     ContactTeamModal,
-    Testimonials
+    Testimonials,
+    CollapseFaq,
+    Counter
   },
 
   data () {
     return {
       chargebeeInstance: null,
       chargbeeLink: '',
-      promo: 38
+      team: false,
+      amount: 205278,
+      baseAmount: 205278,
+      hover: false
     }
   },
 
@@ -154,6 +195,15 @@ export default {
   },
 
   methods: {
+    updateParticipation (num) {
+      if (num) {
+        this.amount += num * 25 / 100
+        this.hover = true
+      } else {
+        this.amount = this.baseAmount
+        this.hover = false
+      }
+    },
     openLogin () {
       if (!this.account) {
         this.$modal.show('login-form', {
@@ -205,6 +255,19 @@ export default {
           params.append('last_name', lastName)
           params.append('first_name', firstName)
           params.append('plan_id', plan)
+
+          // First Promoter tracker
+          try {
+            const tid = window.$FPROM.data.tid
+            if (tid) {
+              params.append('cf_tid', tid)
+            } else {
+              console.log('No Id for forst promoter')
+            }
+          } catch (error) {
+            console.log(error)
+          }
+
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
@@ -246,136 +309,83 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-build-grid-area(pricing-content pricing-structure page-title monthly annually team)
+build-grid-area(monthly annually team)
 .container
   background #fff
 
-.pricing-layout
-  display grid
-  grid-template-columns 1fr
-  grid-template-areas 'pricing-content'\
-                      'pricing-structure'
-
-.pricing-content
-  display flex
-  justify-self center
-  flex-direction column
-  align-items center
-  max-width 568px
-  margin 0 auto
-
-  +laptop-up()
-    padding-top $vertical-space
-
-  +desktop-up()
-    justify-content center
-    padding-top 0
-
-  .title
-    color $secondary-color
-    text-align center
-
-    +laptop-up()
-      text-align center
-
-.pricing-structure
+.pricing-cards
   display grid
   margin-bottom $vertical-space
   grid-row-gap 20px
   grid-template-columns 1fr
-  grid-template-areas 'page-title'\
+  align-items center
+  grid-template-areas 'annually'\
                       'monthly'\
-                      'annually'\
-                      'free-sub'\
-                      'team'
+                      'free-sub'
 
   +tablet-up()
+    grid-template-columns 1fr 1fr
     grid-column-gap 20px
+    grid-template-areas 'annually annually'\
+                        'monthly free-sub'
+
+  @media screen and (min-width: 60em)
     grid-template-columns 1fr 1fr 1fr
-    grid-template-areas 'page-title page-title page-title'\
-                        'monthly annually free-sub'\
-                        'team nothing nothing'
+    grid-column-gap auto
+    grid-template-areas 'monthly annually free-sub'
 
-  // +desktop-up()
-  //   align-items stretch
-  //   grid-template-columns 1fr 1fr 1fr 1fr 1fr
-  //   grid-template-areas 'page-title page-title page-title page-title page-title'\
-  //                       'free-sub monthly annually team'\
-
-.page-title h2
-  color $secondary-color
-  font-weight 400
+.page-title
+  margin 1rem auto 3rem auto
+  max-width 84vw
+  font-size 20px
+  
+  +tablet-up()
+    font-size 28px
+    width 33rem
+    margin 3rem auto
+    color $secondary-color
+    font-weight bold
 
 .card
-  height 100%
   color $secondary-color
-
+  cursor pointer
+  transition transform .2s ease-in
   &:hover
     text-decoration none
-
-  h3
-    padding-top 0
-
-  &.secondary
-    color #FFFFFF
-    background $secondary-color
-    &:hover button
-      color $secondary-color
-
-  .button
-    margin-bottom 0
+    transform: scale(1.03)
 
   .card-body
     display flex
     flex-direction column
+
+  h3
+    padding-top 0
+
+  .button
+    margin-bottom 0
+
+  &.side-card
+    margin auto
+    width 100%
+
+    @media screen and (min-width: 60em)
+      max-width 330px
+
+    .money
+      margin-bottom: -1.8rem
+      margin-top: .9rem
 
 .benefit
   display flex
   align-items flex-start
   margin-bottom 10px
   margin-top 10px
-
-  &.color-primary
-    color $primary-color
-
-  &.color-gold
-    color #968E11
-    flex-grow 1
+  text-align left
 
   i
-  img
     margin-right 10px
     font-size 30px
     max-width 30px
-
-.team
-  .card-body
-    text-align center
-
-    h3
-      width 100%
-    img
-      margin 10px auto 0
-      max-width 140px
-
-    div
-      flex-grow 1
-
-    +tablet-up()
-      display flex
-      align-items center
-      flex-wrap wrap
-
-    +laptop-up()
-      text-align center
-
-      .button
-        width 100%
-
-.free-sub
-  .card-body .text
-    flex-grow 1
-    text-align center
 
 .money
   display flex
@@ -397,25 +407,193 @@ build-grid-area(pricing-content pricing-structure page-title monthly annually te
   font-size 100px
   line-height 1
 
-.promo
-  .decimal
-    text-decoration: line-through
-
-  .money
-    position relative
-
-  .symbol
-    position absolute
-    right 50%
-    bottom 50%
-    background #835ec2d1
-    padding 3px 12px
-    transform rotate(0deg) translate3d(50%, 50%, 0)
-
 .fa-unlock
-  margin-left: 3px
-  margin-top: -6px
+  margin-left 3px
+  margin-top -6px
 
 .first-benefit
   margin-top 25px
+
+
+
+
+.pricing-structure
+  margin-top 7rem
+  align-items center
+
+.annually
+  padding-bottom 1rem
+  position relative
+
+  .text-center
+    margin-top 1rem
+    margin-bottom 1rem
+
+  .total-price
+    font-size 24px
+    text-align center;
+    margin 0rem auto -1.5rem auto
+
+  .normal-price
+    text-decoration line-through
+    padding-right 5px
+    color $gray-light
+
+  .discount-price
+    font-weight 600
+
+  .billed-yearly
+    display block
+    text-transform uppercase
+    color $primary-color
+    font-size 10px
+    line-height 16px
+    font-weight bold
+
+.benefits-list
+  display flex
+  flex-direction column
+  justify-content center
+  text-align center
+  position relative
+  padding 2rem 0
+  margin 0 auto
+
+.benefit
+  font-size 16px
+  line-height 16px
+
+  &:before,
+  &:after
+    content ''
+    background #082a4e
+    width 10px
+    height 1px
+    position absolute
+    left 0
+    top 50%
+    opacity 0
+
+  &:after
+    right 0
+    left auto
+
+.pricing-structure
+  margin-top 7rem
+  align-items center
+
+.permonth
+  position absolute
+  bottom 1rem
+  margin-left 3.5rem
+  left 50%
+  font-weight bold
+  color $primary-color
+
+.money
+  position relative
+
+i.fa-check
+  font-size 16px
+  color $primary-color
+
+.team-wrapper
+  display flex
+  min-height 38.6rem
+  justify-content center
+  align-items center
+  padding-bottom 5rem
+  transition transform .2s ease-in
+  flex-direction column
+
+  +tablet-up()
+    flex-direction row
+
+  .card:hover
+    transform scale(1)
+
+  &:hover
+    transform scale(1.03)
+
+.team-card
+  width 26rem
+  max-width 92vw
+
+  +tablet-up()
+    max-width 43vw
+
+.pourcent-off
+  display flex
+  flex-direction column
+  justify-content flex-end
+  font-size 24px
+  font-weight bold
+  padding-bottom 0.6rem
+  padding-left 0.5rem
+  line-height 1.9rem
+
+.pourcent
+  font-size 2.5rem
+  font-weight bold
+
+.off
+  color $primary-color
+
+.team-description
+  flex-direction column
+  width 23rem
+  position relative
+  padding 0 2rem 2rem 2rem
+  border-radius 0 0 12px 12px
+  max-width 80vw
+  
+  +tablet-up()
+    width 43rem
+    border-radius 0 12px 12px 0
+    padding 0 1rem 2rem 2rem
+    max-width 38vw
+
+  +desktop-up()
+    padding 0 3rem 2rem 4rem
+
+  &:before
+    content ''
+    position absolute
+    top -1rem
+    left 0
+    width 100%
+    height 2rem
+    background linear-gradient(180deg, #fff 40%, #f3f3f3 58%, #fff 100%)
+
+    +tablet-up()
+      content ''
+      position absolute
+      left -1rem
+      top 0
+      width 3rem
+      height 100%
+      background linear-gradient(90deg, #FFFFFF 25%, #f3f3f3 39%, #FFFFFF 90%)
+
+  .benefits-list
+    margin 0
+    padding-bottom 0
+
+.swipe-back-enter-active, .swipe-back-leave-active,
+.swipe-enter-active, .swipe-leave-active
+  transition opacity .3s, transform .3s
+
+.swipe-back-enter,
+.swipe-enter
+  opacity 0
+  transform translateX(-20px)
+
+.swipe-back-leave-to,
+.swipe-leave-to
+  opacity 0
+  transform translateX(20px)
+
+.swipe-back-enter
+  transform translateX(20px)
+.swipe-back-leave-to
+  transform translateX(-20px)
 </style>

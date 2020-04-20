@@ -2,21 +2,12 @@
   .homepage
     .cheatsheet
       free-period-wrapper
-        h2.title Enroll in Free Week
+        h2.title Free Week is Now Over
         p.lead
-          | Reserve your spot to get access to all Vue.js courses free.
-          br
-          span.normal We will email you when the courses are unlocked.
-        p.lead
-          | Why are we doing this?
-          br
-          span.normal We want you to learn Vue while you might be stuck at home and we know some people around the world can't afford our courses.
-        p.lead.date
-          | Monday through Sunday
-          br
-          | April 13, 12:00 AM ET until April 19, 11:59 PM ET
+          | However, our #[nuxt-link(to='/courses/intro-to-vue-js/vue-instance') Intro to Vue course] is free, and many of our courses start with free lessons.
 
-        free-enroll-button(button-class='tertiary' location='Free Week' redirect='/thank-you-free-week')
+        p
+          nuxt-link.button.primary(to='/courses') View Courses
 
 </template>
 
