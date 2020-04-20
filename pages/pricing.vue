@@ -272,7 +272,7 @@ export default {
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
-          console.log(params)
+          console.log(params.toString())
           return axios.post(`${process.env.cloudfunctions}/generate_hp_url`, params)
             .then((response) => {
               this.$toast.clear()
