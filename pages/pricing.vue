@@ -260,6 +260,7 @@ export default {
           try {
             const tid = window.$FPROM.data.tid
             if (tid) {
+              console.log('Setting cf_tid to ' + tid)
               params.append('cf_tid', tid)
             } else {
               console.log('No Id for forst promoter')
@@ -271,9 +272,11 @@ export default {
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
+          console.log(params)
           return axios.post(`${process.env.cloudfunctions}/generate_hp_url`, params)
             .then((response) => {
               this.$toast.clear()
+              console.log(response.data)
               return response.data
             })
         },
