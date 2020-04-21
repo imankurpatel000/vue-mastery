@@ -47,6 +47,13 @@ module.exports = {
 
   generateHostedPageCheckout (req, res) {
     res = configHeader(res)
+    // First promoter affiliate link
+    let cfTid = ''
+    try {
+      cfTid = req.body.cf_tid
+    } catch (error) {
+      console.log(error)
+    }
     chargebee.hosted_page.checkout_new({
       subscription: {
         // coupon: req.body.plan_id === 'year-subscription' ? 'DISCOUNT2020' : '',
@@ -55,7 +62,8 @@ module.exports = {
       customer: {
         email: req.body.email,
         last_name: req.body.last_name,
-        first_name: req.body.first_name
+        first_name: req.body.first_name,
+        cf_tid: cfTid
       },
       embed: 'false'
     }).request((error, result) => {
