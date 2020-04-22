@@ -115,9 +115,12 @@ export default {
     border: 2px solid #fff
 
   .img
-    max-width 245px
+    max-width 125px
     position relative
     margin: 0 auto ($vertical-space/2) auto
+
+    +tablet-up()
+      max-width 245px
 
     &:before
       content ''
