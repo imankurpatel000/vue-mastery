@@ -103,15 +103,18 @@ export default {
   text-align center
   width: 450px
   max-width 100%
-  padding ($vertical-space/2)
+  padding ($vertical-space/3)
   justify-self center
 
+  +tablet-up()
+    padding ($vertical-space/2)
   h3
     padding-top 0
     font-size 1.15rem
 
   p
-    font-size 1rem
+    +tablet-up()
+      font-size 1rem
 
   img
     border-radius 50%
