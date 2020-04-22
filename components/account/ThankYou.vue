@@ -23,12 +23,12 @@
             h4
               i.fa.fa-piggy-bank &nbsp;
               | You are supporting Open Source!
-            p We will be sending ${{monthlyPayment}} of your {{paySchedule}} payment to support the Vue.js project. If you’re wondering what they’re working on next, see #[a(href='https://github.com/vuejs/roadmap' target='_blank') their Roadmap].
+            p We will be sending 25% of your {{paySchedule}} payment to support the Vue.js project. If you’re wondering what they’re working on next, see #[a(href='https://github.com/vuejs/vue/projects/6' target='_blank') their Roadmap].
 
             h4
               i.fa.fa-book &nbsp;
               | Our Content
-            p We release content weekly.  See our most recent lessons and what is coming up on the #[nuxt-link(to='/courses') courses page]. Your support also helps us produce the weekly #[a(href='https://news.vuejs.org/' target='_blank') Vue News Podcast], where we cover the latest Vue news and tutorials.
+            p We release content weekly.  See our most recent lessons and what is coming up on the #[nuxt-link(to='/courses') courses page]. Your support also helps us produce #[nuxt-link(to='/blog') blog posts] and capture #[nuxt-link(to='/conferences') conference videos].
 
             h4
               i.fa.fa-dollar-sign &nbsp;
