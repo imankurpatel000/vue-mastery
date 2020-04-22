@@ -5,21 +5,72 @@
   .wrapper
     .instructor
       .img.gregg
-        img(src='/images/teachers/gregg-avatar.jpg')
+        img(src='/images/teachers/gregg-pollack.jpg')
       h3 Gregg Pollack
-      p Gregg is passionate about teaching open source technology online. Previously he created Code School, an online software programming school which was acquired by Pluralsight.  He lives in Orlando, Florida with his two kids Ender and Alanna.
+      p You may recognize Gregg from his early days teaching Rails for Zombies and the countless courses he produced as the Founder of Code School. A proud father of two, Gregg is grateful to continue teaching technology and supporting open source as the Founder of Vue Mastery.
 
     .instructor
       .img.adam
-        img(src='/images/teachers/adam-avatar.jpg')
+        img(src='/images/teachers/adam-jahr.jpg')
       h3 Adam Jahr
-      p Adam Jahr is a developer and programming instructor passionate about making it easier to learn complex skills. He previously instructed at The Iron Yard’s coding bootcamp before joining Vue Mastery in order to help developers progress along their professional paths.
+      p Co-founder of Vue Mastery, Adam has been working in the tech education space since 2015. Having previously ran an in-person code school, his goal is to help people elevate their lives by sharpening their skills. Also a Vue.js Community Partner, Adam enjoys leading in-person workshops and presenting at Vue conferences.
 
     .instructor
       .img.ben
-        img(src='/images/teachers/ben-avatar.jpg')
+        img(src='/images/teachers/ben-hong.jpg')
       h3 Ben Hong
-      p Ben Hong is a psychologist / developer / educator hybrid, whose origin story harkens back to the days when he would build cheesy websites like his “Fortune Cookie Universe” using one too many marque, blink elements, and dancing baby GIFs
+      p Ben is a Vue.js Core Team Member, Developer Experience Engineer at Cypress.io, and Google Developer Expert in Web Technologies. He loves combining his developer experience with his training in psychology to create educational content that is easy to understand while empowering people with new skills and ideas.
+
+
+    .instructor
+      .img.gregg
+        img(src='/images/teachers/marina-mosti.jpg')
+      h3 Marina Mosti
+      p Marina is an educator, technical writer, and full-stack developer with 14 years experience. Author of the book Building Forms with Vue, Vuelidate core-team member and co-creator of FormVueLatte, Marina strongly believes that there is no code concept that can't be explained using an 🥑.
+
+    .instructor
+      .img.ben
+        img(src='/images/teachers/damian-dulish.jpg')
+      h3 Damian Dulish
+      p Damian is a Vue.js Core Team Member and tech lead at Coursedog. He runs the Official Vue.js Newsletter and has created several popular open source libraries: vue-multiselect, vuelidate and vue-global-events. In 2017, he co-organised the first international VueConf and has since been coordinating Vue meetups in Poland. When not coding, he‘s probably practicing his latte art skills.
+
+  h2.title Guest Instructors
+  .wrapper.guest
+    .instructor
+      .img.adam
+        img(src='/images/teachers/evan-you.jpg')
+      h3 Evan You
+      p Creator of Vue.js
+
+    .instructor
+      .img.gregg
+        img(src='/images/teachers/eduardo-san-martin-morote.jpg')
+      h3 Eduardo San Martin Morote
+      p Vue.js Core Team Member
+
+    .instructor
+      .img.ben
+        img(src='/images/teachers/sebastian-chopin.jpg')
+      h3 Sebastian Chopin
+      p Creator of Nuxt.js
+
+    .instructor
+      .img.gregg
+        img(src='/images/teachers/chris-fritz.jpg')
+      h3 Chris Fritz
+      p Former Vue.js Core Team Member
+
+    .instructor
+      .img.ben
+        img(src='/images/teachers/jessica-sachs.jpg')
+      h3 Jessica Sachs
+      p Vue Test Utils Core Team Member & DX at Cypress.io
+
+    .instructor
+      .img.adam
+        img(src='/images/teachers/thorsten-lunborg.jpg')
+      h3 Thorsten Lünborg
+      p Vue.js Core Team Member
 </template>
 
 <script>
@@ -76,6 +127,20 @@ export default {
       background-repeat no-repeat
       background-size 100%
     
+.guest
+  .img
+    max-width 125px
+
+  .instructor
+    width: 350px
+
+  h3
+    font-size 1.15rem
+    margin-bottom -.5rem
+
+  .adam:before
+    bottom: -15%
+
 
 .gregg:before
   background-image url(/images/teachers/first.svg)
