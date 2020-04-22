@@ -101,13 +101,17 @@ export default {
 
 .instructor
   text-align center
-  width: 500px
+  width: 450px
   max-width 100%
   padding ($vertical-space/2)
   justify-self center
 
   h3
     padding-top 0
+    font-size 1.15rem
+
+  p
+    font-size 1rem
 
   img
     border-radius 50%
@@ -117,10 +121,10 @@ export default {
   .img
     max-width 125px
     position relative
-    margin: 0 auto ($vertical-space/2) auto
+    margin: 0 auto ($vertical-space/3) auto
 
     +tablet-up()
-      max-width 245px
+      max-width 145px
 
     &:before
       content ''
@@ -136,10 +140,6 @@ export default {
 
   .instructor
     width: 350px
-
-  h3
-    font-size 1.15rem
-    margin-bottom -.5rem
 
   .adam:before
     bottom: -15%
