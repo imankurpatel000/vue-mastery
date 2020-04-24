@@ -34,7 +34,7 @@
       h3 Damian Dulish
       p Damian is a Vue.js Core Team Member and tech lead at Coursedog. He runs the Official Vue.js Newsletter and has created several popular open source libraries: vue-multiselect, vuelidate and vue-global-events. In 2017, he co-organised the first international VueConf and has since been coordinating Vue meetups in Poland. When not coding, he‘s probably practicing his latte art skills.
 
-  h2.title Guest Instructors
+  h2.title Content Contributors
   .wrapper.guest
     .instructor
       .img.adam
@@ -49,16 +49,10 @@
       p Vue.js Core Team Member
 
     .instructor
-      .img.ben
-        img(src='/images/teachers/sebastian-chopin.jpg')
-      h3 Sebastian Chopin
-      p Creator of Nuxt.js
-
-    .instructor
       .img.gregg
         img(src='/images/teachers/chris-fritz.jpg')
       h3 Chris Fritz
-      p Former Vue.js Core Team Member
+      p Vue.js Consultant
 
     .instructor
       .img.ben
