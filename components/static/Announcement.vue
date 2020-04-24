@@ -13,7 +13,10 @@
           .square
 
         p.para
-          | Keep learning with 30% off an annual subscription using code FREEWEEK2020
+          | Get 20% off an annual subscription today using code SPRING2020
+
+        .anounce-icon
+          img(src='/images/ico-vue-spring.png')
 
 </template>
 
