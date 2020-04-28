@@ -253,6 +253,7 @@ export const actions = {
       })
   },
   getPost ({ commit }, slug) {
+    if (state.post && state.post.slug === slug) return true
     return db.get({
       schemaKey: 'posts',
       orderByChild: 'slug',
