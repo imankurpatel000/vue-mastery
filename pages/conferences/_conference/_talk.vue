@@ -76,13 +76,13 @@ export default {
 
   computed: {
     ...mapState({
-      conference: result => {
-        result.courses.conference.lessons = result.courses.conference.talks
-        return result.courses.conference
+      conference: state => {
+        state.courses.conference.lessons = state.courses.conference.talks
+        return state.courses.conference
       },
-      talk: result => result.courses.talk,
-      account: result => result.account.account,
-      completedUnlogged: result => result.account.completedUnlogged
+      talk: state => state.courses.talk,
+      account: state => state.account.account,
+      completedUnlogged: state => state.account.completedUnlogged
     })
   },
 
@@ -101,19 +101,7 @@ export default {
         }
       })
 
-      this.loadContent()
-    },
-
-    loadContent () {
-      this.checkRestriction()
-      this.$store.dispatch('courses/getContent', {
-        category: 'talks',
-        slug: this.page,
-        restricted: this.restricted
-      })
-    },
-
-    checkRestriction () {
+      // Check restriction before loading content
       // Talk don't have the free option
       let restriction = this.current.free !== undefined ? !this.current.free : false
       // Check lessons restrictions
@@ -123,10 +111,16 @@ export default {
         restriction = !this.account
       }
       this.restricted = restriction
+
+      this.$store.dispatch('courses/getContent', {
+        category: 'talks',
+        slug: this.page,
+        restricted: this.restricted
+      })
     }
   },
 
-  async fetch ({ store, params }) {
+  async asyncData ({ store, params }) {
     await store.dispatch('courses/getConference', params.conference)
   }
 }
