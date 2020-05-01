@@ -82,7 +82,6 @@ export default {
       const player = this.$refs.player
       player.player.on('playbackratechange', this.playbackratechange)
       this.updatePlaybackRate()
-      this.$store.dispatch('courses/contentReady', { isReady: true })
       // player.play()
     },
 

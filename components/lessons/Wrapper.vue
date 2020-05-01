@@ -167,10 +167,6 @@ export default {
     }
   },
 
-  created () {
-    this.$store.dispatch('courses/contentReady', { isReady: false })
-  },
-
   computed: {
     baseUrl () {
       return `/${this.isLesson ? 'courses' : 'conferences'}/${this.category}/`
