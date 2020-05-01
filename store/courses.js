@@ -10,6 +10,10 @@ const imagesGroup = [{
   subFields: [ 'twitterImage' ]
 }]
 
+const checkState = (property, slug) => {
+  return state[property] && state[property].slug === slug
+}
+
 let db = null
 
 export const state = () => ({
@@ -26,9 +30,9 @@ export const state = () => ({
 })
 
 export const actions = {
-  getAllCourses ({ commit, state }) {
+  async getAllCourses ({ commit, state }) {
     if (state.courses) return true
-    return db
+    const courses = await db
       .get({
         schemaKey: 'courses',
         populate: [{
@@ -38,19 +42,17 @@ export const actions = {
           field: 'lessons',
           fields: [ 'slug', 'status', 'date', 'title', 'lessonNumber', 'free' ]
         }]})
-      .then(courses => {
-        for (let course in courses) {
-          if (courses.hasOwnProperty(course) && courses[course].lessons) {
-            courses[course].lessons.sort((a, b) => a.lessonNumber - b.lessonNumber)
-          }
-        }
-        commit('RECEIVE_COURSES', { courses })
-      })
+    for (const course in courses) {
+      if (courses.hasOwnProperty(course) && courses[course].lessons) {
+        courses[course].lessons.sort((a, b) => a.lessonNumber - b.lessonNumber)
+      }
+    }
+    return commit('RECEIVE_COURSES', { courses })
   },
 
-  getCourse ({ commit, state }, slug) {
-    if (state.course && state.course.slug === slug) return true
-    return db
+  async getCourse ({ commit, state }, slug) {
+    if (checkState('course', slug)) return true
+    let course = await db
       .getByField({
         schemaKey: 'courses',
         field: 'slug',
@@ -62,55 +64,49 @@ export const actions = {
             populate: imagesGroup.map(r => r.field)
           }
         ]})
-      .then(course => {
-        course = course[Object.keys(course)[0]]
-        return commit('RECEIVE_COURSE', { course })
-      })
+    course = course[Object.keys(course)[0]]
+    return commit('RECEIVE_COURSE', { course })
   },
 
-  getContent ({ commit }, { restricted, category, slug }) {
+  async getContent ({ commit }, { restricted, category, slug }) {
     let action = category === 'lessons' ? 'LESSON' : 'TALK'
-    if (restricted) commit('PROTECTED_' + action)
+    if (restricted) return commit('PROTECTED_' + action)
     else {
-      db
+      let content = db
         .getByField({
           schemaKey: category,
           field: 'slug',
           value: slug,
           fields: ['videoEmbedId', 'markdown', 'resources', 'codingChallenge', 'downloadLink']
         })
-        .then(content => {
-          content = content[Object.keys(content)[0]]
-          commit('RECEIVE_' + action, { content })
-        })
+      content = content[Object.keys(content)[0]]
+      return commit('RECEIVE_' + action, { content })
     }
   },
 
-  paths ({ commit, state }) {
+  async paths ({ commit, state }) {
     if (state.paths) return true
-    return db
-      .get({ schemaKey: 'course' }) // This is the course page with id course
-      .then(paths => commit('RECEIVE_PATH', { paths }))
+    const paths = await db.get({ schemaKey: 'course' })
+    return commit('RECEIVE_PATH', { paths })
   },
 
-  getAllConferences ({ commit, state }) {
+  async getAllConferences ({ commit, state }) {
     if (state.conferences) return true
-    return db
-      .get({
-        schemaKey: 'conference',
-        populate: [{
-          field: 'banner',
-          subFields: [ 'banner' ]
-        }, {
-          field: 'talks',
-          populate: [ 'image' ]
-        }]})
-      .then(conferences => commit('RECEIVE_CONFERENCES', { conferences }))
+    const conferences = db.get({
+      schemaKey: 'conference',
+      populate: [{
+        field: 'banner',
+        subFields: [ 'banner' ]
+      }, {
+        field: 'talks',
+        populate: [ 'image' ]
+      }]})
+    return commit('RECEIVE_CONFERENCES', { conferences })
   },
 
-  getConference ({ commit, state }, slug) {
-    if (state.conference && state.conference.slug === slug) return true
-    return db
+  async getConference ({ commit, state }, slug) {
+    if (checkState('conference', slug)) return true
+    let conference = await db
       .getByField({
         schemaKey: 'conference',
         field: 'slug',
@@ -124,16 +120,13 @@ export const actions = {
             subFields: [ 'talks', 'image' ],
             populate: imagesGroup.map(r => r.field)
           }]})
-      .then(conference => {
-        conference = conference[Object.keys(conference)[0]]
-        commit('RECEIVE_CONFERENCE', { conference })
-      })
+    conference = conference[Object.keys(conference)[0]]
+    return commit('RECEIVE_CONFERENCE', { conference })
   },
 
-  getAllPosts ({ commit, state }) {
+  async getAllPosts ({ commit, state }) {
     if (state.posts) return true
-
-    return db
+    let posts = await db
       .get({
         schemaKey: 'posts',
         orderByChild: 'date',
@@ -143,67 +136,38 @@ export const actions = {
         }, {
           field: 'authorImage'
         }]})
-      .then(posts => {
-        let publishedPost = Object.values(posts)
-        publishedPost = publishedPost
-          .filter(key => key.status === 'published')
-          .sort((a, b) => new Date(b.date) - new Date(a.date))
-
-        commit('RECEIVE_POSTS', publishedPost)
-      })
+    posts = Object.values(posts)
+    posts = posts
+      .filter(key => key.status === 'published')
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+    return commit('RECEIVE_POSTS', posts)
   },
 
-  getPost ({ commit }, slug) {
-    if (state.post && state.post.slug === slug) return true
-    return db
+  async getPost ({ commit }, slug) {
+    if (checkState('post', slug)) return true
+    let post = await db
       .getByField({
         schemaKey: 'posts',
         field: 'slug',
         value: slug,
         populate: [...imagesGroup, { field: 'authorImage' }]
       })
-      .then(async post => {
-        post = post[Object.keys(post)[0]]
-        await commit('RECEIVE_POST', { post })
-      })
+    post = post[Object.keys(post)[0]]
+    return commit('RECEIVE_POST', { post })
   }
 }
 
 export const mutations = {
-  'APP_READY' (state, { content }) {
-    db = content
-  },
-  'RECEIVE_COURSES' (state, { courses }) {
-    state.courses = courses
-  },
-  'RECEIVE_COURSE' (state, { course }) {
-    state.course = course
-  },
-  'RECEIVE_LESSON' (state, { content }) {
-    state.lesson = content
-  },
-  'PROTECTED_LESSON' (state) {
-    state.lesson = null
-  },
-  'RECEIVE_CONFERENCES' (state, { conferences }) {
-    state.conferences = conferences
-  },
-  'RECEIVE_CONFERENCE' (state, { conference }) {
-    state.conference = conference
-  },
-  'RECEIVE_TALK' (state, { content }) {
-    state.talk = content
-  },
-  'PROTECTED_TALK' (state) {
-    state.talk = null
-  },
-  'RECEIVE_POST' (state, { post }) {
-    state.post = post
-  },
-  'RECEIVE_POSTS' (state, posts) {
-    state.posts = posts
-  },
-  'RECEIVE_PATH' (state, content) {
-    state.paths = content
-  }
+  'APP_READY' (state, { content }) { db = content },
+  'RECEIVE_POST' (state, { post }) { state.post = post },
+  'RECEIVE_POSTS' (state, posts) { state.posts = posts },
+  'RECEIVE_PATH' (state, content) { state.paths = content },
+  'RECEIVE_TALK' (state, { content }) { state.talk = content },
+  'PROTECTED_TALK' (state) { state.talk = null },
+  'RECEIVE_LESSON' (state, { content }) { state.lesson = content },
+  'PROTECTED_LESSON' (state) { state.lesson = null },
+  'RECEIVE_COURSES' (state, { courses }) { state.courses = courses },
+  'RECEIVE_COURSE' (state, { course }) { state.course = course },
+  'RECEIVE_CONFERENCES' (state, { conferences }) { state.conferences = conferences },
+  'RECEIVE_CONFERENCE' (state, { conference }) { state.conference = conference }
 }
