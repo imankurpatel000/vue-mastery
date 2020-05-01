@@ -1,16 +1,17 @@
 <template lang='pug'>
 .lessons-nav.paginate(v-if='lessons.length > 1' v-cloak)
-  button.prev(rel='prev'
-              :disabled='isFirst'
-              @click='goTo(-1)')
-    i.fa.fa-chevron-left(v-if='!isFirst || !isPath')
-    | {{previousCopy}}
+  client-only
+    button.prev(rel='prev'
+                :disabled='isFirst'
+                @click='goTo(-1)')
+      i.fa.fa-chevron-left(v-if='!isFirst || !isPath')
+      | {{previousCopy}}
 
-  button.next(rel='next'
-              :disabled='isLast'
-              @click='goTo(1)')
-    | {{nextCopy}}
-    i.fa.fa-chevron-right(v-if='!isLast || !isPath')
+    button.next(rel='next'
+                :disabled='isLast'
+                @click='goTo(1)')
+      | {{nextCopy}}
+      i.fa.fa-chevron-right(v-if='!isLast || !isPath')
 </template>
 
 <script>
