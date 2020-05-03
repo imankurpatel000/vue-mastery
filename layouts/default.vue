@@ -1,10 +1,11 @@
 <template lang='pug'>
 .container(:class='{"show-announcement": showAnnouncement, "open-nav": $store.state.openNav}')
   .main(ref='main')
-    Announcement(v-if='showAnnouncement' v-cloak)
+    Announcement(v-show='showAnnouncement' v-cloak)
     .relative(:class='{"no-sticky-footer": noStickyFooter}')
       PageHeader(:class='{"no-header-background": noHeaderBackground}')
       PageSearch(:class='[noHeaderBackground ? "no-header-background" : "", $route.name]')
+      //- Keep alive?
       nuxt.page
     PageFooter(:class='[$route.name,noStickyFooter ? "no-sticky-footer" : "",]')
 
@@ -16,7 +17,6 @@
 import { mapState } from 'vuex'
 import Announcement from '~/components/static/Announcement.vue'
 import PageHeader from '~/components/header/Header.vue'
-import PageFooter from '~/components/footer/Footer.vue'
 import AuthForm from '~/components/account/AccountModal.vue'
 import PageSearch from '~/components/search/Search'
 
@@ -27,7 +27,7 @@ export default {
     Announcement,
     PageHeader,
     PageSearch,
-    PageFooter,
+    PageFooter: () => import('~/components/footer/Footer.vue'),
     AuthForm
   },
 
@@ -62,7 +62,8 @@ export default {
     showAnnouncement () {
       // FREE WEEKEND
       // return this.ready && !this.account
-      return (this.ready && !this.account) || (this.account && !this.account.subscribed)
+      // TODO double check
+      return (this.ready && !this.account) || !this.account?.subscribed
     },
     noHeaderBackground () {
       return [

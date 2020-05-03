@@ -2,7 +2,7 @@
   section
     .learning-path(v-if='parts' v-cloak)
       .part(v-for='part, indexPart in parts')
-        transition(:name='slide' appear mode='out-in')
+        transition(:name='slide' appear mode='out-in' tag='div')
           .intro-part(
             v-html='part.intro'
             :key='part.intro'

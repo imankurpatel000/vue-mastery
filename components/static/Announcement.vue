@@ -1,5 +1,5 @@
 <template lang='pug'>
-  transition(name="push" mode='out-in' appear)
+  transition(name="push" mode='out-in' appear tag='div')
     section.announcement-bar
       nuxt-link(to='/pricing' class="announcement-bar")
         .squares

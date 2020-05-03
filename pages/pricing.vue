@@ -9,7 +9,7 @@
           .switch-item Personal
           .switch-item Team
 
-      transition(:name='team ? "swipe-back" : "swipe"' mode='out-in')
+      transition(:name='team ? "swipe-back" : "swipe"' mode='out-in' tag='div')
         .pricing-cards(v-if='!team' key='personnal')
           .card.side-card.monthly(
             @mouseover='updateParticipation(19)'

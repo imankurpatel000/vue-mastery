@@ -36,10 +36,7 @@ export default {
   },
 
   async fetch ({ store, params }) {
-    await store.dispatch('courses/getCategory', {
-      category: 'course',
-      slug: params.course
-    })
+    await store.dispatch('courses/getCourse', params.course)
   },
 
   mounted () {

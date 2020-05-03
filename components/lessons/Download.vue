@@ -21,7 +21,7 @@ export default {
   },
   props: {
     account: {
-      type: Boolean,
+      type: Object,
       required: false
     },
     courseLink: {

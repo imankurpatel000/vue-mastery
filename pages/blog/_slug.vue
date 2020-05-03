@@ -32,9 +32,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Header from '~/components/lessons/Header'
 import Body from '~/components/lessons/Body'
-import Profile from '~/components/lessons/Profile'
 import LearningPath from '~/components/courses/LearningPath'
 import CheatSheetMain from '~/components/static/CheatSheetMain'
 import meta from '~/mixins/meta'
@@ -44,9 +42,7 @@ export default {
   middleware: 'anonymous',
 
   components: {
-    Header,
     Body,
-    Profile,
     LearningPath,
     CheatSheetMain
   },
@@ -72,6 +68,8 @@ export default {
       courses: result => result.courses.courses
     }),
 
+    // This can not be fetch on the component level because
+    // the LearningPath component is shared between few pages
     related () {
       const r = this.post.relatedCourses
       if (r) {
@@ -84,23 +82,25 @@ export default {
               return obj
             }, {})
         }]
-      } else {
-        return false
       }
     },
 
+    // Same for body as blog post content is always shown
+    // where lesson only the desciption is shown if there it's a paid content
     body () {
-      if (this.post.hasOwnProperty('markdown')) {
-        return this.$md.render(this.post.markdown)
-      } else {
-        return 'Loading'
-      }
+      return this.post.hasOwnProperty('markdown') ? this.$md.render(this.post.markdown) : 'Loading'
     }
   },
 
-  async fetch ({ store, params }) {
-    await store.dispatch('courses/getAllCourses')
-    await store.dispatch('courses/getPost', params.slug)
+  async asyncData ({store, params}) {
+    try {
+      const getCourses = store.dispatch('courses/getAllCourses')
+      const getPost = store.dispatch('courses/getPost', params.slug)
+      const data = await Promise.all([getCourses, getPost])
+      return data
+    } catch (err) {
+      console.log('Error in getting blog content', err)
+    }
   }
 }
 </script>

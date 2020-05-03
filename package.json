@@ -63,7 +63,7 @@
     "markdown-it-decorate": "^1.2.2",
     "markdown-it-highlightjs": "git+https://git@github.com/Code-Pop/markdown-it-highlightjs.git",
     "markdown-it-implicit-figures": "^0.9.0",
-    "nuxt": "^2.11.0",
+    "nuxt": "^2.12.2",
     "nuxt-facebook-pixel-module": "^1.3.0",
     "nuxt-generate-cluster": "^2.6.0",
     "nuxt-stylus-resources-loader": "^2.0.0",

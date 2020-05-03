@@ -75,10 +75,10 @@ export default {
 
   computed: {
     ...mapState({
-      course: result => result.courses.course,
-      lesson: result => result.courses.lesson,
-      account: result => result.account.account,
-      completedUnlogged: result => result.account.completedUnlogged
+      course: state => state.courses.course,
+      lesson: state => state.courses.lesson,
+      account: state => state.account.account,
+      completedUnlogged: state => state.account.completedUnlogged
     })
   },
 
@@ -96,36 +96,23 @@ export default {
         }
       })
 
-      this.loadContent()
-    },
+      // Talk don't have the free option
+      let restriction = this.current.free !== undefined ? !this.current.free : false
+      // Check lessons restrictions
+      if (restriction) restriction = this.account ? !this.account.subscribed : true
+      else if (this.current.lock) restriction = !this.account
+      this.restricted = restriction
 
-    loadContent () {
-      this.checkRestriction()
       this.$store.dispatch('courses/getContent', {
         category: 'lessons',
         slug: this.page,
         restricted: this.restricted
       })
-    },
-
-    checkRestriction () {
-      // Talk don't have the free option
-      let restriction = this.current.free !== undefined ? !this.current.free : false
-      // Check lessons restrictions
-      if (restriction) {
-        restriction = this.account ? !this.account.subscribed : true
-      } else if (this.current.lock) {
-        restriction = !this.account
-      }
-      this.restricted = restriction
     }
   },
 
-  async fetch ({ store, params }) {
-    await store.dispatch('courses/getCategory', {
-      category: 'course',
-      slug: params.course
-    })
+  async asyncData ({ store, params }) {
+    await store.dispatch('courses/getCourse', params.course)
   }
 }
 </script>
