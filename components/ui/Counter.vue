@@ -58,7 +58,7 @@ export default {
   align-items center
   height 12rem
   margin-bottom -4.2rem
-  margin-top -1rem
+  margin-top -1.5rem
   padding-bottom 2rem
   background-image url(/images/counter/ribbon.svg)
   background-size cover

@@ -82,8 +82,8 @@ export default {
 <style lang="stylus" scoped>
 .testimonials
   overflow hidden
-  background #01233C
   position relative
+  z-index 2
   text-align center
   padding-top 2rem
   margin-bottom -1px

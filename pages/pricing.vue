@@ -1,143 +1,145 @@
 <template lang="pug">
 .container
   ContactTeamModal(:account='account')
-  .wrapper
-    .pricing-layout
-      .text-center
-        h2.page-title A Vue Mastery subscription gives you access to our library of Vue courses
-        .tab-switch(@click='team = !team' :class='{ "switch-active": team }')
-          .switch-item Personal
-          .switch-item Team
+  .bg-wrapper.price-wrapper
+    .wrapper
+      .pricing-layout
+        .text-center
+          h2.page-title A Vue Mastery subscription gives you access to our library of Vue courses
+          .tab-switch(@click='team = !team' :class='{ "switch-active": team }')
+            .switch-item Personal
+            .switch-item Team
 
-      transition(:name='team ? "swipe-back" : "swipe"' mode='out-in' tag='div')
-        .pricing-cards(v-if='!team' key='personnal')
-          .card.side-card.monthly(
-            @mouseover='updateParticipation(19)'
+        transition(:name='team ? "swipe-back" : "swipe"' mode='out-in' tag='div')
+          .pricing-cards(v-if='!team' key='personnal')
+            .card.side-card.monthly(
+              @mouseover='updateParticipation(19)'
+              @mouseout='updateParticipation()'
+              @click="subscribe('monthly-subscription')"
+            )
+              .card-body
+                h3.text-center Monthly
+                .money
+                  .symbol $
+                  .decimal 19
+                  .permonth / Month
+                .benefits-list
+                  .benefit.first-benefit
+                    i.fa.fa-check
+                    | Watch premium Vue courses
+                  .benefit
+                    i.fa.fa-check
+                    span New tutorials released weekly
+                  .benefit
+                    i.fa.fa-check
+                    span Donate to the Vue.js project
+                button.button.primary.-full Start Plan
+
+            .card.annually(
+              @mouseover='updateParticipation(190)'
+              @mouseout='updateParticipation()'
+              @click="subscribe('year-subscription')"
+            )
+              .card-body
+                .ribbon
+                  span Most Popular
+                h3.text-center Annual
+                .money
+                  .symbol $
+                  .decimal 16
+                  .permonth / Month
+                .total-price
+                  span.normal-price $220
+                  span.discount-price $190
+                  span.billed-yearly billed yearly
+                .benefits-list
+                  //- .benefit.first-benefit
+                  //-   i.fa.fa-check
+                  //-   span 2 Months Free
+                  .benefit
+                    i.fa.fa-check
+                    | Watch premium Vue courses
+                  .benefit
+                    i.fa.fa-check
+                    span New tutorials released weekly
+                  //- .benefit
+                  //-   i.fa.fa-check
+                  //-   span Exclusive content w/ Evan You
+                  .benefit
+                    i.fa.fa-check
+                    span Donate to the Vue.js project
+                button.button.primary.-full Start Plan
+
+            .card.side-card(@click='openLogin')
+              .card-body.free-sub
+                h3.text-center Free
+                .money
+                  .symbol $
+                  .decimal 0
+                .benefits-list
+                  .benefit.first-benefit
+                    i.fa.fa-check
+                    | Unlock additional free lessons
+                  .benefit
+                    i.fa.fa-check
+                    | Track your progress
+                  .benefit
+                    i.fa.fa-check
+                    | Download our cheat sheets
+                button.button.-full.secondary.border(:disabled='this.account') Create Free account
+
+          .team-wrapper(
+            v-else
+            key='team'
+            @mouseover='updateParticipation(800)'
             @mouseout='updateParticipation()'
-            @click="subscribe('monthly-subscription')"
+            @click='openTeamContact'
           )
-            .card-body
-              h3.text-center Monthly
-              .money
-                .symbol $
-                .decimal 19
-                .permonth / Month
-              .benefits-list
-                .benefit.first-benefit
-                  i.fa.fa-check
-                  | Watch premium Vue courses
-                .benefit
-                  i.fa.fa-check
-                  span New tutorials released weekly
-                .benefit
-                  i.fa.fa-check
-                  span Donate to the Vue.js project
-              button.button.primary.-full Start Plan
+            .card.team-card
+              .card-body
+                h3.text-center Team Discount
+                .money
+                  .decimal 35
+                  .pourcent-off
+                    .pourcent %
+                    .off Off
+                .benefits-list
+                  .benefit
+                    i.fa.fa-check
+                    | Watch premium Vue courses
+                  .benefit
+                    i.fa.fa-check
+                    span New tutorials released weekly
+                  //- .benefit
+                  //-   i.fa.fa-check
+                  //-   span Exclusive content w/ Evan You
+                  .benefit
+                    i.fa.fa-check
+                    span Donate to the Vue.js project
+                button.button.primary.-full Let's talk
 
-          .card.annually(
-            @mouseover='updateParticipation(190)'
-            @mouseout='updateParticipation()'
-            @click="subscribe('year-subscription')"
-          )
-            .card-body
-              .ribbon
-                span Most Popular
-              h3.text-center Annual
-              .money
-                .symbol $
-                .decimal 16
-                .permonth / Month
-              .total-price
-                span.normal-price $220
-                span.discount-price $190
-                span.billed-yearly billed yearly
-              .benefits-list
-                //- .benefit.first-benefit
-                //-   i.fa.fa-check
-                //-   span 2 Months Free
-                .benefit
-                  i.fa.fa-check
-                  | Watch premium Vue courses
-                .benefit
-                  i.fa.fa-check
-                  span New tutorials released weekly
-                //- .benefit
-                //-   i.fa.fa-check
-                //-   span Exclusive content w/ Evan You
-                .benefit
-                  i.fa.fa-check
-                  span Donate to the Vue.js project
-              button.button.primary.-full Start Plan
-
-          .card.side-card(@click='openLogin')
-            .card-body.free-sub
-              h3.text-center Free
-              .money
-                .symbol $
-                .decimal 0
-              .benefits-list
-                .benefit.first-benefit
-                  i.fa.fa-check
-                  | Unlock additional free lessons
-                .benefit
-                  i.fa.fa-check
-                  | Track your progress
-                .benefit
-                  i.fa.fa-check
-                  | Download our cheat sheets
-              button.button.-full.secondary.border(:disabled='this.account') Create Free account
-
-        .team-wrapper(
-          v-else
-          key='team'
-          @mouseover='updateParticipation(800)'
-          @mouseout='updateParticipation()'
-          @click='openTeamContact'
-        )
-          .card.team-card
-            .card-body
-              h3.text-center Team Discount
-              .money
-                .decimal 35
-                .pourcent-off
-                  .pourcent %
-                  .off Off
+            .card.team-description
               .benefits-list
                 .benefit
                   i.fa.fa-check
-                  | Watch premium Vue courses
+                  | Level up your team’s Vue skills
                 .benefit
                   i.fa.fa-check
-                  span New tutorials released weekly
-                //- .benefit
-                //-   i.fa.fa-check
-                //-   span Exclusive content w/ Evan You
+                  | Quickly onboard team members
                 .benefit
                   i.fa.fa-check
-                  span Donate to the Vue.js project
-              button.button.primary.-full Let's talk
+                  | Keep your team current on your technology
+                .benefit
+                  i.fa.fa-check
+                  | Support open source
 
-          .card.team-description
-            .benefits-list
-              .benefit
-                i.fa.fa-check
-                | Level up your team’s Vue skills
-              .benefit
-                i.fa.fa-check
-                | Quickly onboard team members
-              .benefit
-                i.fa.fa-check
-                | Keep your team current on your technology
-              .benefit
-                i.fa.fa-check
-                | Support open source
-
-            p Team can be any size, and you can add or switch members as needed. Companies using our platform include:
-            img(src='/images/price/teams.png')
+              p Team can be any size, and you can add or switch members as needed. Companies using our platform include:
+              img(src='/images/price/teams.png')
 
   counter(:participation='amount' :hover='hover')
-  testimonials
-  collapse-faq
+  .bg-wrapper.faq-wrapper
+    testimonials
+    collapse-faq
 </template>
 
 <script>
@@ -260,7 +262,6 @@ export default {
           try {
             const tid = window.$FPROM.data.tid
             if (tid) {
-              console.log('Setting cf_tid to ' + tid)
               params.append('cf_tid', tid)
             } else {
               console.log('No Id for forst promoter')
@@ -272,11 +273,10 @@ export default {
           if (this.account.chargebeeId) {
             params.append('customer_id', this.account.chargebeeId)
           }
-          console.log(params.toString())
+
           return axios.post(`${process.env.cloudfunctions}/generate_hp_url`, params)
             .then((response) => {
               this.$toast.clear()
-              console.log(response.data)
               return response.data
             })
         },
@@ -316,6 +316,72 @@ build-grid-area(monthly annually team)
 .container
   background #fff
 
+.wrapper
+  padding-top 7rem
+  padding-bottom 2rem
+
+  +tablet-up()
+    padding-bottom 5rem
+
+.bg-wrapper
+  position relative
+  overflow hidden
+  background-image: url(/images/price/background.png)
+  background-size cover
+  background-attachment fixed
+  background-position center
+  -webkit-overflow-scrolling touch
+
+  &::before,
+  &::after
+    content ''
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    background-image url(/images/price/ship.svg)
+    background-repeat no-repeat
+    z-index 1
+    pointer-events none
+
+  &::before
+    background-image: url(/images/price/planets.svg)
+    background-position center 7rem
+    background-size 100%
+
+    +tablet-up()
+      /* Move the pseudo-element back away from the camera,
+      * then scale it back up to fill the viewport.
+      * Because the pseudo-element is further away, it appears to move more slowly, like in real life. */
+      transform translateZ(-1px) scale(1.5)
+      bottom -1px // Remove bottom artfacts
+      left -4px // Remove bottom artfacts
+
+  &:after
+    background-size 90%
+    background-position right bottom 3rem
+
+    +tablet-up()
+      transform translateZ(-0.4px) scale(1.2)
+      bottom -1px // Remove bottom artfacts
+      left -4px // Remove bottom artfacts
+      background-position right bottom 5rem
+
+  &.faq-wrapper
+    background-image url(/images/faq/background.jpg)
+    background-attachment initial
+    background-position: center bottom;
+    &::before
+      background-image url(/images/faq/planets.svg)
+      background-size contain
+      background-position center bottom
+    &:after
+      background-image url(/images/faq/front.png)
+      background-position center bottom
+      background-size 100% auto
+      transform none
+
 .pricing-cards
   display grid
   margin-bottom $vertical-space
@@ -341,12 +407,12 @@ build-grid-area(monthly annually team)
   margin 1rem auto 3rem auto
   max-width 84vw
   font-size 20px
+  color #fff
   
   +tablet-up()
     font-size 28px
     width 33rem
     margin 3rem auto
-    color $secondary-color
     font-weight bold
 
 .card

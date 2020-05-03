@@ -69,59 +69,19 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.faq-wrapper
-  background linear-gradient(0deg, #B5FFDA 3.85%, #8CE5CE 13.14%, #23A4B1 33.95%, #008EA7 40.76%, #0087A0 43.73%, #00516A 69.85%, #003049 89.38%, #00233C 100%)
-  background-attachment scroll
-  position relative
-
 .title
   color #fff
   text-align center
   padding 5rem 0rem 0rem 0rem
 
 .wrapper
-  position relative
-  overflow hidden
-  background-size cover
-  background-attachment fixed
-  background-position center
-  -webkit-overflow-scrolling touch
   color #fff
   max-width initial
   min-height 46rem
+  
 
   +tablet-up()
     min-height 60rem
-
-  &::before,
-  &::after
-    content ''
-    position absolute
-    top 0
-    right 0
-    bottom 0
-    left 0
-    background-size cover
-    background-position bottom
-    background-repeat no-repeat
-    z-index 1
-
-  &::before
-    transform translateZ(-1px) scale(1.5)
-    bottom -1px // Remove bottom artfacts
-    left -4px // Remove bottom artfacts
-    background-image url(/images/stay-sharp/middle.svg)
-    background-size 100% auto
-    background-position center bottom 15px
-
-  &::after
-    background-image url(/images/faq/foreground.svg)
-    background-size 100% auto
-
-  +mobile-only()
-    &::before,
-    &::after
-      background-size 800px auto
 
 .close
   position relative

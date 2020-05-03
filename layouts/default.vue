@@ -70,6 +70,7 @@ export default {
         'index',
         'courses',
         'courses-path',
+        'pricing',
         'thank-you-free-weekend',
         'free-weekend',
         'free-week',
