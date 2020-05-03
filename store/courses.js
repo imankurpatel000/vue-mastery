@@ -72,7 +72,7 @@ export const actions = {
     let action = category === 'lessons' ? 'LESSON' : 'TALK'
     if (restricted) return commit('PROTECTED_' + action)
     else {
-      let content = db
+      let content = await db
         .getByField({
           schemaKey: category,
           field: 'slug',
@@ -92,7 +92,7 @@ export const actions = {
 
   async getAllConferences ({ commit, state }) {
     if (state.conferences) return true
-    const conferences = db.get({
+    const conferences = await db.get({
       schemaKey: 'conference',
       populate: [{
         field: 'banner',

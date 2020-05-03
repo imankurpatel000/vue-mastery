@@ -92,8 +92,7 @@ export default {
     }
   },
 
-  // TODO: Fix hydratation with login here
-  async fetch ({store, params, error}) {
+  async asyncData ({store, params}) {
     try {
       const getCourses = store.dispatch('courses/getAllCourses')
       const getPost = store.dispatch('courses/getPost', params.slug)

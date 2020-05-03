@@ -111,7 +111,7 @@ export default {
     }
   },
 
-  async fetch ({ store, params }) {
+  async asyncData ({ store, params }) {
     await store.dispatch('courses/getCourse', params.course)
   }
 }
