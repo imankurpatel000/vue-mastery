@@ -2,9 +2,9 @@
   nav.navbar(role='navigation' aria-label='main navigation' @click="$emit('toggleNav')")
     .navbar-main
       transition(name="linkin" mode='out-in' appear)
-        router-link.navbar-item.underline(to="/account/dashboard" v-if="account") Dashboard
+        router-link.navbar-item.underline(to="/account/dashboard" v-show='account') Dashboard
       router-link.navbar-item.underline(to="/courses") Courses
-      router-link.navbar-item.underline(to="/pricing" v-if="!account || (account && !account.subscribed)" v-cloak) Pricing
+      router-link.navbar-item.underline(to="/pricing" v-show="!account || (account && !account.subscribed)" v-cloak) Pricing
       router-link.navbar-item.underline(to="/blog") Blog
       router-link.navbar-item.underline(to="/conferences") Conference Videos
       router-link.navbar-item.underline.search-link(to="/search") Search

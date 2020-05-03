@@ -10,7 +10,7 @@
             h1.headline(key="headline") Thank You
             p.copy(key="copy") {{copy}}
 
-        transition(name="thankyou" appear)
+        transition(name="thankyou" appear tag='div')
           .card
             .card-body
               slot

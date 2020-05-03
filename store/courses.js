@@ -145,6 +145,7 @@ export const actions = {
 
   async getPost ({ commit }, slug) {
     if (checkState('post', slug)) return true
+    // TODO: create an array or keep alive?
     let post = await db
       .getByField({
         schemaKey: 'posts',

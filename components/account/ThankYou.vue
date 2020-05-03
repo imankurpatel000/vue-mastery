@@ -17,7 +17,7 @@
           p.copy(v-if='show' key="copy") You now have access to all of our content.
           nuxt-link.start.button.primary(to='/courses' v-if='show' key="start") START LEARNING
 
-      transition(name="thankyou")
+      transition(name="thankyou" tag='div')
         .card(v-if="card")
           .card-body
             h4
