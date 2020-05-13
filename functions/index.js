@@ -217,6 +217,8 @@ module.exports = {
 
   generate_hp_url: functions.https.onRequest(chargebee.generateHostedPageCheckout),
 
+  getCoupon: functions.https.onRequest(chargebee.getCoupon),
+
   subscription_changes: functions.https.onRequest(async (req, res) => {
     console.log(`Event type: ${req.body.event_type}`)
     const customer = req.body.content.customer

@@ -13,7 +13,7 @@
         transition(:name='team ? "swipe-back" : "swipe"' mode='out-in' tag='div')
           .pricing-cards(v-if='!team' key='personnal')
             .card.side-card.monthly(
-              @mouseover='updateParticipation(19)'
+              @mouseover='updateParticipation(prices.monthly)'
               @mouseout='updateParticipation()'
               @click="subscribe('monthly-subscription')"
             )
@@ -21,7 +21,7 @@
                 h3.text-center Monthly
                 .money
                   .symbol $
-                  .decimal 19
+                  .decimal {{prices.monthly}}
                   .permonth / Month
                 .benefits-list
                   .benefit.first-benefit
@@ -36,7 +36,7 @@
                 button.button.primary.-full Start Plan
 
             .card.annually(
-              @mouseover='updateParticipation(190)'
+              @mouseover='updateParticipation(prices.yearly)'
               @mouseout='updateParticipation()'
               @click="subscribe('year-subscription')"
             )
@@ -46,16 +46,19 @@
                 h3.text-center Annual
                 .money
                   .symbol $
-                  .decimal 16
+                  .decimal {{prices.year / 12 | decimal}}
                   .permonth / Month
                 .total-price
-                  span.normal-price $220
-                  span.discount-price $190
+                  span.normal-price ${{pricesBase.yearOrigin}}
+                  span.discount-price ${{prices.year}}
                   span.billed-yearly billed yearly
+
+                p.tag {{discountApplied}}
                 .benefits-list
-                  //- .benefit.first-benefit
-                  //-   i.fa.fa-check
-                  //-   span 2 Months Free
+                  .benefit.first-benefit
+                    i.fa.fa-check
+                    span(v-if='prices.year === pricesBase.year') This price includes 2 months free.
+                    span.special-benefit(v-else) This price includes 2 months free + 20% off with the SPRING2020 coupon.
                   .benefit
                     i.fa.fa-check
                     | Watch premium Vue courses
@@ -175,28 +178,79 @@ export default {
       team: false,
       amount: 205278,
       baseAmount: 205278,
-      hover: false
+      hover: false,
+      pricesBase: {
+        monthly: 19,
+        year: 190,
+        yearOrigin: 228
+      }
+    }
+  },
+
+  filters: {
+    decimal: function (value) {
+      if (!value) return ''
+      // return Math.round(value * 100) / 100
+      return Math.round(value)
     }
   },
 
   computed: {
     ...mapState({
-      account: result => result.account.account
+      account: result => result.account.account,
+      coupon: result => result.account.coupon
     }),
     freeText () {
       return this.account ? 'Current Plan' : 'Select Plan'
+    },
+    prices () {
+      let monthlyPrice = this.pricesBase.monthly
+      let yearPrice = this.pricesBase.year
+      if (this.coupon && this.coupon.plan_ids) {
+        this.coupon.plan_ids.map(plan => {
+          switch (plan) {
+            case 'monthly-subscription':
+              monthlyPrice = monthlyPrice * (100 - this.coupon.discount_percentage) / 100
+              break
+            case 'year-subscription':
+              yearPrice = yearPrice * (100 - this.coupon.discount_percentage) / 100
+              break
+          }
+        })
+      }
+      return {
+        monthly: monthlyPrice,
+        year: yearPrice
+      }
+    },
+    discountApplied () {
+      const isDiscounted = this.prices.year === this.pricesBase.year
+      return `${isDiscounted ? 1 : 2} Discount${isDiscounted ? '' : 's'} Applied`
+    }
+  },
+
+  watch: {
+    $route () {
+      this.init()
     }
   },
 
   mounted () {
-    if (!process.server) {
-      this.chargebeeInstance = window.Chargebee.init({
-        site: process.env.chargebeeSite
-      })
-    }
+    if (!process.server) this.init()
   },
 
   methods: {
+    init () {
+      this.chargebeeInstance = window.Chargebee.init({
+        site: process.env.chargebeeSite
+      })
+      try {
+        const coupon = this.$route.query.coupon
+        if (coupon) this.$store.dispatch('account/setCoupon', coupon)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     updateParticipation (num) {
       if (num) {
         this.amount += num * 25 / 100
@@ -257,6 +311,14 @@ export default {
           params.append('last_name', lastName)
           params.append('first_name', firstName)
           params.append('plan_id', plan)
+
+          // Check if coupon apply
+          if (this.coupon) {
+            // Check all the coupon plan to see if it match with the user plan
+            this.coupon.plan_ids.map(couponPlan => {
+              if (plan === couponPlan) params.append('coupon', this.coupon.name)
+            })
+          }
 
           // First Promoter tracker
           try {
@@ -456,6 +518,12 @@ build-grid-area(monthly annually team)
     font-size 30px
     max-width 30px
 
+.special-benefit
+  display: block
+  max-width: 256px
+  line-height: 22px
+  margin-top: -4px
+
 .money
   display flex
   justify-content center
@@ -561,6 +629,16 @@ build-grid-area(monthly annually team)
 
 .money
   position relative
+
+.tag
+  text-align: center;
+  margin-bottom: -2.5rem;
+  margin-top: 2rem;
+  font-size: .7rem;
+  background: linear-gradient(to top right, #41b782, #86d169);
+  color: #fff;
+  align-self: center;
+  padding: 2px 1rem;
 
 i.fa-check
   font-size 16px

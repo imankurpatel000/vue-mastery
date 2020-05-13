@@ -45,6 +45,18 @@ module.exports = {
     })
   },
 
+  getCoupon (req, res) {
+    try {
+      res = configHeader(res)
+      chargebee.coupon.retrieve(req.body.coupon_id).request((error, result) => {
+        if (error) console.log(error)
+        else res.send(result.coupon)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
   generateHostedPageCheckout (req, res) {
     res = configHeader(res)
     // First promoter affiliate link
@@ -54,9 +66,16 @@ module.exports = {
     } catch (error) {
       console.log(error)
     }
-    chargebee.hosted_page.checkout_new({
+
+    let coupon = false
+    try {
+      coupon = req.body.coupon
+    } catch (error) {
+      console.log(error)
+    }
+
+    const request = {
       subscription: {
-        // coupon: req.body.plan_id === 'year-subscription' ? 'DISCOUNT2020' : '',
         plan_id: req.body.plan_id
       },
       customer: {
@@ -66,7 +85,11 @@ module.exports = {
         cf_tid: cfTid
       },
       embed: 'false'
-    }).request((error, result) => {
+    }
+
+    if (coupon) request.subscription.coupon = coupon
+
+    chargebee.hosted_page.checkout_new(request).request((error, result) => {
       if (error) {
         console.log('error', error)
         res.status(500).send(error)

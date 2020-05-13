@@ -1,7 +1,7 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear tag='div')
     section.announcement-bar
-      nuxt-link(to='/pricing' class="announcement-bar")
+      nuxt-link(:to='`/pricing${"?coupon=SPRING2020"}`' class="announcement-bar")
         .squares
           .square
           .square
@@ -13,10 +13,10 @@
           .square
 
         p.para
-          | Get 20% off an annual subscription today using code SPRING2020
-
-        .anounce-icon
-          img(src='/images/ico-vue-spring.png')
+          | Get 20% off an annual subscription today
+        button.button.primary.-small Claim Offer
+        //- .anounce-icon
+        //-   img(src='/images/ico-vue-spring.png')
 
 </template>
 
@@ -51,9 +51,9 @@ export default {
 
   &:hover
     text-decoration none
-    background-color: #007bba
+    background-color: #08182f
 
-  &:after
+  a:after
     content: ''
     position: absolute
     z-index 20
@@ -61,8 +61,9 @@ export default {
     width: 100%
     height: 200%
 
-    background: radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(196, 196, 196, 0) 100%);
-    mix-blend-mode: overlay;
+    background: radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(196, 196, 196, 0) 100%)
+    mix-blend-mode: overlay
+    pointer-events: none;
 
   +desktop-up()
     font-size 22px
@@ -79,9 +80,11 @@ export default {
 .button
   display inline-block
   font-size: 18px
-  text-transform uppercase
+  // text-transform uppercase
   min-width: 150px
   margin 0 0 0 2rem
+  position: relative;
+  z-index: 21;
 
   +mobile-only()
     margin-left: 0

@@ -1,11 +1,13 @@
 import { firebase } from '~/services/database.js'
 import { mergeDeep } from './helpers'
 import { vuexfireMutations, firebaseAction } from 'vuexfire'
+import axios from 'axios'
 
 export const state = () => ({
   user: null,
   account: null,
-  completedUnlogged: {}
+  completedUnlogged: {},
+  coupon: null
 })
 
 export const getters = () => ({
@@ -247,6 +249,12 @@ export const actions = {
   },
   fakeSubscribe ({ commit, state }) {
     commit('FAKE_SUBSCRIBE')
+  },
+  async setCoupon ({ commit, state }, coupon) {
+    let params = new URLSearchParams()
+    params.append('coupon_id', coupon)
+    coupon = await axios.post(`${process.env.cloudfunctions}/getCoupon`, params)
+    commit('SET_COUPON', coupon)
   }
 }
 
@@ -271,5 +279,8 @@ export const mutations = {
   },
   'UPDATE_COMPLETED' (courses) {
     state.completedUnlogged = courses
+  },
+  'SET_COUPON' (state, { data }) {
+    state.coupon = data
   }
 }
