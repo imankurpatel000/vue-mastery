@@ -10,7 +10,7 @@
             @click='$emit("handleLinks", $event)'
           )
 
-        transition-group(:name='slide' :style='{ "--total": part.courses.length }' appear mode='out-in')
+        transition-group(:name='slide' :style='{ "--total": part.courses.length }' appear mode='out-in' tag='div')
           CourseCard(
             v-for='course, index in part.courses'
             :style='{"--i": index}'

@@ -31,7 +31,7 @@
     .instructor
       .img.ben
         img(src='/images/teachers/damian-dulish.jpg')
-      h3 Damian Dulish
+      h3 Damian Dulisz
       p Damian is a Vue.js Core Team Member and tech lead at Coursedog. He runs the Official Vue.js Newsletter and has created several popular open source libraries: vue-multiselect, vuelidate and vue-global-events. In 2017, he co-organised the first international VueConf and has since been coordinating Vue meetups in Poland. When not coding, he‘s probably practicing his latte art skills.
 
   h2.title Content Contributors
