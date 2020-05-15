@@ -42,6 +42,37 @@
     transform: rotate(35deg)
     width: 100px
 
+.toasted-container
+  .toasted.toasted-primary.success
+    background linear-gradient(to top right, #41b782, #86d169)
+
+  .toasted.toasted-primary.info,
+  .toasted.toasted-primary.success,
+  .toasted.toasted-primary.error
+    display flex
+    flex-direction row
+    align-items center
+    font-weight bold
+    justify-content space-between
+    padding 0.5rem 1.5rem
+    border-radius 1rem
+    text-transform: uppercase
+
+    .action
+      font-weight bold
+      color #fff
+
+      &.fa-sync
+        transform-origin: center
+        animation rotate 1s infinite linear
+
+      &:hover
+        text-decoration none
+
+@keyframes rotate
+  0% {transform: rotate(0)}
+  100% {transform: rotate(360deg)}
+
 @media screen and (max-width: 1000px)
   .toasted-container .toasted
     flex-direction: column

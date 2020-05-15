@@ -5,7 +5,8 @@ import { flamelink, firebase } from '~/services/database.js'
 export const strict = false
 
 export const state = () => ({
-  openNav: false
+  openNav: false,
+  refresh: false
 })
 
 export const plugins = [
@@ -25,6 +26,12 @@ export const actions = {
   },
   sendTeamSubscriptionRequest ({ commit }, newData) {
     return firebase.database().ref('/team-request/').push(newData)
+  },
+  refreshDiscount ({ commit }) {
+    commit('refreshDiscount', true)
+    setTimeout(() => {
+      commit('refreshDiscount', false)
+    }, 3000)
   }
 }
 
@@ -33,5 +40,8 @@ export const mutations = {
   toggleNav (state, forceClose) {
     if (forceClose) state.openNav = false
     else state.openNav = !state.openNav
+  },
+  refreshDiscount (state, display) {
+    state.refresh = display
   }
 }

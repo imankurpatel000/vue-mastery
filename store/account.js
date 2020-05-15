@@ -253,8 +253,9 @@ export const actions = {
   async setCoupon ({ commit, state }, coupon) {
     let params = new URLSearchParams()
     params.append('coupon_id', coupon)
-    coupon = await axios.post(`${process.env.cloudfunctions}/getCoupon`, params)
-    commit('SET_COUPON', coupon)
+    await axios.post(`${process.env.cloudfunctions}/getCoupon`, params)
+      .then(response => commit('SET_COUPON', response))
+      .catch(err => { throw new Error(err) })
   }
 }
 
@@ -271,9 +272,7 @@ export const mutations = {
   'NEW_USER' (state) {},
   'FAKE_SUBSCRIBE' (state) {
     if (state.account) {
-      const subs = {
-        subscribed: true
-      }
+      const subs = { subscribed: true }
       state.account = { ...state.account, ...subs }
     }
   },

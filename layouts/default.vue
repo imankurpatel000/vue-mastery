@@ -57,12 +57,13 @@ export default {
 
   computed: {
     ...mapState({
-      account: result => result.account.account
+      account: result => result.account.account,
+      coupon: result => result.account.coupon
     }),
     showAnnouncement () {
       // FREE WEEKEND
       // return this.ready && !this.account
-      // TODO double check
+      if (this.$route.query.coupon || this.coupon) return false
       return (this.ready && !this.account) || !this.account?.subscribed
     },
     noHeaderBackground () {

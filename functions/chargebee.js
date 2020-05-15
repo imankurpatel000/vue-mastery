@@ -49,7 +49,7 @@ module.exports = {
     try {
       res = configHeader(res)
       chargebee.coupon.retrieve(req.body.coupon_id).request((error, result) => {
-        if (error) console.log(error)
+        if (error) res.status(error.http_status_code).send(error.error_msg)
         else res.send(result.coupon)
       })
     } catch (error) {

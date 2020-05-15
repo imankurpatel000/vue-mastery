@@ -1,7 +1,8 @@
 <template lang='pug'>
   transition(name="push" mode='out-in' appear tag='div')
     section.announcement-bar
-      nuxt-link(:to='`/pricing${"?coupon=SPRING2020"}`' class="announcement-bar")
+      // TODO: put coupon in flamelink
+      nuxt-link(:to='`/pricing${"?coupon=SPRING2020"}`' class='announcement-bar')
         .squares
           .square
           .square
@@ -14,15 +15,20 @@
 
         p.para
           | Get 20% off an annual subscription today
-        button.button.primary.-small Claim Offer
+        button.button.primary.-small(@click='refreshDiscount()') Claim Offer
         //- .anounce-icon
         //-   img(src='/images/ico-vue-spring.png')
 
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'announcement-bar'
+  name: 'announcement-bar',
+  methods: {
+    ...mapActions(['refreshDiscount'])
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template lang="pug">
-.container
+.container(:class='{"refresh": refresh}')
   ContactTeamModal(:account='account')
   .bg-wrapper.price-wrapper
     .wrapper
@@ -13,6 +13,7 @@
         transition(:name='team ? "swipe-back" : "swipe"' mode='out-in' tag='div')
           .pricing-cards(v-if='!team' key='personnal')
             .card.side-card.monthly(
+              :class='{"monthDiscounted": !refresh && isMonthDiscounted}'
               @mouseover='updateParticipation(prices.monthly)'
               @mouseout='updateParticipation()'
               @click="subscribe('monthly-subscription')"
@@ -21,10 +22,14 @@
                 h3.text-center Monthly
                 .money
                   .symbol $
-                  .decimal {{prices.monthly}}
+                  .decimal {{prices.monthly | decimal}}
                   .permonth / Month
+                p.tag(v-if='isMonthDiscounted') 1 Discount Applied
                 .benefits-list
-                  .benefit.first-benefit
+                  .benefit.special-benefit(v-if='isMonthDiscounted')
+                    i.fa.fa-check
+                    span This price includes {{coupon.discount_percentage}}% off with the {{coupon.name}} coupon
+                  .benefit
                     i.fa.fa-check
                     | Watch premium Vue courses
                   .benefit
@@ -36,6 +41,7 @@
                 button.button.primary.-full Start Plan
 
             .card.annually(
+              :class='{"yearDiscounted": isYearDiscounted}'
               @mouseover='updateParticipation(prices.yearly)'
               @mouseout='updateParticipation()'
               @click="subscribe('year-subscription')"
@@ -46,19 +52,26 @@
                 h3.text-center Annual
                 .money
                   .symbol $
-                  .decimal {{prices.year / 12 | decimal}}
+                  i-count-up(
+                    :delay='0'
+                    :endVal='refresh ? pricesBase.monthly : prices.year / 12 | decimal'
+                  ).decimal
                   .permonth / Month
                 .total-price
                   span.normal-price ${{pricesBase.yearOrigin}}
-                  span.discount-price ${{prices.year}}
+                  span.discount-price $
+                  i-count-up(
+                    :delay='0'
+                    :endVal='refresh ? pricesBase.year : prices.year | decimal'
+                  ).discount-price
                   span.billed-yearly billed yearly
 
-                p.tag {{discountApplied}}
+                p.tag(:class="{'superDiscount': !refresh && isYearDiscounted}") {{discountApplied}}
                 .benefits-list
-                  .benefit.first-benefit
+                  .benefit(:class='{"special-benefit" : isYearDiscounted}')
                     i.fa.fa-check
-                    span(v-if='prices.year === pricesBase.year') This price includes 2 months free.
-                    span.special-benefit(v-else) This price includes 2 months free + 20% off with the SPRING2020 coupon.
+                    span(v-if='isYearDiscounted') This price includes 2 months free + {{coupon.discount_percentage}}% off with the {{coupon.name}} coupon
+                    span.special-benefit(v-else) This price includes 2 months free
                   .benefit
                     i.fa.fa-check
                     | Watch premium Vue courses
@@ -80,7 +93,7 @@
                   .symbol $
                   .decimal 0
                 .benefits-list
-                  .benefit.first-benefit
+                  .benefit
                     i.fa.fa-check
                     | Unlock additional free lessons
                   .benefit
@@ -152,6 +165,7 @@ import ContactTeamModal from '~/components/account/ContactTeamModal.vue'
 import Testimonials from '~/components/static/Testimonials.vue'
 import CollapseFaq from '~/components/ui/CollapseFaq.vue'
 import Counter from '~/components/ui/Counter.vue'
+import ICountUp from 'vue-countup-v2'
 
 export default {
   name: 'page-pricing',
@@ -168,7 +182,8 @@ export default {
     ContactTeamModal,
     Testimonials,
     CollapseFaq,
-    Counter
+    Counter,
+    ICountUp
   },
 
   data () {
@@ -190,15 +205,15 @@ export default {
   filters: {
     decimal: function (value) {
       if (!value) return ''
-      // return Math.round(value * 100) / 100
-      return Math.round(value)
+      return Math.round(value * 100) / 100
     }
   },
 
   computed: {
     ...mapState({
       account: result => result.account.account,
-      coupon: result => result.account.coupon
+      coupon: result => result.account.coupon,
+      refresh: result => result.refresh
     }),
     freeText () {
       return this.account ? 'Current Plan' : 'Select Plan'
@@ -206,17 +221,22 @@ export default {
     prices () {
       let monthlyPrice = this.pricesBase.monthly
       let yearPrice = this.pricesBase.year
-      if (this.coupon && this.coupon.plan_ids) {
-        this.coupon.plan_ids.map(plan => {
-          switch (plan) {
-            case 'monthly-subscription':
-              monthlyPrice = monthlyPrice * (100 - this.coupon.discount_percentage) / 100
-              break
-            case 'year-subscription':
-              yearPrice = yearPrice * (100 - this.coupon.discount_percentage) / 100
-              break
-          }
-        })
+      if (this.coupon && this.coupon.status === 'active') {
+        if (this.coupon.plan_ids) {
+          this.coupon.plan_ids.map(plan => {
+            switch (plan) {
+              case 'monthly-subscription':
+                monthlyPrice = monthlyPrice * (100 - this.coupon.discount_percentage) / 100
+                break
+              case 'year-subscription':
+                yearPrice = yearPrice * (100 - this.coupon.discount_percentage) / 100
+                break
+            }
+          })
+        } else {
+          monthlyPrice = monthlyPrice * (100 - this.coupon.discount_percentage) / 100
+          yearPrice = yearPrice * (100 - this.coupon.discount_percentage) / 100
+        }
       }
       return {
         monthly: monthlyPrice,
@@ -224,8 +244,13 @@ export default {
       }
     },
     discountApplied () {
-      const isDiscounted = this.prices.year === this.pricesBase.year
-      return `${isDiscounted ? 1 : 2} Discount${isDiscounted ? '' : 's'} Applied`
+      return `${!this.refresh && this.isYearDiscounted ? 2 : 1} Discount${!this.refresh && this.isYearDiscounted ? 's' : ''} Applied`
+    },
+    isMonthDiscounted () {
+      return this.prices.monthly !== this.pricesBase.monthly
+    },
+    isYearDiscounted () {
+      return this.prices.year !== this.pricesBase.year
     }
   },
 
@@ -236,7 +261,19 @@ export default {
   },
 
   mounted () {
-    if (!process.server) this.init()
+    if (!process.server) {
+      this.init()
+      // Test golocation
+      // if ('geolocation' in navigator) {
+      //   // check if geolocation is supported/enabled on current browser
+      //   navigator.geolocation.getCurrentPosition(
+      //     // for when getting location is a success
+      //     position => { console.log('latitude', position) },
+      //     // for when getting location results in an error
+      //     errorMessage => { console.error('An error has occured while retrieving location', errorMessage) }
+      //   )
+      // }
+    }
   },
 
   methods: {
@@ -246,7 +283,28 @@ export default {
       })
       try {
         const coupon = this.$route.query.coupon
-        if (coupon) this.$store.dispatch('account/setCoupon', coupon)
+        const toastSettings = {
+          duration: 7000,
+          action: {
+            onClick: (e, toastObject) => toastObject.goAway(0),
+            class: 'fa fa-sync',
+            text: ''
+          }
+        }
+        if (coupon) {
+          this.$toast.info('Checking coupon validity', toastSettings)
+          toastSettings.action.class = 'fa fa-times'
+          this.$store.dispatch('account/setCoupon', coupon)
+            .then((response) => {
+              this.$toast.clear()
+              this.$toast.success('Coupon applied', toastSettings)
+            })
+            .catch(err => {
+              this.$toast.clear()
+              console.log(err)
+              this.$toast.error('You\'ve entered an invalid coupon code.', toastSettings)
+            })
+        }
       } catch (error) {
         console.log(error)
       }
@@ -315,9 +373,15 @@ export default {
           // Check if coupon apply
           if (this.coupon) {
             // Check all the coupon plan to see if it match with the user plan
-            this.coupon.plan_ids.map(couponPlan => {
-              if (plan === couponPlan) params.append('coupon', this.coupon.name)
-            })
+            try {
+              if (this.coupon.plan_ids) {
+                this.coupon.plan_ids.map(couponPlan => {
+                  if (plan === couponPlan) params.append('coupon', this.coupon.id)
+                })
+              } else params.append('coupon', this.coupon.id)
+            } catch (error) {
+              console.log(error)
+            }
           }
 
           // First Promoter tracker
@@ -548,12 +612,6 @@ build-grid-area(monthly annually team)
   margin-left 3px
   margin-top -6px
 
-.first-benefit
-  margin-top 25px
-
-
-
-
 .pricing-structure
   margin-top 7rem
   align-items center
@@ -598,7 +656,11 @@ build-grid-area(monthly annually team)
 
 .benefit
   font-size 16px
-  line-height 16px
+  display flex
+  align-items center
+
+  &:first-child
+    margin-top 25px
 
   &:before,
   &:after
@@ -620,25 +682,41 @@ build-grid-area(monthly annually team)
   align-items center
 
 .permonth
-  position absolute
-  bottom 1rem
-  margin-left 3.5rem
-  left 50%
   font-weight bold
   color $primary-color
+  justify-self flex-end
+  align-self flex-end
+  margin-bottom 1rem
+  width 0
+  overflow visible
+  white-space nowrap
 
 .money
   position relative
 
 .tag
   text-align: center;
-  margin-bottom: -2.5rem;
-  margin-top: 2rem;
-  font-size: .7rem;
+  margin-bottom: -2rem;
+  margin-top: 2.5rem;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
   background: linear-gradient(to top right, #41b782, #86d169);
   color: #fff;
   align-self: center;
   padding: 2px 1rem;
+  transition background ease-out .3s
+
+  &.superDiscount
+    background linear-gradient(#9c83d8 0%, #835ec2 100%)
+    animation tada 1s both
+
+@keyframes tada
+  0% {transform: scale(1)}
+  10%, 20% {transform: scale(0.9) rotate(-3deg)}
+  30%, 50%, 70%, 90% {transform: scale(1.1) rotate(3deg)}
+  40%, 60%, 80% {transform: scale(1.1) rotate(-3deg)}
+  100% {transform: scale(1) rotate(0)}
 
 i.fa-check
   font-size 16px
@@ -743,4 +821,18 @@ i.fa-check
   transform translateX(20px)
 .swipe-back-leave-to
   transform translateX(-20px)
+
+.refresh
+  .monthDiscounted,
+  .yearDiscounted
+    animation refreshing 2s both infinite
+
+@keyframes refreshing
+  0%{ transform: scale( 1 )}
+  10%{ transform: scale( .95 )}
+  20%{ transform: scale( 1 )}
+  40%{ transform: scale( .95 )}
+  60%{ transform: scale( 1 )}
+  80%{ transform: scale( .95 )}
+  100%{ transform: scale( 1 )}
 </style>
