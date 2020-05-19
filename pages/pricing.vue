@@ -22,7 +22,12 @@
                 h3.text-center Monthly
                 .money
                   .symbol $
-                  .decimal {{prices.monthly | decimal}}
+                  i-count-up(
+                    :delay='1000'
+                    :endVal='prices.monthly | trunc'
+                    :options='{startVal: pricesBase.monthly}'
+                  ).trunc
+                  .decimal(v-if='prices.monthly % 1 !== 0') {{prices.monthly | decimal}}
                   .permonth / Month
                 p.tag(v-if='isMonthDiscounted') 1 Discount Applied
                 .benefits-list
@@ -53,16 +58,19 @@
                 .money
                   .symbol $
                   i-count-up(
-                    :delay='0'
-                    :endVal='refresh ? pricesBase.monthly : prices.year / 12 | decimal'
-                  ).decimal
+                    :delay='1000'
+                    :endVal='prices.year / 12 | trunc'
+                    :options='{startVal: pricesBase.monthly}'
+                  ).trunc
+                  .decimal(v-if='(prices.year / 12) % 1 !== 0') {{prices.year / 12 | decimal}}
                   .permonth / Month
                 .total-price
                   span.normal-price ${{pricesBase.yearOrigin}}
                   span.discount-price $
                   i-count-up(
-                    :delay='0'
-                    :endVal='refresh ? pricesBase.year : prices.year | decimal'
+                    :delay='1000'
+                    :endVal='prices.year | trunc'
+                    :options='{startVal: pricesBase.yearOrigin}'
                   ).discount-price
                   span.billed-yearly billed yearly
 
@@ -91,7 +99,7 @@
                 h3.text-center Free
                 .money
                   .symbol $
-                  .decimal 0
+                  .trunc 0
                 .benefits-list
                   .benefit
                     i.fa.fa-check
@@ -115,7 +123,7 @@
               .card-body
                 h3.text-center Team Discount
                 .money
-                  .decimal 35
+                  .trunc 35
                   .pourcent-off
                     .pourcent %
                     .off Off
@@ -203,9 +211,14 @@ export default {
   },
 
   filters: {
-    decimal: function (value) {
-      if (!value) return ''
-      return Math.round(value * 100) / 100
+    trunc: (value) => {
+      if (!value) return 0
+      return Math.trunc(value)
+    },
+    decimal: (value) => {
+      value = Math.round(value * 100) / 100
+      value = value.toFixed(2)
+      return value.slice(-3)
     }
   },
 
@@ -602,11 +615,23 @@ build-grid-area(monthly annually team)
   span
     color #fff
 
-.decimal
+.trunc
   color $secondary-color
   font-weight 700
   font-size 100px
   line-height 1
+
+.decimal
+  align-self center
+  margin-right -2.6rem
+  margin-top -.3rem
+  font-weight bold
+  font-size 2rem
+  animation appear 1s 1s both
+
+@keyframes appear
+  0% {opacity: 0}
+  100% {opacity: 1}
 
 .fa-unlock
   margin-left 3px
